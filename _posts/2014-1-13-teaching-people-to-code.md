@@ -1,11 +1,19 @@
-# I want to teach some people to code
+---
+layout : post
+title: "Teaching People to Code"
+date: 2014-1-11 19:36:00
+categories: ruby learning
+biofooter: true 
+bookfooter: false
+---
+Recently I've been experimenting with ways of teaching people to code which match the way I and other succesful developers I know have learnt. These focus less on theory and syntax and more on problem solving and "hacking things together". Now I'm looking for five people who want to learn to make stuff with Ruby to teach.
 
 After my previous startup, shop of me, was relegated to side project status last October, I've been spending a lot of time wondering what to do next.
 
  One of my projects since then has been writing a book called "Reliably Deploying Rails Applications". As well as turning out to be somewhat more popular than I expected, it's suprised me how much fun I've had chatting to people who were learning from it and helping to point them in the right direction when problems have occurred.
 
  Helping people learn technical stuff is really good fun. With this in
-mind, the lovely <a href="http://twitter.com/becpr">becpr<a/> agreed to be my guinea pig for learning Ruby using a somewhat unconventional method and syllabus we've devised together.
+mind, the lovely <a href="http://www.twitter.com/bec_pr" target="_blank">bec_pr</a> agreed to be my guinea pig for learning Ruby using a somewhat unconventional method and syllabus we've devised together.
 
  The thing is, learning to code is generally dull. Making things with code is awesome but learning syntax on its own is about as much fun as memorising French verb conjugations - and in my view an equally terribly way of getting started.
 

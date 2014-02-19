@@ -11,6 +11,8 @@ I'm the author of <a href="https://leanpub.com/deploying_rails_applications"
 target="_blank">Reliably Deploying Rails Applications</a> which covers how
 to deploy medium sized Rails Applications in an easy, scalable fashion.
 
+I work with the excellent Huw Walters and Rebecca Collins on <a href="http://www.makeitwithcode.com/" target="_blank">make it with code</a>, a project to help people learn to code.
+
 I recently moved to Paris from London and am currently the technical lead at
 Active In Time where among other things we make the <a
 href="http://www.speedo.com/getspeedofit/getspeedofit_1/getspeedofitapp/gsfapplandingpage.html"
