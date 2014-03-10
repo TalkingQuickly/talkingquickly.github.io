@@ -53,3 +53,5 @@ But why? you may ask. I know lots of people who've tried and given up on coding 
 And who am I? I'm Ben, a Ruby and Rails developer and author of a book about how to deploy succesful web applications written in Ruby. I'm also the tech lead of a London-based startup that makes apps and tools for the fitness industry, which between them get about a million hits per day.
 
 If you're interested, please drop me an email at <a href="mailto:ben@talkingquickly.co.uk">ben@talkingquickly.co.uk</a> with a brief note about why you want to learn to code and what interests you about this idea.
+
+__Update:__ The response to this post was incredible (thanks to everyone who got in touch!) so I decided to pursue this further. If you're interested in the course, you can apply at <http://www.makeitwithcode.com>, we've got at least one new group starting every week and early feedback has been really good!
