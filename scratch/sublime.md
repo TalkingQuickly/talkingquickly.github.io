@@ -7,13 +7,13 @@ title: Sublime Text
 
 Leader: `Super + K`
 
-Leader, `hjkl` (vim bindings) - Move pane focus
-Leader, `shift + hjlk` (vim bindings) - Move current file to pane
-Leader, `super + e` - Zoom current pane
-Leader, `super + q` - Unzoom current pane
-Leader, `w` - Destroy current pane
-Leader, `s`,`v` - Create a new pane to the right (split vertically)
-Leader, `s`,`h` - Create a new pane below (split horizontally)
+* Leader, `hjkl` (vim bindings) - Move pane focus
+* Leader, `shift + hjlk` (vim bindings) - Move current file to pane
+* Leader, `super + e` - Zoom current pane
+* Leader, `super + q` - Unzoom current pane
+* Leader, `w` - Destroy current pane
+* Leader, `s`,`v` - Create a new pane to the right (split vertically)
+* Leader, `s`,`h` - Create a new pane below (split horizontally)
 
 ## I18n Snippets:
 
