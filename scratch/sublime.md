@@ -7,7 +7,7 @@ title: Sublime Text
 
 Leader: `Super + K`
 
-* Leader, `hjkl` (vim bindings) - Move pane focus
+* Leader, `super + hjkl` (vim bindings) - Move pane focus
 * Leader, `shift + hjlk` (vim bindings) - Move current file to pane
 * Leader, `super + e` - Zoom current pane
 * Leader, `super + q` - Unzoom current pane
