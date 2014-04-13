@@ -6,27 +6,17 @@ categories: rails devops
 biofooter: false
 bookfooter: true
 ---
-One of the most popular posts on this blog is on how to use Capistrano 2
-to deploy Rails applications to a VPS, including the scenario when you
-want to run several different applications on the same server. Capistrano 3
-has now been released and having upgraded several large production
-applications to use it, I've found there to be a lot of worthwhile
-improvements over v2. This post explains, with sample code, how to use
-Capistrano 3 to deploy one or several Rails applications to a VPS.
+
+One of the most popular posts on this blog is on how to use Capistrano 2 to deploy Rails applications to a VPS, including the scenario when you want to run several different applications on the same server. Capistrano 3 has now been released and having upgraded several large production applications to use it, I've found there to be a lot of worthwhile improvements over v2. This post explains, with sample code, how to use Capistrano 3 to deploy one or several Rails applications to a VPS.
+
+This post and the sample code has been updated to be compatible with the latest Capistrano 3.1.
 
 ## What's new in V3.
 
-For full details see the <a
-href="http://www.capistranorb.com/2013/06/01/release-announcement.html"
-target="_blank">release annoucement</a>, but the key bits I think make
-the upgrade worthwhile are:
+For full details see the <a href="http://www.capistranorb.com/2013/06/01/release-announcement.html" target="_blank">release annoucement</a>, but the key bits I think make the upgrade worthwhile are:
 
-* It uses the Rake DSL instead of a specialised Capistrano one, this
-makes writing Capistrano tasks, exactly like writing rake tasks,
-something most Rails developers have some familiarity with.
-* It uses SSHkit for lower level functions around connecting and
-interacting with remote machines. This makes writing convenience tasks
-which do things like streaming logs or checking processes, much easier.
+* It uses the Rake DSL instead of a specialised Capistrano one, this makes writing Capistrano tasks, exactly like writing rake tasks, something most Rails developers have some familiarity with.
+* It uses SSHkit for lower level functions around connecting and interacting with remote machines. This makes writing convenience tasks which do things like streaming logs or checking processes, much easier.
 
 ## The Stack
 
@@ -52,7 +42,7 @@ config/deploy/
 1) Add the following Gems to your Gemfile
 
 ``` ruby
-gem 'capistrano', '~> 3.0.1'
+gem 'capistrano', '~> 3.1.0'
 
 # rails specific capistrano funcitons
 gem 'capistrano-rails', '~> 1.1.0'
@@ -62,6 +52,9 @@ gem 'capistrano-bundler'
 
 # if you are using RBENV
 gem 'capistrano-rbenv', "~> 2.0" 
+
+# Use the Unicorn app server
+gem 'unicorn'
 ```
 
 Then run `bundle install` if you're adding capistrano 3 for the first time or `bundle update capistrano` if you're upgrading. You may need to do some of the usual Gemfile juggling if you're updating and there are dependency conflicts.
@@ -102,9 +95,10 @@ You'll also probably want to uncomment:
 ``` ruby
 require 'capistrano/bundler'
 require 'capistrano/rbenv'
+require 'capistrano/rails/migrations'
 ```
 
-Which will include the capistrano bundler tasks to ensure gems are automatically installed when you deploy. It will also include the rbenv helpers which ensure the rbenv specified ruby is used when executing commands remotely rather than the system default.
+Which will include the capistrano bundler tasks to ensure gems are automatically installed when you deploy. It will also include the rbenv helpers which ensure the rbenv specified ruby is used when executing commands remotely rather than the system default. Finally it will include the migration helpers which ensure migrations are automatically run when you deploy.
 
 4) This approach aims is to keep as much common configuration in `config/deploy.rb` as possible and put only minimal stage specific configuration in the stage files like `config/deploy/production.rb`.
 
@@ -120,7 +114,7 @@ set :repo_url, 'git@github.com:username/repo.git'
 
 # setup rvm.
 set :rbenv_type, :system
-set :rbenv_ruby, '2.0.0-p0'
+set :rbenv_ruby, '2.1.1'
 set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
 set :rbenv_map_bins, %w{rake gem bundle ruby rails}
 
@@ -128,21 +122,20 @@ set :rbenv_map_bins, %w{rake gem bundle ruby rails}
 set :keep_releases, 5
 
 # files we want symlinking to specific entries in shared.
-set :linked_files, %w{config/database.yml config/application.yml}
+set :linked_files, %w{config/database.yml}
 
 # dirs we want symlinking to shared
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
 # what specs should be run before deployment is allowed to
 # continue, see lib/capistrano/tasks/run_tests.cap
-set :tests, ["spec"]
+set :tests, []
 
 # which config files should be copied by deploy:setup_config
 # see documentation in lib/capistrano/tasks/setup_config.cap
 # for details of operations
 set(:config_files, %w(
   nginx.conf
-  application.yml
   database.example.yml
   log_rotation
   monit
@@ -192,6 +185,22 @@ namespace :deploy do
   # compile assets locally then rsync
   after 'deploy:symlink:shared', 'deploy:compile_assets_locally'
   after :finishing, 'deploy:cleanup'
+
+  # remove the default nginx configuration as it will tend
+  # to conflict with our configs.
+  before 'deploy:setup_config', 'nginx:remove_default_vhost'
+
+  # reload nginx to it will pick up any modified vhosts from
+  # setup_config
+  after 'deploy:setup_config', 'nginx:reload'
+
+  # Restart monit so it will pick up any monit configurations
+  # we've added
+  after 'deploy:setup_config', 'monit:restart'
+
+  # As of Capistrano 3.1, the `deploy:restart` task is not called
+  # automatically.
+  after 'deploy:publishing', 'deploy:restart'
 end
 ```
 
@@ -202,10 +211,12 @@ This section:
 ``` ruby
 # what specs should be run before deployment is allowed to
 # continue, see lib/capistrano/tasks/run_tests.cap
-set :tests, ["spec"]
+set :tests, []
 ```
 
 Provides a simple way to run specs before deploying, if the specs fail, the deployment will be halted. If you already have a fully blown continuous integration system setup (or don't want to run specs at all), this can be set to an empty array.
+
+If you were to have this as `set :tests, []` then `bundle exec rspec spec` would be run and would have to pass before deployment would continue.
 
 5) Now edit the stage specific settings in `production.rb`. By default it looks like this:
 
@@ -217,8 +228,9 @@ set :branch, "master"
 # app side by side. Also provides quick sanity checks when looking
 # at filepaths
 set :full_app_name, "#{fetch(:application)}_#{fetch(:stage)}"
+set :server_name, "www.example.com example.com"
 
-server 'hostname.tld', user: 'deploy', roles: %w{web app db}, primary: true
+server 'www.example.com', user: 'deploy', roles: %w{web app db}, primary: true
 
 set :deploy_to, "/home/#{fetch(:deploy_user)}/apps/#{fetch(:full_app_name)}"
 
@@ -235,7 +247,17 @@ set :unicorn_worker_count, 5
 set :enable_ssl, false
 ``` 
 
-The important variables to update are the server hostname and the user to connect to this server as.
+The important variables to update are the server hostname:
+
+``` ruby
+server 'www.example.com', user: 'deploy', roles: %w{web app db}, primary: true
+```
+
+the server name:
+
+``` ruby
+set :server_name, "www.example.com example.com"
+```
 
 When you run `cap some_stage_name some_task`, Capistrano will look for a file `config/deploy/some_stage_name.rb` and load it after `deploy.rb`.
 
@@ -264,7 +286,6 @@ This section:
 # for details of operations
 set(:config_files, %w(
   nginx.conf
-  application.yml
   database.example.yml
   log_rotation
   monit
@@ -285,6 +306,26 @@ When this task is run, for each of the files defined in `:config_files`, it will
 
 This allows you to define your common config files in `shared` which will be used by all stages (staging & production for example) while still allowing for some templates to differ between stages.
 
+Finally this section:
+
+    # remove the default nginx configuration as it will tend
+    # to conflict with our configs.
+    before 'deploy:setup_config', 'nginx:remove_default_vhost'
+
+    # reload nginx to it will pick up any modified vhosts from
+    # setup_config
+    after 'deploy:setup_config', 'nginx:reload'
+
+    # Restart monit so it will pick up any monit configurations
+    # we've added
+    after 'deploy:setup_config', 'monit:restart'
+
+Means that after `deploy:setup_config` is run, we:
+
+* Delete the `default` nginx Virtualhost to stop it over-riding our VirtualHost
+* Reload Nginx to pickup any changes to the VirtualHost
+* Reload Monit to pickup any changes to the Monit configuration
+
 Check that you're happy with the contents of the configuration files and then copy them to your production server with:
 
 ``` bash
@@ -303,21 +344,7 @@ Edit it with your favourite text editor, e.g:
 vim database.yml
 ```
 
-And enter the details of the database the app should connect to.
-
-Also take this opporunity to restart Nginx so that it will pick up the new virtualhost which was added by `deploy:setup_config`:
-
-``` bash
-sudo /etc/init.d/nginx restart
-```
-
-or
-
-``` bash
-sudo nginx -s reload
-```
-
-if you prefer.
+And enter the details of the database the app should connect to. Remember that if you're using Postgres or Mysql, you'll need to create this database first.
 
 8) You're now ready to deploy. Return to your local terminal, ensure that you've committed your changes pushed changes to the remote repository and enter:
 
@@ -329,7 +356,7 @@ And wait. The fist deploy can take a while as Gems are installed so be patient.
 
 ## Conclusion
 
-This configuration is based heavily on the vanilla capistrano configuration, with some extra convenience tasks added in `lib/capistrano/taks/` to make workflows I've found to be efficient for big production configurations quick to setup. 
+This configuration is based heavily on the vanilla capistrano configuration, with some extra convenience tasks added in `lib/capistrano/tasks/` to make workflows I've found to be efficient for big production configurations quick to setup. 
 
 I strongly recommend forking my sample configuration and tailoring it to fit the kind of applications you develop. I usually end up with a few different configurations, each of which are used for either a particular type of personal project or all of a particular clients applications.
 
