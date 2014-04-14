@@ -13,7 +13,7 @@ Where I jot things down which aren't big enough to be blog posts in themselves.
 
 ### Tips and Tricks
 
-* [Git](git-tip-and-tricks.html)
+* [Git](git-tips-and-tricks.html)
 
 ### Reading
 
