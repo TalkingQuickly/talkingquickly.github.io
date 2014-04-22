@@ -9,6 +9,10 @@ Great guide to automatically reloading the page in a browser when you change vie
 
 <http://blog.55minutes.com/2013/01/lightning-fast-sass-reloading-in-rails-32/>
 
+Packaging a Rails application into a Debian package.
+
+<http://crohr.me/journal/2014/how-to-get-a-debian-package-out-of-your-rails-app-and-host-it-on-s3.html>
+
 ## General Dev
 
 Tutorial on how to write plugins for/ add contributions to Discourse using ember.js
