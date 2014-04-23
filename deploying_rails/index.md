@@ -3,7 +3,7 @@ layout: page
 title: Deploying Rails
 ---
 
-Resources from the Railsconf 2014 Presentation
+Resources from the Railsconf 2014 Presentation by Ben Dixon ([@talkingquickly](http://www.twitter.com/talkingquickly))
 
 ### Provisioning a VPS for a rails application. 
 
@@ -41,6 +41,8 @@ The Reliably Deploying Rails Applications book builds on exactly the same sample
 
 <https://leanpub.com/deploying_rails_applications>
 
-Until the end of April it's available to attendees of Railsconf 2014 at a discount using the code from the presentation.
+Until the end of April it's available to attendees of Railsconf 2014 at a discount using this link:
+
+<http://leanpub.com/deploying_rails_applications/c/railsconf>
 
 Feel free to get in touch on twitter <http://www.twitter.com/talkingquickly> with any questions.
