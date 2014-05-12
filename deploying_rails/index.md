@@ -5,6 +5,8 @@ title: Deploying Rails
 
 Resources from the Railsconf 2014 Presentation by Ben Dixon ([@talkingquickly](http://www.twitter.com/talkingquickly))
 
+<iframe width="560" height="315" src="//www.youtube.com/embed/hTofBnxyBUU" frameborder="0" allowfullscreen></iframe>
+
 ### Provisioning a VPS for a rails application. 
 
 This tutorial covers how to use Chef Solo to prepare a Digital Ocean, Linode or Rackspace cloud VPS for deployment of a Rails VPS. Estimated completion time: 1 hour.
@@ -41,7 +43,7 @@ The Reliably Deploying Rails Applications book builds on exactly the same sample
 
 <https://leanpub.com/deploying_rails_applications>
 
-Until the end of April it's available to attendees of Railsconf 2014 at a discount using this link:
+Until the end of May it's available to attendees of Railsconf 2014 at a discount using this link:
 
 <http://leanpub.com/deploying_rails_applications/c/railsconf>
 

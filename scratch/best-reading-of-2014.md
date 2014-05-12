@@ -25,6 +25,14 @@ Setting up a Docker development environment to make onboarding new team members 
 
 <http://blog.relateiq.com/a-docker-dev-environment-in-24-hours-part-2-of-2/>
 
+Continuous deployment using Rails and Docker
+
+<http://www.powpark.com/blog/programming/2014/01/29/integrating-docker-with-jenkins-for-ruby-on-rails-app>
+
+A simple Rails development environment with Docker and a shared folder
+
+<https://medium.com/docker-news/117daf4ef0a5>
+
 ## Rails
 
 Great guide to automatically reloading the page in a browser when you change view files. Also covers re-injection of changed styles so that changing CSS doesn't require a complete page reload. Amazing on multiple screens,
