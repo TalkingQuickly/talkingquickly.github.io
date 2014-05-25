@@ -35,16 +35,12 @@ Finally we’ll be using berkshelf (<http://berkshelf.com/>) to manage our cookb
 1) Install Tools
 
 ``` bash
-gem install knife-solo berkshelf
-```
-
-If you use rvm I recommend doing this in a fresh gemset to avoid conflicts.
-
-2) Define the server
-
-``` bash
 git clone git@github.com:TalkingQuickly/rails-server-template.git
 ```
+
+The repository includes a `Gemfile` so simply run `bundle install` to install the required tools.
+
+2) Define the server
 
 First we need to define users, inside data\_bags/users copy the file deploy.json.example to deploy.json.
 
@@ -60,7 +56,7 @@ Finally you need to download all the cookbooks required for the individual serve
 
 ``` bash
 mkdir cookbooks
-berks install --path ./cookbooks
+bundle exec berks install --path ./cookbooks
 ```
 
 3) Setup a VPS
@@ -78,7 +74,7 @@ ssh-copy-id root@yourserverip
 Begin by installing chef on the remote machine:
 
 ``` bash
-knife solo prepare root@yourserverip
+bundle exec knife solo prepare root@yourserverip
 ```
 
 This will generate a file nodes/yourserverip.json. Copy the contents of rails\_postgres\_redis to this file and change the username and password for monit.
@@ -88,7 +84,7 @@ Use the same command as before (openssl passwd -1 “plaintextpassword”) to ge
 Now run:
 
 ``` bash
-knife solo cook root@yourserverip
+bundle exec knife solo cook root@yourserverip
 ```
 
 Sit back, relax and enjoy. This process takes quite a while and once it’s completed, you’ve got a server ready for a Rails + Postgres + Redis app.
