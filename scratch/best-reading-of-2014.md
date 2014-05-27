@@ -33,6 +33,10 @@ A simple Rails development environment with Docker and a shared folder
 
 <https://medium.com/docker-news/117daf4ef0a5>
 
+A docker index (as opposed to registry) written in nodejs
+
+<https://github.com/ekristen/docker-index>
+
 ## Rails
 
 Great guide to automatically reloading the page in a browser when you change view files. Also covers re-injection of changed styles so that changing CSS doesn't require a complete page reload. Amazing on multiple screens,
