@@ -1,15 +1,13 @@
 ---
 layout : post
-title: "Quick, Repeatable Rails Development Environments with Docker and Vagrant"
+title: "Quick Rails Development Environments with Docker and Vagrant"
 date: 2014-05-23 12:00:00
 categories: devops
 biofooter: false
 bookfooter: true
 ---
 
-# Why
-
-Onboarding new developers to a Rails projects is still a far harder task than it should be. A big part of this is that setting up a development environment for an app or suite of apps, getting the correct ruby versions, database versions etc running locally, can in many cases take upwards of a day.
+Onboarding new developers to a Rails projects is still a far harder task than it should be. A big part of this is that setting up a development environment for an app or suite of apps, getting the correct ruby versions, database versions etc running locally, can in many cases take upwards of a day. A combination of Vagrant and Docker can make this a thing of the past.
 
 Vagrant has gone a long way to alleviating this but with Docker we can go one step further. Not only can we have a fully functional development environment (for both new and existing devs) up in a matter of a minutes, we can use almost the same containers we create in development to deploy to production. This goes even further to avoiding the classic "it worked in dev" problem.
 
@@ -50,11 +48,124 @@ I've tested this tutorial on OSX and Ubuntu 12.04, it should work on other nix f
 
 ## Dockerising the app
 
+### Configuration
+
 I'm starting with a standard Rails 4.1.0 application generated with `rails new`. The full source for this is available at @TODO Github Repo.
 
-The app stores all secret values (api keys etc) in environment variables and uses the dotenv gem for loading these in development. This includes database usernames and passwords.
+The app stores all secret values (api keys, anything in `secrets.yml` etc) in environment variables and uses the dotenv gem for loading these in development. 
 
-## Shared Folder
+Our postgres access details will be inferred directly from the database container, for more on this see the section "Environment Variables in Linked Containers" later in this tutorial. So in the example application, `database.yml` looks like this:
+
+``` yaml
+default: &default
+  adapter: postgresql
+  pool: 5
+  timeout: 5000
+
+development:
+  encoding: unicode
+  database: dpa_development
+  pool: 5
+  username: <%= ENV['DB_DATABASE_USERNAME'] %>
+  password: <%= ENV['DB_DATABASE_PASSWORD'] %>
+  host: <%= ENV['DB_PORT_5432_TCP_ADDR'] %>
+
+test:
+  encoding: unicode
+  database: dpa_test
+  pool: 5
+  username: <%= ENV['DB_DATABASE_USERNAME'] %>
+  password: <%= ENV['DB_DATABASE_PASSWORD'] %>
+  host: <%= ENV['DB_PORT_5432_TCP_ADDR'] %>
+```
+
+### Docker Files and Scripts
+
+## The Vagrantfile
+
+Our Vagrantfile looks like this:
+
+```ruby
+# Commands required to setup working docker enviro, link
+# containers etc.
+$setup = <<SCRIPT
+# Stop and remove any existing containers
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
+
+# Build containers from Dockerfiles
+docker build -t postgres /app/docker/postgres
+docker build -t rails /app
+docker build -t redis /app/docker/redis/
+
+# Run and link the containers
+docker run -d --name postgres postgres:latest
+docker run -d --name redis redis:latest
+docker run -d -p 3000:3000 -v /app:/app --link redis:redis --link postgres:db --name rails rails:latest
+
+# Bootstrap the applications database
+docker run -i -t -v /app:/app --link postgres:db --rm=true rails:latest bash -c "/setup_database.sh"
+SCRIPT
+
+# Commands required to ensure correct docker containers
+# are started when the vm is rebooted.
+$start = <<SCRIPT
+docker start postgres
+docker start redis
+docker start rails
+SCRIPT
+
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure("2") do |config|
+
+  # Setup resource requirements
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 2048
+    v.cpus = 2
+  end
+
+  # need a private network for NFS shares to work
+  config.vm.network "private_network", ip: "192.168.50.4"
+
+  # Rails Server Port Forwarding
+  config.vm.network "forwarded_port", guest: 3000, host: 3001
+
+  # Ubuntu
+  config.vm.box = "precise64"
+
+  # Install latest docker
+  config.vm.provision "docker"
+
+  # Must use NFS for this otherwise rails
+  # performance will be awful
+  config.vm.synced_folder ".", "/app", type: "nfs"
+
+  # Setup the containers when the VM is first
+  # created
+  config.vm.provision "shell", inline: $setup
+
+  # Make sure the correct containers are running
+  # every time we start the VM.
+  config.vm.provision "shell", run: "always", inline: $start
+end
+```
+
+And should be stored in the root of the Rails project.
+
+### The Vagrant Shared Folder
+
+We want our Docker container to use the Rails app directly from our local filesystem so we can make changes as we normally we would and have these changes instantly reflected on our development server.
+
+Since we're using Vagrant, we first have to share this folder from our local filesystem to the Vagrant virtual machine, which in turn shares this to the Docker container. If this is done using the default Virtualbox shared folders then Disk IO and so Rails performance will be terrible, in my tests something like 20 - 30 seconds to render a simple view.
+
+NFS shares are much faster but require some additional setup and will requiring entering the sudo password when starting the virtual machine. The following entry in our `Vagrantfile` ensures NFS is used:
+
+```ruby
+config.vm.synced_folder ".", "/app", type: "nfs"
+```
+
+For more on NFS shares and what's required to set them up see <https://docs.vagrantup.com/v2/synced-folders/nfs.html>. On OSX it should work out of the box, on Linux you may need to install `nfsd`.
 
 ## Vagrant Up
 
@@ -81,9 +192,11 @@ vagrant ssh -c 'sudo ln -s /opt/VBoxGuestAdditions-4.3.10/lib/VBoxGuestAdditions
 vagrant reload
 ```
 
-This will then create an Ubuntu VirtualMachine, install docker on it and proceed to running the script defined in our `$setup` variable in the Vagrantfile.
+This will then create an Ubuntu Virtual Machine, install docker on it and proceed to running the script defined in our `$setup` variable in the Vagrantfile. In this example, we build all of the containers from scratch rather than pulling them from an Index so the first time you run this, it will take a while.
 
-This start by stopping and removing any running Docker contains. Just in case we're rebuilding an existing system:
+### The setup script
+
+This starts by stopping and removing any running Docker contains. Just in case we're rebuilding an existing system:
 
 ``` bash
 docker stop $(docker ps -a -q)
@@ -117,28 +230,42 @@ Breaking these down:
 
 `--name xyz` gives the container the friendly name `xyz` which we can refer to it by when we want to later stop it or link it to another container
 
-`xyz:latest` means start our container from the latest image tagged with `xyz`
+`xyz:latest` means start the container from the latest image tagged with `xyz`
 
-I find it useful to think of images (from `docker build`) like class definitions and containers (from `docker run`) like instances. `docker run` creates an instance of the class.
+I find it useful to think of a Docker image like a class definition. We use a Dockerfile (basically a load of shell commands) and the `docker build` command to create an image.
+
+We then use the `docker run` command to create a container from that image. The container is like an instance of a class. We can create multiple containers (a new one every time we use `docker run`) from a single image. Each container (instance) is completely isolated from every other container, even if they are created from the same image. Although bear in mind you can also do things like creating images based on the state of a container so the analogy shouldn't be extended much further(!)
 
 The final `docker run` is a little more complicated:
 
 ``` bash
-docker run -d -p 3000:3000 -v /app:/app --link postgres:postgres --link postgres:postgres --name rails rails:latest
+docker run -d -p 3000:3000 -v /app:/app --link redis:redis --link postgres:db --name rails rails:latest
 ```
 
 In addition to the operations already discussed for the postgres and redis containers;
 
+`-p 3000:3000` makes port 3000 from the container available as port 3000 on the host (the Virtualbox VM). Since we have Vagrant configured to forward port 3000 of the VM to our local machine 3000, we can therefore access this container port 3000 on our development machine as we would the normal Rails dev server (e.g. `localhost:3000`).
 
-`-p 3000:3000` makes port 3000 from the container available as port 3000 on the host (the Virtualbox VM). Since we have Vagrant configured to forward port 3000 of the VM to our local machine 3000, we can therefore access this container port 3000 on our development machine as we would the normal Rails dev server
+`--link postgres:db` establishes a link between the container we're starting (our rails app) and the postgres container we started previously. This is in the format `name:alias` and will make ports exposed by the Postgres container available to the rails container.
 
-`--link postgres:db` established a link between the container we're starting (our rails app) and the postgres container we started previously. This is in the format `name:alias` and will make ports exposed by the Postgres container available to the rails container.
+### Environment Variables in Linked Containers
 
-Further to this, it will also make the environment variables from the postgres container available to the rails container with the prefix `ALIAS`. When we expose a port in a container, a corresponding environment variable is created within that container.
+Linking will also make the environment variables from the postgres container available to the rails container with the prefix `ALIAS`. When we expose a port in a container, a corresponding environment variable is created within that container.
 
 The postgres container exposes port 5432 which leads to a corresponding environment variable `PORT_5432_TCP_ADDR` which will contain the IP address of the postgres container. We use this in our `database.yml` to automatically connect to the postgres container database irrespective of whether its IP has changed.
 
-Therefore in our case, we use `ENV['DB_PORT_5432_TCP_ADDR']` to access this value in our `database.yml`.
+Since we used `db` as our alias for this container, from our Rails container, we will therefore have an environment variable `DB_PORT_5432_TCP_ADDR` available which contains the IP of this container.
+
+Therefore we use `ENV['DB_PORT_5432_TCP_ADDR']` to access this value in our `database.yml`.
+
+In our postgres `Dockerfile` we have the following:
+
+```bash
+ENV DATABASE_USER docker
+ENV DATABASE_PASSWORD docker
+```
+
+Which set environment variables in the docker container with the database access credentials. These will be available in our rails container as `DB_DATABASE_USER` and `DB_DATABASE_PASSWORD` respectively (as seen in our `database.yml`).
 
 It's worth reading <http://docs.docker.io/reference/run/#env-environment-variables> for more on the environment variables available.
 
@@ -146,14 +273,15 @@ It's worth reading <http://docs.docker.io/reference/run/#env-environment-variabl
 
 The few lines in our `$setup` script are everything we need to build and run our application on any machine with Docker installed. If we wanted to run this application in development on a Linode, we could just create a new node, install docker, upload our code and run this same script, and we'd have a working version of our application on this server.
 
-Later in this series of tutorials I'll demonstrate how the commands in this script can be adapated to form the basis of a production deployment with Docker. Getting familiar with the commands as part of the day to day development workflow means that working with the production stack is much less of a learning curve for any developer on the team.
+Later in this series of tutorials I'll demonstrate how the commands in this script can be adapted to form the basis of a production deployment with Docker. Getting familiar with the commands as part of the day to day development workflow means that working with the production stack is much less of a learning curve for any developer on the team.
 
-# Interacting with the Rails app
+## Interacting with the Rails app
 
 This part could equally be described as "Where did `rails c` go?!"
 
-# Future Extensions (Planned Tutorials)
+## Planned Extensions (Upcoming Tutorials)
 
 * Setting up a private index so we can build our docker images centrally and then just pull them when we start a new development environment rather than rebuilding each time
 * Building production images
+* Automating building production images and pushing them to a private index
 * Deploying production images with Capistrano + a Private Index
