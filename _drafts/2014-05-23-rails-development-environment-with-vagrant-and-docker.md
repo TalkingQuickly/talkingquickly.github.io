@@ -44,7 +44,9 @@ To setup a complete Docker based development environment. This development envir
 * Vagrant 1.6+ <https://www.vagrantup.com/downloads.html>
 * Virtualbox 4.3.10+ <https://www.virtualbox.org/wiki/Downloads>
 
-I've tested this tutorial on OSX and Ubuntu 12.04, it should work on other nix flavours, it almost certainly won't work on Windows.
+I'm assuming a basic understanding of what Docker is. If this is the first you've heard of Docker, they have a great interactive tutorial of the basics on their website <https://www.docker.io/gettingstarted/>.
+
+I've tested this tutorial on OSX and Ubuntu 12.04, it should work on other nix flavours, it may require more tweaking for use on Windows.
 
 ## Dockerising the app
 
@@ -63,30 +65,38 @@ default: &default
   timeout: 5000
 
 development:
+  <<: *default
   encoding: unicode
   database: dpa_development
   pool: 5
-  username: <%= ENV['DB_DATABASE_USERNAME'] %>
-  password: <%= ENV['DB_DATABASE_PASSWORD'] %>
+  username: <%= ENV['DB_ENV_POSTGRESQL_USER'] %>
+  password: <%= ENV['DB_ENV_POSTGRESQL_PASS'] %>
   host: <%= ENV['DB_PORT_5432_TCP_ADDR'] %>
 
 test:
+  <<: *default
   encoding: unicode
   database: dpa_test
   pool: 5
-  username: <%= ENV['DB_DATABASE_USERNAME'] %>
-  password: <%= ENV['DB_DATABASE_PASSWORD'] %>
+  username: <%= ENV['DB_ENV_POSTGRESQL_USER'] %>
+  password: <%= ENV['DB_ENV_POSTGRESQL_PASS'] %>
   host: <%= ENV['DB_PORT_5432_TCP_ADDR'] %>
 ```
 
-### Docker Files and Scripts
+### Dockerfiles and Scripts
+
+The example configuration requires three Dockerfiles, one for Rails, one for Redis and One for PostgreSQL. The rails Dockerfile should be stored in the root of the rails project, the others are stored in sub folders of the `docker/` directory.
+
+Templates for all of these files are available here: @TODO Github Repo.
+
+To begin with, copy all of the files and folders from the above repository into the root of your rails project.
 
 ## The Vagrantfile
 
 Our Vagrantfile looks like this:
 
 ```ruby
-# Commands required to setup working docker enviro, link
+# Commands required to setup working docker environment, link
 # containers etc.
 $setup = <<SCRIPT
 # Stop and remove any existing containers
@@ -99,12 +109,10 @@ docker build -t rails /app
 docker build -t redis /app/docker/redis/
 
 # Run and link the containers
-docker run -d --name postgres postgres:latest
+docker run -d --name postgres -e POSTGRESQL_USER=docker -e POSTGRESQL_PASS=docker postgres:latest
 docker run -d --name redis redis:latest
 docker run -d -p 3000:3000 -v /app:/app --link redis:redis --link postgres:db --name rails rails:latest
 
-# Bootstrap the applications database
-docker run -i -t -v /app:/app --link postgres:db --rm=true rails:latest bash -c "/setup_database.sh"
 SCRIPT
 
 # Commands required to ensure correct docker containers
@@ -129,7 +137,7 @@ Vagrant.configure("2") do |config|
   config.vm.network "private_network", ip: "192.168.50.4"
 
   # Rails Server Port Forwarding
-  config.vm.network "forwarded_port", guest: 3000, host: 3001
+  config.vm.network "forwarded_port", guest: 3000, host: 3000
 
   # Ubuntu
   config.vm.box = "precise64"
@@ -220,7 +228,7 @@ If this happens, there's no harm in killing the vagrant provisioner (ctrl c twic
 Once the three images are built, the script starts containers from those images, the first two of these are quite simple:
 
 ``` bash
-docker run -d --name postgres postgres:latest
+docker run -d --name postgres -e POSTGRESQL_USER=docker -e POSTGRESQL_PASS=docker postgres:latest
 docker run -d --name redis redis:latest
 ```
 
@@ -231,6 +239,8 @@ Breaking these down:
 `--name xyz` gives the container the friendly name `xyz` which we can refer to it by when we want to later stop it or link it to another container
 
 `xyz:latest` means start the container from the latest image tagged with `xyz`
+
+`-e` allows us to set environment variables in the container we're creating. In this case we're setting the postgres username and password, see the section "Environment Variables in Linked Containers" for how we later access these credentials from our Rails app without hard-coding them.
 
 I find it useful to think of a Docker image like a class definition. We use a Dockerfile (basically a load of shell commands) and the `docker build` command to create an image.
 
@@ -244,7 +254,7 @@ docker run -d -p 3000:3000 -v /app:/app --link redis:redis --link postgres:db --
 
 In addition to the operations already discussed for the postgres and redis containers;
 
-`-p 3000:3000` makes port 3000 from the container available as port 3000 on the host (the Virtualbox VM). Since we have Vagrant configured to forward port 3000 of the VM to our local machine 3000, we can therefore access this container port 3000 on our development machine as we would the normal Rails dev server (e.g. `localhost:3000`).
+`-p 3000:3000` makes port 3000 from the container available as port 3000 on the host (the Virtualbox VM). Since we have Vagrant configured to forward port 3000 of the VM to our local machine 3000, we can therefore access this container port 3000 on our development machine as we would the normal Rails dev server (e.g. `http://localhost:3000`).
 
 `--link postgres:db` establishes a link between the container we're starting (our rails app) and the postgres container we started previously. This is in the format `name:alias` and will make ports exposed by the Postgres container available to the rails container.
 
@@ -258,14 +268,13 @@ Since we used `db` as our alias for this container, from our Rails container, we
 
 Therefore we use `ENV['DB_PORT_5432_TCP_ADDR']` to access this value in our `database.yml`.
 
-In our postgres `Dockerfile` we have the following:
+When starting the postgres container we use:
 
 ```bash
-ENV DATABASE_USER docker
-ENV DATABASE_PASSWORD docker
+-e POSTGRESQL_USER=docker -e POSTGRESQL_PASS=docker 
 ```
 
-Which set environment variables in the docker container with the database access credentials. These will be available in our rails container as `DB_DATABASE_USER` and `DB_DATABASE_PASSWORD` respectively (as seen in our `database.yml`).
+To set environment variables in the docker container for the database access credentials. These will be available in our rails container as `DB_ENV_POSTGRESQL_USER` and `DB_ENV_POSTGRESQL_PASS` respectively (as seen in our `database.yml`). Notice the convention `ALIAS_ENV_VARIABLE_NAME`.
 
 It's worth reading <http://docs.docker.io/reference/run/#env-environment-variables> for more on the environment variables available.
 
@@ -275,9 +284,91 @@ The few lines in our `$setup` script are everything we need to build and run our
 
 Later in this series of tutorials I'll demonstrate how the commands in this script can be adapted to form the basis of a production deployment with Docker. Getting familiar with the commands as part of the day to day development workflow means that working with the production stack is much less of a learning curve for any developer on the team.
 
-## Interacting with the Rails app
+## Interacting with the Rails Application
 
-This part could equally be described as "Where did `rails c` go?!"
+Once the above process is complete, the Rails application should be available in a browser on our local development machine at `http://localhost:3000`. However the first thing we're likely to see is an error that the database does not exist.
+
+Normally at this stage we could simply use `bundle exec rake db:create db:migrate` to create the database and apply any migrations. Now we're running our application in a docker container, the process is slightly different.
+
+In this configuration, each Docker container runs a single process. In the `$setup` script, the container for the rails server is started with:
+
+```bash
+docker run -d -p 3000:3000 -v /app:/app --link redis:redis --link postgres:db --name rails rails:latest
+```
+
+Since we don't specify a command to be run within the container, the default command from the `Dockerfile` is run, this is:
+
+```bash
+CMD ["/start-server.sh"]
+```
+
+Which contains the following:
+
+```bash
+#!/bin/bash
+cd /app
+bundle install
+bundle exec unicorn -p 3000
+```
+
+This is equivalent to starting the container with:
+
+```bash
+docker run -d -p 3000:3000 -v /app:/app --link redis:redis --link postgres:db --name rails rails:latest bash -c "cd /app && bundle install && bundle exec unicorn -p 3000"
+```
+
+When we want to run other commands in container based on our Rails image, we can construct equivalent `docker run` commands, which we can run from the vagrant virtual machine (`vagrant ssh`). So to run `bundle exec rake db:create db:migrate` we could ssh into the Vagrant host and then use:
+
+```bash
+#!/bin/bash
+docker run -i -t -v /app:/app --link redis:redis --link postgres:db  --rm rails:latest bash -c "cd /app && bundle exec rake db:create db:migrate"
+```
+
+To start a new container based on the rails image and run `db:create` and `db:migrate` with it. Notice the additional command line flags:
+
+`-i -t` Attaches the console to Standard In, Out and Error. It then assigns a TTY so that we can interact with it, this is required when running interactive commands such as `bundle exec rails console`.
+
+`--rm` Means that the container will be removed once execution completes. 
+
+Doing this every time is cumbersome so the example configuration includes some simple shell scripts to automate this. The first part of this is the file `d` in the root of the rails project. This simple bash script automates sshing into the vagrant host and executing a single command, for example 
+
+```bash
+./d rc 
+```
+
+invokes:
+
+```bash
+vagrant ssh -c "sh /app/docker/scripts/rc.sh"
+```
+
+Which is the same as sshing into the Vagrant host and executing `./app/docker/scripts/rc.sh`.
+
+The script `/app/docker/scripts/rc.sh` contains a `docker run` command in the format specified above:
+
+```bash
+docker run -i -t -v /app:/app --link redis:redis --link postgres:db  --rm rails:latest bash -c "cd /app && bundle exec rails c"
+```
+
+Which has the effect of starting a rails console in a new container.
+
+You can run `./d` without any arguments to see which functions it provides shortcuts for. It also provides a generic `cmd` option:
+
+`./d cmd "bundle exec any_command"`
+
+Which allow arbitrary commands to be executed within the `/app` directory of a new rails container. So we could, for example, execute:
+
+`./d cmd "bundle exec rake db:create db:migrate"`
+
+To create and migrate the database.
+
+When interacting with the Rails application like this, it's important to remember that every command is executed in a new container and so completely isolated from any other command. Therefore any resources created in one container, are not normally available to any other container and will be lost when the command terminates and the container is discarded.
+
+The exception in the case of this development configuration is the `/app/` directory which is a shared folder and therefore any files created here, will persist and be available to all containers. It should be kept in mind that in a production configuration, there should be no such shared storage and therefore this should not be relied upon for any sort of shared state. It's worth reading the 12 factor app guide for more on how sharing state should be approached <http://12factor.net/>.
+
+## Bootstrapping The Database
+
+Generally when setting up a development environment, I want the development database populated with a recent dump of data from production. Sometimes this is a direct dump and sometimes it's a segment of the production data or modified version of production with sensitive information removed. Either way this normally takes the form of a .sql file (assuming mysql or postgres).
 
 ## Planned Extensions (Upcoming Tutorials)
 
