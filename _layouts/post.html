@@ -51,6 +51,9 @@ archive: false
           {% if page.bookfooter == true %}
             {% include book.html %}
           {% endif %}
+          {% if page.docker_book_footer == true %}
+            {% include docker_book.html %}
+          {% endif %}
 
             
             {% if page.disqus %}
