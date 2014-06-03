@@ -1,7 +1,7 @@
 ---
 layout : post
 title: "Quick Rails Development Environments with Docker and Vagrant"
-date: 2014-05-23 12:00:00
+date: 2014-06-03 08:00:00
 categories: devops
 biofooter: false
 bookfooter: true
@@ -9,7 +9,7 @@ bookfooter: true
 
 Onboarding new developers to a Rails projects is still a far harder task than it should be. A big part of this is that setting up a development environment for an app or suite of apps, getting the correct ruby versions, database versions etc running locally, can in many cases take upwards of a day. A combination of Vagrant and Docker can make this a thing of the past.
 
-Vagrant has gone a long way to alleviating this but with Docker we can go one step further. Not only can we have a fully functional development environment (for both new and existing devs) up in a matter of a minutes, we can use almost the same containers we create in development to deploy to production. This goes even further to avoiding the classic "it worked in dev" problem.
+Vagrant alone has already gone a long way to alleviating this but with Docker we can go one step further. Not only can we have a fully functional development environment (for both new and existing devs) up in a matter of a minutes, we can use almost the same containers we create in development to deploy to production. This goes even further to avoiding the classic "it worked in dev" problem.
 
 In this tutorial, I'll show you how to use a combination of Vagrant and Docker to setup a fully functional Rails + Postgres + Redis development environment. In a follow up tutorial I'll demonstrate how to deploy the containers we create here to production.
 
@@ -17,25 +17,25 @@ In this tutorial, I'll show you how to use a combination of Vagrant and Docker t
 
 Vagrant 1.6 added native support for Docker as a provider. If you're developing on a Linux machine, it will run Docker natively, otherwise it will transparently spin up a virtual machine to use as the Docker host.
 
-@TODO(is this sentence accurate given you are using it to setup Ubuntu and install Docker?) I won't be using this provider in this tutorial. This is for two reasons:
+I won't be using the providers DSL in this tutorial. This is for two reasons:
 
 * Later, when designing a production Docker configuration, it's really important to understand the Docker options and command line switches. The Vagrant provider abstracts this into a DSL which, while Ruby friendly, is no simpler than Docker's own command line switches
-* By simply using Vagrant to setup an Ubuntu VM which matches our eventual production VM, we can be sure that the development configuration is as close to identical to the production configuration as possible.
+* By simply using Vagrant to setup an Ubuntu VM which matches our eventual production VM, we can be sure that the development configuration is as close to identical to the production configuration as possible
 
 Here, therefore, Vagrant is used to setup a standard Ubuntu VM and install Docker, while everything else is done using standard Docker shell commands.
 
 # The End Result
 
-Your final system will require a simple
+The final system will require a simple
 
 `vagrant up`
 
 to setup a complete Docker-based development environment. This development environment will consist of:
 
 * A VirtualMachine running Ubuntu with Docker installed
-* Separate Docker containers for your Rails application, PostgreSQL and Redis
+* Separate Docker containers for the Rails application, PostgreSQL and Redis
 * A shared folder linked to the Docker container so you can carry on editing Rails code on your development machine as you do now, and see those changes instantly reflected on `http://localhost:3000`
-* A simple interface for running all the Rails commands you're used to (`rake db: migrate`, `rails c` etc) in your Docker environment
+* A simple interface for running all the normal Rails commands (`rake db: migrate`, `rails c` etc) in the Docker environment
 
 # Steps
 
@@ -52,11 +52,11 @@ I've tested this tutorial on OSX and Ubuntu 12.04. It should work on other nix f
 
 ### Configuration
 
-I'm starting with a standard Rails 4.1.0 application generated with `rails new`. The full source for this is available at @TODO Github Repo.
+I'm starting with a standard Rails 4.1.0 application generated with `rails new`. The final source for this is available at <https://github.com/TalkingQuickly/docker_rails_dev_env_example>
 
-The app stores all secret values (API keys, anything in `secrets.yml` etc) in environment variables and uses the dotenv gem for loading these in development. 
+The Rails app stores all secret values (API keys, anything in `secrets.yml` etc) in environment variables and uses the dotenv gem for loading these in development. Note that in the example application, the `.env` file is included in version control, for any real application, particularly one in a public repository, this should be added to `.gitignore`.
 
-Your Postgres access details will be inferred directly from the database container. For more on this, see the section "Environment Variables in Linked Containers" later in this tutorial. In the example application, `database.yml` looks like this:
+The PostgreSQL access details will be inferred directly from the database container. For more on this, see the section "Environment Variables in Linked Containers" later in this tutorial. In the example application, `database.yml` looks like this:
 
 ``` yaml
 default: &default
@@ -85,17 +85,30 @@ test:
 
 ### Dockerfiles and Scripts
 
-The example configuration requires three Dockerfiles: one for Rails, one for Redis and one for PostgreSQL. The Rails Dockerfile should be stored in the root of the Rails project, the others are stored in sub-folders of the `docker/` directory.
+The example configuration requires three Dockerfiles: one for Rails, one for Redis and one for PostgreSQL. The Rails Dockerfile is stored in the root of the Rails project, the others are stored in sub-folders of the `docker/` directory.
 
-Templates for all of these files are available here: @TODO Github Repo.
+Templates for all of these files are available here: <https://github.com/TalkingQuickly/docker_rails_dev_env>
 
-To begin with, copy all of the files and folders from the above repository into the root of your Rails project.
+To begin with, copy all of the files and folders from the above repository into the root of your Rails project. If you're adding this to an existing project, the docker specific files and folders you'll be creating are:
+
+```bash
+├── Dockerfile
+├── Vagrantfile
+├── d
+└── docker/
+    ├── postgres/
+    ├── rails/
+    ├── redis/
+    └── scripts/
+```
 
 ## Setting Up Vagrant
 
+If you're completely new to Vagrant it's worth briefly going through their getting started tutorial <http://docs.vagrantup.com/v2/getting-started/> at least through to the end of the provisioning section.
+
 ### The Vagrantfile
 
-@TODO(this section might benefit from an introduction, though guessing it might not be needed since this is common knowledge?) The Vagrantfile should be stored in the root of your Rails project and look like this:
+The Vagrantfile should be stored in the root of your Rails project and look like this:
 
 ```ruby
 # Commands required to setup working docker environment, link
@@ -163,9 +176,9 @@ end
 
 ### The Vagrant Shared Folder
 
-We want our Docker container to use the Rails app directly from our local filesystem so we can make changes as we normally would, and have these changes instantly reflected on our development server.
+We want our Docker container to use the Rails app directly from our local filesystem so we can make changes on our development machine as we normally would and have these changes instantly reflected on our development server.
 
-Since we're using Vagrant, first you have to share this folder from your local filesystem to the Vagrant virtual machine, which in turn shares this to the Docker container. If this is done using the default Virtualbox shared folders, then Disk IO and, consequently, Rails performance will be terrible. In my tests, it took something like 20 - 30 seconds to render a simple view.
+Since we're using Vagrant, first we have to share this folder from the local filesystem to the Vagrant virtual machine, which in turn shares this to the Docker container. If this is done using the default Virtualbox shared folders, then Disk IO and, consequently, Rails performance will be terrible. In my tests, it took something like 20 - 30 seconds to render a simple view.
 
 This can be resolved by using NFS shares, which are much faster but require some additional setup and entering the sudo password when starting the virtual machine. The following entry in your `Vagrantfile` ensures NFS is used:
 
@@ -211,7 +224,7 @@ docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
 ```
 
-It then proceeds to build our Docker images from your Dockerfiles and tag them with user friendly names (`postgres`, `rails` and `redis` respectively):
+It then proceeds to build our Docker images from the Dockerfiles and tag them with user friendly names (`postgres`, `rails` and `redis` respectively):
 
 ``` bash
 docker build -t postgres /app/docker/postgres
@@ -219,7 +232,7 @@ docker build -t rails /app
 docker build -t redis /app/docker/redis/
 ```
 
-Remember that `/app` on the Ubuntu virtual machine is shared back to the root of your Rails directory, so this is using the Dockerfiles that you can view and edit as you normally would any file in a Rails project.
+Remember that `/app` on the Ubuntu virtual machine is shared back to the root of your Rails directory, so this is using the Dockerfiles that can be viewed and edited as we normally would any file in a Rails project.
 
 This process can take a long time. Something I've encountered on quite a few occasions with the OSX + Vagrant + Docker combination is that any sort of interruption in network connection can cause the build process to hang indefinitely.
 
@@ -246,7 +259,7 @@ I find it useful to think of a Docker image like a class definition. We use a Do
 
 We then use the `docker run` command to create a container from that image. The container is like an instance of a class. We can create multiple containers (a new one every time we use `docker run`) from a single image. Each container (instance) is completely isolated from every other container, even if they are created from the same image. 
 
-We can also do things like create images based on the state of a container, so the analogy shouldn't be extended much further(!)
+That said, we can also do things like create images based on the state of a container, so the analogy shouldn't be extended much further(!)
 
 The final `docker run` is a little more complicated:
 
@@ -264,9 +277,9 @@ In addition to the operations already discussed for the Postgres and Redis conta
 
 Linking will also make the environment variables from the Postgres container available to the Rails container with the prefix `ALIAS`. When you expose a port in a container, a corresponding environment variable is created within that container.
 
-The Postgres container exposes port 5432 that leads to a corresponding environment variable `PORT_5432_TCP_ADDR` which will contain the IP address of the Postgres container. We use this in our `database.yml` to automatically connect to the Postgres container database, irrespective of whether its IP has changed.
+The Postgres container exposes port 5432 which leads to a corresponding environment variable `PORT_5432_TCP_ADDR` which will contain the IP address of the Postgres container. We use this in our `database.yml` to automatically connect to the Postgres container database, irrespective of whether its IP has changed.
 
-Since we used `db` as our alias for this container, from our Rails container, we will therefore have an environment variable `DB_PORT_5432_TCP_ADDR` available which contains the IP of this container.
+Since we used `db` as our alias for this container, in our Rails container, we will therefore have an environment variable `DB_PORT_5432_TCP_ADDR` available which contains the IP of this container.
 
 Therefore, you use `ENV['DB_PORT_5432_TCP_ADDR']` to access this value in your `database.yml`.
 
@@ -298,7 +311,7 @@ In this configuration, each Docker container runs a single process. In the `$set
 docker run -d -p 3000:3000 -v /app:/app --link redis:redis --link postgres:db --name rails rails:latest
 ```
 
-The Docker daemon expects the second, non-parametrised argument to be the command to be executed within the container. Since we don't specify a command to be run within the container, the default command from the `Dockerfile` is run. This is specified in your `/Dockerfile` with:
+The Docker daemon expects the second, non-parametrised argument to be the command to be executed within the container. Since we don't specify a command to be run within the container, the default command from the `Dockerfile` is run. This is specified in `/Dockerfile` with:
 
 ```bash
 CMD ["/start-server.sh"]
@@ -319,10 +332,9 @@ This is equivalent to starting the container with:
 docker run -d -p 3000:3000 -v /app:/app --link redis:redis --link postgres:db --name rails rails:latest bash -c "cd /app && bundle install && bundle exec unicorn -p 3000"
 ```
 
-When you want to run other commands in the container based on your Rails image, you can construct equivalent `docker run` commands that you can run from the Vagrant virtual machine (`vagrant ssh`). So to run `bundle exec rake db:create db:migrate` you could ssh into the Vagrant host and then use:
+To run other commands in the container based on your Rails image, we can construct equivalent `docker run` commands and run them from within the Vagrant virtual machine (`vagrant ssh`). So to run `bundle exec rake db:create db:migrate` we could ssh into the Vagrant host and then use:
 
 ```bash
-#!/bin/bash
 docker run -i -t -v /app:/app --link redis:redis --link postgres:db  --rm rails:latest bash -c "cd /app && bundle exec rake db:create db:migrate"
 ```
 
@@ -382,7 +394,7 @@ The exception in the case of this development configuration is the `/app/` direc
 
 ## Bootstrapping the Database
 
-Generally, when setting up a development environment, I want the development database populated with a recent dump of data from production. Sometimes this is a direct dump and sometimes it's a segment of the production data, or modified version of production with sensitive information removed. Either way, this normally takes the form of a .sql file (assuming mySQL or Postgres). It's useful to be able to quickly restore future dumps to the development database.
+Generally, when setting up a development environment, I want the development database populated with a recent dump of data from production. Sometimes this is a direct dump and sometimes it's a segment of the production data, or modified version of production with sensitive information removed. Either way, this normally takes the form of a .sql file (assuming MySQL or Postgres). It's useful to be able to quickly restore future dumps to the development database.
 
 The `./d` convenience script provides a simple interface to this:
 
@@ -397,7 +409,7 @@ This will:
 * Unzip it within a new Docker container
 * Import the file `current.sql` from the unzipped files to the development database using the `psql` utility.
 
-Note the naming, it expects an archive called `current.zip` which contains a single file called `current.sql`.
+Note the naming, it expects a zip archive at `db/current.zip` which contains a single file called `current.sql`.
 
 ## Planned Extensions (Upcoming Tutorials)
 
