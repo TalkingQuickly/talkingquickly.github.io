@@ -4,7 +4,8 @@ title: "Quick Rails Development Environments with Docker and Vagrant"
 date: 2014-06-03 08:00:00
 categories: devops
 biofooter: false
-bookfooter: true
+bookfooter: false
+docker_book_footer: true
 ---
 
 Onboarding new developers to a Rails projects is still a far harder task than it should be. A big part of this is that setting up a development environment for an app or suite of apps, getting the correct ruby versions, database versions etc running locally, can in many cases take upwards of a day. A combination of Vagrant and Docker can make this a thing of the past.
@@ -411,7 +412,7 @@ This will:
 
 Note the naming, it expects a zip archive at `db/current.sql.zip` which contains a single file called `current.sql`.
 
-## Planned Extensions (Upcoming Tutorials)
+## Upcoming Tutorials
 
 * Setting up a private index so you can build your Docker images centrally and then just pull them when you start a new development environment, rather than rebuilding each time
 * Building production images
