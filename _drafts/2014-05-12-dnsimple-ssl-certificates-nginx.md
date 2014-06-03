@@ -7,6 +7,8 @@ biofooter: true
 bookfooter: false
 ---
 
+If you purchase a Geotrust SSL Certificate from DNSimple for your domain, there's a small amount of setup required to get the certificate in a format you can use with Nginx. This post includes an overview of the process and a simple bash script to automate it.
+
 You'll have three certificate files:
 
 * Your Certificate
@@ -36,8 +38,7 @@ Start with 4 files:
 
 Assuming your destination files are `ssl_cert.crt` and `ssl_private_key.key`
 
-The following bash script provides a simple interface for switching in new certs and rolling back in the case that something goes wrong.
-
+The following bash script provides a simple interface for switching in new certs and rolling back in the case that something goes wrong. The script should be stored in the same directory as the target for the certificates. In the case of our sample configuration, this is `/home/deploy/your_app_environment/shared/`.
 
 ```bash
 #!/bin/bash
@@ -86,3 +87,27 @@ cleanup_certs)  echo  "Cleaning Up Temporary Files"
    ;;
 esac
 ```
+
+Don't forget to make the script executable with `chmod +x script_name.sh`.
+
+You can then simply run:
+
+```bash
+./script_name load_new_certs
+```
+
+to swap in the new certificates and reload nginx. If, after testing the site, something isn't right, you can execute:
+
+```bash
+./script_name rollback_certs
+```
+
+To revert to the previous ones. And then repeat `load_new_certs` once you've resolved the issue.
+
+Once you have the new certificates working as intended, you can use:
+
+```bash
+./script_name cleanup_certs
+```
+
+To remove the temporary and legacy files created.
