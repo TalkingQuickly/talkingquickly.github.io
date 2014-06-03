@@ -405,11 +405,11 @@ The `./d` convenience script provides a simple interface to this:
 This will:
 
 * Drop, create and migrate the development database
-* Look for a zip file called `db/current.zip` in the Rails directory structure
+* Look for a zip file called `db/current.sql.zip` in the Rails directory structure
 * Unzip it within a new Docker container
 * Import the file `current.sql` from the unzipped files to the development database using the `psql` utility.
 
-Note the naming, it expects a zip archive at `db/current.zip` which contains a single file called `current.sql`.
+Note the naming, it expects a zip archive at `db/current.sql.zip` which contains a single file called `current.sql`.
 
 ## Planned Extensions (Upcoming Tutorials)
 
