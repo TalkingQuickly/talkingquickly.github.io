@@ -37,6 +37,24 @@ A docker index (as opposed to registry) written in nodejs
 
 <https://github.com/ekristen/docker-index>
 
+Introduction to CoreOS
+
+<https://coreos.com/docs/quickstart/>
+
+Brandon Philips Explains etc (and how it relates to docker)
+
+<http://www.activestate.com/blog/2014/03/brandon-philips-explains-etcd>
+
+Zero downtime deployment with confd etcd docker and nginx
+
+<http://brianketelsen.com/2014/02/25/using-nginx-confd-and-docker-for-zero-downtime-web-updates/>
+
+## General Devops
+
+Overview of service discovery tools out there
+
+<http://www.activestate.com/blog/2014/05/service-discovery-solutions>
+
 ## Rails
 
 Great guide to automatically reloading the page in a browser when you change view files. Also covers re-injection of changed styles so that changing CSS doesn't require a complete page reload. Amazing on multiple screens,
