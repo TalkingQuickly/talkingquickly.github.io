@@ -71,4 +71,8 @@ Tutorial on how to write plugins for/ add contributions to Discourse using ember
 
 http://eviltrout.com/2013/02/27/adding-to-discourse-part-1.html
 
+A first person engine in 265 lines of JS (Raycasting is awesome)
+
+<http://www.playfuljs.com/a-first-person-engine-in-265-lines/>
+
 
