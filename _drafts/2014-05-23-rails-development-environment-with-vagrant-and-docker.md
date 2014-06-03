@@ -382,7 +382,22 @@ The exception in the case of this development configuration is the `/app/` direc
 
 ## Bootstrapping The Database
 
-Generally when setting up a development environment, I want the development database populated with a recent dump of data from production. Sometimes this is a direct dump and sometimes it's a segment of the production data or modified version of production with sensitive information removed. Either way this normally takes the form of a .sql file (assuming mysql or postgres).
+Generally when setting up a development environment, I want the development database populated with a recent dump of data from production. Sometimes this is a direct dump and sometimes it's a segment of the production data or modified version of production with sensitive information removed. Either way this normally takes the form of a .sql file (assuming mysql or postgres). It's then useful to be able to quickly restore future dumps to the development database.
+
+The `./d` convenience script provides a simple interface to this:
+
+```bash
+./d restore-db
+```
+
+This will:
+
+* Drop, Create and Migrate the development database
+* Look for a zip file called `db/current.zip` in the Rails directory structure.
+* Unzip it within a new docker container
+* Import the file `current.sql` from the unzipped files to the development database using the `psql` utility.
+
+Note the naming, it expects an archive called `current.zip` which contains a single file called `current.sql`.
 
 ## Planned Extensions (Upcoming Tutorials)
 
