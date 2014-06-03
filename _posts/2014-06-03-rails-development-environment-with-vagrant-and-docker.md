@@ -1,6 +1,6 @@
 ---
 layout : post
-title: "Quick Rails Development Environments with Docker and Vagrant"
+title: "A Rails Development Environment with Docker and Vagrant"
 date: 2014-06-03 08:00:00
 categories: devops
 biofooter: false
