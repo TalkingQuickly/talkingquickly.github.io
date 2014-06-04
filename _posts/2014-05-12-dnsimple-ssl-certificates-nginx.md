@@ -34,7 +34,7 @@ Start with 4 files:
 * my.crt
 * secondary.crt
 * primary.crt
-* ssl_private_key.key.new
+* ssl\_private\_key.key.new
 
 Assuming your destination files are `ssl_cert.crt` and `ssl_private_key.key`
 
