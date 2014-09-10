@@ -104,7 +104,19 @@ At the end of this process, `cookbooks` will not contain the new or updated cook
 
 It is therefore safer to have Vagrant use the `berks-cookbooks` directory and then delete this directory and run `berks vendor` whenever we want to work with Vagrant.
 
-There is a Vagrant plugin for directly integrating Vagrants chef provision with Berkshelf however its status is unclear (<see https://sethvargo.com/the-future-of-vagrant-berkshelf/>).
+The other option is to use the `vagrant-berkshelf` plugin to automate inclusion of Berkshelf provided cookbooks in the `cookbooks_path`. To do this, first install the plugin:
+
+```bash
+vagrant plugin install vagrant-berkshelf --plugin-version 2.0.1
+```
+
+Then add:
+
+```ruby
+config.berkshelf.enabled = true
+```
+
+To your Vagrantfile.
 
 ## Directory Structure
 
@@ -125,3 +137,41 @@ nodes = Dir[File.join(root_dir.'chef','nodes','*.json')]
 and update the `chef.*_path` entries to be prefixed with `chef/`.
 
 ## Starting the Vagrant Box(es)
+
+* Make sure you've got at least one node definition with the `vagrant` section specified above
+* If you're not using the `vagrant-berkshelf` plugin then run`bundle exec berks install`. If you've run this before you'll need to remove the `berks-cookbooks` directory first
+* Run `vagrant up` to start and provision all nodes which have the vagrant section, or `vagrant up NAME` where NAME is the name from the vagrant section of the node defintion to start a single node
+
+This will setup the VM and automatically run chef solo to provision it as per the node definition. Once this completes, you can then access the node as you would any other remote machine using the IP address specified in the `vagrant` section of the node definition.
+
+## Users and SSH
+
+A common issue when working with chef and vagrant is that it's normal for chef scripts to modify both users and who has access to sudo. If this means that the vagrant user is removed or removed from the sudoers group, this can mean that commands such as `vagrant ssh`, `vagrant halt` etc will stop working. More importantly if the vagrant user doesn't behave as expected, shared folders will generally not work correctly.
+
+One solution to this is to ensure that if you are explicitly setting who has access to sudo, the vagrant user is included. So for example in the Rails server template, this section:
+
+```json
+"authorization": {
+  "sudo": {
+    "users": ["deploy"]
+  }
+},
+```
+
+would be replaced with:
+
+
+```json
+"authorization": {
+  "sudo": {
+    "users": ["deploy", "vagrant"]
+  }
+},
+```
+
+The vagrant user also by default has passwordless sudo enabled, behaviour seems to be unpredictable if this is disabled but sometimes it will simply prompt you for the vagrant users password which is `vagrant`.
+
+## Tips
+
+* Node names must be made up of the characters a-z, 0-9, hypens and dots only. This allows the hostname to be set to the node name
+* You can force provisioning to run again by stopping the VM (`vagrant halt` or `vagrant halt NAME`) and then running `vagrant up` or `vagrant up NAME` with the `--provision` option
