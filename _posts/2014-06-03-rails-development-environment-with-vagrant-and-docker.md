@@ -214,6 +214,8 @@ vagrant ssh -c 'sudo ln -s /opt/VBoxGuestAdditions-4.3.10/lib/VBoxGuestAdditions
 vagrant reload
 ```
 
+UPDATE (11/6/2014): This is resolved in Vagrant 1.6.3 so it's definitely worth upgrading.
+
 This will create an Ubuntu Virtual Machine, install Docker on it and proceed to running the script defined in your `$setup` variable in the Vagrantfile. In this example, for completeness, we build all of the containers from scratch rather than pulling them from an Index so the first time you run this, it will take a while.
 
 ### The Setup Script

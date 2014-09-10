@@ -55,6 +55,10 @@ Overview of service discovery tools out there
 
 <http://www.activestate.com/blog/2014/05/service-discovery-solutions>
 
+Guide to setting up GlusterFS Distributed filesytem
+
+<https://www.digitalocean.com/community/tutorials/how-to-create-a-redundant-storage-pool-using-glusterfs-on-ubuntu-servers>
+
 ## Rails
 
 Great guide to automatically reloading the page in a browser when you change view files. Also covers re-injection of changed styles so that changing CSS doesn't require a complete page reload. Amazing on multiple screens,
