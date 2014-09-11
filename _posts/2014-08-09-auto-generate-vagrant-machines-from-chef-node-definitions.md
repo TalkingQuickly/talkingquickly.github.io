@@ -12,7 +12,7 @@ If you use chef-solo to provision your production servers, Vagrant makes it easy
 
 This post will use as an example the sample configuration from the book [Reliably Deploying Rails applications](https://leanpub.com/deploying_rails_applications) but it should be applicable to any project which uses a standard Chef Solo configuration.
 
-The high level approach is simple, for any node we want a Vagrant machine for, we add a `vagrant` section to the definition json which defines some vagrant specific options, in particular the IP if we want to use private networking and the IP to use. In our `Vagrantfile` we then look for any `.json` files in the `nodes` directory, parse the JSON and if it contains a `vagrant` key, generate a Vagrant configuration on the fly.
+The high level approach is simple, for any node we want a Vagrant machine for, we add a `vagrant` section to the definition json which defines some vagrant specific options, in particular the IP if we want to use private networking and the name to use. In our `Vagrantfile` we then look for any `.json` files in the `nodes` directory, parse the JSON and if it contains a `vagrant` key, generate a Vagrant configuration on the fly.
 
 The Vagrant section of our node definition looks like this:
 
@@ -24,6 +24,8 @@ The Vagrant section of our node definition looks like this:
 },
 ...
 ```
+
+For a complete example node definition see: @todo LINK
 
 And our Vagrantfile looks likes this:
 
@@ -41,8 +43,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "ubuntu/trusty64"
 
   # This should match the version specified in your
-  # Gemfile
+  # Gemfile. You must have the omnibus vagrant plugin
+  # installed for this to work.
   config.omnibus.chef_version = "11.16.0"
+  config.berkshelf.enabled = true
 
   # Assumes that the Vagrantfile is in the root of our
   # Chef repository.
@@ -138,6 +142,7 @@ and update the `chef.*_path` entries to be prefixed with `chef/`.
 
 ## Starting the Vagrant Box(es)
 
+* Make sure you have the vagrant omnibus plugin (<https://github.com/schisamo/vagrant-omnibus>) installed which allows you to specify the chef version which is used. To install it simply enter `vagrant plugin install vagrant-omnibus`.
 * Make sure you've got at least one node definition with the `vagrant` section specified above
 * If you're not using the `vagrant-berkshelf` plugin then run`bundle exec berks install`. If you've run this before you'll need to remove the `berks-cookbooks` directory first
 * Run `vagrant up` to start and provision all nodes which have the vagrant section, or `vagrant up NAME` where NAME is the name from the vagrant section of the node defintion to start a single node
