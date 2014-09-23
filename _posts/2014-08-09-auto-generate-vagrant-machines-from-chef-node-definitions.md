@@ -25,7 +25,7 @@ The Vagrant section of our node definition looks like this:
 ...
 ```
 
-For a complete example node definition see: @todo LINK
+For a complete example node definition see: <https://github.com/TalkingQuickly/rails-server-template/blob/master/nodes/rails_postgres_redis.json.example>
 
 And our Vagrantfile looks like this:
 
@@ -107,6 +107,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 end
 ```
+
+For a complete example `Vagrantfile` see <https://github.com/TalkingQuickly/rails-server-template/blob/master/Vagrantfile>
 
 ## Using with Berkshelf
 
