@@ -1,6 +1,6 @@
 ---
 layout : post
-title: "Automatically Generate Vagrant Machines from Chef Node Definitions""
+title: "Automatically Generate Vagrant Machines from Chef Node Definitions"
 date: 2014-08-09 08:00:00
 categories: devops
 biofooter: false
@@ -8,20 +8,21 @@ bookfooter: true
 docker_book_footer: false
 ---
 
-If you use chef-solo to provision your production servers, Vagrant makes it easy to set up a production-like environment on a local VM for testing purposes. It can however seem like wasted time to have to manually replicate the contents of your node definition in your `Vagrantfile` and more importantly it's easy to make a change to either the `Vagrantfile` or the node definition and forget to update the other to match. In this post I'll look at a simple method of automatically generating Vagrant machines based on node definitions.
+If you use chef-solo to provision your production servers, Vagrant makes it easy to set up a production- like environment on a local VM for testing purposes. It can however seem like wasted time to have to manually replicate the contents of your node definition in your `Vagrantfile` and more importantly it's easy to make a change to either the `Vagrantfile` or the node definition and forget to update the other to match. In this post I'll look at a simple method of automatically generating Vagrant machines based on node definitions.
 
 This post will use as an example the sample configuration from the book [Reliably Deploying Rails applications](https://leanpub.com/deploying_rails_applications) but it should be applicable to any project which uses a standard Chef Solo configuration.
 
-The high level approach is simple, for any node we want a Vagrant machine for, we add a `vagrant` section to the definition json which defines some vagrant specific options, in particular the IP if we want to use private networking and the name to use. In our `Vagrantfile` we then look for any `.json` files in the `nodes` directory, parse the JSON and if it contains a `vagrant` key, generate a Vagrant configuration on the fly.
+The high level approach is simple, for any node we want a Vagrant machine for, we add a `vagrant` section to the definition json which defines some vagrant specific options, in particular the IP if we want to use private networking, the name to use and any items we should exclude from the run_list. In our `Vagrantfile` we then look for any `.json` files in the `nodes` directory, parse the JSON and if it contains a `vagrant` key, generate a Vagrant configuration on the fly.
 
 The Vagrant section of our node definition looks like this:
 
 ``` ruby
 ...
 "vagrant": {
-  "ip":"192.168.1.50"
-  "name": "rails-pg-test-1", //a-z,0-9,- and . only 
-},
+  "exclusions" : [],
+  "ip":"192.168.1.50",
+  "name": "rails-pg-test-1", //a-z,0-9,- and . only
+}
 ...
 ```
 
@@ -112,7 +113,7 @@ For a complete example `Vagrantfile` see <https://github.com/TalkingQuickly/rail
 
 ## Using with Berkshelf
 
-If you're using Berkshelf, it may be tempting to simply use the `cookbooks` directory as `chef.cookbooks_path`. The problem with this however is that the `cookbooks` directory is only populated when we run `knife solo cook` so there's no guarentee that `cookbooks` always contains the correct versions, just the correct versions from when we last ran a cook.
+If you're using Berkshelf, it may be tempting to simply use the `cookbooks` directory as `chef.cookbooks_path`. The problem with this however is that the `cookbooks` directory is only populated when we run `knife solo cook` so there's no guarantee that `cookbooks` always contains the correct versions, just the correct versions from when we last ran a cook.
 
 If we take the following workflow:
 
@@ -158,9 +159,9 @@ and update the `chef.*_path` entries to be prefixed with `chef/`.
 
 ## Exclusions
 
-While the purpose of using Vagrant and Chef is often to allow us to create testing environments which closely match our production environment, there are sometimes scenario where we need to subtly vary the configuration between our produciton VM's and our vagrant configurations.
+While the purpose of using Vagrant and Chef is often to allow us to create testing environments which closely match our production environment, there are sometimes scenario where we need to subtly vary the configuration between our production VM's and our vagrant configurations.
 
-A good example of this might be networking. When working with Linode I use a custom cookbook and role which sets up a private IP address for the node. If this cookbook is applied to a Vagrant machine, it will tend to break networking completely. I don't however want to modify my node definition for use with Vagrant because this defeats the prupose of auto generating it to begin with.
+A good example of this might be networking. When working with Linode I use a custom cookbook and role which sets up a private IP address for the node. If this cookbook is applied to a Vagrant machine, it will tend to break networking completely. I don't however want to modify my node definition for use with Vagrant because this defeats the purpose of auto generating it to begin with.
 
 In the example Vagrantfile this is handled by an additional attribute in the node definitions `vagrant` section called `exclusions`. This accepts an array of strings which should be removed from the `run_list` attribute before assigning the JSON to `chef.json`.
 
@@ -247,9 +248,9 @@ would be replaced with:
 },
 ```
 
-The vagrant user also by default has passwordless sudo enabled, behaviour seems to be unpredictable if this is disabled but sometimes it will simply prompt you for the vagrant users password which is `vagrant`.
+The vagrant user also by default has passwordless sudo enabled, behavior seems to be unpredictable if this is disabled but sometimes it will simply prompt you for the vagrant users password which is `vagrant`.
 
 ## Tips
 
-* Node names must be made up of the characters a-z, 0-9, hypens and dots only. This allows the hostname to be set to the node name
+* Node names must be made up of the characters a-z, 0-9, hyphens and dots only. This allows the hostname to be set to the node name
 * You can force provisioning to run again by stopping the VM (`vagrant halt` or `vagrant halt NAME`) and then running `vagrant up` or `vagrant up NAME` with the `--provision` option
