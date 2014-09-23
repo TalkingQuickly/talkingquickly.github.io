@@ -21,7 +21,7 @@ The Vagrant section of our node definition looks like this:
 "vagrant": {
   "exclusions" : [],
   "ip":"192.168.1.50",
-  "name": "rails-pg-test-1", //a-z,0-9,- and . only
+  "name": "rails-pg-test-1" //a-z,0-9,- and . only
 }
 ...
 ```
