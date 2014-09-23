@@ -19,15 +19,15 @@ The Vagrant section of our node definition looks like this:
 ``` ruby
 ...
 "vagrant": {
-  "name": "rails-pg-test-1", //a-z,0-9,- and . only 
   "ip":"192.168.1.50"
+  "name": "rails-pg-test-1", //a-z,0-9,- and . only 
 },
 ...
 ```
 
 For a complete example node definition see: @todo LINK
 
-And our Vagrantfile looks likes this:
+And our Vagrantfile looks like this:
 
 ```ruby
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
@@ -46,7 +46,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Gemfile. You must have the omnibus vagrant plugin
   # installed for this to work.
   config.omnibus.chef_version = "11.16.0"
-  config.berkshelf.enabled = true
+
+  # Enable if you want to use the Vagrant Berkshelf plugin to manage
+  # Cookbooks.
+  config.berkshelf.enabled = false
 
   # Assumes that the Vagrantfile is in the root of our
   # Chef repository.
@@ -62,9 +65,19 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # Only process the node if it has a vagrant section
     if(node_json["vagrant"])
-
-      vagrant_name = node_json["vagrant"]["name"] 
+      vagrant_name = node_json["vagrant"]["name"]
       vagrant_ip = node_json["vagrant"]["ip"]
+
+      # Allow us to remove certain items from the run_list if we're
+      # using vagrant. Useful for things like networking configuration
+      # which may not apply/ may break in the vagrant environment
+      if exclusions = node_json["vagrant"]["exclusions"]
+        exclusions.each do |exclusion|
+          if node_json["run_list"].delete(exclusion)
+            puts "removed #{exclusion} from the run list"
+          end
+        end
+      end
 
       config.vm.define vagrant_name do |vagrant|
         vagrant.vm.hostname = vagrant_name
@@ -78,7 +91,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         vagrant.vm.provision "chef_solo" do |chef|
 
           # Use berks-cookbooks not cookbooks and remember
-          # to explicitly vendor berkshelf cookbooks
+          # to explicitly vendor berkshelf cookbooks with
+          # berks vendor if not using the berkshelf vagrant plugin
           chef.cookbooks_path = ["berks-cookbooks", "site-cookbooks"]
           chef.data_bags_path = "data_bags"
           chef.roles_path = "roles"
@@ -106,7 +120,7 @@ If we take the following workflow:
 
 At the end of this process, `cookbooks` will not contain the new or updated cookbook, it will still contain the previous version.
 
-It is therefore safer to have Vagrant use the `berks-cookbooks` directory and then delete this directory and run `berks vendor` whenever we want to work with Vagrant.
+It is therefore safer to have Vagrant use the `berks-cookbooks` directory and then delete this directory and run `berks vendor` whenever we want to work with Vagrant. This is generally my preferred approach.
 
 The other option is to use the `vagrant-berkshelf` plugin to automate inclusion of Berkshelf provided cookbooks in the `cookbooks_path`. To do this, first install the plugin:
 
@@ -120,7 +134,7 @@ Then add:
 config.berkshelf.enabled = true
 ```
 
-To your Vagrantfile.
+To your Vagrantfile. The key limitation is that it states on the projects web page that it doesn't currently support multi machine vagrant files which is usually what we'll be generating with this approach.
 
 ## Directory Structure
 
@@ -140,11 +154,68 @@ nodes = Dir[File.join(root_dir.'chef','nodes','*.json')]
 
 and update the `chef.*_path` entries to be prefixed with `chef/`.
 
+## Exclusions
+
+While the purpose of using Vagrant and Chef is often to allow us to create testing environments which closely match our production environment, there are sometimes scenario where we need to subtly vary the configuration between our produciton VM's and our vagrant configurations.
+
+A good example of this might be networking. When working with Linode I use a custom cookbook and role which sets up a private IP address for the node. If this cookbook is applied to a Vagrant machine, it will tend to break networking completely. I don't however want to modify my node definition for use with Vagrant because this defeats the prupose of auto generating it to begin with.
+
+In the example Vagrantfile this is handled by an additional attribute in the node definitions `vagrant` section called `exclusions`. This accepts an array of strings which should be removed from the `run_list` attribute before assigning the JSON to `chef.json`.
+
+This is handled by the following section of the `Vagrantfile`:
+
+``` ruby
+# Allow us to remove certain items from the run_list if we're
+# using vagrant. Useful for things like networking configuration
+# which may not apply.
+if exclusions = node_json["vagrant"]["exclusions"]
+  exclusions.each do |exclusion|
+    if node_json["run_list"].delete(exclusion)
+      puts "removed #{exclusion} from the run list"
+    end
+  end
+end
+```
+
+So if we were to take a node with the following run list:
+
+```ruby
+"run_list":
+[
+  "role[ruby-box]",
+  "role[nginx-server]",
+  "role[linode-with-private-networking]",
+  "role[mongo-server]"
+]
+```
+
+And the following `vagrant` section:
+
+```json
+"vagrant" : {
+  "exclusions" : ["role[linode-with-private-networking]"],
+  ...
+},
+```
+
+This would result in the Vagrant provisioner seeing the following run list:
+
+```ruby
+"run_list":
+[
+  "role[ruby-box]",
+  "role[nginx-server]",
+  "role[mongo-server]"
+]
+```
+
+Both roles and recipes can be removed in this mannger.
+
 ## Starting the Vagrant Box(es)
 
 * Make sure you have the vagrant omnibus plugin (<https://github.com/schisamo/vagrant-omnibus>) installed which allows you to specify the chef version which is used. To install it simply enter `vagrant plugin install vagrant-omnibus`.
 * Make sure you've got at least one node definition with the `vagrant` section specified above
-* If you're not using the `vagrant-berkshelf` plugin then run`bundle exec berks install`. If you've run this before you'll need to remove the `berks-cookbooks` directory first
+* If you're not using the `vagrant-berkshelf` plugin then run`bundle exec berks vendor`. If you've run this before you'll need to remove the `berks-cookbooks` directory first
 * Run `vagrant up` to start and provision all nodes which have the vagrant section, or `vagrant up NAME` where NAME is the name from the vagrant section of the node defintion to start a single node
 
 This will setup the VM and automatically run chef solo to provision it as per the node definition. Once this completes, you can then access the node as you would any other remote machine using the IP address specified in the `vagrant` section of the node definition.
