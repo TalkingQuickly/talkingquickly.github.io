@@ -116,6 +116,9 @@ Any questions or comments, find me on twitter, <http://www.twitter.com/talkingqu
 ## References
 
 <http://www.sc0ttgames.com/?p=293>
+
 <https://www.youtube.com/watch?v=fRED_-LvJKQ&list=PLPV2KyIb3jR7F_B4p8X3YwHPaExh0R9Kk>
+
 <https://www.durovis.com/board/viewforum.php?f=1&sid=a3e36bc84f5e3e70f7bb00c9b11af7a2>
+
 <http://forum.unity3d.com/threads/cardboard-vr-by-google-for-android-only-45.253903/>
