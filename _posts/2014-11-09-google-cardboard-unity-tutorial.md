@@ -95,6 +95,10 @@ Begin by selecting "File" and then "Build Settings". Add our current Scene to th
 
 Under Platform select "Android". Make sure your Android device is plugged into the computer using a USB cable and that USB Debugging is enabled (this varies between Android devices but a quick Google Search should do the trick).
 
+Having selected Android, click on "Player Settings" which will load the settings in the Inspector window. Under "Other" you'll need to enter a bundle identifier:
+
+![Adding a bundle identifier](/assets/images/unity_cardboard_tutorial/android_bundle_identifier.png)
+
 Now choose "Build and Run" and wait for the build process to complete. When asked for a file location initially, choose somewhere to store the generated APK (Android Installer). This file can be copied to you device for installing manually or sent to friends.
 
 At some point it will also ask you for the location of the Android SDK. Because everyone read the "prerequisites" section of this post, this will already been downloaded and extracted somewhere (or not!).
