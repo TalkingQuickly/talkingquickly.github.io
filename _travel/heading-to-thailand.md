@@ -16,7 +16,7 @@ Fits in here...
 
 ![A Bag](/assets/images/travel/heading-to-thailand/in-the-bag.jpg)
 
-Qatar Airways successfully put any of the European or America airlines I've flown with to shame, Champagne after boarding and Cognac after dinner. All in so called "Economy" class. Something of a step up from the usual "abuse by staff on boarding, coffee in lap after microwave pizza" I've come to love from Ryan Air.
+Qatar Airways successfully put any of the European or American airlines I've flown with to shame, Champagne after boarding and Cognac after dinner. All in so called "Economy" class. Something of a step up from the usual "abuse by staff on boarding, coffee in lap after microwave pizza" I've come to love from Ryan Air.
 
 The most noticeable thing on arrival at Bangkok Suvarnabhumi airport is SIM Cards. Really. They're everywhere. The bit of the airport usually reserved for car rentals? Entirely filled with counters selling SIM Cards. The people usually handing out fliers for restaurants at the stations? Handing out free SIMs. Having promised myself no mobile Internet on this trip I felt almost bad refusing.
 
