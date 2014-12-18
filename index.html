@@ -15,8 +15,11 @@ about: 'about.html'
             {% endif %}
             <h1 class="blog-title">{{ site.name}}</h1>
             <h2 class="blog-description"> 
-                {{ site.description }}. 
-                {% if page.about %} <a href='{{site.baseurl}}{{ page.about }}'> About me </a> {% endif %}
+               {{ site.description }}
+            </h2>
+            <h2 class="blog-description"> 
+                {% if page.about %} <a href='{{site.baseurl}}{{ page.about }}'> About me</a> {% endif %} 
+                <a target="_blank" href='https://leanpub.com/deploying_rails_applications'>Deploying Rails Book</a>
             </h2>
         </div>
     </div>
