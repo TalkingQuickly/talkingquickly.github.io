@@ -12,3 +12,8 @@ paginate: 15
 # Details for the RSS feed generator
 url:            'http://www.talkingquickly.co.uk'
 author:         'Ben Dixon'
+
+collections:
+  travel:
+    output: true
+    permalink: /travel/:path/
