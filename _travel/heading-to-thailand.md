@@ -26,7 +26,7 @@ In character it reminds me a lot of Shanghai but with much more outgoing people.
 
 In China when we chatted to our waitress or waiter in a restaurant, it was clear we were making them uncomfortable. Here our waitress joined us for drinks and later I was thoroughly beaten at pool by the owner of a local bar. We didn't understand each other much but concluded he was much better at pool than me (no words needed, I lost by seven balls) and that neither of us liked soccer.
 
-Music seems to be everywhere, there are whole streets of (admittedly quite touristy) bars with nothing but live music. This guy played what made be the best cover of "Dire Straights - Money For Nothing" I've ever heard.
+Music seems to be everywhere, there are whole streets of (admittedly quite touristy) bars with nothing but live music. This guy played what may be the best cover of "Dire Straights - Money For Nothing" I've ever heard.
 
 ![Man with Guitar](/assets/images/travel/heading-to-thailand/guitar.jpg)
 
