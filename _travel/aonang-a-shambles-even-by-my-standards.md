@@ -58,4 +58,4 @@ On the plus side, these guys live outside...
 
 ![Monkeys](/assets/images/travel/shambles-even-by-my-standards/monkeys.jpg)
 
-They've just switched off the power to the area - no electricity after 10pm - which I think is my queue to stop writing and work out how to put up a mosquito net.
+They've just switched off the power to the area - no electricity after 10pm - which I think is my cue to stop writing and work out how to put up a mosquito net.
