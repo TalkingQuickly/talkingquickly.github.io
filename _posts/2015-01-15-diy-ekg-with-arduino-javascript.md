@@ -93,7 +93,7 @@ Therefore to get the first channel we can simply call `byteArrayToLong([TXBuf[5]
 
 The app then uses [CanvasJS](http://canvasjs.com/) to chart the data in realtime. At the moment only one channel is displayed.
 
-Arguably the hardest part of this project was getting adequete contact between the electrodes and the skin. Another warning, connecting electrodes to yourself has the potential to result in electric shock or seizures, continue at your own risk.
+Arguably the hardest part of this project was getting adequate contact between the electrodes and the skin. Another warning, connecting electrodes to yourself has the potential to result in electric shock or seizures, continue at your own risk.
 
 The configuration which I've had the most success with is the L and R electrodes on the inside of my left and right wrists and the the D electrode on my ankle. I've found it's very important that the ones on the wrist are tight and that a small layer of shower gel helps to maintain a constant connection.
 
