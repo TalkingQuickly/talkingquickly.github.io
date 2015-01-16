@@ -25,7 +25,7 @@ The manual for the Olimex board is excellent and [available here](https://www.ol
 
 The Arduino sketch they provide is responsible for reading from the analogue inputs associated with the shield and then writing this data out to the Serial port. It's worth noting two things about the sketch:
 
-* The serial port is set to 57600bps no the usual 9600
+* The serial port is set to 57600bps not the usual 9600
 * The data is written in binary format rather than text so cannot be viewed using the standard Arduino Serial monitor
 
 The viewing software they provide is windows only and my end goal wasn't just to stream the data, it was to automate acquiring and analysing it. This meant writing my own.
@@ -38,9 +38,11 @@ This provides output which looks like this:
 
 <iframe width="560" height="315" src="//www.youtube.com/embed/Jv4F7q6xR8o" frameborder="0" allowfullscreen></iframe>
 
-To install the sketch to the Arduino clone the repository and then see the "Load the extension" section section of [this page](https://developer.chrome.com/extensions/getstarted).
+To install the app in Chrome, clone the repository and then see the "Load the extension" section section of [this page](https://developer.chrome.com/extensions/getstarted).
 
-The Arduino sketch sends a stream of bytes in the following format:
+Next install the sketch available here <https://github.com/TalkingQuickly/ekg-arduino-chrome-sketches> to the Arduino.
+
+The Arduino sketch sends packets of data as a stream of bytes in the following format:
 
 ```
 {
@@ -87,7 +89,7 @@ TXBuf[14] = 0x02;   //CH6 High Byte
 TXBuf[15] = 0x00;   //CH6 Low Byte 
 ```
 
-Therefor to get the first channel we can simply call `byteArrayToLong([TXBuf[5], TXBuff[4]])`, e.g. with the low byte first.
+Therefore to get the first channel we can simply call `byteArrayToLong([TXBuf[5], TXBuff[4]])`, e.g. with the low byte first.
 
 The app then uses [CanvasJS](http://canvasjs.com/) to chart the data in realtime. At the moment only one channel is displayed.
 
