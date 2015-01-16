@@ -102,5 +102,5 @@ The configuration which I've had the most success with is the L and R electrodes
 Next steps:
 
 * Automatic peak detection
-* Pulse Rate Calculation
+* Heart Rate Calculation
 * Heart Rate Variability Calculation
