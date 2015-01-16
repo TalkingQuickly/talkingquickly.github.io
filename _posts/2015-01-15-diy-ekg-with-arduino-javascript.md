@@ -104,3 +104,5 @@ Next steps:
 * Automatic peak detection
 * Heart Rate Calculation
 * Heart Rate Variability Calculation
+
+This presentation <http://www.slhn.org/docs/pdf/prehosp-drkasarda1.pdf> is useful for getting a feel for roughly how an EKG works and what each part of the waveform represents.
