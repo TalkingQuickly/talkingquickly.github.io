@@ -7,7 +7,7 @@ My name's Ben Dixon, I'm a senior developer focused on web application developme
 
 I'm the author of <a href="https://leanpub.com/deploying_rails_applications"
 target="_blank">Reliably Deploying Rails Applications</a> which covers how
-to deploy medium sized Rails Applications in an easy, scalable fashion.
+to deploy medium sized Rails Applications in an easy, scalable fashion and <a href="https://www.youtube.com/watch?v=hTofBnxyBUU" target="_blank">spoke at Railsconf 2014</a> on this topic.
 
 I work with the excellent Huw Walters and Rebecca Collins on <a href="http://www.makeitwithcode.com/" target="_blank">Make It With Code</a>, a project to help none developers to learn to <a href="/2014/01/teaching-people-to-code/" target="_blank">create useful things with code</a>.
 
