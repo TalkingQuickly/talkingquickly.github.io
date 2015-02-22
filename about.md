@@ -3,7 +3,7 @@ layout: page
 title: About me 
 ---
 
-My name's Ben Dixon, I'm a senior developer focused on web application development, I primarily create Ruby on Rails and Android applications. I also have experience of front-end development in both Backbone and Angular JS and infrastructure management with Chef and Docker.
+My name's Ben Dixon, I'm a senior developer focused on Ruby on Rails and Android applications. I also have experience of front-end development in both Backbone and Angular JS and infrastructure management with Chef and Docker.
 
 I'm the author of <a href="https://leanpub.com/deploying_rails_applications"
 target="_blank">Reliably Deploying Rails Applications</a> which covers how
@@ -15,4 +15,4 @@ I live in London but <a href="/travel/">love to travel</a>. I'm currently the ba
 
 Other projects include working as the software and embedded device developer behind the <a href="http://www.mousemet.com/" target="_blank">Mousemet Electronic Von Frey</a> and <a href="https://github.com/talkingquickly/dacker">Dacker</a>, an open source Docker orchestration tool written in Ruby.
 
-I'm sometimes available for short pieces of contract development or devops work and always interested in chatting to new people. You can find me on twitter as <ahref="http://www.twitter.com/talkingquickly"target="_blank">@talkingquickly</a> or by emailing<a href="mailto:ben@talkingquickly.co.uk" >ben@talkingquickly.co.uk</a>.
+I'm sometimes available for short pieces of contract development or devops work and always interested in chatting to new people. You can find me on twitter as <a href="http://www.twitter.com/talkingquickly"target="_blank">@talkingquickly</a> or by emailing <a href="mailto:ben@talkingquickly.co.uk">ben@talkingquickly.co.uk</a>.
