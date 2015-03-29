@@ -43,7 +43,7 @@ The above task should be added to `lib/capistrano/tasks/logs.cap` and
 can be invoked with:
 
 ``` bash
-cap production logging:tail_rails
+cap production logs:tail_rails
 ```
 
 And stopped with `ctrl c`.
