@@ -1,9 +1,10 @@
 ---
 layout : post
 title: "Heading To Thailand"
-date: 2014-18-10 12:00:00
+date: 2014-10-18 12:00:00
 categories: travel
 biofooter: true
+excerpt: "Somehow my worldly possessions have been reduced to an amount which fits in the backpack I normally carry to work and going by the number of people laughing at the way I eat noodles, I appear to have made it to Bangkok."
 ---
 
 Somehow my worldly possessions have been reduced to an amount which fits in the backpack I normally carry to work and going by the number of people laughing at the way I eat noodles, I appear to have made it to Bangkok.

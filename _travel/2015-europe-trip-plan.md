@@ -1,8 +1,27 @@
+---
+layout : post
+title: "2015 Europe Trip - Planning"
+date: 2015-03-23 12:00:00
+categories: travel
+biofooter: true
+excerpt: "My approach to travel thus far has been quite simple. Arrive, find things thing to do. Repeat. Flawless and well designed as this process may seem, it can - on occassion - lead to missing things or nearly having to sleep on a beach in the rain. This summers trip to Europe will have a little bit more of a plan. As the more astute among you may have realised, this post is that plan."
+---
+
 My approach to travel thus far has been quite simple. Arrive, find things thing to do. Repeat. Flawless and well designed as this process may seem, it can - on occassion - lead to missing things or nearly having to sleep on a beach in the rain. This summers trip to Europe will have a little bit more of a plan. As the more astute among you may have realised, this post is that plan.
+
+<!--more--> 
 
 This trip is loosely organised around European cities which have some sort of a startup scene. I'll be working while I travel so it's essential that every one has well established co-working space. I'll be relying heavily on the amazing [Copass](https://copass.org/) for finding these.
 
 The dates and schedule below will almost certainly fall apart within the first week. But the aim is to have a rough framework rather than a day by day plan.
+
+For anyone hoping for another dose of sarcasm like [when it all went wrong in Thailand](/travel/aonang-a-shambles-even-by-my-standards/), you might find this one a little dry. Normal service will be resumed shortly!
+
+The overall trip looks something like this:
+
+<div style="position: relative;margin: 5px 0 5px 0;padding-bottom: 56.25%;height: 0;clear: both;"><iframe style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;border: 0;" src="http://www.tripline.net/map?tripId=34625237445010109FD3FB4EE832962B&onSite=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
+
+<br/>
 
 # Amsterdam
 
@@ -28,13 +47,15 @@ There's also [Knowmads Greenhouse](http://www.knowmads.nl/business-partners/gree
 
 ## Eating
 
-Raw Herring - I'm told there are food carts selling it everywhere but somehow I've never seen it before. Potentially my mind has carefully blocked prevented me from seeing them. Not this time.
+Raw Herring - I'm told there are food carts selling it everywhere but somehow I've never seen it before. Potentially my mind has carefully prevented me from seeing them. Not this time.
 
 ## Sleeping
 
 [St Christophers Inn - The Winston](http://www.hostelbookers.com/property/prp/6504/arr/2015-05-06/ngt/2/ppl/1/) is centrally located and the clear winner on Hostel Bookers. Prices range from EUR37 - EUR50 for dorm rooms which is high but Amsterdam was always going to be expensive. Includes Wifi and Breakfast.
 
 [Stayokay Vondelpark](http://www.hostelbookers.com/property/prp/3445/arr/2015-05-06/ngt/2/ppl/1/) is a close second and located right next to Vondelpark and the museum district. Comes in at around EUR35 and includes breakfast, Wifi and a walking tour.
+
+[The Flying Pig](http://www.flyingpig.nl/) comes highly recommended by Nomadic [Nomadic Matt](http://www.nomadicmatt.com/) as does [The Bulldog Hotel](http://www.bulldoghotel.com/).
 
 # Berlin
 
@@ -46,9 +67,9 @@ Eurolines from Amsterdam around 1st/ 2nd of May. Busses leave Amsterdam at 11:15
 
 [Museum Island](http://www.visitberlin.de/en/spot/museum-island) - on the northern tip of Spree Island and home to five major museums. Most interesting seems to be Pergamonmuseum.
 
-The roof of [The Reichstag](http://www.timeout.com/berlin/en/attractions/reichstag) (home of the German parliment) which gives impressive views over Berlin. Can get an audio tour which explains the important bits of the skyline. Free to go up but have to [book in advance](http://www.bundestag.de/htdocs_e/visits/kuppel/kupp/245686).
+The roof of [The Reichstag](http://www.timeout.com/berlin/en/attractions/reichstag) (home of the German parliment) which gives impressive views over Berlin. There's an audio tour which explains the important bits of the skyline. Free to go up but have to [book in advance](http://www.bundestag.de/htdocs_e/visits/kuppel/kupp/245686).
 
-[Walk The Berlin Wall](http://www.timeout.com/berlin/en/attractions-and-museums/walk-the-wall-with-time-out-berlin) Timeout guide covers both the parts which remain, the related artwork and the grafiti.
+[Walk The Berlin Wall](http://www.timeout.com/berlin/en/attractions-and-museums/walk-the-wall-with-time-out-berlin) Timeout guide covers both the parts which remain, the related artwork and grafiti.
 
 ## Working and Startups
 
@@ -59,6 +80,8 @@ The roof of [The Reichstag](http://www.timeout.com/berlin/en/attractions/reichst
 The [St Christophers Inn](http://www.hostelbookers.com/property/prp/6579/arr/2015-05-02/ngt/4/ppl/1/) looks promising. Around the EUR23 mark including breakfast.
 
 [ONE80 Hostel](http://www.hostelbookers.com/property/prp/79738/arr/2015-05-02/ngt/4/ppl/1/) comes in a close second. Around EUR25 excluding meals.
+
+[Wombats](http://www.wombats-hostels.com/berlin/) also comes highly recommended and is only around EUR20.
 
 # Prague
 
@@ -100,7 +123,7 @@ Eurolines, Saturday 9th. Leaving 07:00 arriving Budapest at 14:30. Or 15:00 -> 2
 
 A boat trip along the Dabube at night, apparently one of the best ways to see and photograph some of the amazing panoramas the city has to offer.
 
-Climb [Gellert Hill](http://welovebudapest.com/budapest.and.hungary/sights.1/gellert.hill) because walking is fun and great views are fun.
+Climb [Gellert Hill](http://welovebudapest.com/budapest.and.hungary/sights.1/gellert.hill). Because walking and great views are fun.
 
 ## Working
 
@@ -110,3 +133,44 @@ Climb [Gellert Hill](http://welovebudapest.com/budapest.and.hungary/sights.1/gel
 
 ## Sleeping
 
+[Home Plus Hostel](http://www.hostelbookers.com/propertyreviews/prp/29071/arr/2015-05-09/ngt/6/ppl/1/) offers free dinners three times a week. Which is hard to beat.
+
+[Astoria City Hostel](http://www.hostelbookers.com/propertyreviews/prp/4308/arr/2015-05-09/ngt/6/ppl/1/) has impressive reviews and most importantly a kitchen. By this point there's a good chance I'll be missing cooking for myself.
+
+[Aboriginal](http://www.tripadvisor.co.uk/Hotel_Review-g274887-d577388-Reviews-Aboriginal_Hostel-Budapest_Central_Hungary.html) is meant to have an amazing atmosphere. 
+
+# Sofia
+
+## Arriving
+
+Eurolines from Budapest to Sofia, 12 hours leaving at 6pm, arriving 6am on the 14th. About GBP30. 
+
+## Visiting
+
+The [Free Sofia Walking Tour](http://freesofiatour.com/) one of the only cities I've come across which has free walking tours run by a well regarded none profit.
+
+The [Museum of Socialist Art](http://nationalartgallerybg.org/index.php?l=4) contains primarily art from 1944 to 1989 but I'm most interested in the black and white propoganda shorts.
+
+## Working
+
+[Betahouse](http://www.betahaus.bg/en/) ([copass](https://copass.org/cospaces/betahaus-sofia)) looks promising. One of a larger network with spaces in Berlin, Hamburg and Cologne.
+
+## Sleeping
+
+[Hostel Mostel](http://www.hostelbookers.com/property/prp/4402/arr/2015-05-14/ngt/3/ppl/1/) has exceptionally good reviews and looks to be very reasonably priced, around EUR6 - EUR11 per night. It's also recommended as one of Nomadic Matts favourite hostels, apparently booking well in advance is recommended.
+
+# Bucharest
+
+## Arriving
+
+17th or 18th of May, probably via train as there doesn't seem to be a Eurolines service between Sofia and Bucharest. Train appears to take a bit under 10 hours and cost around GBP10.
+
+## Visiting
+
+The [Palace of Parliament](http://en.wikipedia.org/wiki/Palace_of_the_Parliament) is the 
+
+# Talin
+
+## Sleeping
+
+[Tallin Backpackers](http://www.tallinnbackpackers.com/) ([hostel bookers](http://www.hostelbookers.com/hostels/estonia/tallinn/31456/)) is recommended by Nomadic Matt. [Euphoria](http://euphoria.traveller.ee/) also looks promising for a more relaxed stay.
