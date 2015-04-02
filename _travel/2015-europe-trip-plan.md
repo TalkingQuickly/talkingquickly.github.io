@@ -165,7 +165,7 @@ The [Museum of Socialist Art](http://nationalartgallerybg.org/index.php?l=4) con
 
 ## Arriving
 
-17th or 18th of May, probably via train as there doesn't seem to be a Eurolines service between Sofia and Bucharest. Train appears to take a bit under 10 hours and cost around GBP10.
+18th of May, probably via train as there doesn't seem to be a Eurolines service between Sofia and Bucharest. Train appears to take a bit under 10 hours and cost around GBP10.
 
 ## Visiting
 
@@ -185,7 +185,17 @@ The [Romanian Atheneum](http://en.wikipedia.org/wiki/Romanian_Athenaeum) is a co
 
 # Warsaw
 
+[This site](http://www.warsawtour.pl/en/tourist-attractions/top-10-3930.html) is useful for choosing things to do.
 
+## Arriving
+
+Probably the 22nd
+
+## Seeing
+
+[Łazienki Królewskie Museum](http://www.warsawtour.pl/en/tourist-attractions/azienki-kr-lewskie-museum-muzeum-azienki-kr-lewskie-3347.html)
+
+## Sleeping
 
 # Talin
 
