@@ -9,8 +9,6 @@ excerpt: "My approach to travel thus far has been quite simple. Arrive, find thi
 
 My approach to travel thus far has been quite simple. Arrive, find things thing to do. Repeat. Flawless and well designed as this process may seem, it can - on occassion - lead to missing things or nearly having to sleep on a beach in the rain. This summers trip to Europe will have a little bit more of a plan. As the more astute among you may have realised, this post is that plan.
 
-<!--more--> 
-
 This trip is loosely organised around European cities which have some sort of a startup scene. I'll be working while I travel so it's essential that every one has well established co-working space. I'll be relying heavily on the amazing [Copass](https://copass.org/) for finding these.
 
 The dates and schedule below will almost certainly fall apart within the first week. But the aim is to have a rough framework rather than a day by day plan.
@@ -22,6 +20,8 @@ The overall trip looks something like this:
 <div style="position: relative;margin: 5px 0 5px 0;padding-bottom: 56.25%;height: 0;clear: both;"><iframe style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;border: 0;" src="http://www.tripline.net/map?tripId=34625237445010109FD3FB4EE832962B&onSite=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
 
 <br/>
+
+With - I imagine - a sprinkling of random destinations in between.
 
 # Amsterdam
 
@@ -161,13 +161,31 @@ The [Museum of Socialist Art](http://nationalartgallerybg.org/index.php?l=4) con
 
 # Bucharest
 
+[This website](http://www.virtualromania.org/places/bucharest.vr/places.vr/) has been useful for deciding what to do.
+
 ## Arriving
 
 17th or 18th of May, probably via train as there doesn't seem to be a Eurolines service between Sofia and Bucharest. Train appears to take a bit under 10 hours and cost around GBP10.
 
 ## Visiting
 
-The [Palace of Parliament](http://en.wikipedia.org/wiki/Palace_of_the_Parliament) is the 
+The [Palace of Parliament](http://en.wikipedia.org/wiki/Palace_of_the_Parliament) is the largest government building in the world and the second largest building in the world after the Pentagon. As anyone who ever watched the masterpiece that was "big, bigger, biggest" knows, bis stuff is cool.
+
+The [Romanian Atheneum](http://en.wikipedia.org/wiki/Romanian_Athenaeum) is a concert hall in the center of Bucharest, performances are on the 21st and 22nd, tickets are available [here](http://fge.org.ro/ro/component/jevents/day.listevents/2015/05/21/-.html)
+
+[The Village Museum](http://en.wikipedia.org/wiki/Dimitrie_Gusti_National_Village_Museum) is an open air museum containing several hundred wooden houses, windmills, churches and the like. Apparently many of the buildings are genuine and were taken to the museum in pieces and re-assembled.
+
+[Cișmigiu Gardens](http://en.wikipedia.org/wiki/Ci%C8%99migiu_Gardens) - a park in the center of Bucharest. All parks must be visited.
+
+## Sleeping
+
+[Antique Hostel](http://www.hostelbookers.com/property/prp/85694/arr/2015-05-18/ngt/2/ppl/1/) looks promising and comes in at a bargain EUR10/ night including breakfast. Looks like the right choice if aiming for relaxation.
+
+[X Hostel](http://www.hostelbookers.com/property/prp/74966/arr/2015-05-18/ngt/2/ppl/1/) may however win because it has "Escape Room" games for free. Several friends have tried this in London, you have an hour to escape from a room through a combination of gadgets, riddles and puzzles. Sounds like more of a party hostel.
+
+# Warsaw
+
+
 
 # Talin
 
