@@ -15,7 +15,7 @@ This is, in no particular order, what I'd tell myself about startups if I could 
 
 1. Always refuse if someone asks you to sign an NDA before hearing their idea
 
-1. Like it or not, most networking in London is focussed around drinking. Find a way to deal with that without having a constant hangover
+1. Like it or not, most networking in London is focused around drinking. Find a way to deal with that without having a constant hangover
 
 1. The people who are really getting somewhere aren't the people who are always out for drinks
 
@@ -69,15 +69,19 @@ This is, in no particular order, what I'd tell myself about startups if I could 
 
 1. The people you end up wanting to work with (and help) are the ones who always try and work out how they can help you. Be more like them
 
+1. But get really good at asking for things. Most people will give you a discount for no reason other than you asked. If you see someone important and influential, introduce yourself
+
+1. Get good at saying no to things, from people asking you for discounts to interesting projects you really don't have enough time for
+
 1. Think hard about a pivot which makes good business sense but leads to a product you no longer care about
 
-1. Writing (blogging, books, journalling) is a really positive experience
+1. Writing (blogging, books, journaling) is a really positive experience
 
 1. Don't pay too much attention to internet comments about something you've written, there's always someone who didn't like one particular sentence (see point about trolls below)
 
 1. One troll can wipe out a hundred positive interactions, be ruthless in keeping them out of your communities
 
-1. If you're at a hybred networking/ drinks event and end up pitching to someone, ask to hear their pitch afterwards
+1. If you end up pitching to someone over coffee, ask to hear their pitch afterwards
 
 1. Only say you're going to introduce someone or send them something if you're actually going to do it. People quickly get a reputation for never following through
 
@@ -97,7 +101,7 @@ This is, in no particular order, what I'd tell myself about startups if I could 
 
 1. It's really easy to automatically dismiss everyone who starts a conversation with "I'm looking for a technical co-founder". Doing this means you miss talking to some interesting people. But be upfront that you're not that co-founder so no-one feels like their time is wasted
 
-1. Trying to raise money and apply to accelerators is a full time job. You're probably either building or fundraising. Not both. If in doubt, choose building
+1. Trying to raise money and apply to accelerators is a full time job. You're probably either building or fund raising. Not both. If in doubt, choose building
 
 1. The solution to many, many problems, is not technical. That won't stop people trying solve them with apps
 
@@ -107,7 +111,7 @@ This is, in no particular order, what I'd tell myself about startups if I could 
 
 1. If there are people who genuinely like failing, I've never met them
 
-1. That was not "your idea" unless you shipped something, otherwise I invented Facebook, Nest and Occulus Rift
+1. That was not "your idea" unless you shipped something, otherwise I invented Facebook, Nest and Oculus Rift
 
 1. People don't steal ideas. Tell as many people as possible. Never ask someone to sign an NDA before hearing your idea, you'll instantly lose all credibility
 
@@ -115,7 +119,11 @@ This is, in no particular order, what I'd tell myself about startups if I could 
 
 1. Small teams can move VERY fast, be really careful getting extra people involved in any project where agility is important
 
+1. Multi-tasking isn't a thing, switching costs are huge, do one thing at a time and do it really well. Find a way to block out interruptions 
+
 1. Read every [essay](http://www.paulgraham.com/articles.html) Paul Graham has written
+
+1. Tech news (and news is general) is a very low return on time invested. Prefer books and conversations
 
 1. Read [Founders Stories](http://www.amazon.co.uk/Founders-Work-Stories-Startups-Problem-Solution/dp/1430210788), [Fooled By Randomness](http://www.amazon.co.uk/Fooled-Randomness-Hidden-Chance-Markets-ebook/dp/B002RI9BH6/) and [The Four Steps to the Ephiphany](http://www.amazon.co.uk/Four-Steps-Epiphany-Steve-Blank-ebook/dp/B00FLZKNUQ/)
 
