@@ -27,7 +27,7 @@ This is, in no particular order, what I'd tell myself about startups if I could 
 
 1. Everyone has a hidden stash of domains they've never used
 
-1. It's really easy to become hyper-critical and respond to every idea with "yeah but that won't work because of x"
+1. It's really easy to become hyper-critical and respond to every idea with "yeah but that won't work because of x". This is lazy, don't do it.
 
 1. Be especially careful to avoid the above when talking to people who are new to the scene. Call out other people who do it
 
@@ -89,7 +89,7 @@ This is, in no particular order, what I'd tell myself about startups if I could 
 
 1. Building things is awesome, don't get too caught up with the whole "Lean Startup Landing Page" mindset
 
-1. Lean Startup is awesome, but it's a pamphlet not a book, read the first few chapters and you'll get the idea. Four steps to a the epiphany is more technical and probably a better book
+1. Lean Startup is awesome, but it's a pamphlet not a book, read the first few chapters and you'll get the idea. Four steps to the epiphany is more technical and probably a better book
 
 1. Most startup advice is terrible and the good advice is usually obvious. Everyone will give different advice, trust your gut
 
@@ -123,7 +123,7 @@ This is, in no particular order, what I'd tell myself about startups if I could 
 
 1. Read every [essay](http://www.paulgraham.com/articles.html) Paul Graham has written
 
-1. Tech news (and news is general) is a very low return on time invested. Prefer books and conversations
+1. Tech news (and news is general) has a very low return on time invested. Prefer books and conversations
 
 1. Read [Founders Stories](http://www.amazon.co.uk/Founders-Work-Stories-Startups-Problem-Solution/dp/1430210788), [Fooled By Randomness](http://www.amazon.co.uk/Fooled-Randomness-Hidden-Chance-Markets-ebook/dp/B002RI9BH6/) and [The Four Steps to the Ephiphany](http://www.amazon.co.uk/Four-Steps-Epiphany-Steve-Blank-ebook/dp/B00FLZKNUQ/)
 
