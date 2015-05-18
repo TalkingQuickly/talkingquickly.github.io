@@ -13,7 +13,7 @@ This trip is loosely organised around European cities which have some sort of a 
 
 The dates and schedule below will almost certainly fall apart within the first week. But the aim is to have a rough framework rather than a day by day plan.
 
-For anyone hoping for another dose of sarcasm like [when it all went wrong in Thailand](/travel/aonang-a-shambles-even-by-my-standards/), you might find this one a little dry. Normal service will be resumed shortly!
+For anyone hoping for another dose of sarcasm like [when it all went wrong in Thailand](/travel/aonang-a-shambles-even-by-my-standards/), you might find this one a little dry. Normal service will be resumed shortly.
 
 The overall trip looks something like this:
 
@@ -23,11 +23,86 @@ The overall trip looks something like this:
 
 With - I imagine - a sprinkling of random destinations in between.
 
+Dates (subject to constant change) are something like:
+
+<table>
+	<tr>
+		<td>
+			Amsterdam, Netherlands
+		</td>
+		<td>
+			21st - 22nd May
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Berlin, Germany
+		</td>
+		<td>
+			22nd - 27th May
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Prague, Czech Republic
+		</td>
+		<td>
+			28th May - 4th June (TBC)
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Budapest, Hungary
+		</td>
+		<td>
+			~ 4th - 10th June
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Sofia, Bulgaria
+		</td>
+		<td>
+			TBC
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Bucharest, Romania
+		</td>
+		<td>
+			TBC
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Warsaw, Poland
+		</td>
+		<td>
+			TBC
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Riga, Latvia
+		</td>
+		<td>
+			TBC
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Tallinn, Estonia
+		</td>
+		<td>
+			TBC
+		</td>
+	</tr>
+</table>
+
 # Amsterdam
 
 ## Arriving
-
-28th of April from London, staying for around three days.
 
 The trusty Eurolines overnight bus from London comes it at around £30, takes just 11 hours and can't be beaten. There's nothing quite like listening to a stag party singing football chants to lull you to sleep.
 
@@ -61,7 +136,7 @@ Raw Herring - I'm told there are food carts selling it everywhere but somehow I'
 
 ## Arriving
 
-Eurolines from Amsterdam around 1st/ 2nd of May. Busses leave Amsterdam at 11:15pm every night, cost around EUR37 and arrive in Berlin at 9:15AM the following morning. Alternatively there are Easyjet flights for around double that.
+Busses leave Amsterdam at 11:15pm every night, cost around EUR37 and arrive in Berlin at 9:15AM the following morning. Alternatively there are Easyjet flights for around double that.
 
 ## Visiting
 
@@ -89,7 +164,7 @@ A city I've been to once on a week long holiday but my primary momentos of it ar
 
 ## Arriving
 
-Eurolines, Wednesday 6th from Berlin, takes 4:30. Either leaving Berlin at 15:00, arriving 19:30 or leaving 19:00, arriving 23:30. There's also 7:30 arriving 12:00. Around EUR20. 
+From Berlin, it takes around 4:30. Either leaving Berlin at 15:00, arriving 19:30 or leaving 19:00, arriving 23:30. There's also 7:30 arriving 12:00. Around EUR20. 
 
 ## Visiting
 
@@ -111,7 +186,7 @@ Piano aside, the [Old Prague Hostel](http://www.hostelbookers.com/propertyreview
 
 ## Arriving
 
-Eurolines, Saturday 9th. Leaving 07:00 arriving Budapest at 14:30. Or 15:00 -> 22:30. About GBP10.
+Leaving 07:00 arriving Budapest at 14:30. Or 15:00 -> 22:30. About GBP10.
 
 ## Visiting
 
@@ -165,11 +240,11 @@ The [Museum of Socialist Art](http://nationalartgallerybg.org/index.php?l=4) con
 
 ## Arriving
 
-18th of May, probably via train as there doesn't seem to be a Eurolines service between Sofia and Bucharest. Train appears to take a bit under 10 hours and cost around GBP10.
+Probably via train as there doesn't seem to be a Eurolines service between Sofia and Bucharest. Train appears to take a bit under 10 hours and cost around GBP10.
 
 ## Visiting
 
-The [Palace of Parliament](http://en.wikipedia.org/wiki/Palace_of_the_Parliament) is the largest government building in the world and the second largest building in the world after the Pentagon. As anyone who ever watched the masterpiece that was "big, bigger, biggest" knows, bis stuff is cool.
+The [Palace of Parliament](http://en.wikipedia.org/wiki/Palace_of_the_Parliament) is the largest government building in the world and the second largest building in the world after the Pentagon. As anyone who ever watched the masterpiece that was "big, bigger, biggest" knows, big stuff is cool.
 
 The [Romanian Atheneum](http://en.wikipedia.org/wiki/Romanian_Athenaeum) is a concert hall in the center of Bucharest, performances are on the 21st and 22nd, tickets are available [here](http://fge.org.ro/ro/component/jevents/day.listevents/2015/05/21/-.html)
 
@@ -189,7 +264,7 @@ The [Romanian Atheneum](http://en.wikipedia.org/wiki/Romanian_Athenaeum) is a co
 
 ## Arriving
 
-Probably the 22nd
+
 
 ## Seeing
 
