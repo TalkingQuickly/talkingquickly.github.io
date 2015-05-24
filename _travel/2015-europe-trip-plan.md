@@ -13,7 +13,7 @@ Destinations have been loosely chosen based on European cities which have some s
 
 The dates and schedule below will almost certainly fall apart within the first week. But the aim is to have a rough framework rather than a day by day plan.
 
-For anyone hoping for another dose of sarcasm like [when it all went wrong in Thailand](/travel/aonang-a-shambles-even-by-my-standards/), you might find this one a little dry. Normal service will be resumed shortly.
+For anyone hoping for another dose of sarcasm like [when it all went wrong in Thailand](/travel/aonang-a-shambles-even-by-my-standards/), you might find this one a little dry - it's more of something for me to refer to than a blog post. Normal service will be resumed shortly.
 
 The overall trip looks something like this:
 
@@ -28,7 +28,7 @@ Dates (subject to constant change) are something like:
 <table>
 	<tr>
 		<td>
-			Amsterdam, Netherlands
+			<a href="#amsterdam">Amsterdam, Netherlands</a>
 		</td>
 		<td>
 			25th - 27th May
@@ -38,7 +38,7 @@ Dates (subject to constant change) are something like:
 	</tr>
 	<tr>
 		<td>
-			Prague, Czech Republic
+			<a href="#prague">Prague, Czech Republic</a>
 		</td>
 		<td>
 			28th May - 4th June (TBC)
@@ -46,7 +46,7 @@ Dates (subject to constant change) are something like:
 	</tr>
 	<tr>
 		<td>
-			Budapest, Hungary
+			<a href="#budapest">Budapest, Hungary</a>
 		</td>
 		<td>
 			~ 4th - 10th June
@@ -54,7 +54,7 @@ Dates (subject to constant change) are something like:
 	</tr>
 	<tr>
 		<td>
-			Sofia, Bulgaria
+			<a href="#sofia">Sofia, Bulgaria</a>
 		</td>
 		<td>
 			TBC
@@ -62,7 +62,7 @@ Dates (subject to constant change) are something like:
 	</tr>
 	<tr>
 		<td>
-			Bucharest, Romania
+			<a href="#bucharest">Bucharest, Romania</a>
 		</td>
 		<td>
 			TBC
@@ -70,7 +70,7 @@ Dates (subject to constant change) are something like:
 	</tr>
 	<tr>
 		<td>
-			Warsaw, Poland
+			<a href="#warsaw">Warsaw, Poland</a>
 		</td>
 		<td>
 			TBC
@@ -78,7 +78,7 @@ Dates (subject to constant change) are something like:
 	</tr>
 	<tr>
 		<td>
-			Riga, Latvia
+			<a href="#riga">Riga, Latvia</a>
 		</td>
 		<td>
 			TBC
@@ -86,7 +86,7 @@ Dates (subject to constant change) are something like:
 	</tr>
 	<tr>
 		<td>
-			Tallinn, Estonia
+			<a href="#tallinn">Tallinn, Estonia</a>
 		</td>
 		<td>
 			TBC
@@ -94,7 +94,8 @@ Dates (subject to constant change) are something like:
 	</tr>
 </table>
 
-# Amsterdam
+<a name="amsterdam"></a> 
+# Amsterdam (Netherlands)
 
 ## Arriving
 
@@ -126,7 +127,8 @@ Raw Herring - I'm told there are food carts selling it everywhere but somehow I'
 
 [The Flying Pig](http://www.flyingpig.nl/); suggested by the awesome [Old White Wizard](https://twitter.com/oldwhitewizard) also comes highly recommended by [Nomadic Matt](http://www.nomadicmatt.com/) as does [The Bulldog Hotel](http://www.bulldoghotel.com/).
 
-# Prague
+<a name="prague"></a> 
+# Prague (Czech Republic)
 
 A city I've been to once on a week long holiday but my primary momentos of it are bar crawl tshirts. I'm told there's some culture there as well.
 
@@ -158,7 +160,8 @@ The [Hostel Downtown](http://www.hostelbookers.com/property/prp/20239/arr/2015-0
 
 Piano aside, the [Old Prague Hostel](http://www.hostelbookers.com/propertyreviews/prp/5256/arr/2015-05-06/ngt/3/ppl/1/) apparently provides unlimited sandwiches and is only EUR17/ night. A tough choice to be made nearer the time.
 
-# Budapest
+<a name="budapest"></a> 
+# Budapest (Hungary)
 
 ## Arriving
 
@@ -190,7 +193,8 @@ Climb [Gellert Hill](http://welovebudapest.com/budapest.and.hungary/sights.1/gel
 
 [Aboriginal](http://www.tripadvisor.co.uk/Hotel_Review-g274887-d577388-Reviews-Aboriginal_Hostel-Budapest_Central_Hungary.html) is meant to have an amazing atmosphere. 
 
-# Sofia
+<a name="sofia"></a> 
+# Sofia (Bulgaria)
 
 ## Arriving
 
@@ -210,6 +214,7 @@ The [Museum of Socialist Art](http://nationalartgallerybg.org/index.php?l=4) con
 
 [Hostel Mostel](http://www.hostelbookers.com/property/prp/4402/arr/2015-05-14/ngt/3/ppl/1/) has exceptionally good reviews and looks to be very reasonably priced, around EUR6 - EUR11 per night. It's also recommended as one of Nomadic Matts favourite hostels, apparently booking well in advance is recommended.
 
+<a name="bucharest"></a> 
 # Bucharest (Romania)
 
 [This website](http://www.virtualromania.org/places/bucharest.vr/places.vr/) has been useful for deciding what to do.
@@ -234,7 +239,8 @@ The [Romanian Atheneum](http://en.wikipedia.org/wiki/Romanian_Athenaeum) is a co
 
 [X Hostel](http://www.hostelbookers.com/property/prp/74966/arr/2015-05-18/ngt/2/ppl/1/) More of a party hostel. May win because it has "Escape Room" games for free. Several friends have tried this in London, you have an hour to escape from a room through a combination of gadgets, riddles and puzzles. Unclear exactly what happens if you fail to escape within the allotted hour. I'm envisaging a Star Wars esque trash compactor scenario.
 
-# Warsaw
+<a name="warsaw"></a> 
+# Warsaw (Poland)
 
 [This site](http://www.warsawtour.pl/en/tourist-attractions/top-10-3930.html) is useful for choosing things to do.
 
@@ -245,8 +251,6 @@ Absolutely no idea, there's no practical way to go directly from Bucharest to Wa
 Alternatively could return to Budapest which is more of a hub and work it out from there. Because planning.
 
 ## Visiting
-
-
 
 The [Łazienki Królewskie Museum](http://www.warsawtour.pl/en/tourist-attractions/azienki-kr-lewskie-museum-muzeum-azienki-kr-lewskie-3347.html) and [Łazienki Królewskie Park-Palace Complex](http://www.warsawtour.pl/en/tourist-attractions/azienki-kr-lewskie-museum-muzeum-azienki-kr-lewskie-3347.html) is a complex of parks and palaces. One of those "great if it's sunny" type attractions.
 
@@ -268,7 +272,8 @@ The [Okidoki Hostel](http://www.hostelbookers.com/property/prp/4311/arr/2015-06-
 
 [Tatamka Hostel](http://www.hostelbookers.com/property/prp/6037/arr/2015-06-17/ngt/3/ppl/1/#fullOverview) looks a bit quieter and has kitchen, outdoor area and barbeque. Also comes in at around EUR14/ night.
 
-# Riga 
+<a name="riga"></a> 
+# Riga (Latvia)
 
 ## Arriving
 
@@ -296,15 +301,16 @@ My home in London (Techhub) has an [office in Riga](https://riga.techhub.com/), 
 
 [Seagulls Garret Hostel](http://www.hostelbookers.com/property/prp/97531/arr/2015-06-17/ngt/2/ppl/1/) also looks promising and is a much easier 9EUR/ night.
 
-# Talin
+<a name="tallinn"></a> 
+# Tallinn (Estonia)
 
 ## Arriving
 
-And we're back in the game (of getting buses everywhere that is). [Lux Express](http://www.luxexpress.eu/en/tallinn-riga) takes 4 and a half hours to get from Riga to Talin, it only costs EUR16 and there are several per day. Luxury.
+And we're back in the game (of getting buses everywhere that is). [Lux Express](http://www.luxexpress.eu/en/tallinn-riga) takes 4 and a half hours to get from Riga to Tallinn, it only costs EUR16 and there are several per day. Luxury.
 
 ## Seeing
 
-My Talin expert is the awesome [@GPat_Uk](https://twitter.com/GPat_UK) who suggests:
+My Tallinn expert is the awesome [@GPat_Uk](https://twitter.com/GPat_UK) who suggests:
 
 For dinner - the Nordic hotel has the most ridiculous food. Like Michelin-star esque and not very expensive.
 
