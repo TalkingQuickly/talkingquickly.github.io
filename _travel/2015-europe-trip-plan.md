@@ -331,3 +331,5 @@ Make sure to drink a millimailakas
 [Tallin Backpackers](http://www.tallinnbackpackers.com/) ([hostel bookers](http://www.hostelbookers.com/hostels/estonia/tallinn/31456/)) is recommended by Nomadic Matt.
 
 [Euphoria](http://euphoria.traveller.ee/) also looks promising for a more relaxed stay.
+
+{% include travel_signup.html %}
