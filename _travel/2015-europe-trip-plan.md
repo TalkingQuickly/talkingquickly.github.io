@@ -7,9 +7,9 @@ biofooter: true
 excerpt: "My approach to travel thus far has been quite simple. Arrive, find things thing to do. Repeat. Flawless and well designed as this process may seem, it can - on occassion - lead to missing things or nearly having to sleep on a beach in the rain. This summers trip to Europe will have a little bit more of a plan. As the more astute among you may have realised, this post is that plan."
 ---
 
-My approach to travel thus far has been quite simple. Arrive, find things thing to do. Repeat. Flawless and well designed as this process may seem, it can - on occassion - lead to missing things or nearly having to sleep on a beach in the rain. This summers trip to Europe will have a little bit more of a plan. As the more astute among you may have realised, this post is that plan.
+My approach to travel thus far has been quite simple. Arrive, find things thing to do. Repeat. Flawless and well designed as this process may seem, it can - on occassion - lead to missing things or [nearly having to sleep on a beach in the rain](/travel/aonang-a-shambles-even-by-my-standards/). This summers trip to Europe will have a little bit more of a plan. As the more astute among you may have realised, this post is that plan.
 
-This trip is loosely organised around European cities which have some sort of a startup scene. I'll be working while I travel so it's essential that every one has well established co-working space. I'll be relying heavily on the amazing [Copass](https://copass.org/) for finding these.
+Destinations have been loosely chosen based on European cities which have some sort of a startup scene. I'll be working while I travel so it's essential that every one has well established co-working space. I'll be relying heavily on the amazing [Copass](https://copass.org/) for finding these.
 
 The dates and schedule below will almost certainly fall apart within the first week. But the aim is to have a rough framework rather than a day by day plan.
 
@@ -31,16 +31,10 @@ Dates (subject to constant change) are something like:
 			Amsterdam, Netherlands
 		</td>
 		<td>
-			21st - 22nd May
+			25th - 27th May
 		</td>
 	</tr>
 	<tr>
-		<td>
-			Berlin, Germany
-		</td>
-		<td>
-			22nd - 27th May
-		</td>
 	</tr>
 	<tr>
 		<td>
@@ -130,33 +124,7 @@ Raw Herring - I'm told there are food carts selling it everywhere but somehow I'
 
 [Stayokay Vondelpark](http://www.hostelbookers.com/property/prp/3445/arr/2015-05-06/ngt/2/ppl/1/) is a close second and located right next to Vondelpark and the museum district. Comes in at around EUR35 and includes breakfast, Wifi and a walking tour.
 
-[The Flying Pig](http://www.flyingpig.nl/) comes highly recommended by Nomadic [Nomadic Matt](http://www.nomadicmatt.com/) as does [The Bulldog Hotel](http://www.bulldoghotel.com/).
-
-# Berlin
-
-## Arriving
-
-Busses leave Amsterdam at 11:15pm every night, cost around EUR37 and arrive in Berlin at 9:15AM the following morning. Alternatively there are Easyjet flights for around double that.
-
-## Visiting
-
-[Museum Island](http://www.visitberlin.de/en/spot/museum-island) - on the northern tip of Spree Island and home to five major museums. Most interesting seems to be Pergamonmuseum.
-
-The roof of [The Reichstag](http://www.timeout.com/berlin/en/attractions/reichstag) (home of the German parliment) which gives impressive views over Berlin. There's an audio tour which explains the important bits of the skyline. Free to go up but have to [book in advance](http://www.bundestag.de/htdocs_e/visits/kuppel/kupp/245686).
-
-[Walk The Berlin Wall](http://www.timeout.com/berlin/en/attractions-and-museums/walk-the-wall-with-time-out-berlin) Timeout guide covers both the parts which remain, the related artwork and grafiti.
-
-## Working and Startups
-
-[The Agora Collective](http://agoracollective.org/) ([copass](https://copass.org/cospaces/agora-collective)) has excellent reviews on Copass. It's supposed to have a co-working garden, what's not to love? Open 10:00 - 17:00.
-
-## Sleeping
-
-The [St Christophers Inn](http://www.hostelbookers.com/property/prp/6579/arr/2015-05-02/ngt/4/ppl/1/) looks promising. Around the EUR23 mark including breakfast.
-
-[ONE80 Hostel](http://www.hostelbookers.com/property/prp/79738/arr/2015-05-02/ngt/4/ppl/1/) comes in a close second. Around EUR25 excluding meals.
-
-[Wombats](http://www.wombats-hostels.com/berlin/) also comes highly recommended and is only around EUR20.
+[The Flying Pig](http://www.flyingpig.nl/); suggested by the awesome [Old White Wizard](https://twitter.com/oldwhitewizard) also comes highly recommended by [Nomadic Matt](http://www.nomadicmatt.com/) as does [The Bulldog Hotel](http://www.bulldoghotel.com/).
 
 # Prague
 
@@ -164,13 +132,21 @@ A city I've been to once on a week long holiday but my primary momentos of it ar
 
 ## Arriving
 
-From Berlin, it takes around 4:30. Either leaving Berlin at 15:00, arriving 19:30 or leaving 19:00, arriving 23:30. There's also 7:30 arriving 12:00. Around EUR20. 
+Amsterdam to Prague is a bit of a jump, around 17 hours on a bus. That's excessive even by my standards so this might be the one flight of the trip since it's only around an hour and a half.
 
 ## Visiting
 
 [Charles Bridge](http://en.wikipedia.org/wiki/Charles_Bridge) clue is in the name, a very impressive bridge.
 
 [The Museum of Communism](http://www.muzeumkomunismu.cz/en/) 9AM - 9PM. Known for presenting a fairly unique insight into what life was like under the Soviet Union.
+
+[Karlovy Lazne](http://www.karlovylazne.cz/index.php?lang=en) is known for being the largest club in Central Europe. In many ways that sounds like my worst nightmare, but part of me wants to see it.
+
+Little Venice is a small canal district in prague which is a bit like well, Venice.
+
+The island in the Vltava is an Island in the... yeah you get the idea. Known as being a great spot to lie around on the grass not doing all that much.
+
+I'm a huge Nomadic Matt fan and his post on [how to spend four days in prague](http://www.nomadicmatt.com/travel-blogs/four-days-in-prague/) will be my fallback if I run short of things to do.
 
 ## Working
 
@@ -234,7 +210,7 @@ The [Museum of Socialist Art](http://nationalartgallerybg.org/index.php?l=4) con
 
 [Hostel Mostel](http://www.hostelbookers.com/property/prp/4402/arr/2015-05-14/ngt/3/ppl/1/) has exceptionally good reviews and looks to be very reasonably priced, around EUR6 - EUR11 per night. It's also recommended as one of Nomadic Matts favourite hostels, apparently booking well in advance is recommended.
 
-# Bucharest
+# Bucharest (Romania)
 
 [This website](http://www.virtualromania.org/places/bucharest.vr/places.vr/) has been useful for deciding what to do.
 
@@ -258,21 +234,43 @@ The [Romanian Atheneum](http://en.wikipedia.org/wiki/Romanian_Athenaeum) is a co
 
 [X Hostel](http://www.hostelbookers.com/property/prp/74966/arr/2015-05-18/ngt/2/ppl/1/) may however win because it has "Escape Room" games for free. Several friends have tried this in London, you have an hour to escape from a room through a combination of gadgets, riddles and puzzles. Sounds like more of a party hostel.
 
-# Warsaw
+# Warsaw (unfinished)
 
 [This site](http://www.warsawtour.pl/en/tourist-attractions/top-10-3930.html) is useful for choosing things to do.
 
 ## Arriving
 
+Absolutely no idea, there's no practical way to go directly from Bucharest to Warsaw. Could go via Cluj-Napoca (Romania) up to Kosice (Slovakia) then to Warsaw from there. Spending around a day at each. Eurolines from Bucharest all seem to leave at 5:00AM which means losing a day somewhere so it's more likely to be trains or, heaven forbid, flights.
 
+Alternatively could return to Budapest which is more of a hub and work it out from there. Because planning.
 
-## Seeing
+## Visiting
 
 [Łazienki Królewskie Museum](http://www.warsawtour.pl/en/tourist-attractions/azienki-kr-lewskie-museum-muzeum-azienki-kr-lewskie-3347.html)
 
+The [Łazienki Królewskie Park-Palace Complex](http://www.warsawtour.pl/en/tourist-attractions/azienki-kr-lewskie-museum-muzeum-azienki-kr-lewskie-3347.html) is a complex of parks and palaces oddly. One of those "great if it's sunny" type attractions.
+
+The [Palace of Culture and Science](http://www.warsawtour.pl/en/tourist-attractions/palace-of-culture-and-science-pa-ac-kultury-i-nauki-2036.html) has the highest viewing platform in Warsaw which should be good for some Panoramas.
+
+The [Copernicus Science Centre](http://www.warsawtour.pl/en/tourist-attractions/copernicus-science-centre-centrum-nauki-kopernik-160240.html) is a science museum focussed on letting visitors conduct experiments for themselves. Putting the best part of a day aside for this one.
+
+If it's sunny then the [Multimedia Fountain Park](http://www.warsawtour.pl/en/tourist-attractions/multimedia-fountain-park-multimedialny-park-fontann-161002.html) looks spectacular, especially at night.
+
+## Working
+
+[Clockwork Cowork](http://clock-work.pl/en/) ([copass](https://copass.org/cospaces/clockwork-cowork)). Going by the photos looks like there's a bit of a hardware slant which is always interesting.
+
+[Reaktor](http://reaktorwarsaw.com/offer#co-working) also looks interesting and with a garden + ping pong, it's hard to go wrong. There's talk of weekly startup lunches so might be worth plannig to be around for one of those. Around GBP5/ Day
+
 ## Sleeping
 
-# Talin
+The [Okidoki Hostel](http://www.hostelbookers.com/property/prp/4311/arr/2015-06-17/ngt/3/ppl/1/#fullOverview) has great reviews and comes in at around EUR14/ night. 
+
+[Tatamka Hostel](http://www.hostelbookers.com/property/prp/6037/arr/2015-06-17/ngt/3/ppl/1/#fullOverview) looks a bit quieter and has kitchen, outdoor area and barbeque. Also comes in at around EUR14/ night.
+
+# Riga (unstarted and so by definition unfinished)
+
+# Talin (unfinished)
 
 ## Sleeping
 
