@@ -268,10 +268,60 @@ The [Okidoki Hostel](http://www.hostelbookers.com/property/prp/4311/arr/2015-06-
 
 [Tatamka Hostel](http://www.hostelbookers.com/property/prp/6037/arr/2015-06-17/ngt/3/ppl/1/#fullOverview) looks a bit quieter and has kitchen, outdoor area and barbeque. Also comes in at around EUR14/ night.
 
-# Riga (unstarted and so by definition unfinished)
+# Riga 
 
-# Talin (unfinished)
+## Arriving
+
+At this point my carefully polished Eurolines bus plan has collapsed completely. Options include "get some trains" and "walk". It'll be fine. Given that several sites recommend "going via Russia" and flying is only around £60, flying is a definite possibility.
+
+## Seeing
+
+St.Peter’s church’s tower in the Old Town is meant to be a great place to get panoramas of the city.
+
+Riga Black Balsam Bar in the Old Town serves a traditional drink called, oddly, Riga Black Balsam which is an alcoholic drink one should apparently not leave without trying.
+
+The [Freedom Monument](http://www.lonelyplanet.com/latvia/riga/sights/landmarks-monuments/freedom-monument) which somehow avoided demolition during the Soviet years.
+
+The [Riga Motor Museum](http://www.lonelyplanet.com/latvia/riga/sights/museums-galleries/riga-motor-museum) for exhibits like Stalin's 7 tonne armored limousine.
+
+[Regros](http://www.lonelyplanet.com/latvia/riga/activities/other/regro-s) a Soviet Fallout shelter where you can fire guns. What's not to love?
+
+## Working
+
+My home in London (Techhub) has an [office in Riga](https://riga.techhub.com/), so there's no competition here.
 
 ## Sleeping
 
-[Tallin Backpackers](http://www.tallinnbackpackers.com/) ([hostel bookers](http://www.hostelbookers.com/hostels/estonia/tallinn/31456/)) is recommended by Nomadic Matt. [Euphoria](http://euphoria.traveller.ee/) also looks promising for a more relaxed stay.
+[The Naughty Squirrel Backpackers](http://www.hostelbookers.com/property/prp/3512/arr/2015-06-17/ngt/2/ppl/1/). They had me at the name but as if more was needed, to quote their about page: "Daily activities include AK Shooting, Bobsled, Free Walking Tours, Pub Crawls, Latvian Food Nights, Karaoke, Husky Dog Sledding, Daily Happy Hours, Latvian Beer Tastings". Expensive at EUR17/ night. 
+
+[Seagulls Garret Hostel](http://www.hostelbookers.com/property/prp/97531/arr/2015-06-17/ngt/2/ppl/1/) also looks promising and is a much easier 9EUR/ night.
+
+# Talin
+
+## Arriving
+
+And we're back in the game (of getting buses everywhere that is). [Lux Express](http://www.luxexpress.eu/en/tallinn-riga) takes 4 and a half hours to get from Riga to Talin, it only costs EUR16 and there are several per day. Luxury.
+
+## Seeing
+
+My Talin expert is the awesome [@GPat_Uk](https://twitter.com/GPat_UK) who suggests:
+
+For dinner - the Nordic hotel has the most ridiculous food. Like Michelin-star esque and not very expensive.
+
+Elephant - good Indian
+
+Pepparsack - GREAT meat and sometimes swordfighting
+
+Make sure to drink a millimailakas
+
+## Working
+
+[Garage48](http://hub.garage48.org/) comes in at a bargain EUR6/ day.
+
+<http://www.coworking.ee/> is just EUR5/ Day and the pictures include a typewriter. Touch choice.
+
+## Sleeping
+
+[Tallin Backpackers](http://www.tallinnbackpackers.com/) ([hostel bookers](http://www.hostelbookers.com/hostels/estonia/tallinn/31456/)) is recommended by Nomadic Matt.
+
+[Euphoria](http://euphoria.traveller.ee/) also looks promising for a more relaxed stay.
