@@ -4,7 +4,8 @@ title: "Railsconf 2015 - Docker Isn't Just For Deployment"
 biofooter: true
 ---
 
-<iframe src="https://www.slideshare.net/slideshow/embed_code/key/oXR6D9jjfaLpst" width="620" height="400" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+<iframe width="620" height="400" src="https://www.youtube.com/embed/NGcT0dGivoM" frameborder="0" allowfullscreen></iframe>
+
 
 By [Ben Dixon](/about.html)
 

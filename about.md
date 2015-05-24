@@ -7,7 +7,7 @@ My name's Ben Dixon, I'm a senior developer focused on Ruby on Rails and Android
 
 I'm the author of <a href="https://leanpub.com/deploying_rails_applications"
 target="_blank">Reliably Deploying Rails Applications</a> which covers how
-to deploy medium sized Rails Applications in an easy, scalable fashion and <a href="https://www.youtube.com/watch?v=hTofBnxyBUU" target="_blank">spoke at Railsconf 2014</a> on this topic. I'll be speaking at Railsconf 2015 on how Docker can be tightly integrated with Rails to do far more interesting things than just deployment.
+to deploy medium sized Rails Applications in an easy, scalable fashion and <a href="/deploying_rails/" target="_blank">spoke at Railsconf 2014</a> on this topic. I spoke at <a href="/railsconf2015/">Railsconf 2015</a> on how Docker can be tightly integrated with Rails to do far more interesting things than just deployment.
 
 I work with the excellent Huw Walters and Rebecca Collins on <a href="http://www.makeitwithcode.com/" target="_blank">Make It With Code</a>, a project to help none developers to learn to <a href="/2014/01/teaching-people-to-code/" target="_blank">create useful things with code</a>.
 
