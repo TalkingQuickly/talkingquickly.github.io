@@ -102,7 +102,7 @@ The trusty Eurolines overnight bus from London comes it at around £30, takes ju
 
 ## Visiting
 
-[Anne Frank House](http://www.annefrank.org/en/Museum/) - Museum devoted to the 13 year old Jewish girl who was forced into hiding during the second world war to escape the Nazis. Planning to read [The Diary of Anne Frank](http://www.amazon.co.uk/Diary-Young-Girl-Definitive-ebook/dp/B0055N0FZM/) before arriving.
+[Anne Frank House](http://www.annefrank.org/en/Museum/) - Museum devoted to the 13 year old Jewish girl who was forced into hiding during the second world war to escape the Nazis. Planning to read [The Diary of Anne Frank](http://www.amazon.co.uk/Diary-Young-Girl-Definitive-ebook/dp/B0055N0FZM/) before arriving. From April 1 through October 31 open Daily from 9:00 am - 9:00 pm.
 
 [The Stedelijk Museum](http://www.timeout.com/amsterdam/en/attractions-and-museums/stedelijk-museum) - modern and contemporary art, next to Vondelpark (named after the poet Joost van den Vondel) which is the largest city park in Amsterdam. Sometimes there are free concerts in the open air theatre. Schedule will be announced in [mid April](http://www.openluchttheater.nl/programma).
 
@@ -198,7 +198,7 @@ Eurolines from Budapest to Sofia, 12 hours leaving at 6pm, arriving 6am on the 1
 
 ## Visiting
 
-The [Free Sofia Walking Tour](http://freesofiatour.com/) one of the only cities I've come across which has free walking tours run by a well regarded none profit.
+The [Free Sofia Walking Tour](http://freesofiatour.com/) a free walking tour run by a well regarded none profit.
 
 The [Museum of Socialist Art](http://nationalartgallerybg.org/index.php?l=4) contains primarily art from 1944 to 1989 but I'm most interested in the black and white propoganda shorts.
 
@@ -222,7 +222,7 @@ Probably via train as there doesn't seem to be a Eurolines service between Sofia
 
 The [Palace of Parliament](http://en.wikipedia.org/wiki/Palace_of_the_Parliament) is the largest government building in the world and the second largest building in the world after the Pentagon. As anyone who ever watched the masterpiece that was "big, bigger, biggest" knows, big stuff is cool.
 
-The [Romanian Atheneum](http://en.wikipedia.org/wiki/Romanian_Athenaeum) is a concert hall in the center of Bucharest, performances are on the 21st and 22nd, tickets are available [here](http://fge.org.ro/ro/component/jevents/day.listevents/2015/05/21/-.html)
+The [Romanian Atheneum](http://en.wikipedia.org/wiki/Romanian_Athenaeum) is a concert hall in the center of Bucharest, tickets are available [here](http://fge.org.ro/ro/component/jevents/day.listevents/2015/05/21/-.html)
 
 [The Village Museum](http://en.wikipedia.org/wiki/Dimitrie_Gusti_National_Village_Museum) is an open air museum containing several hundred wooden houses, windmills, churches and the like. Apparently many of the buildings are genuine and were taken to the museum in pieces and re-assembled.
 
@@ -232,9 +232,9 @@ The [Romanian Atheneum](http://en.wikipedia.org/wiki/Romanian_Athenaeum) is a co
 
 [Antique Hostel](http://www.hostelbookers.com/property/prp/85694/arr/2015-05-18/ngt/2/ppl/1/) looks promising and comes in at a bargain EUR10/ night including breakfast. Looks like the right choice if aiming for relaxation.
 
-[X Hostel](http://www.hostelbookers.com/property/prp/74966/arr/2015-05-18/ngt/2/ppl/1/) may however win because it has "Escape Room" games for free. Several friends have tried this in London, you have an hour to escape from a room through a combination of gadgets, riddles and puzzles. Sounds like more of a party hostel.
+[X Hostel](http://www.hostelbookers.com/property/prp/74966/arr/2015-05-18/ngt/2/ppl/1/) More of a party hostel. May win because it has "Escape Room" games for free. Several friends have tried this in London, you have an hour to escape from a room through a combination of gadgets, riddles and puzzles. Unclear exactly what happens if you fail to escape within the allotted hour. I'm envisaging a Star Wars esque trash compactor scenario.
 
-# Warsaw (unfinished)
+# Warsaw
 
 [This site](http://www.warsawtour.pl/en/tourist-attractions/top-10-3930.html) is useful for choosing things to do.
 
@@ -246,9 +246,9 @@ Alternatively could return to Budapest which is more of a hub and work it out fr
 
 ## Visiting
 
-[Łazienki Królewskie Museum](http://www.warsawtour.pl/en/tourist-attractions/azienki-kr-lewskie-museum-muzeum-azienki-kr-lewskie-3347.html)
 
-The [Łazienki Królewskie Park-Palace Complex](http://www.warsawtour.pl/en/tourist-attractions/azienki-kr-lewskie-museum-muzeum-azienki-kr-lewskie-3347.html) is a complex of parks and palaces oddly. One of those "great if it's sunny" type attractions.
+
+The [Łazienki Królewskie Museum](http://www.warsawtour.pl/en/tourist-attractions/azienki-kr-lewskie-museum-muzeum-azienki-kr-lewskie-3347.html) and [Łazienki Królewskie Park-Palace Complex](http://www.warsawtour.pl/en/tourist-attractions/azienki-kr-lewskie-museum-muzeum-azienki-kr-lewskie-3347.html) is a complex of parks and palaces. One of those "great if it's sunny" type attractions.
 
 The [Palace of Culture and Science](http://www.warsawtour.pl/en/tourist-attractions/palace-of-culture-and-science-pa-ac-kultury-i-nauki-2036.html) has the highest viewing platform in Warsaw which should be good for some Panoramas.
 
