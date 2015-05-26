@@ -5,11 +5,15 @@ date: 2015-05-26 19:00:00
 categories: travel
 biofooter: true
 excerpt: "It's always a good sign when a trip begins by losing just one shoe the day before leaving. Armed with what I'm rapidly realising are a not so serviceable pair from Tesco's for a bargain £12, it continued none the less."
+description: "Checking in for a coach, The Polish tolerance for Jagermeister and arriving in/ near Amsterdam"
 ---
+
+![Wine List, Red or White](/assets/images/travel/amsterdam/purple-bike.jpg)
 
 Date: 25 May 2015<br/>
 Location: The Flying Pig Uptown, Amsterdam<br/>
-Status: Alive
+Status: Alive<br/>
+Trip: [Europe Summer 2015](/travel/2015-europe-trip-plan/)
 
 It's always a good sign when a trip begins by losing just one shoe the day before leaving. Armed with what I'm rapidly realising are a not so serviceable pair from Tesco's for a bargain £12, it continued none the less.
 
