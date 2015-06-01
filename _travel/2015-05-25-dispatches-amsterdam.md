@@ -1,11 +1,12 @@
 ---
 layout : post
 title: "Dispatches - Amsterdam"
-date: 2015-05-26 19:00:00
+date: 2015-05-25 19:00:00
 categories: travel
 biofooter: true
 excerpt: "It's always a good sign when a trip begins by losing just one shoe the day before leaving. Armed with what I'm rapidly realising are a not so serviceable pair from Tesco's for a bargain £12, it continued none the less."
 description: "Checking in for a coach, The Polish tolerance for Jagermeister and arriving in/ near Amsterdam"
+order: 40
 ---
 
 ![Wine List, Red or White](/assets/images/travel/amsterdam/purple-bike.jpg)

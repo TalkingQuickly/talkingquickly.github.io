@@ -26,7 +26,9 @@ about: '/about.html'
 
 <main class="content" role="main">
 
-    {% for post in site.travel %}
+{% assign sorted_posts = (site.travel | sort: 'date' | reverse) %}
+
+    {% for post in sorted_posts | sort: 'date' %}
 
     <article class="post">
         <header class="post-header">

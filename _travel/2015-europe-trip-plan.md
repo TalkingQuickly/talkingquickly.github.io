@@ -6,6 +6,7 @@ categories: travel
 biofooter: true
 excerpt: "My approach to travel thus far has been quite simple. Arrive, find things thing to do. Repeat. Flawless and well designed as this process may seem, it can - on occassion - lead to missing things or nearly having to sleep on a beach in the rain. This summers trip to Europe will have a little bit more of a plan. As the more astute among you may have realised, this post is that plan."
 description: "The plan for the 2015 Europe trip, Amsterdam, Prague, Budapest, Riga, Talin and more"
+order: 30
 ---
 
 My approach to travel thus far has been quite simple. Arrive, find things thing to do. Repeat. Flawless and well designed as this process may seem, it can - on occassion - lead to missing things or [nearly having to sleep on a beach in the rain](/travel/aonang-a-shambles-even-by-my-standards/). This summers trip to Europe will have a little bit more of a plan. As the more astute among you may have realised, this post is that plan.

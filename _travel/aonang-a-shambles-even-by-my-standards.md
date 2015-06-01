@@ -5,6 +5,7 @@ date: 2014-10-22 12:00:00
 categories: travel
 biofooter: true
 excerpt: "Wikitravel furnished me with everything I could possibly need to know about heading south. Get on bus to Krabi, get off bus at Krabi, get in white pickup truck which will take you to Ao Nang, go to Irish pub, they'll tell you where's good to stay. It turned out to be not quite that simple..."
+order: 20
 ---
 
 Wikitravel furnished me with everything I could possibly need to know about heading south. Get on bus to Krabi, get off bus at Krabi, get in white pickup truck which will take you to Ao Nang, go to Irish pub, they'll tell you where's good to stay.
