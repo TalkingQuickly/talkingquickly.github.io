@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>   
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>DIY EKG Using Arduino and Javascript</title>
+    
+        <meta name="description" content="Blog by Ben Dixon, Ruby on Rails Developer, about rails, devops, docker, climbing and startups" />
+    
+    
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="iwXSC2H2VSO9iPyrWjNj3Prlx4zJY-l0EJRGVkFuUHk" />
+
+   
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+    <link rel="alternate" type="application/rss+xml" title="RubyFlow"
+    href="/rss.xml"/>
+
+</head>
+<body class="home-template">
+
+    
+    <main class="content" role="main">
+
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="/"><span class="blog-title">Home</span></a>
+            //
+            <a target="_blank" href='https://leanpub.com/deploying_rails_applications'>Deploying Rails Book</a>
+        </header>
+        
+        <span class="post-meta">
+        	
+       	</span>
+
+        <h1 class="post-title">DIY EKG Using Arduino and Javascript</h1>
+
+        <section class="post-content">
+            <p>An EKG (electrocardiogram) - also referred to as an ECG - is a recording of the electrical activity of the heart. This can be used for measuring the rate and regularity of heart beats. Using a readily available Arduino shield, an Arduino and a $10 set of electrodes, it&#39;s possible to generate this waveform at home and then manipulate and plot it in realtime using Javascript.</p>
+
+<p>First the obligatory disclaimer. Nothing here is suitable for medical use. The EKG shield being used has not been certified for medical use and I have no medical training at all. Attaching electrodes to yourself could result in electric shock or seizure, continue at your own risk!</p>
+
+<p>Now the fun part. The parts used here are:</p>
+
+<ul>
+<li>An Olimex EKG Shield <a href="https://www.olimex.com/Products/Duino/Shields/SHIELD-EKG-EMG/">https://www.olimex.com/Products/Duino/Shields/SHIELD-EKG-EMG/</a> which can be ordered directly through them and is often also available on Ebay and Amazon.</li>
+<li>A set of three electrodes designed for this board <a href="https://www.olimex.com/Products/Duino/Shields/SHIELD-EKG-EMG-PA/open-source-hardware">https://www.olimex.com/Products/Duino/Shields/SHIELD-EKG-EMG-PA/open-source-hardware</a> again, also available on Ebay and Amazon.</li>
+<li>A standard Arduino Uno <a href="http://arduino.cc/en/Main/arduinoBoardUno">http://arduino.cc/en/Main/arduinoBoardUno</a>.</li>
+</ul>
+
+<p>This was built on OSX but it uses a Google Chrome App to interface with the Arduino so should work on any platform which supports these. That should include both Linux and Windows but I haven&#39;t tested the code on either.</p>
+
+<p>The manual for the Olimex board is excellent and <a href="https://www.olimex.com/Products/Duino/Shields/SHIELD-EKG-EMG/resources/SHIELD-EKG-EMG.pdf">available here</a>. It covers the jumper configurations required for basic use, the configuration I used can be seen below.</p>
+
+<p><img src="/assets/images/diy-ekg-arduino/board-configuration.jpg" alt="Jumper Configuration"></p>
+
+<p>The Arduino sketch they provide is responsible for reading from the analogue inputs associated with the shield and then writing this data out to the Serial port. It&#39;s worth noting two things about the sketch:</p>
+
+<ul>
+<li>The serial port is set to 57600bps not the usual 9600</li>
+<li>The data is written in binary format rather than text so cannot be viewed using the standard Arduino Serial monitor</li>
+</ul>
+
+<p>The viewing software they provide is windows only and my end goal wasn&#39;t just to stream the data, it was to automate acquiring and analysing it. This meant writing my own.</p>
+
+<p>My favourite tool at the moment for working with an Arduino is a <a href="https://developer.chrome.com/apps/about_apps">Chrome App</a> these allow native-like apps to be created using standard html and javascript. These apps can do far more than a standard web page, including <a href="https://developer.chrome.com/apps/serial">accessing serial devices</a>.</p>
+
+<p>The source code for my simple  chrome app which reads in data from the Arduino and charts it in realtime is available here <a href="https://github.com/TalkingQuickly/ekg-arduino-chrome">https://github.com/TalkingQuickly/ekg-arduino-chrome</a>.</p>
+
+<p>This provides output which looks like this:</p>
+
+<iframe width="560" height="315" src="//www.youtube.com/embed/Jv4F7q6xR8o" frameborder="0" allowfullscreen></iframe>
+
+<p>To install the app in Chrome, clone the repository and then see the &quot;Load the extension&quot; section section of <a href="https://developer.chrome.com/extensions/getstarted">this page</a>.</p>
+
+<p>Next install the sketch available here <a href="https://github.com/TalkingQuickly/ekg-arduino-chrome-sketches">https://github.com/TalkingQuickly/ekg-arduino-chrome-sketches</a> to the Arduino.</p>
+
+<p>The Arduino sketch sends packets of data as a stream of bytes in the following format:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">{
+  uint8_t sync0;    // = 0xa5
+  uint8_t sync1;    // = 0x5a
+  uint8_t version;  // = 2 (packet version)
+  uint8_t count;    // packet counter. Increases by 1 each packet.
+  uint16_t  data[6];  // 10-bit sample (= 0 - 1023) in big endian (Motorola) format.
+  uint8_t switches; // State of PD5 to PD2, in bits 3 to 0.
+};
+</code></pre></div>
+<p>This means 17 bytes in total, with the first two being 165,90 and the last being a 1. The Chrome App is responsible for breaking the incoming stream of bytes into valid packets.</p>
+
+<p>Each of the analogue readings within a packet are stored as unsigned 16bit integers meaning they need to be reconstructed from the pairs of bytes received.</p>
+
+<p>This function (found on <a href="http://stackoverflow.com/questions/8482309/converting-javascript-integer-to-byte-array-and-back">Stack Overflow</a> can be used to do this:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">byteArrayToLong = function(/*byte[]*/byteArray) {
+    var value = 0;
+    for ( var i = byteArray.length - 1; i &gt;= 0; i--) {
+        value = (value * 256) + byteArray[i];
+    }
+
+    return value;
+};
+</code></pre></div>
+<p>We can see from the comments in the Arduino sketch that these are sent in the form high byte, low byte:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">TXBuf[4] = 0x02;    //CH1 High Byte
+TXBuf[5] = 0x00;    //CH1 Low Byte
+TXBuf[6] = 0x02;    //CH2 High Byte
+TXBuf[7] = 0x00;    //CH2 Low Byte
+TXBuf[8] = 0x02;    //CH3 High Byte
+TXBuf[9] = 0x00;    //CH3 Low Byte
+TXBuf[10] = 0x02;   //CH4 High Byte
+TXBuf[11] = 0x00;   //CH4 Low Byte
+TXBuf[12] = 0x02;   //CH5 High Byte
+TXBuf[13] = 0x00;   //CH5 Low Byte
+TXBuf[14] = 0x02;   //CH6 High Byte
+TXBuf[15] = 0x00;   //CH6 Low Byte 
+</code></pre></div>
+<p>Therefore to get the first channel we can simply call <code>byteArrayToLong([TXBuf[5], TXBuff[4]])</code>, e.g. with the low byte first.</p>
+
+<p>The app then uses <a href="http://canvasjs.com/">CanvasJS</a> to chart the data in realtime. At the moment only one channel is displayed.</p>
+
+<p>Arguably the hardest part of this project was getting adequate contact between the electrodes and the skin. Another warning, connecting electrodes to yourself has the potential to result in electric shock or seizures, continue at your own risk.</p>
+
+<p>The configuration which I&#39;ve had the most success with is the L and R electrodes on the inside of my left and right wrists and the the D electrode on my ankle. I&#39;ve found it&#39;s very important that the ones on the wrist are tight and that a small layer of shower gel helps to maintain a constant connection.</p>
+
+<p><img src="/assets/images/diy-ekg-arduino/complete.jpg" alt="Complete Setup"></p>
+
+<p>Next steps:</p>
+
+<ul>
+<li>Automatic peak detection</li>
+<li>Heart Rate Calculation</li>
+<li>Heart Rate Variability Calculation</li>
+</ul>
+
+<p>This presentation <a href="http://www.slhn.org/docs/pdf/prehosp-drkasarda1.pdf">http://www.slhn.org/docs/pdf/prehosp-drkasarda1.pdf</a> is useful for getting a feel for roughly how an EKG works and what each part of the waveform represents.</p>
+
+        </section>
+
+        
+
+        <footer class="post-footer">
+          
+            <!-- If we want to display author's name and bio -->
+
+    <section class="author">
+      <header> <a href="/about.html"> <img class="profile"
+          src="/assets/images/profile2.jpg" alt="Ben Dixon. Without
+      Aviators."></a></header>
+      <article>
+        <!-- Author Name -->
+          <h4> Ben Dixon </h4>
+          <!-- Author Bio -->
+          <p> 
+          I'm a Ruby/ Android Developer, devops geek, lover of good coffee and making things. I'm the author of <a href="https://leanpub.com/deploying_rails_applications" target="_blank">Reliably Deploying Rails Applications</a> and currently based in London. <a href="/travel">Travel</a> addict often to be found exploring Europe, America and Asia. Co-founded <a href="https://www.makeitwithcode.com" target="_blank">Make It With Code</a>, <a href= "http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a> on twitter. 
+          </p>
+        </article>
+    </section>                
+
+
+          
+          
+          
+
+            
+            
+        	
+        </footer>
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="/rss.xml"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+          <section class="copyright">All content copyright <a href="/about.html">Ben Dixon</a> &copy;  &bull; All rights reserved. Twitter: <a href="http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a></section>
+             <section class="poweredby">Made with Jekyll and based on the <a href="http://github.com/rosario/kasper" target="_blank">Kasper theme</a></section>
+        </div>
+    </footer>
+
+    
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-7333902-35']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>   
+</body>
+</html>

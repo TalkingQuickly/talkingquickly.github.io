@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>   
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Using the pebble watch to display stock quotes</title>
+    
+        <meta name="description" content="Blog by Ben Dixon, Ruby on Rails Developer, about rails, devops, docker, climbing and startups" />
+    
+    
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="iwXSC2H2VSO9iPyrWjNj3Prlx4zJY-l0EJRGVkFuUHk" />
+
+   
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+    <link rel="alternate" type="application/rss+xml" title="RubyFlow"
+    href="/rss.xml"/>
+
+</head>
+<body class="home-template">
+
+    
+    <main class="content" role="main">
+
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="/"><span class="blog-title">Home</span></a>
+            //
+            <a target="_blank" href='https://leanpub.com/deploying_rails_applications'>Deploying Rails Book</a>
+        </header>
+        
+        <span class="post-meta">
+        	
+       	</span>
+
+        <h1 class="post-title">Using the pebble watch to display stock quotes</h1>
+
+        <section class="post-content">
+            <p>I’ve always been intrigued by books like “Reminiscences of a stock operator” where trading is based on continually watching a market and developing a “feel” for it. Having spent a lot of time experimenting with them, i’m generally skeptical of automatic rule based trading systems but remain intrigued about entirely discretionary, immersion based systems.</p>
+
+<p>My intrigue primarily comes from experiments with compass belts. In these people wear a belt with vibrating pads, setup such that whichever pad is facing north will lightly vibrate. Over relatively short spaces of time, wearers are observed to incorporate this additional “sense” and develop augmented senses of direction and navigation, for example being able to backtrack along complex routes where they would previously have been incapable of doing so.</p>
+
+<p>The problem with applying this to the movements of financial instruments has always been obtaining immersion. Failing a desire – and the free time – to sit and watch stock tickers continually, what is the most efficient way to gain an “awareness” of a given metric and potentially as a result gain an awareness of when particular movements are likely?</p>
+
+<p>The pebble watch provides the opportunity to use that space on our wrist traditionally devoted to time to monitor whatever figures we choose. When I’m running or cycling it shows my pace and distance but outside of those times it simply shows the time – something I’m rarely interested in knowing. In this experiment I will create simple Android and Pebble applications which pull the level of the FTSE100 from Google Finance and display it (and only it) on the screen of the pebble continually.</p>
+
+<h2>Getting the quotes</h2>
+
+<p>This is fairly simple, Google Finance provides a simple (if undocumented) api for accessing stock quotes, a URL such as the following:</p>
+
+<p><a href="http://finance.google.com/finance/info?client=ig&amp;q=INDEXFTSE%3aUKX">http://finance.google.com/finance/info?client=ig&amp;q=INDEXFTSE%3aUKX</a></p>
+
+<p>Will return a response in the format:</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">[</span> <span class="p">{</span> <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;12590587&quot;</span> <span class="p">,</span><span class="s2">&quot;t&quot;</span> <span class="o">:</span> <span class="s2">&quot;UKX&quot;</span> <span class="p">,</span><span class="s2">&quot;e&quot;</span> <span class="o">:</span> <span class="s2">&quot;INDEXFTSE&quot;</span> <span class="p">,</span><span class="s2">&quot;l&quot;</span> <span class="o">:</span> <span class="s2">&quot;6,499.99&quot;</span> <span class="p">,</span><span class="s2">&quot;l_cur&quot;</span> <span class="o">:</span> <span class="s2">&quot;£65.00&quot;</span> <span class="p">,</span><span class="s2">&quot;s&quot;</span><span class="o">:</span> <span class="s2">&quot;0&quot;</span> <span class="p">,</span><span class="s2">&quot;ltt&quot;</span><span class="o">:</span><span class="s2">&quot;4:35PM GMT+1&quot;</span> <span class="p">,</span><span class="s2">&quot;lt&quot;</span> <span class="o">:</span> <span class="s2">&quot;Aug 16, 4:35PM GMT+1&quot;</span> <span class="p">,</span><span class="s2">&quot;c&quot;</span> <span class="o">:</span> <span class="s2">&quot;+16.65&quot;</span> <span class="p">,</span><span class="s2">&quot;cp&quot;</span> <span class="o">:</span> <span class="s2">&quot;0.26&quot;</span> <span class="p">,</span><span class="s2">&quot;ccol&quot;</span> <span class="o">:</span> <span class="s2">&quot;chg&quot;</span> <span class="p">}</span> <span class="p">]</span>
+</code></pre></div>
+<p>where q in the url is the url escaped representation of the Google Finance ticker and l in the returned JSON is the 20 minute delayed level of the instrument.</p>
+
+<h2>Making it happen</h2>
+
+<p>The source for an app to get the quotes and push the quotes to a pebble watch is available here:</p>
+
+<p><a href="https://github.com/TalkingQuickly/pebble_stock_android">https://github.com/TalkingQuickly/pebble_stock_android</a></p>
+
+<p>The source for a pebble app to receive the quotes is available here:</p>
+
+<p><a href="https://github.com/TalkingQuickly/pebble_stock">https://github.com/TalkingQuickly/pebble_stock</a></p>
+
+<h2>Resources</h2>
+
+<p>This was also my first attempt at writing a native Android App (and several years since I last wrote Java) and I relied heavily on this article (http://technicalmumbojumbo.wordpress.com/2012/01/19/android-tutorial-restful-webservices-google-maps-integration/) for guidance on how to access a restful api from an Android App.</p>
+
+<h2>Get in Touch</h2>
+
+<p>If you&#39;d like to chat further about the ideas in the post, get in touch
+on twitter, <a href="http://www.twitter.com/talkingquickly">http://www.twitter.com/talkingquickly</a></p>
+
+        </section>
+
+        
+
+        <footer class="post-footer">
+          
+            <!-- If we want to display author's name and bio -->
+
+    <section class="author">
+      <header> <a href="/about.html"> <img class="profile"
+          src="/assets/images/profile2.jpg" alt="Ben Dixon. Without
+      Aviators."></a></header>
+      <article>
+        <!-- Author Name -->
+          <h4> Ben Dixon </h4>
+          <!-- Author Bio -->
+          <p> 
+          I'm a Ruby/ Android Developer, devops geek, lover of good coffee and making things. I'm the author of <a href="https://leanpub.com/deploying_rails_applications" target="_blank">Reliably Deploying Rails Applications</a> and currently based in London. <a href="/travel">Travel</a> addict often to be found exploring Europe, America and Asia. Co-founded <a href="https://www.makeitwithcode.com" target="_blank">Make It With Code</a>, <a href= "http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a> on twitter. 
+          </p>
+        </article>
+    </section>                
+
+
+          
+          
+          
+
+            
+            
+        	
+        </footer>
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="/rss.xml"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+          <section class="copyright">All content copyright <a href="/about.html">Ben Dixon</a> &copy;  &bull; All rights reserved. Twitter: <a href="http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a></section>
+             <section class="poweredby">Made with Jekyll and based on the <a href="http://github.com/rosario/kasper" target="_blank">Kasper theme</a></section>
+        </div>
+    </footer>
+
+    
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-7333902-35']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>   
+</body>
+</html>

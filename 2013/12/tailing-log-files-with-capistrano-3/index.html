@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>   
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Tailing log files with Capistrano 3</title>
+    
+        <meta name="description" content="Blog by Ben Dixon, Ruby on Rails Developer, about rails, devops, docker, climbing and startups" />
+    
+    
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="iwXSC2H2VSO9iPyrWjNj3Prlx4zJY-l0EJRGVkFuUHk" />
+
+   
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+    <link rel="alternate" type="application/rss+xml" title="RubyFlow"
+    href="/rss.xml"/>
+
+</head>
+<body class="home-template">
+
+    
+    <main class="content" role="main">
+
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="/"><span class="blog-title">Home</span></a>
+            //
+            <a target="_blank" href='https://leanpub.com/deploying_rails_applications'>Deploying Rails Book</a>
+        </header>
+        
+        <span class="post-meta">
+        	
+       	</span>
+
+        <h1 class="post-title">Tailing log files with Capistrano 3</h1>
+
+        <section class="post-content">
+            <p>When deploying Rails Applications with Capistrano 2 it was common to
+have tasks to tail log files on production servers so that
+they could be viewed locally without sshing into the remote
+machine(s). In this post I&#39;ll cover how to do this with Capistrano 3.</p>
+
+<p>In Capistrano 2, our streaming code would look something like this:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">namespace</span> <span class="ss">:logs</span> <span class="k">do</span>
+  <span class="n">desc</span> <span class="s2">&quot;tail rails logs&quot;</span>
+  <span class="n">task</span> <span class="ss">:tail_rails</span><span class="p">,</span> <span class="ss">:roles</span> <span class="o">=&gt;</span> <span class="ss">:app</span> <span class="k">do</span>
+    <span class="nb">trap</span><span class="p">(</span><span class="s2">&quot;INT&quot;</span><span class="p">)</span> <span class="p">{</span> <span class="nb">puts</span> <span class="s1">&#39;Interupted&#39;</span><span class="p">;</span> <span class="nb">exit</span> <span class="mi">0</span><span class="p">;</span> <span class="p">}</span>
+    <span class="n">run</span> <span class="s2">&quot;tail -f </span><span class="si">#{</span><span class="n">shared_path</span><span class="si">}</span><span class="s2">/log/</span><span class="si">#{</span><span class="n">rails_env</span><span class="si">}</span><span class="s2">.log&quot;</span> <span class="k">do</span> <span class="o">|</span><span class="n">channel</span><span class="p">,</span> <span class="n">stream</span><span class="p">,</span> <span class="n">data</span><span class="o">|</span>
+      <span class="nb">puts</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">channel</span><span class="o">[</span><span class="ss">:host</span><span class="o">]</span><span class="si">}</span><span class="s2">: </span><span class="si">#{</span><span class="n">data</span><span class="si">}</span><span class="s2">&quot;</span> 
+      <span class="k">break</span> <span class="k">if</span> <span class="n">stream</span> <span class="o">==</span> <span class="ss">:err</span>    
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>In Capistrano 3, it&#39;s even simpler:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">namespace</span> <span class="ss">:logs</span> <span class="k">do</span>
+  <span class="n">desc</span> <span class="s2">&quot;tail rails logs&quot;</span> 
+  <span class="n">task</span> <span class="ss">:tail_rails</span> <span class="k">do</span>
+    <span class="n">on</span> <span class="n">roles</span><span class="p">(</span><span class="ss">:app</span><span class="p">)</span> <span class="k">do</span>
+      <span class="n">execute</span> <span class="s2">&quot;tail -f </span><span class="si">#{</span><span class="n">shared_path</span><span class="si">}</span><span class="s2">/log/</span><span class="si">#{</span><span class="n">fetch</span><span class="p">(</span><span class="ss">:rails_env</span><span class="p">)</span><span class="si">}</span><span class="s2">.log&quot;</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>The above task should be added to <code>lib/capistrano/tasks/logs.cap</code> and
+can be invoked with:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">cap production logs:tail_rails
+</code></pre></div>
+<p>And stopped with <code>ctrl c</code>.</p>
+
+<p>This will tail the rails  log files from all hosts defined as having the role
+<code>:app</code>. Additional tasks can be defined for other logs you wish to tail
+such as unicorn.</p>
+
+<p>This can be made even more flexible using the following definition:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">namespace</span> <span class="ss">:logs</span> <span class="k">do</span>
+  <span class="n">task</span> <span class="ss">:tail</span><span class="p">,</span> <span class="ss">:file</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="p">,</span> <span class="n">args</span><span class="o">|</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">[</span><span class="ss">:file</span><span class="o">]</span>
+      <span class="n">on</span> <span class="n">roles</span><span class="p">(</span><span class="ss">:app</span><span class="p">)</span> <span class="k">do</span>
+        <span class="n">execute</span> <span class="s2">&quot;tail -f </span><span class="si">#{</span><span class="n">shared_path</span><span class="si">}</span><span class="s2">/log/</span><span class="si">#{</span><span class="n">args</span><span class="o">[</span><span class="ss">:file</span><span class="o">]</span><span class="si">}</span><span class="s2">.log&quot;</span>
+      <span class="k">end</span>
+    <span class="k">else</span>
+      <span class="nb">puts</span> <span class="s2">&quot;please specify a logfile e.g: &#39;rake logs:tail[logfile]&quot;</span>
+      <span class="nb">puts</span> <span class="s2">&quot;will tail &#39;shared_path/log/logfile.log&#39;&quot;</span>
+      <span class="nb">puts</span> <span class="s2">&quot;remember if you use zsh you&#39;ll need to format it as:&quot;</span>
+      <span class="nb">puts</span> <span class="s2">&quot;rake &#39;logs:tail[logfile]&#39; (single quotes)&quot;</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>This takes advantage of Capistrano tasks just being rake tasks with some
+extra magic thrown in. We can therefore pass variables into Capistrano
+task invocations as we would with any rake task.</p>
+
+<p>The above allows us to invoke:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">rake logs:tail<span class="o">[</span>production<span class="o">]</span>
+</code></pre></div>
+<p>to tail <code>rails_app_path/shared/log/production.log</code> or:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">rake logs:tail<span class="o">[</span>unicorn<span class="o">]</span>
+</code></pre></div>
+<p>to tail <code>rails_app_path/shared/log/unicorn.log</code>.</p>
+
+<p>Unfortunately, if you&#39;re using ZSH, if you try to pass an
+argument to a rake task in the above format you&#39;ll receive an error
+similar to:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">zsh: no matches found: logs:tail<span class="o">[</span>production<span class="o">]</span>
+</code></pre></div>
+<p>You can get around this by wrapping the task in quotes so the invocation
+would instead be:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">rake <span class="s1">&#39;logs:tail[production]&#39;</span>
+</code></pre></div>
+<p>Which works for any rake tasks when invoked using ZSH.</p>
+
+<div class="alsoread">
+  <p><strong>Popular posts about deploying Rails apps</strong></p>
+  <p>
+    <a href="/2013/09/using-chef-to-provision-a-rails-and-postgres-server/">
+      How to quickly provision a VPS for Rails using Chef
+    </a>
+    <br/>
+    <a href="/2014/01/deploying-rails-apps-to-a-vps-with-capistrano-v3/">
+      Deploying with Capistrano 3
+    </a>
+    <br/>
+    <a href="/2013/12/tailing-log-files-with-capistrano-3/">
+      Tailing log files with Capistrano 3
+    </a>
+    <br/>
+    <a href="/2013/10/using-vagrant-to-test-chef-cookbooks/">
+      Using Vagrant to test Chef Cookbooks
+    </a>
+    <br/>
+    <a href="/2013/11/deploying-multiple-rails-apps-to-a-single-vps/">
+      Deploying with Capistrano 2
+    </a>
+  </p>
+</div>
+
+        </section>
+
+        
+
+        <footer class="post-footer">
+          
+          
+            <section class="book">
+  <header>
+    <a href="https://leanpub.com/deploying_rails_applications?utm_campaign=tlq_blog&utm_medium=referral&utm_source=footer_image">
+      <img
+      src="/assets/images/deploying_rails_applications_cover.jpeg"
+      />
+    </a>
+  </header>
+  <article>
+    <h4>Reliably Deploying Rails Applications Book</h4>
+    <p>My book, Reliably Deploying Rails Applications covers every step of the deployment
+    process from setting up a VPS from scratch with Chef, to deploying
+    and day to day maintenance with Capistrano 3.</p>
+    <p><a
+      href="https://leanpub.com/deploying_rails_applications?utm_campaign=tlq_blog&utm_medium=referral&utm_source=footer"
+      target="_blank">You
+      can purchase it from leanpub here</a> or enter your email below to
+    read a sample chapter.</p>
+    <div id="mc_embed_signup">
+<form action="http://hillsbede.us5.list-manage.com/subscribe/post?u=68b84d48aa7cec1155bee1a0c&amp;id=73f32eb74a" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" novalidate="">
+  
+  <input placeholder="Email Address" type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" style="height:28px;padding: 0 10px 0 10px;">
+
+<input type="submit" value="Get the sample chapter" name="subscribe" id="mc-embedded-subscribe" class="button" style="background-color: #aaa;border: 0 none;border-radius: 4px;color: #FFFFFF;display: inline-block;font-size: 15px;font-weight: bold;height: 32px;line-height: 32px;margin: 0 5px 10px 10px;padding: 0 10px 0 10px;text-align: center;text-decoration: none;vertical-align: top;white-space: nowrap;width: auto;">
+</form>
+</div>
+  
+  </article>
+</section>
+
+          
+          
+
+            
+            
+        	
+        </footer>
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="/rss.xml"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+          <section class="copyright">All content copyright <a href="/about.html">Ben Dixon</a> &copy;  &bull; All rights reserved. Twitter: <a href="http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a></section>
+             <section class="poweredby">Made with Jekyll and based on the <a href="http://github.com/rosario/kasper" target="_blank">Kasper theme</a></section>
+        </div>
+    </footer>
+
+    
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-7333902-35']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>   
+</body>
+</html>

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+  xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
+  <channel>
+    <title>talkingquickly</title>
+    <link>http://www.talkingquickly.co.uk</link>
+    <description>rails, docker, stress free deployment and small steps taken quickly</description>
+    <pubDate>Thu, 02 Apr 2015 12:34:00 +0100</pubDate>
+    <item>
+      <title>What I'd tell myself about startups if I could go back 5 years.</title>
+      <link>http://www.talkingquickly.co.uk/2015/04/what-id-tell-myself-about-startups</link>
+      <description>&lt;p&gt;This is, in no particular order, what I&amp;#39;d tell myself about startups if I could go back in time to when I first got involved. Which is probably the same as what I&amp;#39;ve learned. This is most definitely not advice, the &amp;quot;you&amp;quot; here is directed at me. So is &amp;quot;I&amp;quot;. Grammar is hard.&lt;/p&gt;
+</description>
+      <pubDate>Thu, 02 Apr 2015 12:34:00 +0100</pubDate>
+      <dc:date>2015-04-02T12:34:00+01:00</dc:date>
+    </item>
+    <item>
+      <title>2014 In Review</title>
+      <link>http://www.talkingquickly.co.uk/2015/02/2014-in-review</link>
+      <description>&lt;p&gt;Having reached 2015 I&amp;#39;m forced to acknowledge that 2013 In Review is probably not going to happen. I might even remove it from my ToDo list where it&amp;#39;s now the oldest item after returning the copy of &amp;quot;Chaos&amp;quot; I borrowed from a public library in my first year of university, six years of fines are going to hurt. In the spirit of &lt;a href=&quot;&quot;&gt;it probably isn&amp;#39;t a big deal&lt;/a&gt; I&amp;#39;ll dive straight into 2014 but with a scattering of confusing references to 2013 for context.&lt;/p&gt;
+</description>
+      <pubDate>Thu, 12 Feb 2015 08:00:00 +0000</pubDate>
+      <dc:date>2015-02-12T08:00:00+00:00</dc:date>
+    </item>
+    <item>
+      <title>DIY EKG Using Arduino and Javascript</title>
+      <link>http://www.talkingquickly.co.uk/2015/01/diy-ekg-with-arduino-javascript</link>
+      <description>&lt;p&gt;An EKG (electrocardiogram) - also referred to as an ECG - is a recording of the electrical activity of the heart. This can be used for measuring the rate and regularity of heart beats. Using a readily available Arduino shield, an Arduino and a $10 set of electrodes, it&amp;#39;s possible to generate this waveform at home and then manipulate and plot it in realtime using Javascript.&lt;/p&gt;
+</description>
+      <pubDate>Thu, 15 Jan 2015 22:16:00 +0000</pubDate>
+      <dc:date>2015-01-15T22:16:00+00:00</dc:date>
+    </item>
+    <item>
+      <title>Google Cardboard Unity Tutorial</title>
+      <link>http://www.talkingquickly.co.uk/2014/11/google-cardboard-unity-tutorial</link>
+      <description>&lt;p&gt;Having tried the Oculus I&amp;#39;d prepared myself to be completely unimpressed by Google&amp;#39;s $2 VR solution. But after trying Roller Coaster VR I was blown away by how well the slightly shabby looking cardboard assembly performed. Naturally despite never have tried any game development or 3D modeling, I wanted to make stuff for it. Using Unity and some plugins, this turned out to be surprisingly easy. This tutorial covers the bare minimum needed to go from never having used Unity before, to a simple 3D environment you can look around using Google Cardboard.&lt;/p&gt;
+</description>
+      <pubDate>Sun, 09 Nov 2014 19:36:00 +0000</pubDate>
+      <dc:date>2014-11-09T19:36:00+00:00</dc:date>
+    </item>
+    <item>
+      <title>Automatically Generate Vagrant Machines from Chef Node Definitions</title>
+      <link>http://www.talkingquickly.co.uk/2014/08/auto-generate-vagrant-machines-from-chef-node-definitions</link>
+      <description>&lt;p&gt;If you use chef-solo to provision your production servers, Vagrant makes it easy to set up a production- like environment on a local VM for testing purposes. It can however seem like wasted time to have to manually replicate the contents of your node definition in your &lt;code&gt;Vagrantfile&lt;/code&gt; and more importantly it&amp;#39;s easy to make a change to either the &lt;code&gt;Vagrantfile&lt;/code&gt; or the node definition and forget to update the other to match. In this post I&amp;#39;ll look at a simple method of automatically generating Vagrant machines based on node definitions.&lt;/p&gt;
+</description>
+      <pubDate>Sat, 09 Aug 2014 09:00:00 +0100</pubDate>
+      <dc:date>2014-08-09T09:00:00+01:00</dc:date>
+    </item>
+    <item>
+      <title>A Rails Development Environment with Docker and Vagrant</title>
+      <link>http://www.talkingquickly.co.uk/2014/06/rails-development-environment-with-vagrant-and-docker</link>
+      <description>&lt;p&gt;Onboarding new developers to a Rails projects is still a far harder task than it should be. A big part of this is that setting up a development environment for an app or suite of apps, getting the correct ruby versions, database versions etc running locally, can in many cases take upwards of a day. A combination of Vagrant and Docker can make this a thing of the past.&lt;/p&gt;
+</description>
+      <pubDate>Tue, 03 Jun 2014 09:00:00 +0100</pubDate>
+      <dc:date>2014-06-03T09:00:00+01:00</dc:date>
+    </item>
+    <item>
+      <title>DNSimple SSL Certificates and NGinx</title>
+      <link>http://www.talkingquickly.co.uk/2014/05/dnsimple-ssl-certificates-nginx</link>
+      <description>&lt;p&gt;If you purchase a Geotrust SSL Certificate from DNSimple for your domain, there&amp;#39;s a small amount of setup required to get the certificate in a format you can use with Nginx. This post includes an overview of the process and a simple bash script to automate it.&lt;/p&gt;
+</description>
+      <pubDate>Mon, 12 May 2014 13:00:00 +0100</pubDate>
+      <dc:date>2014-05-12T13:00:00+01:00</dc:date>
+    </item>
+    <item>
+      <title>Starting a Rails Console with Capistrano 3</title>
+      <link>http://www.talkingquickly.co.uk/2014/03/starting-a-rails-console-with-capistrano-3</link>
+      <description>&lt;p&gt;When deploying with Capistrano 3, it&amp;#39;s often useful to be able to start a rails console without having to ssh into the target host and set it up manually. This can be particularly challenging if you&amp;#39;re using rbenv as you have to ensure that &lt;code&gt;rails console&lt;/code&gt; is called with suitable environment variables set set to ensure that the rbenv Ruby is used not the system Ruby.&lt;/p&gt;
+</description>
+      <pubDate>Fri, 21 Mar 2014 19:36:00 +0000</pubDate>
+      <dc:date>2014-03-21T19:36:00+00:00</dc:date>
+    </item>
+    <item>
+      <title>Reading Git Merge Conflicts</title>
+      <link>http://www.talkingquickly.co.uk/2014/03/reading-git-merge-conficts</link>
+      <description>&lt;p&gt;Git merge conflicts are something any developer who works in a team bigger than one, has to deal with from time to time. It&amp;#39;s surprisingly common it seems to deal with these without really understanding what&amp;#39;s going, I did for years and I know many others who still are.&lt;/p&gt;
+</description>
+      <pubDate>Thu, 13 Mar 2014 19:36:00 +0000</pubDate>
+      <dc:date>2014-03-13T19:36:00+00:00</dc:date>
+    </item>
+    <item>
+      <title>Teaching People to Code</title>
+      <link>http://www.talkingquickly.co.uk/2014/01/teaching-people-to-code</link>
+      <description>&lt;p&gt;Recently I&amp;#39;ve been experimenting with ways of teaching people to code which match the way I and other succesful developers I know have learnt. These focus less on theory and syntax and more on problem solving and &amp;quot;hacking things together&amp;quot;. Now I&amp;#39;m looking for five people who want to learn to make stuff with Ruby to teach.&lt;/p&gt;
+</description>
+      <pubDate>Sat, 11 Jan 2014 19:36:00 +0000</pubDate>
+      <dc:date>2014-01-11T19:36:00+00:00</dc:date>
+    </item>
+    <item>
+      <title>Capistrano 3 Tutorial</title>
+      <link>http://www.talkingquickly.co.uk/2014/01/deploying-rails-apps-to-a-vps-with-capistrano-v3</link>
+      <description>&lt;p&gt;One of the most popular posts on this blog is on how to use Capistrano 2 to deploy Rails applications to a VPS, including the scenario when you want to run several different applications on the same server. Capistrano 3 has now been released and having upgraded several large production applications to use it, I&amp;#39;ve found there to be a lot of worthwhile improvements over v2. This post explains, with sample code, how to use Capistrano 3 to deploy one or several Rails applications to a VPS.&lt;/p&gt;
+</description>
+      <pubDate>Wed, 01 Jan 2014 19:36:00 +0000</pubDate>
+      <dc:date>2014-01-01T19:36:00+00:00</dc:date>
+    </item>
+    <item>
+      <title>Tailing log files with Capistrano 3</title>
+      <link>http://www.talkingquickly.co.uk/2013/12/tailing-log-files-with-capistrano-3</link>
+      <description>&lt;p&gt;When deploying Rails Applications with Capistrano 2 it was common to
+have tasks to tail log files on production servers so that
+they could be viewed locally without sshing into the remote
+machine(s). In this post I&amp;#39;ll cover how to do this with Capistrano 3.&lt;/p&gt;
+</description>
+      <pubDate>Sat, 21 Dec 2013 21:37:00 +0000</pubDate>
+      <dc:date>2013-12-21T21:37:00+00:00</dc:date>
+    </item>
+    <item>
+      <title>Deploying Multiple Rails Applications to a Single VPS</title>
+      <link>http://www.talkingquickly.co.uk/2013/11/deploying-multiple-rails-apps-to-a-single-vps</link>
+      <description>&lt;p&gt;When I announced the release of my book, &lt;a href=&quot;https://leanpub.com/deploying_rails_applications&quot;&gt;deploying rails applications&lt;/a&gt;, one of the most common questions I got was whether it covered deploying multiple apps to a single VPS. It does and since there was so much interest, I&amp;#39;ve put together a brief tutorial and sample code on the basics.&lt;/p&gt;
+</description>
+      <pubDate>Wed, 06 Nov 2013 19:03:00 +0000</pubDate>
+      <dc:date>2013-11-06T19:03:00+00:00</dc:date>
+    </item>
+    <item>
+      <title>Using Vagrant to test Chef Cookbooks</title>
+      <link>http://www.talkingquickly.co.uk/2013/10/using-vagrant-to-test-chef-cookbooks</link>
+      <description>&lt;p&gt;Vagrant makes it easy to manage and distribute virtual machines. Vagrant is an extremely powerful tool in itself with a particular strength of making it easy to distribute local testing environments to developers which (almost) perfectly mirror your production configuration.&lt;/p&gt;
+</description>
+      <pubDate>Tue, 22 Oct 2013 20:03:00 +0100</pubDate>
+      <dc:date>2013-10-22T20:03:00+01:00</dc:date>
+    </item>
+    <item>
+      <title>Using Chef to provision a Rails and Postgres server</title>
+      <link>http://www.talkingquickly.co.uk/2013/09/using-chef-to-provision-a-rails-and-postgres-server</link>
+      <description>&lt;p&gt;This is a brief overview of how to use chef to automate the provisioning of a server for a Ruby on Rails application. Sample code is provided as a starting point at &lt;a href=&quot;https://github.com/TalkingQuickly/rails-server-template&quot;&gt;https://github.com/TalkingQuickly/rails-server-template&lt;/a&gt;&lt;/p&gt;
+</description>
+      <pubDate>Fri, 20 Sep 2013 12:34:00 +0100</pubDate>
+      <dc:date>2013-09-20T12:34:00+01:00</dc:date>
+    </item>
+    <item>
+      <title>Using the pebble watch to display stock quotes</title>
+      <link>http://www.talkingquickly.co.uk/2013/08/using-the-pebble-watch-to-display-stock-quotes</link>
+      <description>&lt;p&gt;I’ve always been intrigued by books like “Reminiscences of a stock operator” where trading is based on continually watching a market and developing a “feel” for it. Having spent a lot of time experimenting with them, i’m generally skeptical of automatic rule based trading systems but remain intrigued about entirely discretionary, immersion based systems.&lt;/p&gt;
+</description>
+      <pubDate>Mon, 26 Aug 2013 12:34:00 +0100</pubDate>
+      <dc:date>2013-08-26T12:34:00+01:00</dc:date>
+    </item>
+    <item>
+      <title>Indexes with Mongoid are not created automatically</title>
+      <link>http://www.talkingquickly.co.uk/2013/06/indexes-with-mongoid-are-not-created-automatically</link>
+      <description>&lt;p&gt;When coming from Mongoid from an Activerecord background, there are some
+subtle differences around uniqueness and indexes which can cause hard to
+debug problems.&lt;/p&gt;
+</description>
+      <pubDate>Wed, 26 Jun 2013 12:34:00 +0100</pubDate>
+      <dc:date>2013-06-26T12:34:00+01:00</dc:date>
+    </item>
+    <item>
+      <title>It probably isn't a big deal</title>
+      <link>http://www.talkingquickly.co.uk/2013/04/it-probably-isnt-a-big-deal</link>
+      <description>&lt;p&gt;There are a multitude of burning things I really need to do now. ShopOfMe is launching a huge new feature in five weeks, inbox zero has become “inbox less than three pages” and having just spoken to the doctors surgery I’ve been going to since I was a child, they’ve advised me I can&amp;#39;t have an appointment because I don&amp;#39;t exist.&lt;/p&gt;
+</description>
+      <pubDate>Tue, 30 Apr 2013 12:27:00 +0100</pubDate>
+      <dc:date>2013-04-30T12:27:00+01:00</dc:date>
+    </item>
+    <item>
+      <title>2012 in Review</title>
+      <link>http://www.talkingquickly.co.uk/2013/01/2012-in-review</link>
+      <description>&lt;p&gt;At the start of 2012, my goal was fairly simple, remain solvent for a full year relying only on consulting income while leaving enough time to bootstrap ShopOfMe and InGuide. No-one has yet repossessed the computer I’m writing this on so it’s fair to say I got at least half way there.&lt;/p&gt;
+</description>
+      <pubDate>Wed, 02 Jan 2013 12:00:00 +0000</pubDate>
+      <dc:date>2013-01-02T12:00:00+00:00</dc:date>
+    </item>
+    <dc:date>2015-04-02T12:34:00+01:00</dc:date>
+  </channel>
+</rss>

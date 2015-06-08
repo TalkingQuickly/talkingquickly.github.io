@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+<head>   
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Capistrano 3 Tutorial</title>
+    
+        <meta name="description" content="Blog by Ben Dixon, Ruby on Rails Developer, about rails, devops, docker, climbing and startups" />
+    
+    
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="iwXSC2H2VSO9iPyrWjNj3Prlx4zJY-l0EJRGVkFuUHk" />
+
+   
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+    <link rel="alternate" type="application/rss+xml" title="RubyFlow"
+    href="/rss.xml"/>
+
+</head>
+<body class="home-template">
+
+    
+    <main class="content" role="main">
+
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="/"><span class="blog-title">Home</span></a>
+            //
+            <a target="_blank" href='https://leanpub.com/deploying_rails_applications'>Deploying Rails Book</a>
+        </header>
+        
+        <span class="post-meta">
+        	
+       	</span>
+
+        <h1 class="post-title">Capistrano 3 Tutorial</h1>
+
+        <section class="post-content">
+            <p>One of the most popular posts on this blog is on how to use Capistrano 2 to deploy Rails applications to a VPS, including the scenario when you want to run several different applications on the same server. Capistrano 3 has now been released and having upgraded several large production applications to use it, I&#39;ve found there to be a lot of worthwhile improvements over v2. This post explains, with sample code, how to use Capistrano 3 to deploy one or several Rails applications to a VPS.</p>
+
+<p>This post and the sample code has been updated to be compatible with the latest Capistrano 3.1.</p>
+
+<h2>What&#39;s new in V3.</h2>
+
+<p>For full details see the <a href="http://www.capistranorb.com/2013/06/01/release-announcement.html" target="_blank">release annoucement</a>, but the key bits I think make the upgrade worthwhile are:</p>
+
+<ul>
+<li>It uses the Rake DSL instead of a specialised Capistrano one, this makes writing Capistrano tasks, exactly like writing rake tasks, something most Rails developers have some familiarity with.</li>
+<li>It uses SSHkit for lower level functions around connecting and interacting with remote machines. This makes writing convenience tasks which do things like streaming logs or checking processes, much easier.</li>
+</ul>
+
+<h2>The Stack</h2>
+
+<p>This recipe has been tested on a VPS provisioned using the method described in <a href="/2013/09/using-chef-to-provision-a-rails-and-postgres-server/">this post</a>. In particular it assumes:</p>
+
+<ul>
+<li>Nginx as the web server</li>
+<li>Unicorn as the app server</li>
+</ul>
+
+<p>As well as using this in production across several sites, this process has been tested on fresh Rails 3.2 and 4.0 projects.</p>
+
+<h2>Upgrading from V2</h2>
+
+<p>If you already have a Capistrano V2 configuration for the application to be deployed, I suggest you archive all of this off and start from scratch with Capistrano 3. In general this will mean renaming (for example appenidng .old) all of the following:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">Capfile
+config/deploy.rb
+config/deploy/
+</code></pre></div>
+<h2>Step by step</h2>
+
+<p>1) Add the following Gems to your Gemfile</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">gem</span> <span class="s1">&#39;capistrano&#39;</span><span class="p">,</span> <span class="s1">&#39;~&gt; 3.1.0&#39;</span>
+
+<span class="c1"># rails specific capistrano funcitons</span>
+<span class="n">gem</span> <span class="s1">&#39;capistrano-rails&#39;</span><span class="p">,</span> <span class="s1">&#39;~&gt; 1.1.0&#39;</span>
+
+<span class="c1"># integrate bundler with capistrano</span>
+<span class="n">gem</span> <span class="s1">&#39;capistrano-bundler&#39;</span>
+
+<span class="c1"># if you are using RBENV</span>
+<span class="n">gem</span> <span class="s1">&#39;capistrano-rbenv&#39;</span><span class="p">,</span> <span class="s2">&quot;~&gt; 2.0&quot;</span> 
+
+<span class="c1"># Use the Unicorn app server</span>
+<span class="n">gem</span> <span class="s1">&#39;unicorn&#39;</span>
+</code></pre></div>
+<p>Then run <code>bundle install</code> if you&#39;re adding capistrano 3 for the first time or <code>bundle update capistrano</code> if you&#39;re upgrading. You may need to do some of the usual Gemfile juggling if you&#39;re updating and there are dependency conflicts.</p>
+
+<p>2) Assuming you&#39;ve archived off any legacy Capistrano configs, you can now run:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">bundle <span class="nb">exec </span>cap install
+</code></pre></div>
+<p>Which generates the following files and directory structure:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">├── Capfile
+├── config
+│   ├── deploy
+│   │   ├── production.rb
+│   │   └── staging.rb
+│   └── deploy.rb
+└── lib
+    └── capistrano
+            └── tasks
+</code></pre></div>
+<p>The source for this tutorial is available on <a href="https://github.com/TalkingQuickly/capistrano-3-rails-template">github</a>. I suggest cloning this repository or downloading <a href="https://github.com/TalkingQuickly/capistrano-3-rails-template/archive/master.zip">the zip</a> and copying these files into your project as you read through the following steps.</p>
+
+<p>3) Add the following line at the end of <code>Capfile</code></p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Dir</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;lib/capistrano/**/*.rb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">r</span><span class="o">|</span> <span class="n">import</span> <span class="n">r</span> <span class="p">}</span>
+</code></pre></div>
+<p>This means that as well as loading all .cap files in <code>lib/capistrano/tasks</code>, Capistrano will load all .rb files in <code>lib/capistrano</code> and its subfolders. This is used later to define simple helper functions for use in tasks.</p>
+
+<p>You&#39;ll also probably want to uncomment:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">require</span> <span class="s1">&#39;capistrano/bundler&#39;</span>
+<span class="nb">require</span> <span class="s1">&#39;capistrano/rbenv&#39;</span>
+<span class="nb">require</span> <span class="s1">&#39;capistrano/rails/migrations&#39;</span>
+</code></pre></div>
+<p>Which will include the capistrano bundler tasks to ensure gems are automatically installed when you deploy. It will also include the rbenv helpers which ensure the rbenv specified ruby is used when executing commands remotely rather than the system default. Finally it will include the migration helpers which ensure migrations are automatically run when you deploy.</p>
+
+<p>4) This approach aims is to keep as much common configuration in <code>config/deploy.rb</code> as possible and put only minimal stage specific configuration in the stage files like <code>config/deploy/production.rb</code>.</p>
+
+<p>To begin with enter the following in <code>deploy.rb</code></p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">set</span> <span class="ss">:application</span><span class="p">,</span> <span class="s1">&#39;app_name&#39;</span>
+<span class="n">set</span> <span class="ss">:deploy_user</span><span class="p">,</span> <span class="s1">&#39;deploy&#39;</span>
+
+<span class="c1"># setup repo details</span>
+<span class="n">set</span> <span class="ss">:scm</span><span class="p">,</span> <span class="ss">:git</span>
+<span class="n">set</span> <span class="ss">:repo_url</span><span class="p">,</span> <span class="s1">&#39;git@github.com:username/repo.git&#39;</span>
+
+<span class="c1"># setup rvm.</span>
+<span class="n">set</span> <span class="ss">:rbenv_type</span><span class="p">,</span> <span class="ss">:system</span>
+<span class="n">set</span> <span class="ss">:rbenv_ruby</span><span class="p">,</span> <span class="s1">&#39;2.1.1&#39;</span>
+<span class="n">set</span> <span class="ss">:rbenv_prefix</span><span class="p">,</span> <span class="s2">&quot;RBENV_ROOT=</span><span class="si">#{</span><span class="n">fetch</span><span class="p">(</span><span class="ss">:rbenv_path</span><span class="p">)</span><span class="si">}</span><span class="s2"> RBENV_VERSION=</span><span class="si">#{</span><span class="n">fetch</span><span class="p">(</span><span class="ss">:rbenv_ruby</span><span class="p">)</span><span class="si">}</span><span class="s2"> </span><span class="si">#{</span><span class="n">fetch</span><span class="p">(</span><span class="ss">:rbenv_path</span><span class="p">)</span><span class="si">}</span><span class="s2">/bin/rbenv exec&quot;</span>
+<span class="n">set</span> <span class="ss">:rbenv_map_bins</span><span class="p">,</span> <span class="sx">%w{rake gem bundle ruby rails}</span>
+
+<span class="c1"># how many old releases do we want to keep</span>
+<span class="n">set</span> <span class="ss">:keep_releases</span><span class="p">,</span> <span class="mi">5</span>
+
+<span class="c1"># files we want symlinking to specific entries in shared.</span>
+<span class="n">set</span> <span class="ss">:linked_files</span><span class="p">,</span> <span class="sx">%w{config/database.yml}</span>
+
+<span class="c1"># dirs we want symlinking to shared</span>
+<span class="n">set</span> <span class="ss">:linked_dirs</span><span class="p">,</span> <span class="sx">%w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}</span>
+
+<span class="c1"># what specs should be run before deployment is allowed to</span>
+<span class="c1"># continue, see lib/capistrano/tasks/run_tests.cap</span>
+<span class="n">set</span> <span class="ss">:tests</span><span class="p">,</span> <span class="o">[]</span>
+
+<span class="c1"># which config files should be copied by deploy:setup_config</span>
+<span class="c1"># see documentation in lib/capistrano/tasks/setup_config.cap</span>
+<span class="c1"># for details of operations</span>
+<span class="n">set</span><span class="p">(</span><span class="ss">:config_files</span><span class="p">,</span> <span class="sx">%w(</span>
+<span class="sx">  nginx.conf</span>
+<span class="sx">  database.example.yml</span>
+<span class="sx">  log_rotation</span>
+<span class="sx">  monit</span>
+<span class="sx">  unicorn.rb</span>
+<span class="sx">  unicorn_init.sh</span>
+<span class="sx">)</span><span class="p">)</span>
+
+<span class="c1"># which config files should be made executable after copying</span>
+<span class="c1"># by deploy:setup_config</span>
+<span class="n">set</span><span class="p">(</span><span class="ss">:executable_config_files</span><span class="p">,</span> <span class="sx">%w(</span>
+<span class="sx">  unicorn_init.sh</span>
+<span class="sx">)</span><span class="p">)</span>
+
+<span class="c1"># files which need to be symlinked to other parts of the</span>
+<span class="c1"># filesystem. For example nginx virtualhosts, log rotation</span>
+<span class="c1"># init scripts etc.</span>
+<span class="n">set</span><span class="p">(</span><span class="ss">:symlinks</span><span class="p">,</span> <span class="o">[</span>
+  <span class="p">{</span>
+    <span class="ss">source</span><span class="p">:</span> <span class="s2">&quot;nginx.conf&quot;</span><span class="p">,</span>
+    <span class="ss">link</span><span class="p">:</span> <span class="s2">&quot;/etc/nginx/sites-enabled/</span><span class="si">#{</span><span class="n">fetch</span><span class="p">(</span><span class="ss">:full_app_name</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="ss">source</span><span class="p">:</span> <span class="s2">&quot;unicorn_init.sh&quot;</span><span class="p">,</span>
+    <span class="ss">link</span><span class="p">:</span> <span class="s2">&quot;/etc/init.d/unicorn_</span><span class="si">#{</span><span class="n">fetch</span><span class="p">(</span><span class="ss">:full_app_name</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="ss">source</span><span class="p">:</span> <span class="s2">&quot;log_rotation&quot;</span><span class="p">,</span>
+   <span class="ss">link</span><span class="p">:</span> <span class="s2">&quot;/etc/logrotate.d/</span><span class="si">#{</span><span class="n">fetch</span><span class="p">(</span><span class="ss">:full_app_name</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="ss">source</span><span class="p">:</span> <span class="s2">&quot;monit&quot;</span><span class="p">,</span>
+    <span class="ss">link</span><span class="p">:</span> <span class="s2">&quot;/etc/monit/conf.d/</span><span class="si">#{</span><span class="n">fetch</span><span class="p">(</span><span class="ss">:full_app_name</span><span class="p">)</span><span class="si">}</span><span class="s2">.conf&quot;</span>
+  <span class="p">}</span>
+<span class="o">]</span><span class="p">)</span>
+
+
+<span class="c1"># this:</span>
+<span class="c1"># http://www.capistranorb.com/documentation/getting-started/flow/</span>
+<span class="c1"># is worth reading for a quick overview of what tasks are called</span>
+<span class="c1"># and when for `cap stage deploy`</span>
+
+<span class="n">namespace</span> <span class="ss">:deploy</span> <span class="k">do</span>
+  <span class="c1"># make sure we&#39;re deploying what we think we&#39;re deploying</span>
+  <span class="n">before</span> <span class="ss">:deploy</span><span class="p">,</span> <span class="s2">&quot;deploy:check_revision&quot;</span>
+  <span class="c1"># only allow a deploy with passing tests to deployed</span>
+  <span class="n">before</span> <span class="ss">:deploy</span><span class="p">,</span> <span class="s2">&quot;deploy:run_tests&quot;</span>
+  <span class="c1"># compile assets locally then rsync</span>
+  <span class="n">after</span> <span class="s1">&#39;deploy:symlink:shared&#39;</span><span class="p">,</span> <span class="s1">&#39;deploy:compile_assets_locally&#39;</span>
+  <span class="n">after</span> <span class="ss">:finishing</span><span class="p">,</span> <span class="s1">&#39;deploy:cleanup&#39;</span>
+
+  <span class="c1"># remove the default nginx configuration as it will tend</span>
+  <span class="c1"># to conflict with our configs.</span>
+  <span class="n">before</span> <span class="s1">&#39;deploy:setup_config&#39;</span><span class="p">,</span> <span class="s1">&#39;nginx:remove_default_vhost&#39;</span>
+
+  <span class="c1"># reload nginx to it will pick up any modified vhosts from</span>
+  <span class="c1"># setup_config</span>
+  <span class="n">after</span> <span class="s1">&#39;deploy:setup_config&#39;</span><span class="p">,</span> <span class="s1">&#39;nginx:reload&#39;</span>
+
+  <span class="c1"># Restart monit so it will pick up any monit configurations</span>
+  <span class="c1"># we&#39;ve added</span>
+  <span class="n">after</span> <span class="s1">&#39;deploy:setup_config&#39;</span><span class="p">,</span> <span class="s1">&#39;monit:restart&#39;</span>
+
+  <span class="c1"># As of Capistrano 3.1, the `deploy:restart` task is not called</span>
+  <span class="c1"># automatically.</span>
+  <span class="n">after</span> <span class="s1">&#39;deploy:publishing&#39;</span><span class="p">,</span> <span class="s1">&#39;deploy:restart&#39;</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>The key variables to set here are <code>application</code>, <code>repo_url</code> and <code>rbenv_ruby</code>. The Rbenv Ruby you set must match one installed with rbenv on the machine you&#39;re deploying to otherwise the deploy will fail.</p>
+
+<p>This section:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># what specs should be run before deployment is allowed to</span>
+<span class="c1"># continue, see lib/capistrano/tasks/run_tests.cap</span>
+<span class="n">set</span> <span class="ss">:tests</span><span class="p">,</span> <span class="o">[]</span>
+</code></pre></div>
+<p>Provides a simple way to run specs before deploying, if the specs fail, the deployment will be halted. If you already have a fully blown continuous integration system setup (or don&#39;t want to run specs at all), this can be set to an empty array.</p>
+
+<p>If you were to have this as <code>set :tests, []</code> then <code>bundle exec rspec spec</code> would be run and would have to pass before deployment would continue.</p>
+
+<p>5) Now edit the stage specific settings in <code>production.rb</code>. By default it looks like this:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">set</span> <span class="ss">:stage</span><span class="p">,</span> <span class="ss">:production</span>
+<span class="n">set</span> <span class="ss">:branch</span><span class="p">,</span> <span class="s2">&quot;master&quot;</span>
+
+<span class="c1"># used in case we&#39;re deploying multiple versions of the same</span>
+<span class="c1"># app side by side. Also provides quick sanity checks when looking</span>
+<span class="c1"># at filepaths</span>
+<span class="n">set</span> <span class="ss">:full_app_name</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">fetch</span><span class="p">(</span><span class="ss">:application</span><span class="p">)</span><span class="si">}</span><span class="s2">_</span><span class="si">#{</span><span class="n">fetch</span><span class="p">(</span><span class="ss">:stage</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="n">set</span> <span class="ss">:server_name</span><span class="p">,</span> <span class="s2">&quot;www.example.com example.com&quot;</span>
+
+<span class="n">server</span> <span class="s1">&#39;www.example.com&#39;</span><span class="p">,</span> <span class="ss">user</span><span class="p">:</span> <span class="s1">&#39;deploy&#39;</span><span class="p">,</span> <span class="ss">roles</span><span class="p">:</span> <span class="sx">%w{web app db}</span><span class="p">,</span> <span class="ss">primary</span><span class="p">:</span> <span class="kp">true</span>
+
+<span class="n">set</span> <span class="ss">:deploy_to</span><span class="p">,</span> <span class="s2">&quot;/home/</span><span class="si">#{</span><span class="n">fetch</span><span class="p">(</span><span class="ss">:deploy_user</span><span class="p">)</span><span class="si">}</span><span class="s2">/apps/</span><span class="si">#{</span><span class="n">fetch</span><span class="p">(</span><span class="ss">:full_app_name</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="c1"># dont try and infer something as important as environment from</span>
+<span class="c1"># stage name.</span>
+<span class="n">set</span> <span class="ss">:rails_env</span><span class="p">,</span> <span class="ss">:production</span>
+
+<span class="c1"># number of unicorn workers, this will be reflected in</span>
+<span class="c1"># the unicorn.rb and the monit configs</span>
+<span class="n">set</span> <span class="ss">:unicorn_worker_count</span><span class="p">,</span> <span class="mi">5</span>
+
+<span class="c1"># whether we&#39;re using ssl or not, used for building nginx</span>
+<span class="c1"># config file</span>
+<span class="n">set</span> <span class="ss">:enable_ssl</span><span class="p">,</span> <span class="kp">false</span>
+</code></pre></div>
+<p>The important variables to update are the server hostname:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">server</span> <span class="s1">&#39;www.example.com&#39;</span><span class="p">,</span> <span class="ss">user</span><span class="p">:</span> <span class="s1">&#39;deploy&#39;</span><span class="p">,</span> <span class="ss">roles</span><span class="p">:</span> <span class="sx">%w{web app db}</span><span class="p">,</span> <span class="ss">primary</span><span class="p">:</span> <span class="kp">true</span>
+</code></pre></div>
+<p>the server name:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">set</span> <span class="ss">:server_name</span><span class="p">,</span> <span class="s2">&quot;www.example.com example.com&quot;</span>
+</code></pre></div>
+<p>When you run <code>cap some_stage_name some_task</code>, Capistrano will look for a file <code>config/deploy/some_stage_name.rb</code> and load it after <code>deploy.rb</code>.</p>
+
+<p>You can create as many of these files as you want, for example an additional <code>staging</code> configuration.</p>
+
+<p>6) Config Files</p>
+
+<p>Capistrano uses a folder called <code>shared</code> to manage files and directories that should persist across releases. The key one is <code>shared/config</code> which contains configuration files which are required to persist across deploys.</p>
+
+<p>To integrate with the Rails directory structure, the following:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># files we want symlinking to specific entries in shared.</span>
+<span class="n">set</span> <span class="ss">:linked_files</span><span class="p">,</span> <span class="sx">%w{config/database.yml config/application.yml}</span>
+</code></pre></div>
+<p>Means that after every deploy, the files listed in the array (remember <code>%w{items}</code> is just shorthand for creating an array of string literals) will be automatically symlinked to corresponding files in shared.</p>
+
+<p>Therefore <code>config/database.yml</code> will actually be a symlink which points to <code>shared/config/database.yml</code>.</p>
+
+<p>This section:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># which config files should be copied by deploy:setup_config</span>
+<span class="c1"># see documentation in lib/capistrano/tasks/setup_config.cap</span>
+<span class="c1"># for details of operations</span>
+<span class="n">set</span><span class="p">(</span><span class="ss">:config_files</span><span class="p">,</span> <span class="sx">%w(</span>
+<span class="sx">  nginx.conf</span>
+<span class="sx">  database.example.yml</span>
+<span class="sx">  log_rotation</span>
+<span class="sx">  monit</span>
+<span class="sx">  unicorn.rb</span>
+<span class="sx">  unicorn_init.sh</span>
+<span class="sx">)</span><span class="p">)</span>
+
+<span class="c1"># which config files should be made executable after copying</span>
+<span class="c1"># by deploy:setup_config</span>
+<span class="n">set</span><span class="p">(</span><span class="ss">:executable_config_files</span><span class="p">,</span> <span class="sx">%w(</span>
+<span class="sx">  unicorn_init.sh</span>
+<span class="sx">)</span><span class="p">)</span>
+</code></pre></div>
+<p>Is a custom extension to the standard Capistrano 3 approach to configuration files which makes the initial creation of these files easier by adding the task <code>deploy:setup_config</code>.</p>
+
+<p>When this task is run, for each of the files defined in <code>:config_files</code>, it will first look for a corresponding .erb file (so for nginx.conf it would look for nginx.conf.erb) in <code>config/deploy/#{application}_#{rails_env}/</code>. If it is not found in there it would look for it in <code>config/deploy/shared/. Once it finds the correct source file, it will parse the erb and then copy the result to the</code>config` directory in your remote shared path.</p>
+
+<p>This allows you to define your common config files in <code>shared</code> which will be used by all stages (staging &amp; production for example) while still allowing for some templates to differ between stages.</p>
+
+<p>Finally this section:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"># remove the default nginx configuration as it will tend
+# to conflict with our configs.
+before &#39;deploy:setup_config&#39;, &#39;nginx:remove_default_vhost&#39;
+
+# reload nginx to it will pick up any modified vhosts from
+# setup_config
+after &#39;deploy:setup_config&#39;, &#39;nginx:reload&#39;
+
+# Restart monit so it will pick up any monit configurations
+# we&#39;ve added
+after &#39;deploy:setup_config&#39;, &#39;monit:restart&#39;
+</code></pre></div>
+<p>Means that after <code>deploy:setup_config</code> is run, we:</p>
+
+<ul>
+<li>Delete the <code>default</code> nginx Virtualhost to stop it over-riding our VirtualHost</li>
+<li>Reload Nginx to pickup any changes to the VirtualHost</li>
+<li>Reload Monit to pickup any changes to the Monit configuration</li>
+</ul>
+
+<p>Check that you&#39;re happy with the contents of the configuration files and then copy them to your production server with:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">cap production deploy:setup_config
+</code></pre></div>
+<p>7) Now SSH into your remote server and cd into <code>shared/config</code> to create a database.yml from the example:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">cp database.yml.example database.yml
+</code></pre></div>
+<p>Edit it with your favourite text editor, e.g:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">vim database.yml
+</code></pre></div>
+<p>And enter the details of the database the app should connect to. Remember that if you&#39;re using Postgres or Mysql, you&#39;ll need to create this database first.</p>
+
+<p>8) You&#39;re now ready to deploy. Return to your local terminal, ensure that you&#39;ve committed your changes pushed changes to the remote repository and enter:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">cap production deploy
+</code></pre></div>
+<p>And wait. The fist deploy can take a while as Gems are installed so be patient.</p>
+
+<h2>Conclusion</h2>
+
+<p>This configuration is based heavily on the vanilla capistrano configuration, with some extra convenience tasks added in <code>lib/capistrano/tasks/</code> to make workflows I&#39;ve found to be efficient for big production configurations quick to setup. </p>
+
+<p>I strongly recommend forking my sample configuration and tailoring it to fit the kind of applications you develop. I usually end up with a few different configurations, each of which are used for either a particular type of personal project or all of a particular clients applications.</p>
+
+<p>Any queries or suggestions are welcomed, I&#39;m <a href="http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a> on twitter. I&#39;m also happy to include pull requests to the sample configuration.</p>
+
+<div class="alsoread">
+  <p><strong>Popular posts about deploying Rails apps</strong></p>
+  <p>
+    <a href="/2013/09/using-chef-to-provision-a-rails-and-postgres-server/">
+      How to quickly provision a VPS for Rails using Chef
+    </a>
+    <br/>
+    <a href="/2014/01/deploying-rails-apps-to-a-vps-with-capistrano-v3/">
+      Deploying with Capistrano 3
+    </a>
+    <br/>
+    <a href="/2013/12/tailing-log-files-with-capistrano-3/">
+      Tailing log files with Capistrano 3
+    </a>
+    <br/>
+    <a href="/2013/10/using-vagrant-to-test-chef-cookbooks/">
+      Using Vagrant to test Chef Cookbooks
+    </a>
+    <br/>
+    <a href="/2013/11/deploying-multiple-rails-apps-to-a-single-vps/">
+      Deploying with Capistrano 2
+    </a>
+  </p>
+</div>
+
+        </section>
+
+        
+
+        <footer class="post-footer">
+          
+          
+            <section class="book">
+  <header>
+    <a href="https://leanpub.com/deploying_rails_applications?utm_campaign=tlq_blog&utm_medium=referral&utm_source=footer_image">
+      <img
+      src="/assets/images/deploying_rails_applications_cover.jpeg"
+      />
+    </a>
+  </header>
+  <article>
+    <h4>Reliably Deploying Rails Applications Book</h4>
+    <p>My book, Reliably Deploying Rails Applications covers every step of the deployment
+    process from setting up a VPS from scratch with Chef, to deploying
+    and day to day maintenance with Capistrano 3.</p>
+    <p><a
+      href="https://leanpub.com/deploying_rails_applications?utm_campaign=tlq_blog&utm_medium=referral&utm_source=footer"
+      target="_blank">You
+      can purchase it from leanpub here</a> or enter your email below to
+    read a sample chapter.</p>
+    <div id="mc_embed_signup">
+<form action="http://hillsbede.us5.list-manage.com/subscribe/post?u=68b84d48aa7cec1155bee1a0c&amp;id=73f32eb74a" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" novalidate="">
+  
+  <input placeholder="Email Address" type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" style="height:28px;padding: 0 10px 0 10px;">
+
+<input type="submit" value="Get the sample chapter" name="subscribe" id="mc-embedded-subscribe" class="button" style="background-color: #aaa;border: 0 none;border-radius: 4px;color: #FFFFFF;display: inline-block;font-size: 15px;font-weight: bold;height: 32px;line-height: 32px;margin: 0 5px 10px 10px;padding: 0 10px 0 10px;text-align: center;text-decoration: none;vertical-align: top;white-space: nowrap;width: auto;">
+</form>
+</div>
+  
+  </article>
+</section>
+
+          
+          
+
+            
+            
+        	
+        </footer>
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="/rss.xml"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+          <section class="copyright">All content copyright <a href="/about.html">Ben Dixon</a> &copy;  &bull; All rights reserved. Twitter: <a href="http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a></section>
+             <section class="poweredby">Made with Jekyll and based on the <a href="http://github.com/rosario/kasper" target="_blank">Kasper theme</a></section>
+        </div>
+    </footer>
+
+    
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-7333902-35']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>   
+</body>
+</html>

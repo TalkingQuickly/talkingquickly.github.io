@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>   
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>2014 In Review</title>
+    
+        <meta name="description" content="Blog by Ben Dixon, Ruby on Rails Developer, about rails, devops, docker, climbing and startups" />
+    
+    
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="iwXSC2H2VSO9iPyrWjNj3Prlx4zJY-l0EJRGVkFuUHk" />
+
+   
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+    <link rel="alternate" type="application/rss+xml" title="RubyFlow"
+    href="/rss.xml"/>
+
+</head>
+<body class="home-template">
+
+    
+    <main class="content" role="main">
+
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="/"><span class="blog-title">Home</span></a>
+            //
+            <a target="_blank" href='https://leanpub.com/deploying_rails_applications'>Deploying Rails Book</a>
+        </header>
+        
+        <span class="post-meta">
+        	
+       	</span>
+
+        <h1 class="post-title">2014 In Review</h1>
+
+        <section class="post-content">
+            <p>Having reached 2015 I&#39;m forced to acknowledge that 2013 In Review is probably not going to happen. I might even remove it from my ToDo list where it&#39;s now the oldest item after returning the copy of &quot;Chaos&quot; I borrowed from a public library in my first year of university, six years of fines are going to hurt. In the spirit of <a href="">it probably isn&#39;t a big deal</a> I&#39;ll dive straight into 2014 but with a scattering of confusing references to 2013 for context.</p>
+
+<h2>Products</h2>
+
+<p>One of my long term goals is to shift my income away from consulting and towards products. 2014 was the best year yet for this and hopefully 2015 will see this trend continue.</p>
+
+<h3>Make It With Code</h3>
+
+<p>In January 2014, <a href="http://www.twitter.com/hrowalters">Huw</a>, <a href="http://www.twitter.com/bec_pr">Rebecca</a> and I sat in a freezing cafe in Paris and talked about learning to code. In particular how it was broken. Our expertise was formidable, I&#39;d learned to code, Rebecca was learning and Huw was used to trying to block out me talking about code. We were nearly experts already.</p>
+
+<p>Our premise was simple, good developers learned by hacking on things, not by trawling through reams of dry theory. So why was no-one teaching this way. We put pen to paper and the result was <a href="/2014/01/teaching-people-to-code/">this</a> blog post. Our offer to write a course which taught this way was taken up by a surprisingly large number of people on Reddit and within a day we had over 60 people willing to pay for our experiment.</p>
+
+<p>What followed was ten weeks of madness which when squinted at carefully, reveals what turned out to be a surprisingly effective method. The first of ten lessons was finished hours before the first group started. Having been written by me and tested by Huw and Rebecca, both for content and the ratio of sarcastic jokes to informational (1:10 turns out to be the perfect balance) the lesson went out to the first group. We&#39;d then begin the whole process again for the next lesson alongside improving the first one based on feedback before sending it out to the next weeks group.</p>
+
+<p>After ten weeks, ten lessons and countless revisions, we were exhausted but it seemed to have worked! Feedback from students was great and even more excitingly, they were sending us real things they&#39;d been able to make using what they&#39;d learned.</p>
+
+<p>Fast forward to the end of 2014 and we&#39;re seeing good organic growth of our general &quot;introduction to code&quot; course (<a href="http://www.makeitwithcode.com">http://www.makeitwithcode.com</a>) and just launched our first industry specific course <a href="https://www.makeitwithcode.com/community-professionals">coding for community professionals</a> in partnership with CMX Media in San Francisco. Our tech&#39;s a bit more advanced to with a completely custom platform for delivering lesson content as well as a Docker based Cloud IDE for every student.</p>
+
+<p>2015 will see us launch several more industry specific courses as well as experiment with in person teaching and multiple delivery platforms.</p>
+
+<h3>Reliably Deploying Rails Applications</h3>
+
+<p>Somewhere towards the end of 2013, patio11 on HN mentioned that someone should write a book about how to deploy Rails Applications without tearing your hair out. I commented that I&#39;d been collating notes on that topic for a while and was thinking of releasing it as book sometime. I woke up to several emails from people saying they&#39;d buy such a book and asking for copies of it. So somewhat impulsively I decided to write it.</p>
+
+<p>Optimistically thinking it would take around three months to write and with a goal of selling ten copies, I released the first chapter on the amazing <a href="http://leanpub.com/deploying_rails_applications">Leanpub</a>, set a fairly low price and starting writing. 14 Months, two total re-writes and it&#39;s now about 90% finished. In this period it&#39;s sold around 850 copies and made a little over $15,000. The amazing Obie Fernandez, author of The Rails Way has kindly agreed to write a foreword and the &#39;final&#39; version should be out by April this year.</p>
+
+<h3>Deploying Rails with Docker</h3>
+
+<p>Docker is in the process of changing nearly everything about how we deploy web applications. Late in 2014 I put out a fairly weighty blog post about development environments with Docker along with a signup form to see who&#39;d be interested in a book about deploying Rails with Docker. Interest has been impressive, the post is now one of my highest trafficked pages and signups to the book mailing list are around 7/ week.</p>
+
+<p>Unfortunately at the moment the Docker ecosystem is moving to quickly to put out a stable book on how to deploy with it. As Docker begin to develop their own orchestration and development environment tool chain, it&#39;s unclear whether the industry will standardise on that or if each platform ecosystem will develop it&#39;s own favourite tools. So at the moment this book is on hold while things stabilise.</p>
+
+<p>In the mean time I&#39;ve written my own Docker Orchestration framework <a href="https://github.com/talkingquickly/dacker">Dacker</a> which is entirely Ruby based and provides a simple way to orchestrate multiple containers across several hosts using a simple Fig like YAML syntax. Production usage is strongly discouraged...</p>
+
+<p>I&#39;ll also be continuing to blog about Docker in 2015.</p>
+
+<h3>Au Revoir</h3>
+
+<p>2013 marked the demise of InGuide - a digital guidebook platform for art galleries and museums. High support costs and falling funding for the arts meant it simply wasn&#39;t financially viable. High points included trials with The National Trust and being used by the 3 Beards for one of their amazing art hack events.</p>
+
+<p>2013 was also the end of Shop Of Me - a browser extension which alerted users when items of clothing they had used went on sale. The business model was re-selling the data collected to retailers to help with pricing and buying decisions. We eventually found that while data usage in the fashion industry is gradually on the up, it&#39;s a slow process, and demand for data like ours wasn&#39;t going to be sufficient to sustain the company. I&#39;m not sure I quite go as far as Travis Lee Street&#39;s Radio 4 quote that we were &quot;the rockstars of the startup world&quot; (because it isn&#39;t true..) but we did get a visit to 10 Downing Street out of it!</p>
+
+<h2>Speaking and Conferences</h2>
+
+<h3>Speaking At Railsconf</h3>
+
+<p>Buoyed by the interest in the book, I submitted a talk to RailsConf aimed at beginners, entitled &quot;Deploying Rails is Easier Than it Looks&quot;. Euphoria followed by total panic summarises my reaction to the acceptance email. You can watch the talk below:</p>
+
+<iframe width="560" height="315" src="//www.youtube.com/embed/hTofBnxyBUU" frameborder="0" allowfullscreen></iframe>
+
+<p>In future I&#39;d tone down the code walk through - it was too intimidating at the pace I did it - and probably do one or two less obsessive 4AM run throughs the night before. But in general it seemed well received and as my first talk at a major conference I&#39;m pleased with it.</p>
+
+<p>The conference itself was definitely worth attending just for the number of interesting people I met. I&#39;ll definitely plan to go back to this years conference whether as a speaker or an attendee.</p>
+
+<h3>Attending DockerCon</h3>
+
+<p>The first ever DockerCon was definitely a special event. It&#39;s amazing to see such a young company with such an engaged and diverse following. The badge of honor at the conference seemed to be hour far before 1.0 did you put Docker into production (0.8 for the record).</p>
+
+<p>Seeing the likes of Google stand up to announce they&#39;d be standardising on the Docker container format gave an idea of how the &quot;getting people to agree standards&quot; part of Docker is actually far more important than any code they&#39;ve written.</p>
+
+<h3>Attending TC Disrupt London</h3>
+
+<p>Having built <a href="http://www.sentimentile.com">Sentimentile</a> with the awesome <a href="http://www.twitter.com/oldwhitewizard">@OldWhiteWizard</a> for the Disrupt Hackathon, we were lucky enough to win tickets to the main conference. I admit to being initially skeptical of Disrupt, TC seems to cover funding rather than tech so I was partly expecting two days of &quot;who&#39;s raised the biggest series A&quot; posing.</p>
+
+<p>As it turned out I couldn&#39;t have been more wrong. The most impressive speaker by far was <a href="http://en.wikipedia.org/wiki/Morten_Lund_%28investor%29">Morten Lund</a>, primarily due to what seemed like an almost pathological lack of interest in what anyone thought of his answers. It&#39;s hard to pick a favourite but if pressed I&#39;d probably go with &quot;I&#39;m not trying to be f**king friends with everybody, I just want to work on interesting things with people I like&quot;.</p>
+
+<h2>Health</h2>
+
+<h3>Energy Levels, Wellbeing and Diet</h3>
+
+<p>About two years after first realising that what goes into my body might effect how well it worked - revolutionary huh - I&#39;m starting to get a feel for &quot;what works&quot; for me.</p>
+
+<p>In general some variation on low/ slow carb seems to give me the most consistent energy throughout the day. In particular cutting out white bread and anything with a lot of refined sugar in it.</p>
+
+<p>I stuck to a strict &quot;no bread, no pasta etc&quot; regime for a month while in Crete and as well as generally having a more consistent level of energy, lost around 1St. It did however have the major downfall that it excluded two key food groups; Fajitas and Pizza. The Fajita problem has been solved with the aid of low carb tortillas from Amazon and the pizza one by limiting it to occasions when said Pizza is free.</p>
+
+<p>I become more convinced every year that basic meditation and mindfulness techniques should be taught along side basic numeracy and literacy. Having had a long and meandering relationship with stress and in particular irrational anxiety, meditation, specifically breath based meditations and exercises remain one of my most effective tools for keep my head straight. I can&#39;t recommend the <a href="https://www.headspace.com/">Headspace</a> app enough to anyone thinking of giving it a go.</p>
+
+<h3>Exercise and Tracking</h3>
+
+<p>Total distance on RunKeeper was 316km of which 240km was running, 71km cycling and 3.3km skiing. Total duration for all Cardio was 28 hours and 51 minutes which seems surpringly low. For about 2/3rds of the year I had a fairly good running schedule, sticking to at least once a week and usually more. That&#39;s slipped completely at the start of 2015, in true British fashion, I blame the weather.</p>
+
+<p>RunKeeper has proven to be a great motivator. In particular the paid version (clever) allowing me to see how each run compares to others of mine over a similar distance, e.g. &quot;your 4th fastest 4 - 6km) and so-on.</p>
+
+<p>The Withings Smart Body Analyser (read posh scales attached to wifi) turned out to be a great purchase. It&#39;s emphasised just how low friction something needs to be for me to stick to regularly tracking it. This is in stark contrast to the Withings blood pressure monitor which I&#39;ve ended up returning due to persistent unreliability.</p>
+
+<p>While I haven&#39;t stuck to it as regularly, sleep tracking with Sleep as Android has been useful. In particular it&#39;s emphasised the difference to duration of deep sleep activities before sleeping make. Specifically that watching TV immediately before hand or drinking alcohol in the few hours before hand dramatically reduce the amount of deep sleep and so how well rested I feel the following day.</p>
+
+<p>Other things I&#39;ve experimented with tracking and given up on (and why):</p>
+
+<ul>
+<li>Mood (data not actionable)</li>
+<li>Everything Eaten (too much effort to track)</li>
+<li>Balance of activities E.g. work v social v exercise. (too much effort to track)</li>
+<li>Calories Consumed (too much effort, data not actionable)</li>
+<li>Steps (data not actionable)</li>
+</ul>
+
+<h2>Travel</h2>
+
+<p>2014 (and the end of 2013) are my best yet for travel by a long way. But since a picture is worth a thousand words, here are what may seem like several thousand pictures.</p>
+
+<h3>Venice (2013)</h3>
+
+<p>Look for the incredibly talented charcoal only artists with a studio under a bridge somewhere. He creates the most amazing pieces using only the edge of the stick.</p>
+
+<p><img src="/assets/images/2014-in-review/venice3.jpg" alt="Venice"></p>
+
+<h3>Malta (2013)</h3>
+
+<p>They have English power outlets, what more can you ask for?</p>
+
+<h3>Brussels (2013)</h3>
+
+<p>When you get there, don&#39;t despair, Ghent is only an hour away. And the Trams are good.</p>
+
+<p><img src="/assets/images/2014-in-review/brussels2.jpg" alt="Brussels"></p>
+
+<h3>Moving to Paris (2013/ 2014)</h3>
+
+<p>Absolutely my favourite city in the world. Dedicated post coming soon. Nothing quite beats Canal St Matin on a summers evening or the Mutinerie co-working space at pretty much any time.</p>
+
+<p><img src="/assets/images/2014-in-review/paris1.jpg" alt="Paris"></p>
+
+<h3>Claviere (Skiing, 2014)</h3>
+
+<p>Up to date lifts but retains the &quot;little resort&quot; feel. And our room key turned out to be a master key, the owner responded with surprise when I mentioned it, &quot;so you&#39;d prefer one just for your room&quot;?</p>
+
+<p><img src="/assets/images/2014-in-review/claviere1.jpg" alt="Claviere"></p>
+
+<h3>Milan (2014)</h3>
+
+<p>A Beautiful city but everything is overshadowed by seeing Ludovicio Einaudi live. Just incredible.</p>
+
+<p><img src="/assets/images/2014-in-review/milan2.jpg" alt="Milan"></p>
+
+<h3>Crete (2014)</h3>
+
+<p>The best place for stag do spotting outside of Prague (and it&#39;s kind of beautiful).</p>
+
+<p><img src="/assets/images/2014-in-review/crete2.jpg" alt="Crete"></p>
+
+<h3>Athens (2014)</h3>
+
+<p>Athens Backpackers Hostel. Seriously. Go. Now.</p>
+
+<p><img src="/assets/images/2014-in-review/athens6.jpg" alt="Athens"></p>
+
+<h3>Chicago (2014)</h3>
+
+<p>I wasn&#39;t sure what the whole &quot;windy city&quot; thing was about. Now I get it.</p>
+
+<p><img src="/assets/images/2014-in-review/chicago1.jpg" alt="Chicago"></p>
+
+<h3>San Francisco (2014)</h3>
+
+<p>On day two I wandered out into a mile long hippy fest complete with bubble blowing and hemp robes. Amazing city.</p>
+
+<p><img src="/assets/images/2014-in-review/sf1.jpg" alt="San Francisco"></p>
+
+<h3>Dallas (2014)</h3>
+
+<p>Some beautiful lighting at night and the Texas state fair was beyond an experience.</p>
+
+<p><img src="/assets/images/2014-in-review/dallas3.jpg" alt="Dallas"></p>
+
+<h3>Austin (2014)</h3>
+
+<p>Seems to have nothing beyond geography in common with what I&#39;ve seen of the rest of Texas. Beautiful city seemingly built entirely around enjoying the outdoors.</p>
+
+<p><img src="/assets/images/2014-in-review/austin3.jpg" alt="Austin"></p>
+
+<h3>Boston (2014)</h3>
+
+<p>One of my favourite cities to date, small enough that you can walk everywhere but big enough you can find everything you want.</p>
+
+<p><img src="/assets/images/2014-in-review/boston1.jpg" alt="Boston"></p>
+
+<h3>Maine (2014)</h3>
+
+<p>The highlands of Scotland but with much, much better weather. It also took me a mere two hours to start the below pictured fire sans paper.</p>
+
+<p><img src="/assets/images/2014-in-review/maine1.jpg" alt="Maine"></p>
+
+<h3>New York (2014)</h3>
+
+<p>I still can&#39;t work out why but completely in love with this city, definitely need to live there at some point. And it&#39;s not just because I had the best Chinese food I&#39;ve ever encountered for $4.</p>
+
+<p><img src="/assets/images/2014-in-review/ny1.jpg" alt="NY"></p>
+
+<h3>Normandy (2014)</h3>
+
+<p>There&#39;s something bizarre but wonderful about the picturesque, quaint towns around the coast, directly next to the graveyards from the second world war.</p>
+
+<p><img src="/assets/images/2014-in-review/normandy4.jpg" alt="Normandy"></p>
+
+<h2>Goals For 2015</h2>
+
+<p>If anything 2015 will have less goals than 2014. Despite it having been a very successful year, I started off trying to do so many things that it was tough not to focus on all the things I&#39;d set out to do which I didn&#39;t. So for 2015 all I&#39;ve got is:</p>
+
+<ul>
+<li>Meditate More</li>
+<li>Finish Reliably Deploying Rails Applications</li>
+<li>Spend more time with people</li>
+<li>Try and get 7 - 8 hours sleep per night</li>
+</ul>
+
+        </section>
+
+        
+
+        <footer class="post-footer">
+          
+            <!-- If we want to display author's name and bio -->
+
+    <section class="author">
+      <header> <a href="/about.html"> <img class="profile"
+          src="/assets/images/profile2.jpg" alt="Ben Dixon. Without
+      Aviators."></a></header>
+      <article>
+        <!-- Author Name -->
+          <h4> Ben Dixon </h4>
+          <!-- Author Bio -->
+          <p> 
+          I'm a Ruby/ Android Developer, devops geek, lover of good coffee and making things. I'm the author of <a href="https://leanpub.com/deploying_rails_applications" target="_blank">Reliably Deploying Rails Applications</a> and currently based in London. <a href="/travel">Travel</a> addict often to be found exploring Europe, America and Asia. Co-founded <a href="https://www.makeitwithcode.com" target="_blank">Make It With Code</a>, <a href= "http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a> on twitter. 
+          </p>
+        </article>
+    </section>                
+
+
+          
+          
+          
+
+            
+            
+        	
+        </footer>
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="/rss.xml"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+          <section class="copyright">All content copyright <a href="/about.html">Ben Dixon</a> &copy;  &bull; All rights reserved. Twitter: <a href="http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a></section>
+             <section class="poweredby">Made with Jekyll and based on the <a href="http://github.com/rosario/kasper" target="_blank">Kasper theme</a></section>
+        </div>
+    </footer>
+
+    
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-7333902-35']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>   
+</body>
+</html>

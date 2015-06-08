@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>   
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Resources for learning to deploy Rails Applications</title>
+    
+        <meta name="description" content="Blog by Ben Dixon, Ruby on Rails Developer, about rails, devops, docker, climbing and startups" />
+    
+    
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="iwXSC2H2VSO9iPyrWjNj3Prlx4zJY-l0EJRGVkFuUHk" />
+
+   
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+    <link rel="alternate" type="application/rss+xml" title="RubyFlow"
+    href="/rss.xml"/>
+
+</head>
+<body class="home-template">
+
+    
+    <main class="content" role="main">
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="/"><span class="blog-title">Home</span></a>
+            //
+            <a target="_blank" href='https://leanpub.com/deploying_rails_applications'>Deploying Rails Book</a>
+        </header>
+
+        <h1 class="post-title">Resources for learning to deploy Rails Applications</h1>
+
+        <section class="post-content">
+            <p>This is a general collection of links I’ve found useful when learning how to deploy Rails applications, updated regularly as and when I find new things.</p>
+
+<h3>Provisioning without Configuration Management</h3>
+
+<p>(I don’t recommend this for anything except learning and experimenting)</p>
+
+<p><a href="http://railscasts.com/episodes/335-deploying-to-a-vps">http://railscasts.com/episodes/335-deploying-to-a-vps</a></p>
+
+<p>A pattern for deploying a Rails app to a VPS using nginx, Unicorn, PostgreSQL, rbenv (Pro)</p>
+
+<p><a href="https://ariejan.net/2011/09/14/lighting-fast-zero-downtime-deployments-with-git-capistrano-nginx-and-unicorn/">https://ariejan.net/2011/09/14/lighting-fast-zero-downtime-deployments-with-git-capistrano-nginx-and-unicorn/</a></p>
+
+<p>Based on and older version of Ubuntu (11.04) but still some good tips</p>
+
+<h3>Chef</h3>
+
+<p><a href="http://docs.opscode.com/chef_solo.html">http://docs.opscode.com/chef_solo.html</a></p>
+
+<p>Official chef solo documentation</p>
+
+<p><a href="http://railscasts.com/episodes/339-chef-solo-basics">http://railscasts.com/episodes/339-chef-solo-basics</a></p>
+
+<p>Basic of using Chef Solo (pro)</p>
+
+<p><a href="https://github.com/matschaffer/knife-solo">https://github.com/matschaffer/knife-solo</a></p>
+
+<p>Official Knife solo docs, adds some extra commands to knife (the CLI for chef interactions) so you can use it with chef solo.</p>
+
+<p><a href="http://www.talkingquickly.co.uk/2013/09/using-chef-to-provision-a-rails-and-postgres-server/">http://www.talkingquickly.co.uk/2013/09/using-chef-to-provision-a-rails-and-postgres-server/</a></p>
+
+<p>Guide with sample code for automating the provisioning of a Rails server with Postgres (example code allows DB to be swapped for Mongo/ MySQL)</p>
+
+<h3>Puppet</h3>
+
+<p><a href="https://github.com/railsmachine/moonshine/">https://github.com/railsmachine/moonshine/</a></p>
+
+<p>Moonshine provides an easy to use layer on top of Puppet and Capistrano to automate application and deployment. Not one I use myself as it blurs the line between provisioning and deployment somewhat.</p>
+
+<h3>Zero Downtime Deployment with Unicorn</h3>
+
+<p><a href="http://railscasts.com/episodes/373-zero-downtime-deployment?view=comments">http://railscasts.com/episodes/373-zero-downtime-deployment?view=comments</a></p>
+
+<p>Pro Railscast on Zero Downtime Deployment.with Unicorn</p>
+
+<p><a href="https://github.com/blog/517-unicorn">https://github.com/blog/517-unicorn</a></p>
+
+<p>Why Github switched to Unicorn</p>
+
+<p>Also see the Monit section below on monitoring unicorn workers</p>
+
+<h3>Choosing an Application Server</h3>
+
+<p><a href="http://stackoverflow.com/questions/4113299/ruby-on-rails-server-options/4113570#4113570">http://stackoverflow.com/questions/4113299/ruby-on-rails-server-options/4113570#4113570</a></p>
+
+<p>Very detailed comparison of Rails App Servers (Unicorn, Thin, Webrick, Phusion Pasenger etc)</p>
+
+<h3>VPS providers</h3>
+
+<p>Recommendations (Order of Preference)</p>
+
+<p>1) Linode</p>
+
+<p>2) Digital Ocean</p>
+
+<p>3) Rackspace Cloud (for none CPU bound apps)</p>
+
+<p><a href="http://www.reddit.com/r/rails/comments/1mk2mq/deploying_on_ec2_micro_instances/">http://www.reddit.com/r/rails/comments/1mk2mq/deploying_on_ec2_micro_instances/</a></p>
+
+<p>Thread about trying to deploy Rails on EC2 Micro Instances. It’s possible but just don’t, life’s too short. They’re so CPU constrained it’s like watching paint dry.</p>
+
+<h3>Misc</h3>
+
+<p><a href="http://viget.com/extend/server-maintenance-mode-for-rails-capistrano-and-apache2">http://viget.com/extend/server-maintenance-mode-for-rails-capistrano-and-apache2</a></p>
+
+<p>Adding a “maintenance” page you can switch on and off to Apache</p>
+
+<h3>Container Based Deployment (The Future?)</h3>
+
+<p><a href="http://www.docker.io/">http://www.docker.io/</a></p>
+
+<p>Fascinating and rapidly developing open source project for packaging individual server components in lightweight re-usable ‘containers.’ Still quite new in the Rails world but has the potential to complete change how we deploy.</p>
+
+<p><a href="https://github.com/progrium/dokku">https://github.com/progrium/dokku</a></p>
+
+<p>Dokku, personal mini Heroku powered by Docker</p>
+
+<p><a href="http://theflyingdeveloper.com/host-and-deploy-your-next-rails-project-with-dokku/#.Umo5vz5ga_R">http://theflyingdeveloper.com/host-and-deploy-your-next-rails-project-with-dokku/#.Umo5vz5ga_R</a></p>
+
+<p>Tutorial on using Dokku to deploy a rails app</p>
+
+<h3>Installing Ruby</h3>
+
+<p><a href="http://nicknotfound.com/2013/03/21/switching-from-rvm-to-rbenv-on-a-production-server/">http://nicknotfound.com/2013/03/21/switching-from-rvm-to-rbenv-on-a-production-server/</a></p>
+
+<p>Comprehensive guide to switching from rvm to rbenv on a production server. I’d recommend doing a complete rebuild with some sort of configuration management tool in this scenario but very useful if this isn’t an option for you. Goes into a lot of detail on dealing with $PATH, cron jobs, and making sure it plays nicely with Unicorn and Capistrano.</p>
+
+<p><a href="https://github.com/sstephenson/rbenv/wiki/Deploying-with-rbenv">https://github.com/sstephenson/rbenv/wiki/Deploying-with-rbenv</a></p>
+
+<h3>Monit</h3>
+
+<p><a href="http://shapeshed.com/managing-unicorn-workers-with-monit/">http://shapeshed.com/managing-unicorn-workers-with-monit/</a></p>
+
+<p>Comprehensive guide to monitoring Unicorn worker processes with monit</p>
+
+<p><a href="http://www.stopdropandrew.com/2010/06/01/where-unicorns-go-to-die-watching-unicorn-workers-with-monit.html">http://www.stopdropandrew.com/2010/06/01/where-unicorns-go-to-die-watching-unicorn-workers-with-monit.html</a></p>
+
+<p>Simple solution to watching individual unicorn worker processes</p>
+
+<h3>More information</h3>
+
+<p>My book, “<a href="https://leanpub.com/deploying_rails_applications">Reliably Deploying Rails Applications</a>” is available on Leanpub.</p>
+
+        </section>
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="/rss.xml"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+          <section class="copyright">All content copyright <a href="/about.html">Ben Dixon</a> &copy;  &bull; All rights reserved. Twitter: <a href="http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a></section>
+             <section class="poweredby">Made with Jekyll and based on the <a href="http://github.com/rosario/kasper" target="_blank">Kasper theme</a></section>
+        </div>
+    </footer>
+
+    
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-7333902-35']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>   
+</body>
+</html>

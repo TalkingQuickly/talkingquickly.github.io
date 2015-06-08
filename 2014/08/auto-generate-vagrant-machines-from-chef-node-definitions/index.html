@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>   
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Automatically Generate Vagrant Machines from Chef Node Definitions</title>
+    
+        <meta name="description" content="Blog by Ben Dixon, Ruby on Rails Developer, about rails, devops, docker, climbing and startups" />
+    
+    
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="iwXSC2H2VSO9iPyrWjNj3Prlx4zJY-l0EJRGVkFuUHk" />
+
+   
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+    <link rel="alternate" type="application/rss+xml" title="RubyFlow"
+    href="/rss.xml"/>
+
+</head>
+<body class="home-template">
+
+    
+    <main class="content" role="main">
+
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="/"><span class="blog-title">Home</span></a>
+            //
+            <a target="_blank" href='https://leanpub.com/deploying_rails_applications'>Deploying Rails Book</a>
+        </header>
+        
+        <span class="post-meta">
+        	
+       	</span>
+
+        <h1 class="post-title">Automatically Generate Vagrant Machines from Chef Node Definitions</h1>
+
+        <section class="post-content">
+            <p>If you use chef-solo to provision your production servers, Vagrant makes it easy to set up a production- like environment on a local VM for testing purposes. It can however seem like wasted time to have to manually replicate the contents of your node definition in your <code>Vagrantfile</code> and more importantly it&#39;s easy to make a change to either the <code>Vagrantfile</code> or the node definition and forget to update the other to match. In this post I&#39;ll look at a simple method of automatically generating Vagrant machines based on node definitions.</p>
+
+<p>This post will use as an example the sample configuration from the book <a href="https://leanpub.com/deploying_rails_applications">Reliably Deploying Rails applications</a> but it should be applicable to any project which uses a standard Chef Solo configuration.</p>
+
+<p>The high level approach is simple, for any node we want a Vagrant machine for, we add a <code>vagrant</code> section to the definition json which defines some vagrant specific options, in particular the IP if we want to use private networking, the name to use and any items we should exclude from the run_list. In our <code>Vagrantfile</code> we then look for any <code>.json</code> files in the <code>nodes</code> directory, parse the JSON and if it contains a <code>vagrant</code> key, generate a Vagrant configuration on the fly.</p>
+
+<p>The Vagrant section of our node definition looks like this:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="o">.</span><span class="n">.</span><span class="o">.</span>
+<span class="s2">&quot;vagrant&quot;</span><span class="p">:</span> <span class="p">{</span>
+  <span class="s2">&quot;exclusions&quot;</span> <span class="p">:</span> <span class="o">[]</span><span class="p">,</span>
+  <span class="s2">&quot;ip&quot;</span><span class="ss">:&quot;192.168.1.50&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;rails-pg-test-1&quot;</span> <span class="sr">//</span><span class="n">a</span><span class="o">-</span><span class="n">z</span><span class="p">,</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="p">,</span><span class="o">-</span> <span class="ow">and</span> <span class="o">.</span> <span class="n">only</span>
+<span class="p">}</span>
+<span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</code></pre></div>
+<p>For a complete example node definition see: <a href="https://github.com/TalkingQuickly/rails-server-template/blob/master/nodes/rails_postgres_redis.json.example">https://github.com/TalkingQuickly/rails-server-template/blob/master/nodes/rails_postgres_redis.json.example</a></p>
+
+<p>And our Vagrantfile looks like this:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># Vagrantfile API/syntax version. Don&#39;t touch unless you know what you&#39;re doing!</span>
+<span class="no">VAGRANTFILE_API_VERSION</span> <span class="o">=</span> <span class="s2">&quot;2&quot;</span>
+
+<span class="no">Vagrant</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="no">VAGRANTFILE_API_VERSION</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+  <span class="c1"># Setup resource requirements</span>
+  <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provider</span> <span class="s2">&quot;virtualbox&quot;</span> <span class="k">do</span> <span class="o">|</span><span class="n">v</span><span class="o">|</span>
+    <span class="n">v</span><span class="o">.</span><span class="n">memory</span> <span class="o">=</span> <span class="mi">1024</span>
+    <span class="n">v</span><span class="o">.</span><span class="n">cpus</span> <span class="o">=</span> <span class="mi">2</span>
+  <span class="k">end</span>
+
+  <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">box</span> <span class="o">=</span> <span class="s2">&quot;ubuntu/trusty64&quot;</span>
+
+  <span class="c1"># This should match the version specified in your</span>
+  <span class="c1"># Gemfile. You must have the omnibus vagrant plugin</span>
+  <span class="c1"># installed for this to work.</span>
+  <span class="n">config</span><span class="o">.</span><span class="n">omnibus</span><span class="o">.</span><span class="n">chef_version</span> <span class="o">=</span> <span class="s2">&quot;11.16.0&quot;</span>
+
+  <span class="c1"># Enable if you want to use the Vagrant Berkshelf plugin to manage</span>
+  <span class="c1"># Cookbooks.</span>
+  <span class="n">config</span><span class="o">.</span><span class="n">berkshelf</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="kp">false</span>
+
+  <span class="c1"># Assumes that the Vagrantfile is in the root of our</span>
+  <span class="c1"># Chef repository.</span>
+  <span class="n">root_dir</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="bp">__FILE__</span><span class="p">))</span>
+
+  <span class="c1"># Assumes that the node definitions are in the nodes</span>
+  <span class="c1"># subfolder</span>
+  <span class="n">nodes</span> <span class="o">=</span> <span class="no">Dir</span><span class="o">[</span><span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root_dir</span><span class="p">,</span><span class="s1">&#39;nodes&#39;</span><span class="p">,</span><span class="s1">&#39;*.json&#39;</span><span class="p">)</span><span class="o">]</span>
+
+  <span class="c1"># Iterate over each of the JSON files</span>
+  <span class="n">nodes</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">file</span><span class="o">|</span>
+    <span class="n">node_json</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">file</span><span class="p">))</span>
+
+    <span class="c1"># Only process the node if it has a vagrant section</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">node_json</span><span class="o">[</span><span class="s2">&quot;vagrant&quot;</span><span class="o">]</span><span class="p">)</span>
+      <span class="n">vagrant_name</span> <span class="o">=</span> <span class="n">node_json</span><span class="o">[</span><span class="s2">&quot;vagrant&quot;</span><span class="o">][</span><span class="s2">&quot;name&quot;</span><span class="o">]</span>
+      <span class="n">vagrant_ip</span> <span class="o">=</span> <span class="n">node_json</span><span class="o">[</span><span class="s2">&quot;vagrant&quot;</span><span class="o">][</span><span class="s2">&quot;ip&quot;</span><span class="o">]</span>
+
+      <span class="c1"># Allow us to remove certain items from the run_list if we&#39;re</span>
+      <span class="c1"># using vagrant. Useful for things like networking configuration</span>
+      <span class="c1"># which may not apply/ may break in the vagrant environment</span>
+      <span class="k">if</span> <span class="n">exclusions</span> <span class="o">=</span> <span class="n">node_json</span><span class="o">[</span><span class="s2">&quot;vagrant&quot;</span><span class="o">][</span><span class="s2">&quot;exclusions&quot;</span><span class="o">]</span>
+        <span class="n">exclusions</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">exclusion</span><span class="o">|</span>
+          <span class="k">if</span> <span class="n">node_json</span><span class="o">[</span><span class="s2">&quot;run_list&quot;</span><span class="o">].</span><span class="n">delete</span><span class="p">(</span><span class="n">exclusion</span><span class="p">)</span>
+            <span class="nb">puts</span> <span class="s2">&quot;removed </span><span class="si">#{</span><span class="n">exclusion</span><span class="si">}</span><span class="s2"> from the run list&quot;</span>
+          <span class="k">end</span>
+        <span class="k">end</span>
+      <span class="k">end</span>
+
+      <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">define</span> <span class="n">vagrant_name</span> <span class="k">do</span> <span class="o">|</span><span class="n">vagrant</span><span class="o">|</span>
+        <span class="n">vagrant</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">hostname</span> <span class="o">=</span> <span class="n">vagrant_name</span>
+
+        <span class="c1"># Only use private networking if we specified an</span>
+        <span class="c1"># IP. Otherwise fallback to DHCP</span>
+        <span class="k">if</span> <span class="n">vagrant_ip</span>
+          <span class="n">vagrant</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">network</span> <span class="ss">:private_network</span><span class="p">,</span> <span class="ss">ip</span><span class="p">:</span> <span class="n">vagrant_ip</span>
+        <span class="k">end</span>
+
+        <span class="n">vagrant</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provision</span> <span class="s2">&quot;chef_solo&quot;</span> <span class="k">do</span> <span class="o">|</span><span class="n">chef</span><span class="o">|</span>
+
+          <span class="c1"># Use berks-cookbooks not cookbooks and remember</span>
+          <span class="c1"># to explicitly vendor berkshelf cookbooks with</span>
+          <span class="c1"># berks vendor if not using the berkshelf vagrant plugin</span>
+          <span class="n">chef</span><span class="o">.</span><span class="n">cookbooks_path</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;berks-cookbooks&quot;</span><span class="p">,</span> <span class="s2">&quot;site-cookbooks&quot;</span><span class="o">]</span>
+          <span class="n">chef</span><span class="o">.</span><span class="n">data_bags_path</span> <span class="o">=</span> <span class="s2">&quot;data_bags&quot;</span>
+          <span class="n">chef</span><span class="o">.</span><span class="n">roles_path</span> <span class="o">=</span> <span class="s2">&quot;roles&quot;</span>
+
+          <span class="c1"># Instead of using add_recipe and add_role, just</span>
+          <span class="c1"># assign the node definition json, this will take</span>
+          <span class="c1"># care of populating the run_list.</span>
+          <span class="n">chef</span><span class="o">.</span><span class="n">json</span> <span class="o">=</span> <span class="n">node_json</span>
+        <span class="k">end</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>For a complete example <code>Vagrantfile</code> see <a href="https://github.com/TalkingQuickly/rails-server-template/blob/master/Vagrantfile">https://github.com/TalkingQuickly/rails-server-template/blob/master/Vagrantfile</a></p>
+
+<h2>Using with Berkshelf</h2>
+
+<p>If you&#39;re using Berkshelf, it may be tempting to simply use the <code>cookbooks</code> directory as <code>chef.cookbooks_path</code>. The problem with this however is that the <code>cookbooks</code> directory is only populated when we run <code>knife solo cook</code> so there&#39;s no guarantee that <code>cookbooks</code> always contains the correct versions, just the correct versions from when we last ran a cook.</p>
+
+<p>If we take the following workflow:</p>
+
+<ul>
+<li>Run a cook</li>
+<li>Update or add a dependency in our <code>Berksfile</code></li>
+<li>Run <code>berks install</code> or <code>berks update</code></li>
+</ul>
+
+<p>At the end of this process, <code>cookbooks</code> will not contain the new or updated cookbook, it will still contain the previous version.</p>
+
+<p>It is therefore safer to have Vagrant use the <code>berks-cookbooks</code> directory and then delete this directory and run <code>berks vendor</code> whenever we want to work with Vagrant. This is generally my preferred approach.</p>
+
+<p>The other option is to use the <code>vagrant-berkshelf</code> plugin to automate inclusion of Berkshelf provided cookbooks in the <code>cookbooks_path</code>. To do this, first install the plugin:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">vagrant plugin install vagrant-berkshelf --plugin-version 2.0.1
+</code></pre></div>
+<p>Then add:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">config</span><span class="o">.</span><span class="n">berkshelf</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="kp">true</span>
+</code></pre></div>
+<p>To your Vagrantfile. The key limitation is that it states on the projects web page that it doesn&#39;t currently support multi machine vagrant files which is usually what we&#39;ll be generating with this approach.</p>
+
+<h2>Directory Structure</h2>
+
+<p>This assumes that the <code>Vagrantfile</code> is in the root of a chef-solo repository. In some situations the chef repository will actually be in a subfolder, for a example if your chef repository is a subfolder (<code>chef</code>) in a Rails application and the Vagrantfile sits in the root of the Rails project.</p>
+
+<p>If this is the case, simply modify the line which loads the nodes from:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">nodes</span> <span class="o">=</span> <span class="no">Dir</span><span class="o">[</span><span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root_dir</span><span class="p">,</span><span class="s1">&#39;nodes&#39;</span><span class="p">,</span><span class="s1">&#39;*.json&#39;</span><span class="p">)</span><span class="o">]</span>
+</code></pre></div>
+<p>to:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">nodes</span> <span class="o">=</span> <span class="no">Dir</span><span class="o">[</span><span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root_dir</span><span class="o">.</span><span class="s1">&#39;chef&#39;</span><span class="p">,</span><span class="s1">&#39;nodes&#39;</span><span class="p">,</span><span class="s1">&#39;*.json&#39;</span><span class="p">)</span><span class="o">]</span>
+</code></pre></div>
+<p>and update the <code>chef.*_path</code> entries to be prefixed with <code>chef/</code>.</p>
+
+<h2>Exclusions</h2>
+
+<p>While the purpose of using Vagrant and Chef is often to allow us to create testing environments which closely match our production environment, there are sometimes scenario where we need to subtly vary the configuration between our production VM&#39;s and our vagrant configurations.</p>
+
+<p>A good example of this might be networking. When working with Linode I use a custom cookbook and role which sets up a private IP address for the node. If this cookbook is applied to a Vagrant machine, it will tend to break networking completely. I don&#39;t however want to modify my node definition for use with Vagrant because this defeats the purpose of auto generating it to begin with.</p>
+
+<p>In the example Vagrantfile this is handled by an additional attribute in the node definitions <code>vagrant</code> section called <code>exclusions</code>. This accepts an array of strings which should be removed from the <code>run_list</code> attribute before assigning the JSON to <code>chef.json</code>.</p>
+
+<p>This is handled by the following section of the <code>Vagrantfile</code>:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># Allow us to remove certain items from the run_list if we&#39;re</span>
+<span class="c1"># using vagrant. Useful for things like networking configuration</span>
+<span class="c1"># which may not apply.</span>
+<span class="k">if</span> <span class="n">exclusions</span> <span class="o">=</span> <span class="n">node_json</span><span class="o">[</span><span class="s2">&quot;vagrant&quot;</span><span class="o">][</span><span class="s2">&quot;exclusions&quot;</span><span class="o">]</span>
+  <span class="n">exclusions</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">exclusion</span><span class="o">|</span>
+    <span class="k">if</span> <span class="n">node_json</span><span class="o">[</span><span class="s2">&quot;run_list&quot;</span><span class="o">].</span><span class="n">delete</span><span class="p">(</span><span class="n">exclusion</span><span class="p">)</span>
+      <span class="nb">puts</span> <span class="s2">&quot;removed </span><span class="si">#{</span><span class="n">exclusion</span><span class="si">}</span><span class="s2"> from the run list&quot;</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>So if we were to take a node with the following run list:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="s2">&quot;run_list&quot;</span><span class="p">:</span>
+<span class="o">[</span>
+  <span class="s2">&quot;role[ruby-box]&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;role[nginx-server]&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;role[linode-with-private-networking]&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;role[mongo-server]&quot;</span>
+<span class="o">]</span>
+</code></pre></div>
+<p>And the following <code>vagrant</code> section:</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">&quot;vagrant&quot;</span> <span class="err">:</span> <span class="p">{</span>
+  <span class="nt">&quot;exclusions&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;role[linode-with-private-networking]&quot;</span><span class="p">],</span>
+  <span class="err">...</span>
+<span class="p">}</span><span class="err">,</span>
+</code></pre></div>
+<p>This would result in the Vagrant provisioner seeing the following run list:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="s2">&quot;run_list&quot;</span><span class="p">:</span>
+<span class="o">[</span>
+  <span class="s2">&quot;role[ruby-box]&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;role[nginx-server]&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;role[mongo-server]&quot;</span>
+<span class="o">]</span>
+</code></pre></div>
+<p>Both roles and recipes can be removed in this mannger.</p>
+
+<h2>Starting the Vagrant Box(es)</h2>
+
+<ul>
+<li>Make sure you have the vagrant omnibus plugin (<a href="https://github.com/schisamo/vagrant-omnibus">https://github.com/schisamo/vagrant-omnibus</a>) installed which allows you to specify the chef version which is used. To install it simply enter <code>vagrant plugin install vagrant-omnibus</code>.</li>
+<li>Make sure you&#39;ve got at least one node definition with the <code>vagrant</code> section specified above</li>
+<li>If you&#39;re not using the <code>vagrant-berkshelf</code> plugin then run<code>bundle exec berks vendor</code>. If you&#39;ve run this before you&#39;ll need to remove the <code>berks-cookbooks</code> directory first</li>
+<li>Run <code>vagrant up</code> to start and provision all nodes which have the vagrant section, or <code>vagrant up NAME</code> where NAME is the name from the vagrant section of the node defintion to start a single node</li>
+</ul>
+
+<p>This will setup the VM and automatically run chef solo to provision it as per the node definition. Once this completes, you can then access the node as you would any other remote machine using the IP address specified in the <code>vagrant</code> section of the node definition.</p>
+
+<h2>Users and SSH</h2>
+
+<p>A common issue when working with chef and vagrant is that it&#39;s normal for chef scripts to modify both users and who has access to sudo. If this means that the vagrant user is removed or removed from the sudoers group, this can mean that commands such as <code>vagrant ssh</code>, <code>vagrant halt</code> etc will stop working. More importantly if the vagrant user doesn&#39;t behave as expected, shared folders will generally not work correctly.</p>
+
+<p>One solution to this is to ensure that if you are explicitly setting who has access to sudo, the vagrant user is included. So for example in the Rails server template, this section:</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">&quot;authorization&quot;</span><span class="err">:</span> <span class="p">{</span>
+  <span class="nt">&quot;sudo&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;users&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;deploy&quot;</span><span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span><span class="err">,</span>
+</code></pre></div>
+<p>would be replaced with:</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="s2">&quot;authorization&quot;</span><span class="err">:</span> <span class="p">{</span>
+  <span class="nt">&quot;sudo&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;users&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;deploy&quot;</span><span class="p">,</span> <span class="s2">&quot;vagrant&quot;</span><span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span><span class="err">,</span>
+</code></pre></div>
+<p>The vagrant user also by default has passwordless sudo enabled, behavior seems to be unpredictable if this is disabled but sometimes it will simply prompt you for the vagrant users password which is <code>vagrant</code>.</p>
+
+<h2>Tips</h2>
+
+<ul>
+<li>Node names must be made up of the characters a-z, 0-9, hyphens and dots only. This allows the hostname to be set to the node name</li>
+<li>You can force provisioning to run again by stopping the VM (<code>vagrant halt</code> or <code>vagrant halt NAME</code>) and then running <code>vagrant up</code> or <code>vagrant up NAME</code> with the <code>--provision</code> option</li>
+</ul>
+
+        </section>
+
+        
+
+        <footer class="post-footer">
+          
+          
+            <section class="book">
+  <header>
+    <a href="https://leanpub.com/deploying_rails_applications?utm_campaign=tlq_blog&utm_medium=referral&utm_source=footer_image">
+      <img
+      src="/assets/images/deploying_rails_applications_cover.jpeg"
+      />
+    </a>
+  </header>
+  <article>
+    <h4>Reliably Deploying Rails Applications Book</h4>
+    <p>My book, Reliably Deploying Rails Applications covers every step of the deployment
+    process from setting up a VPS from scratch with Chef, to deploying
+    and day to day maintenance with Capistrano 3.</p>
+    <p><a
+      href="https://leanpub.com/deploying_rails_applications?utm_campaign=tlq_blog&utm_medium=referral&utm_source=footer"
+      target="_blank">You
+      can purchase it from leanpub here</a> or enter your email below to
+    read a sample chapter.</p>
+    <div id="mc_embed_signup">
+<form action="http://hillsbede.us5.list-manage.com/subscribe/post?u=68b84d48aa7cec1155bee1a0c&amp;id=73f32eb74a" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" novalidate="">
+  
+  <input placeholder="Email Address" type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" style="height:28px;padding: 0 10px 0 10px;">
+
+<input type="submit" value="Get the sample chapter" name="subscribe" id="mc-embedded-subscribe" class="button" style="background-color: #aaa;border: 0 none;border-radius: 4px;color: #FFFFFF;display: inline-block;font-size: 15px;font-weight: bold;height: 32px;line-height: 32px;margin: 0 5px 10px 10px;padding: 0 10px 0 10px;text-align: center;text-decoration: none;vertical-align: top;white-space: nowrap;width: auto;">
+</form>
+</div>
+  
+  </article>
+</section>
+
+          
+          
+
+            
+            
+        	
+        </footer>
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="/rss.xml"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+          <section class="copyright">All content copyright <a href="/about.html">Ben Dixon</a> &copy;  &bull; All rights reserved. Twitter: <a href="http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a></section>
+             <section class="poweredby">Made with Jekyll and based on the <a href="http://github.com/rosario/kasper" target="_blank">Kasper theme</a></section>
+        </div>
+    </footer>
+
+    
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-7333902-35']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>   
+</body>
+</html>

@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html>
+<head>   
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>A Rails Development Environment with Docker and Vagrant</title>
+    
+        <meta name="description" content="Blog by Ben Dixon, Ruby on Rails Developer, about rails, devops, docker, climbing and startups" />
+    
+    
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="iwXSC2H2VSO9iPyrWjNj3Prlx4zJY-l0EJRGVkFuUHk" />
+
+   
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+    <link rel="alternate" type="application/rss+xml" title="RubyFlow"
+    href="/rss.xml"/>
+
+</head>
+<body class="home-template">
+
+    
+    <main class="content" role="main">
+
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="/"><span class="blog-title">Home</span></a>
+            //
+            <a target="_blank" href='https://leanpub.com/deploying_rails_applications'>Deploying Rails Book</a>
+        </header>
+        
+        <span class="post-meta">
+        	
+       	</span>
+
+        <h1 class="post-title">A Rails Development Environment with Docker and Vagrant</h1>
+
+        <section class="post-content">
+            <p>Onboarding new developers to a Rails projects is still a far harder task than it should be. A big part of this is that setting up a development environment for an app or suite of apps, getting the correct ruby versions, database versions etc running locally, can in many cases take upwards of a day. A combination of Vagrant and Docker can make this a thing of the past.</p>
+
+<p>Vagrant alone has already gone a long way to alleviating this but with Docker we can go one step further. Not only can we have a fully functional development environment (for both new and existing devs) up in a matter of a minutes, we can use almost the same containers we create in development to deploy to production. This goes even further to avoiding the classic &quot;it worked in dev&quot; problem.</p>
+
+<p>In this tutorial, I&#39;ll show you how to use a combination of Vagrant and Docker to setup a fully functional Rails + Postgres + Redis development environment. In a follow up tutorial I&#39;ll demonstrate how to deploy the containers we create here to production.</p>
+
+<h1>Vagrant Docker Provider</h1>
+
+<p>Vagrant 1.6 added native support for Docker as a provider. If you&#39;re developing on a Linux machine, it will run Docker natively, otherwise it will transparently spin up a virtual machine to use as the Docker host.</p>
+
+<p>I won&#39;t be using the providers DSL in this tutorial. This is for two reasons:</p>
+
+<ul>
+<li>Later, when designing a production Docker configuration, it&#39;s really important to understand the Docker options and command line switches. The Vagrant provider abstracts this into a DSL which, while Ruby friendly, is no simpler than Docker&#39;s own command line switches</li>
+<li>By simply using Vagrant to setup an Ubuntu VM which matches our eventual production VM, we can be sure that the development configuration is as close to identical to the production configuration as possible</li>
+</ul>
+
+<p>Here, therefore, Vagrant is used to setup a standard Ubuntu VM and install Docker, while everything else is done using standard Docker shell commands.</p>
+
+<h1>The End Result</h1>
+
+<p>The final system will require a simple</p>
+
+<p><code>vagrant up</code></p>
+
+<p>to setup a complete Docker-based development environment. This development environment will consist of:</p>
+
+<ul>
+<li>A VirtualMachine running Ubuntu with Docker installed</li>
+<li>Separate Docker containers for the Rails application, PostgreSQL and Redis</li>
+<li>A shared folder linked to the Docker container so you can carry on editing Rails code on your development machine as you do now, and see those changes instantly reflected on <code>http://localhost:3000</code></li>
+<li>A simple interface for running all the normal Rails commands (<code>rake db: migrate</code>, <code>rails c</code> etc) in the Docker environment</li>
+</ul>
+
+<h1>Steps</h1>
+
+<h2>Pre-requisites</h2>
+
+<ul>
+<li>Vagrant 1.6+ <a href="https://www.vagrantup.com/downloads.html">https://www.vagrantup.com/downloads.html</a></li>
+<li>Virtualbox 4.3.10+ <a href="https://www.virtualbox.org/wiki/Downloads">https://www.virtualbox.org/wiki/Downloads</a></li>
+</ul>
+
+<p>I&#39;m assuming a basic understanding of what Docker is. If this is the first you&#39;ve heard of Docker, they have a great interactive tutorial of the basics on their website <a href="https://www.docker.io/gettingstarted/">https://www.docker.io/gettingstarted/</a>.</p>
+
+<p>I&#39;ve tested this tutorial on OSX and Ubuntu 12.04. It should work on other nix flavours, but it may require more tweaking for use on Windows.</p>
+
+<h2>Dockerising the App</h2>
+
+<h3>Configuration</h3>
+
+<p>I started with a standard Rails 4.1.0 application generated with <code>rails new</code> then added a single model + scaffolding and converted it to use PostgreSQL. The final source for this is available at <a href="https://github.com/TalkingQuickly/docker_rails_dev_env_example">https://github.com/TalkingQuickly/docker_rails_dev_env_example</a></p>
+
+<p>The Rails app stores all secret values (API keys, anything in <code>secrets.yml</code> etc) in environment variables and uses the dotenv gem for loading these in development. Note that in the example application, the <code>.env</code> file is included in version control, for any real application, particularly one in a public repository, this should be added to <code>.gitignore</code>.</p>
+
+<p>The PostgreSQL access details will be inferred directly from the database container. For more on this, see the section &quot;Environment Variables in Linked Containers&quot; later in this tutorial. In the example application, <code>database.yml</code> looks like this:</p>
+<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="l-Scalar-Plain">default</span><span class="p-Indicator">:</span> <span class="nl">&amp;default</span>
+  <span class="l-Scalar-Plain">adapter</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">postgresql</span>
+  <span class="l-Scalar-Plain">pool</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">5</span>
+  <span class="l-Scalar-Plain">timeout</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">5000</span>
+
+<span class="l-Scalar-Plain">development</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">&lt;&lt;</span><span class="p-Indicator">:</span> <span class="nv">*default</span>
+  <span class="l-Scalar-Plain">encoding</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">unicode</span>
+  <span class="l-Scalar-Plain">database</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">dpa_development</span>
+  <span class="l-Scalar-Plain">pool</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">5</span>
+  <span class="l-Scalar-Plain">username</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">&lt;%= ENV[&#39;DB_ENV_POSTGRESQL_USER&#39;] %&gt;</span>
+  <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">&lt;%= ENV[&#39;DB_ENV_POSTGRESQL_PASS&#39;] %&gt;</span>
+  <span class="l-Scalar-Plain">host</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">&lt;%= ENV[&#39;DB_PORT_5432_TCP_ADDR&#39;] %&gt;</span>
+
+<span class="l-Scalar-Plain">test</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">&lt;&lt;</span><span class="p-Indicator">:</span> <span class="nv">*default</span>
+  <span class="l-Scalar-Plain">encoding</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">unicode</span>
+  <span class="l-Scalar-Plain">database</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">dpa_test</span>
+  <span class="l-Scalar-Plain">pool</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">5</span>
+  <span class="l-Scalar-Plain">username</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">&lt;%= ENV[&#39;DB_ENV_POSTGRESQL_USER&#39;] %&gt;</span>
+  <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">&lt;%= ENV[&#39;DB_ENV_POSTGRESQL_PASS&#39;] %&gt;</span>
+  <span class="l-Scalar-Plain">host</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">&lt;%= ENV[&#39;DB_PORT_5432_TCP_ADDR&#39;] %&gt;</span>
+</code></pre></div>
+<h3>Dockerfiles and Scripts</h3>
+
+<p>The example configuration requires three Dockerfiles: one for Rails, one for Redis and one for PostgreSQL. The Rails Dockerfile is stored in the root of the Rails project, the others are stored in sub-folders of the <code>docker/</code> directory.</p>
+
+<p>Templates for all of these files are available here: <a href="https://github.com/TalkingQuickly/docker_rails_dev_env">https://github.com/TalkingQuickly/docker_rails_dev_env</a></p>
+
+<p>To begin with, copy all of the files and folders from the above repository into the root of your Rails project. If you&#39;re adding this to an existing project, the docker specific files and folders you&#39;ll be creating are:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">├── Dockerfile
+├── Vagrantfile
+├── d
+└── docker/
+    ├── postgres/
+    ├── rails/
+    ├── redis/
+    └── scripts/
+</code></pre></div>
+<h2>Setting Up Vagrant</h2>
+
+<p>If you&#39;re completely new to Vagrant it&#39;s worth briefly going through their getting started tutorial <a href="http://docs.vagrantup.com/v2/getting-started/">http://docs.vagrantup.com/v2/getting-started/</a> at least through to the end of the provisioning section.</p>
+
+<h3>The Vagrantfile</h3>
+
+<p>The Vagrantfile should be stored in the root of your Rails project and look like this:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># Commands required to setup working docker environment, link</span>
+<span class="c1"># containers etc.</span>
+<span class="vg">$setup</span> <span class="o">=</span> <span class="o">&lt;&lt;</span><span class="no">SCRIPT</span>
+<span class="sh"># Stop and remove any existing containers</span>
+<span class="sh">docker stop $(docker ps -a -q)</span>
+<span class="sh">docker rm $(docker ps -a -q)</span>
+
+<span class="sh"># Build containers from Dockerfiles</span>
+<span class="sh">docker build -t postgres /app/docker/postgres</span>
+<span class="sh">docker build -t rails /app</span>
+<span class="sh">docker build -t redis /app/docker/redis/</span>
+
+<span class="sh"># Run and link the containers</span>
+<span class="sh">docker run -d --name postgres -e POSTGRESQL_USER=docker -e POSTGRESQL_PASS=docker postgres:latest</span>
+<span class="sh">docker run -d --name redis redis:latest</span>
+<span class="sh">docker run -d -p 3000:3000 -v /app:/app --link redis:redis --link postgres:db --name rails rails:latest</span>
+
+<span class="no">SCRIPT</span>
+
+<span class="c1"># Commands required to ensure correct docker containers</span>
+<span class="c1"># are started when the vm is rebooted.</span>
+<span class="vg">$start</span> <span class="o">=</span> <span class="o">&lt;&lt;</span><span class="no">SCRIPT</span>
+<span class="sh">docker start postgres</span>
+<span class="sh">docker start redis</span>
+<span class="sh">docker start rails</span>
+<span class="no">SCRIPT</span>
+
+<span class="no">VAGRANTFILE_API_VERSION</span> <span class="o">=</span> <span class="s2">&quot;2&quot;</span>
+
+<span class="no">Vagrant</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="s2">&quot;2&quot;</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+
+  <span class="c1"># Setup resource requirements</span>
+  <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provider</span> <span class="s2">&quot;virtualbox&quot;</span> <span class="k">do</span> <span class="o">|</span><span class="n">v</span><span class="o">|</span>
+    <span class="n">v</span><span class="o">.</span><span class="n">memory</span> <span class="o">=</span> <span class="mi">2048</span>
+    <span class="n">v</span><span class="o">.</span><span class="n">cpus</span> <span class="o">=</span> <span class="mi">2</span>
+  <span class="k">end</span>
+
+  <span class="c1"># need a private network for NFS shares to work</span>
+  <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">network</span> <span class="s2">&quot;private_network&quot;</span><span class="p">,</span> <span class="ss">ip</span><span class="p">:</span> <span class="s2">&quot;192.168.50.4&quot;</span>
+
+  <span class="c1"># Rails Server Port Forwarding</span>
+  <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">network</span> <span class="s2">&quot;forwarded_port&quot;</span><span class="p">,</span> <span class="ss">guest</span><span class="p">:</span> <span class="mi">3000</span><span class="p">,</span> <span class="ss">host</span><span class="p">:</span> <span class="mi">3000</span>
+
+  <span class="c1"># Ubuntu</span>
+  <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">box</span> <span class="o">=</span> <span class="s2">&quot;precise64&quot;</span>
+
+  <span class="c1"># Install latest docker</span>
+  <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provision</span> <span class="s2">&quot;docker&quot;</span>
+
+  <span class="c1"># Must use NFS for this otherwise rails</span>
+  <span class="c1"># performance will be awful</span>
+  <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">synced_folder</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="s2">&quot;/app&quot;</span><span class="p">,</span> <span class="ss">type</span><span class="p">:</span> <span class="s2">&quot;nfs&quot;</span>
+
+  <span class="c1"># Setup the containers when the VM is first</span>
+  <span class="c1"># created</span>
+  <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provision</span> <span class="s2">&quot;shell&quot;</span><span class="p">,</span> <span class="ss">inline</span><span class="p">:</span> <span class="vg">$setup</span>
+
+  <span class="c1"># Make sure the correct containers are running</span>
+  <span class="c1"># every time we start the VM.</span>
+  <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provision</span> <span class="s2">&quot;shell&quot;</span><span class="p">,</span> <span class="ss">run</span><span class="p">:</span> <span class="s2">&quot;always&quot;</span><span class="p">,</span> <span class="ss">inline</span><span class="p">:</span> <span class="vg">$start</span>
+<span class="k">end</span>
+</code></pre></div>
+<h3>The Vagrant Shared Folder</h3>
+
+<p>We want our Docker container to use the Rails app directly from our local filesystem so we can make changes on our development machine as we normally would and have these changes instantly reflected on our development server.</p>
+
+<p>Since we&#39;re using Vagrant, first we have to share this folder from the local filesystem to the Vagrant virtual machine, which in turn shares this to the Docker container. If this is done using the default Virtualbox shared folders, then Disk IO and, consequently, Rails performance will be terrible. In my tests, it took something like 20 - 30 seconds to render a simple view.</p>
+
+<p>This can be resolved by using NFS shares, which are much faster but require some additional setup and entering the sudo password when starting the virtual machine. The following entry in your <code>Vagrantfile</code> ensures NFS is used:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">synced_folder</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="s2">&quot;/app&quot;</span><span class="p">,</span> <span class="ss">type</span><span class="p">:</span> <span class="s2">&quot;nfs&quot;</span>
+</code></pre></div>
+<p>For more on NFS shares and what&#39;s required to set them up, see <a href="https://docs.vagrantup.com/v2/synced-folders/nfs.html">https://docs.vagrantup.com/v2/synced-folders/nfs.html</a>. On OSX it should work out of the box, on Linux you may need to install <code>nfsd</code>.</p>
+
+<h2>Vagrant Up</h2>
+
+<p>Run <code>vagrant up</code> in the root of your project to start the new development environment.</p>
+
+<p>You&#39;ll be asked for your sudo password, this is required for NFS shared folders.</p>
+
+<p>Due to a bug in Virtualbox 4.3.10, you may run into the below error on mounting shared folders the first time you run <code>vagrant up</code>:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">Failed to mount folders in Linux guest. This is usually because
+the &quot;vboxsf&quot; file system is not available. Please verify that
+the guest additions are properly installed in the guest and
+can work properly. The command attempted was:
+
+mount -t vboxsf -o uid=`id -u vagrant`,gid=`getent group vagrant | cut -d: -f3` vagrant /vagrant
+mount -t vboxsf -o uid=`id -u vagrant`,gid=`id -g vagrant` vagrant /vagrant
+</code></pre></div>
+<p>You can resolve this by running:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">vagrant ssh -c &#39;sudo ln -s /opt/VBoxGuestAdditions-4.3.10/lib/VBoxGuestAdditions /usr/lib/VBoxGuestAdditions&#39;
+vagrant reload
+</code></pre></div>
+<p>UPDATE (11/6/2014): This is resolved in Vagrant 1.6.3 so it&#39;s definitely worth upgrading.</p>
+
+<p>This will create an Ubuntu Virtual Machine, install Docker on it and proceed to running the script defined in your <code>$setup</code> variable in the Vagrantfile. In this example, for completeness, we build all of the containers from scratch rather than pulling them from an Index so the first time you run this, it will take a while.</p>
+
+<h3>The Setup Script</h3>
+
+<p>The first time we start the VM, this line in the Vagrantfile:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provision</span> <span class="s2">&quot;shell&quot;</span><span class="p">,</span> <span class="ss">inline</span><span class="p">:</span> <span class="vg">$setup</span>
+</code></pre></div>
+<p>Causes the shell script defined in the <code>$setup</code> variable at the top of the file to be executed.</p>
+
+<p>This starts by stopping and removing any running Docker containers, just in case we&#39;re rebuilding an existing system:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker stop <span class="k">$(</span>docker ps -a -q<span class="k">)</span>
+docker rm <span class="k">$(</span>docker ps -a -q<span class="k">)</span>
+</code></pre></div>
+<p>It then proceeds to build our Docker images from the Dockerfiles and tag them with user friendly names (<code>postgres</code>, <code>rails</code> and <code>redis</code> respectively):</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker build -t postgres /app/docker/postgres
+docker build -t rails /app
+docker build -t redis /app/docker/redis/
+</code></pre></div>
+<p>Remember that <code>/app</code> on the Ubuntu virtual machine is shared back to the root of your Rails directory, so this is using the Dockerfiles that can be viewed and edited as we normally would any file in a Rails project.</p>
+
+<p>This process can take a long time. Something I&#39;ve encountered on quite a few occasions with the OSX + Vagrant + Docker combination is that any sort of interruption in network connection can cause the build process to hang indefinitely.</p>
+
+<p>If this happens, there&#39;s no harm in killing the Vagrant provisioner (<code>ctrl</code> <code>c</code> twice), logging in with <code>vagrant ssh</code> and then running the commands manually.</p>
+
+<p>Once the three images are built, the script starts containers from those images. The first two of these are quite simple:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker run -d --name postgres -e <span class="nv">POSTGRESQL_USER</span><span class="o">=</span>docker -e <span class="nv">POSTGRESQL_PASS</span><span class="o">=</span>docker postgres:latest
+docker run -d --name redis redis:latest
+</code></pre></div>
+<p>Breaking these down:</p>
+
+<p><code>-d</code> means run in the background</p>
+
+<p><code>--name xyz</code> gives the container the friendly name <code>xyz</code> which we can use to refer to it later when we want to stop it or link it to another container</p>
+
+<p><code>-e</code> allows us to set environment variables in the container we&#39;re creating. In this case, we&#39;re setting the PostgreSQL username and password. See the section &quot;Environment Variables in Linked Containers&quot; for how we later access these credentials from our Rails app without hard-coding them.</p>
+
+<p><code>xyz:latest</code> means start the container from the latest image tagged with <code>xyz</code></p>
+
+<p>I find it useful to think of a Docker image like a class definition. We use a Dockerfile (basically a list of shell commands) and the <code>docker build</code> command to create an image.</p>
+
+<p>We then use the <code>docker run</code> command to create a container from that image. The container is like an instance of a class. We can create multiple containers (a new one every time we use <code>docker run</code>) from a single image. Each container (instance) is completely isolated from every other container, even if they are created from the same image. </p>
+
+<p>That said, we can also do things like create images based on the state of a container, so the analogy shouldn&#39;t be extended much further(!)</p>
+
+<p>The final <code>docker run</code> is a little more complicated:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker run -d -p 3000:3000 -v /app:/app --link redis:redis --link postgres:db --name rails rails:latest
+</code></pre></div>
+<p>In addition to the operations already discussed for the Postgres and Redis containers:</p>
+
+<p><code>-p 3000:3000</code> makes port 3000 from the container available as port 3000 on the host (the Virtualbox VM). Since we have Vagrant configured to forward port 3000 of the VM to your local machine 3000, you can access this container on port 3000 on your development machine as you would the normal Rails dev server (e.g. <code>http://localhost:3000</code>).</p>
+
+<p><code>--link postgres:db</code> establishes a link between the container you&#39;re starting (your Rails app) and the Postgres container you started previously. This is in the format <code>name:alias</code> and will make ports exposed by the Postgres container available to the Rails container.</p>
+
+<h3>Environment Variables in Linked Containers</h3>
+
+<p>Linking will also make the environment variables from the Postgres container available to the Rails container with the prefix <code>ALIAS</code>. When you expose a port in a container, a corresponding environment variable is created within that container.</p>
+
+<p>The Postgres container exposes port 5432 which leads to a corresponding environment variable <code>PORT_5432_TCP_ADDR</code> which will contain the IP address of the Postgres container. We use this in our <code>database.yml</code> to automatically connect to the Postgres container database, irrespective of whether its IP has changed.</p>
+
+<p>Since we used <code>db</code> as our alias for this container, in our Rails container, we will therefore have an environment variable <code>DB_PORT_5432_TCP_ADDR</code> available which contains the IP of this container.</p>
+
+<p>Therefore, we use <code>ENV[&#39;DB_PORT_5432_TCP_ADDR&#39;]</code> to access this value in <code>database.yml</code>.</p>
+
+<p>The command to build the Postgres image includes:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">-e <span class="nv">POSTGRESQL_USER</span><span class="o">=</span>docker -e <span class="nv">POSTGRESQL_PASS</span><span class="o">=</span>docker 
+</code></pre></div>
+<p>which sets environment variables in the docker container with the database access credentials. These will be available in your Rails container as <code>DB_ENV_POSTGRESQL_USER</code> and <code>DB_ENV_POSTGRESQL_PASS</code> respectively (as seen in <code>database.yml</code>). Notice the format <code>ALIAS_ENV_VARIABLE_NAME</code>.</p>
+
+<p>It&#39;s worth reading <a href="http://docs.docker.io/reference/run/#env-environment-variables">http://docs.docker.io/reference/run/#env-environment-variables</a> for more on the environment variables available. It&#39;s also interesting to inspect the contents of <code>ENV</code> from a Rails console once the full environment is up and running.</p>
+
+<h3>Why make this a shell script?</h3>
+
+<p>The few lines in our <code>$setup</code> script are everything we need to build and run our application on any machine with Docker installed. If you wanted to run this application in development on a Linode, you could just create a new node, install Docker, upload your code and run this same script, and you&#39;d have a working development version of your application on this server.</p>
+
+<p>Later in this series of tutorials I&#39;ll demonstrate how the commands in this script can be adapted to form the basis of a production deployment with Docker. Getting familiar with the commands as part of the day-to-day development workflow means that working with the production stack is much less of a learning curve for any developer on the team.</p>
+
+<h2>Interacting with the Rails Application</h2>
+
+<p>Once the above process is complete, the Rails application should be available in a browser on your local development machine at <code>http://localhost:3000</code>. However, the first thing you&#39;re likely to see is an error that the database does not exist.</p>
+
+<p>Normally at this stage we could simply use <code>bundle exec rake db:create db:migrate</code> to create the database and apply any migrations. Now that we&#39;re running our application in a Docker container, the process is slightly different.</p>
+
+<p>In this configuration, each Docker container runs a single process. In the <code>$setup</code> script, the container for the Rails server is started with:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker run -d -p 3000:3000 -v /app:/app --link redis:redis --link postgres:db --name rails rails:latest
+</code></pre></div>
+<p>The Docker daemon expects the second, non-parametrised argument to the <code>run</code> command to be the command to be executed within the container. Since we don&#39;t specify a command to be run within the container, the default command from the <code>Dockerfile</code> is run. This is specified in <code>/Dockerfile</code> with:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">CMD <span class="o">[</span><span class="s2">&quot;/start-server.sh&quot;</span><span class="o">]</span>
+</code></pre></div>
+<p>Which makes the default action of the container to run the script in <code>/start-server.sh</code>:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
+<span class="nb">cd</span> /app
+bundle install
+bundle <span class="nb">exec </span>unicorn -p 3000
+</code></pre></div>
+<p>This is equivalent to starting the container with:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker run -d -p 3000:3000 -v /app:/app --link redis:redis --link postgres:db --name rails rails:latest bash -c <span class="s2">&quot;cd /app &amp;&amp; bundle install &amp;&amp; bundle exec unicorn -p 3000&quot;</span>
+</code></pre></div>
+<p>To run other commands in the container based on your Rails image, we can construct equivalent <code>docker run</code> commands and run them from within the Vagrant virtual machine (<code>vagrant ssh</code>). So to run <code>bundle exec rake db:create db:migrate</code> we could ssh into the Vagrant host and then use:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker run -i -t -v /app:/app --link redis:redis --link postgres:db  --rm rails:latest bash -c <span class="s2">&quot;cd /app &amp;&amp; bundle exec rake db:create db:migrate&quot;</span>
+</code></pre></div>
+<p>This starts a new container based on the Rails image and runs <code>db:create</code> and <code>db:migrate</code> with it. Notice the additional command line flags:</p>
+
+<p><code>-i -t</code> attaches the console to Standard In, Out and Error, then assigns a TTY so that we can interact with it. This is required when running interactive commands such as <code>bundle exec rails console</code></p>
+
+<p><code>--rm</code> means that the container will be removed once execution completes. </p>
+
+<p>Doing this every time is cumbersome, so the example configuration includes some simple shell scripts to automate this. The first part of this is the file <code>d</code> in the root of the Rails project. This automates sshing into the vagrant host and executing a single command, for example:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">./d rc 
+</code></pre></div>
+<p>invokes:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">vagrant ssh -c <span class="s2">&quot;sh /app/docker/scripts/rc.sh&quot;</span>
+</code></pre></div>
+<p>Which is the same as sshing into the Vagrant host and executing <code>./app/docker/scripts/rc.sh</code>.</p>
+
+<p>The script <code>/app/docker/scripts/rc.sh</code> contains a <code>docker run</code> command:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker run -i -t -v /app:/app --link redis:redis --link postgres:db  --rm rails:latest bash -c <span class="s2">&quot;cd /app &amp;&amp; bundle exec rails c&quot;</span>
+</code></pre></div>
+<p>Which has the effect of starting a Rails console in a new container.</p>
+
+<p>You can run <code>./d</code> without any arguments to see which functions it provides shortcuts for. It also provides a generic <code>cmd</code> option:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">./d cmd <span class="s2">&quot;bundle exec any_command&quot;</span><span class="sb">`</span>
+</code></pre></div>
+<p>which allows arbitrary commands to be executed within the <code>/app</code> directory of a new Rails container. So we could, for example, execute:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">./d cmd <span class="s2">&quot;bundle exec rake db:create db:migrate&quot;</span>
+</code></pre></div>
+<p>to create and migrate the database.</p>
+
+<p>These don&#39;t have to be Rails commands, we could equally execute:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">./d cmd <span class="s2">&quot;ls&quot;</span>
+</code></pre></div>
+<p>to get the directory listing of <code>/app</code>.</p>
+
+<p>When interacting with the Rails application like this, it&#39;s important to remember that every command is executed in a new container and hence is completely isolated from any other command. Therefore any local resources created in one container are not normally available to any other container and will be lost when the command terminates and the container is discarded.</p>
+
+<p>The exception in the case of this development configuration is the <code>/app/</code> directory, which is a shared folder and, therefore, any files created here will persist and be available to all containers. It should be kept in mind that, in a production configuration, there should be no such shared local storage and so this should not be relied upon for any sort of shared state. It&#39;s worth reading the Twelve Factor App guide for more on how sharing state should be approached <a href="http://12factor.net/">http://12factor.net/</a>.</p>
+
+<h2>Bootstrapping the Database</h2>
+
+<p>Generally, when setting up a development environment, I want the development database populated with a recent dump of data from production. Sometimes this is a direct dump and sometimes it&#39;s a segment of the production data, or modified version of production with sensitive information removed. Either way, this normally takes the form of a .sql file (assuming MySQL or Postgres). It&#39;s useful to be able to quickly restore future dumps to the development database.</p>
+
+<p>The <code>./d</code> convenience script provides a simple interface to this:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">./d restore-db
+</code></pre></div>
+<p>This will:</p>
+
+<ul>
+<li>Drop, create and migrate the development database</li>
+<li>Look for a zip file called <code>db/current.sql.zip</code> in the Rails directory structure</li>
+<li>Unzip it within a new Docker container</li>
+<li>Import the file <code>current.sql</code> from the unzipped files to the development database using the <code>psql</code> utility.</li>
+</ul>
+
+<p>Note the naming, it expects a zip archive at <code>db/current.sql.zip</code> which contains a single file called <code>current.sql</code>.</p>
+
+<h2>Upcoming Tutorials</h2>
+
+<p>I&#39;ll be releasing further tutorials over the next few months on the topics below, you can follow me on twitter <a href="http://www.twitter.com/talkingquickly">@talkingquickly</a> for updates. If you run into any issues with this tutorial, feel free to tweet or email me, ben@talkingquickly.co.uk.</p>
+
+<ul>
+<li>Setting up a private index so you can build your Docker images centrally and then just pull them when you start a new development environment, rather than rebuilding each time</li>
+<li>Building production images</li>
+<li>Automating building production images and pushing them to a private index</li>
+<li>Deploying production images with Capistrano + a Private Index</li>
+</ul>
+
+        </section>
+
+        
+
+        <footer class="post-footer">
+          
+          
+          
+            <section class="book">
+  <header>
+      <img style="width:193px"
+      src="/assets/images/small_docker_cover.jpg"
+      />
+  </header>
+  <article>
+    <h4>Deploying Rails with Docker Book</h4>
+    <p>The book will cover the basics of setting up production Docker containers on a single host, approaches to monitoring and how to manage service discovery when deploying across multiple hosts.</p>
+    <p>To receive updates when further blog posts in the series are released as well as the book Deploying Rails with Docker, sign up below. A first draft of the book is expected to be released in mid 2015.</p>
+    <div id="mc_embed_signup">
+<form action="http://hillsbede.us5.list-manage.com/subscribe/post?u=68b84d48aa7cec1155bee1a0c&amp;id=73f32eb74a" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" novalidate="">
+  
+  <input placeholder="Email Address" type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" style="height:28px;padding: 0 10px 0 10px;">
+
+<input type="submit" value="Get Docker Updates" name="subscribe" id="mc-embedded-subscribe" class="button" style="background-color: #aaa;border: 0 none;border-radius: 4px;color: #FFFFFF;display: inline-block;font-size: 15px;font-weight: bold;height: 32px;line-height: 32px;margin: 0 5px 10px 10px;padding: 0 10px 0 10px;text-align: center;text-decoration: none;vertical-align: top;white-space: nowrap;width: auto;">
+</form>
+</div>
+  
+  </article>
+</section>
+
+          
+
+            
+            
+        	
+        </footer>
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="/rss.xml"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+          <section class="copyright">All content copyright <a href="/about.html">Ben Dixon</a> &copy;  &bull; All rights reserved. Twitter: <a href="http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a></section>
+             <section class="poweredby">Made with Jekyll and based on the <a href="http://github.com/rosario/kasper" target="_blank">Kasper theme</a></section>
+        </div>
+    </footer>
+
+    
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-7333902-35']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>   
+</body>
+</html>

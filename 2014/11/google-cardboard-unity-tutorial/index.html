@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>   
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Google Cardboard Unity Tutorial</title>
+    
+        <meta name="description" content="Blog by Ben Dixon, Ruby on Rails Developer, about rails, devops, docker, climbing and startups" />
+    
+    
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="iwXSC2H2VSO9iPyrWjNj3Prlx4zJY-l0EJRGVkFuUHk" />
+
+   
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+    <link rel="alternate" type="application/rss+xml" title="RubyFlow"
+    href="/rss.xml"/>
+
+</head>
+<body class="home-template">
+
+    
+    <main class="content" role="main">
+
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="/"><span class="blog-title">Home</span></a>
+            //
+            <a target="_blank" href='https://leanpub.com/deploying_rails_applications'>Deploying Rails Book</a>
+        </header>
+        
+        <span class="post-meta">
+        	
+       	</span>
+
+        <h1 class="post-title">Google Cardboard Unity Tutorial</h1>
+
+        <section class="post-content">
+            <p>Having tried the Oculus I&#39;d prepared myself to be completely unimpressed by Google&#39;s $2 VR solution. But after trying Roller Coaster VR I was blown away by how well the slightly shabby looking cardboard assembly performed. Naturally despite never have tried any game development or 3D modeling, I wanted to make stuff for it. Using Unity and some plugins, this turned out to be surprisingly easy. This tutorial covers the bare minimum needed to go from never having used Unity before, to a simple 3D environment you can look around using Google Cardboard.</p>
+
+<h2>Prerequisites</h2>
+
+<ul>
+<li>Latest version of Unity (<a href="http://unity3d.com/unity/download">http://unity3d.com/unity/download</a>)</li>
+<li>Google Cardboard (<a href="https://cardboard.withgoogle.com/">https://cardboard.withgoogle.com/</a>) I got mine from Amazon, there are manufacturers springing up all over the world</li>
+<li>The Android SDK (<a href="https://developer.android.com/sdk/index.html?hl=i">https://developer.android.com/sdk/index.html?hl=i</a>). This assumes you want to build and run on the Android platform. This tutorial will work with iOS but the build process at the end will be different.</li>
+</ul>
+
+<h2>Get Setup with Unity</h2>
+
+<p>The first step has nothing to do with Google Cardboard, we just need to get a simple 3D environment created within Unity with a character who can move around and interact with it.</p>
+
+<p>No point in re-inventing the wheel here, this excellent tutorial gets you up and running with such an environment in about 12 minutes: <a href="https://www.youtube.com/watch?v=fRED_-LvJKQ&amp;list=PLPV2KyIb3jR7F_B4p8X3YwHPaExh0R9Kk">https://www.youtube.com/watch?v=fRED_-LvJKQ&amp;list=PLPV2KyIb3jR7F_B4p8X3YwHPaExh0R9Kk</a>.</p>
+
+<p>That entire series of tutorials is a really accessible introduction to Unity so I&#39;d recommend coming back to the remaining ones later on. Each one is recorded as a single take so sometimes the author makes mistakes he goes back and fixes later on. I made the mistake several times of pausing the video when I saw an error and spending ages trying to fix it myself, only to find out that he explains how to resolve it immediately afterwards.</p>
+
+<p>Once you&#39;ve completed that tutorial, continue below to add Google Cardboard integration.</p>
+
+<h2>One Camera for Each Eye</h2>
+
+<p>At the moment our game window looks something like this:</p>
+
+<p><img src="/assets/images/unity_cardboard_tutorial/single_camera.png" alt="Single Camera"></p>
+
+<p>We have a single camera, some simple 3D shapes and a point light source. The camera is attached to the player which can be moved around with the arrow keys.</p>
+
+<p>For this to work with Google cardboard, we need to add a second camera, so we have one for each eye and set these up to be offset from the center of the viewport by equal amounts.</p>
+
+<p>Begin by renaming the existing camera (mine was called &quot;MainCamera&quot;) to &quot;LeftCamera&quot; and then in the inspector, changing the following values:</p>
+
+<ul>
+<li>Position X : -1</li>
+<li>Field of View : 60</li>
+<li>Viewport Rect W : 0.5</li>
+</ul>
+
+<p>This should give you a game screen similar to before but filling only half of the viewport:</p>
+
+<p><img src="/assets/images/unity_cardboard_tutorial/half_viewport.png" alt="Half Viewport Camera"></p>
+
+<p>Now right click on &quot;LeftCamera&quot; in the Hierarchy and choose Duplicate. Rename the newly duplicated &quot;LeftCamera&quot; to &quot;RightCamera&quot;.</p>
+
+<p>Then in the inspector for RightCamera, change the following values:</p>
+
+<ul>
+<li>Position X : 1</li>
+<li>Viewport Rect X : 0.5</li>
+</ul>
+
+<p>This should give you a viewport which is split down the middle, with one camera for each eye:</p>
+
+<p><img src="/assets/images/unity_cardboard_tutorial/two_cameras.png" alt="Two Cameras"></p>
+
+<p>If you were to load this onto a device now and look at it through Cardboard, it would work. But you wouldn&#39;t be able to look around so it wouldn&#39;t be that interesting.</p>
+
+<h2>Adding Head Tracking</h2>
+
+<p>One of the biggest challenges with Google Cardboard is that the only forms of user input are head movement and a magnet based switch on the side. The most impressive is the head tracking which uses the Gyroscope to detect exactly where the user is looking.</p>
+
+<p>This would be quite challenging to implement smoothly from scratch but luckily the clever folk at Durovis have created a Unity plugin which will take care of it for us.</p>
+
+<p>Begin by downloading the plugin from <a href="https://www.durovis.com/sdk.html">https://www.durovis.com/sdk.html</a> and double clicking on the <code>.unitypackage</code> file once it&#39;s finished downloading. This should automatically open the Unity import dialog.</p>
+
+<p>Don&#39;t change any options on the import window and just click &quot;Import&quot;. You may see an error about not having Blender installed at this point, for now this can be ignored.</p>
+
+<p>Now select the &quot;Player&quot; in the Hierarchy (the parent object to your two cameras) and in the Inspector click &quot;Add Component&quot; at the bottom.</p>
+
+<p>Select &quot;Scripts&quot; and then &quot;Open Dive Sensor&quot;. You&#39;ll then see a pane for configuring the Open Dive Sensor.</p>
+
+<p>There are two attributes which need setting here:</p>
+
+<ul>
+<li>Cameraleft</li>
+<li>Cameraright</li>
+</ul>
+
+<p>Which are shown below:</p>
+
+<p><img src="/assets/images/unity_cardboard_tutorial/open_dive_before_adding_cameras.png" alt="Configuring Open Dive Sensor"></p>
+
+<p>Click the button to the far right of Cameraleft (see the arrow in the screenshot above) and in the dialog which comes up choose &quot;LeftCamera&quot; by double clicking on it. Repeat the process for Cameraright, choosing &quot;RightCamera&quot; in the dialog.</p>
+
+<p>If you select play now and look at the game window, notice that there is distortion added to correct for the lenses in Google Cardboard:</p>
+
+<p><img src="/assets/images/unity_cardboard_tutorial/with_open_dive_distortion.png" alt="Configuring Open Dive Sensor"></p>
+
+<h2>Trying it out</h2>
+
+<p>We&#39;re now ready to test the scene with Cardboard. </p>
+
+<p>Begin by selecting &quot;File&quot; and then &quot;Build Settings&quot;. Add our current Scene to the Build by clicking the &quot;Add Current&quot; button (middle right).</p>
+
+<p>Under Platform select &quot;Android&quot;. Make sure your Android device is plugged into the computer using a USB cable and that USB Debugging is enabled (this varies between Android devices but a quick Google Search should do the trick).</p>
+
+<p>Having selected Android, click on &quot;Player Settings&quot; which will load the settings in the Inspector window. Under &quot;Other&quot; you&#39;ll need to enter a bundle identifier:</p>
+
+<p><img src="/assets/images/unity_cardboard_tutorial/android_bundle_identifier.png" alt="Adding a bundle identifier"></p>
+
+<p>Now choose &quot;Build and Run&quot; and wait for the build process to complete. When asked for a file location initially, choose somewhere to store the generated APK (Android Installer). This file can be copied to you device for installing manually or sent to friends.</p>
+
+<p>At some point it will also ask you for the location of the Android SDK. Because everyone read the &quot;prerequisites&quot; section of this post, this will already been downloaded and extracted somewhere (or not!).</p>
+
+<p>I&#39;d downloaded and extracted this in my <code>~/Downloads</code> folder so the SDK was located in <code>~/Downloads/adt-bundle-mac-x86_64-20140702/sdk</code>.</p>
+
+<p>Once the process completes, the application should automatically launch on your device. Slot it into Google Cardboard and look around!</p>
+
+<p>The next big challenge is finding a way to get user input. The magnetic button is clever but hardly that useful for fine grained directional control and expecting people to have a gamepad available is unreasonable.</p>
+
+<p>My current thinking is to allow a computers arrow keys to be used as input via web sockets, or eventually hand gestures recognised by the camera.</p>
+
+<p>Any questions or comments, find me on twitter, <a href="http://www.twitter.com/talkingquickly">http://www.twitter.com/talkingquickly</a>.</p>
+
+<h2>References</h2>
+
+<p><a href="http://www.sc0ttgames.com/?p=293">http://www.sc0ttgames.com/?p=293</a></p>
+
+<p><a href="https://www.youtube.com/watch?v=fRED_-LvJKQ&amp;list=PLPV2KyIb3jR7F_B4p8X3YwHPaExh0R9Kk">https://www.youtube.com/watch?v=fRED_-LvJKQ&amp;list=PLPV2KyIb3jR7F_B4p8X3YwHPaExh0R9Kk</a></p>
+
+<p><a href="https://www.durovis.com/board/viewforum.php?f=1&amp;sid=a3e36bc84f5e3e70f7bb00c9b11af7a2">https://www.durovis.com/board/viewforum.php?f=1&amp;sid=a3e36bc84f5e3e70f7bb00c9b11af7a2</a></p>
+
+<p><a href="http://forum.unity3d.com/threads/cardboard-vr-by-google-for-android-only-45.253903/">http://forum.unity3d.com/threads/cardboard-vr-by-google-for-android-only-45.253903/</a></p>
+
+        </section>
+
+        
+
+        <footer class="post-footer">
+          
+            <!-- If we want to display author's name and bio -->
+
+    <section class="author">
+      <header> <a href="/about.html"> <img class="profile"
+          src="/assets/images/profile2.jpg" alt="Ben Dixon. Without
+      Aviators."></a></header>
+      <article>
+        <!-- Author Name -->
+          <h4> Ben Dixon </h4>
+          <!-- Author Bio -->
+          <p> 
+          I'm a Ruby/ Android Developer, devops geek, lover of good coffee and making things. I'm the author of <a href="https://leanpub.com/deploying_rails_applications" target="_blank">Reliably Deploying Rails Applications</a> and currently based in London. <a href="/travel">Travel</a> addict often to be found exploring Europe, America and Asia. Co-founded <a href="https://www.makeitwithcode.com" target="_blank">Make It With Code</a>, <a href= "http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a> on twitter. 
+          </p>
+        </article>
+    </section>                
+
+
+          
+          
+          
+
+            
+            
+        	
+        </footer>
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="/rss.xml"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+          <section class="copyright">All content copyright <a href="/about.html">Ben Dixon</a> &copy;  &bull; All rights reserved. Twitter: <a href="http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a></section>
+             <section class="poweredby">Made with Jekyll and based on the <a href="http://github.com/rosario/kasper" target="_blank">Kasper theme</a></section>
+        </div>
+    </footer>
+
+    
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-7333902-35']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>   
+</body>
+</html>
