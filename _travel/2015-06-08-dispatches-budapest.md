@@ -7,6 +7,10 @@ biofooter: true
 excerpt: "When you step out of the shower at 9AM, completely blind without contact lenses and someone shouts 'Ben will you take Rosie to the hospital?', you know it's going to be an interesting day."
 description: "Meeting the Hungarian healthcare system, a man in handcuffs and crutches"
 order: 70
+next: "Failing in Budapest"
+next_link: "/travel/2015-06-12-failing-hard-in-hungary/"
+previous: "DIY beer taps in Prague"
+previous_link: "/travel/2015-06-03-dispatches-prague-to-budapest/"
 ---
 
 Date: 06 June 2015</br>
@@ -73,4 +77,4 @@ beautiful;
 
 ![Budapest Parliament](/assets/images/travel/budapest/parliament.jpg)
 
-{% include travel_signup.html %}
+{% include travel_footer.html %}

@@ -33,3 +33,25 @@ img.profile {
   	border-radius: 50px;
 }
 
+/* travel footer */
+
+.clear {
+  clear: both;
+}
+
+.travel_nav {
+  display: block;
+  clear: both;
+  margin-top: 50px;
+  width: 100%;
+}
+
+.previous {
+  float: left;
+}
+
+.next {
+  float:right;
+}
+
+/* end travel footer */

@@ -7,6 +7,10 @@ biofooter: true
 excerpt: "Prague serves exactly the food you'd expect in a country where the average daily alcohol intake for an adult is 1.5litres of beer. And that's real beer, not American beer. And it's incredible."
 description: "A trip to the bus depo, beer is cheaper than water, sword fighting and lots of ham"
 order: 50
+next: "The sport of drinking"
+next_link: "/travel/2015-06-03-dispatches-prague-to-budapest/"
+previous: "Amsterdam"
+previous_link: "/travel/2015-05-25-dispatches-amsterdam/"
 ---
 
 Date: 01 June 2015<br/>
@@ -46,4 +50,4 @@ The resulting food coma meant spending several hours sitting on the edge of a sq
 
 Quote of the trip so far, aimed at me, around lunchtime; "you haven't napped yet today, hopefully you won't be awake much longer".
 
-{% include travel_signup.html %}
+{% include travel_footer.html %}

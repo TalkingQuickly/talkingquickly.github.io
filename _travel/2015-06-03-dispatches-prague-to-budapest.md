@@ -8,6 +8,10 @@ excerpt: "The Czech's truly have turned drinking into an art form, or more speci
 description: "Pour your own beer, drinking leaderboards, sunets
 and leaving for Budapest" 
 order: 60
+next: "Hospitals in Budapest"
+next_link: "/travel/2015-06-08-dispatches-budapest/"
+previous: "Sowrdfighting and Ham"
+previous_link: "/travel/2015-06-01-dispatches-prague/"
 ---
 
 Date: 03 June 2015<br/>
@@ -64,4 +68,4 @@ Trains are winning, now safely in Budapest. The day began with a run
 along the Danube followed by finding one of the friendliest co-working
 spaces I've ever encountered.
 
-{% include travel_signup.html %}
+{% include travel_footer.html %}

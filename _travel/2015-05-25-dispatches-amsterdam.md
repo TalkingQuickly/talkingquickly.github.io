@@ -7,9 +7,11 @@ biofooter: true
 excerpt: "It's always a good sign when a trip begins by losing just one shoe the day before leaving. Armed with what I'm rapidly realising are a not so serviceable pair from Tesco's for a bargain £12, it continued none the less."
 description: "Checking in for a coach, The Polish tolerance for Jagermeister and arriving in/ near Amsterdam"
 order: 40
+next: "Swordfighting and Ham"
+next_link: "/travel/2015-06-01-dispatches-prague/"
+previous: "2015 Europe Trip Plan"
+previous_link: "/travel/2015-europe-trip-plan/"
 ---
-
-![Wine List, Red or White](/assets/images/travel/amsterdam/purple-bike.jpg)
 
 Date: 25 May 2015<br/>
 Location: The Flying Pig Uptown, Amsterdam<br/>
@@ -32,4 +34,4 @@ I'm now perched in the hostel overlooking Vondelpark, surrounded by Germans, and
 
 ![Wine List, Red or White](/assets/images/travel/amsterdam/wine-list.jpg)
 
-{% include travel_signup.html %}
+{% include travel_footer.html %}

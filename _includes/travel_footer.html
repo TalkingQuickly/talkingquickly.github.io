@@ -1,0 +1,17 @@
+{% include travel_signup.html %}
+
+<section class="travel_nav">
+  {% if page.previous %}
+    <div class="previous">
+      <a href="{{ page.previous_link}}">Previous - {{page.previous}}</a>
+    </div>
+  {% endif %}
+  {% if page.next %}
+    <div class="next">
+      <a href="{{page.next_link}}">Next - {{page.next}}</a>
+    </div>
+  {% endif %}
+  </div>
+  <div class="clear"></div>
+
+</section>

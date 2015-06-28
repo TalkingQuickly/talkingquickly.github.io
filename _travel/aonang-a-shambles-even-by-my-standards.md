@@ -6,6 +6,10 @@ categories: travel
 biofooter: true
 excerpt: "Wikitravel furnished me with everything I could possibly need to know about heading south. Get on bus to Krabi, get off bus at Krabi, get in white pickup truck which will take you to Ao Nang, go to Irish pub, they'll tell you where's good to stay. It turned out to be not quite that simple..."
 order: 20
+next: "2015 Europe Trip Plan"
+next_link: "/travel/2015-europe-trip-plan/"
+previous: "Arriving in Bangkok"
+previous_link: "/travel/heading-to-thailand/"
 ---
 
 Wikitravel furnished me with everything I could possibly need to know about heading south. Get on bus to Krabi, get off bus at Krabi, get in white pickup truck which will take you to Ao Nang, go to Irish pub, they'll tell you where's good to stay.
@@ -61,3 +65,5 @@ On the plus side, these guys live outside...
 ![Monkeys](/assets/images/travel/shambles-even-by-my-standards/monkeys.jpg)
 
 They've just switched off the power to the area - no electricity after 10pm - which I think is my cue to stop writing and work out how to put up a mosquito net.
+
+{% include travel_footer.html %}

@@ -6,6 +6,8 @@ categories: travel
 biofooter: true
 excerpt: "Somehow my worldly possessions have been reduced to an amount which fits in the backpack I normally carry to work and going by the number of people laughing at the way I eat noodles, I appear to have made it to Bangkok."
 order: 1
+next: "Aonang, a shambles"
+next_link: "/travel/aonang-a-shambles-even-by-my-standards/"
 ---
 
 Somehow my worldly possessions have been reduced to an amount which fits in the backpack I normally carry to work and going by the number of people laughing at the way I eat noodles, I appear to have made it to Bangkok.
@@ -83,3 +85,5 @@ As far as cost goes the short answer is yes, it really is that cheap. To give a 
 So far so good. As a bonus being seven hours ahead of the UK is meaning I can get a lot of work done while the team in the UK is asleep so it's ready for them to test in the morning. Starting a little later means it's still possible to have enough crossover with the English working day that communication isn't a problem.
 
 I'm expecting the Internet to become far poorer as I move out to the Islands, the dream is a moderately developed island with Bangkok style WiFi. I'm told this is unlikely!
+
+{% include travel_footer.html %}
