@@ -19,7 +19,7 @@ Status: Now an expert in Hungarian Healthcare<br/>
 Trip: [Europe Summer 2015](/travel/2015-europe-trip-plan/)
 
 When you step out of the shower at 9AM, completely blind without
-contact lenses and someone shouts "Ben will you take Jane to the
+contact lenses and someone shouts "Ben will you take Rosie to the
 hospital?", you know it's going to be an interesting day.
 
 It seems the previous nights tour of the ruin bars - which are
