@@ -1,6 +1,6 @@
 ---
 layout : post
-title: "Dispatches - Prague"
+title: "Prague - Swordfighting and my body weight in ham"
 date: 2015-06-01 10:39:00
 categories: travel
 biofooter: true

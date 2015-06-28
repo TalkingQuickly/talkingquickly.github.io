@@ -84,3 +84,6 @@ DEPENDENCIES
   capistrano (~> 3.2.1)
   jekyll (~> 2.5.2)
   rake (= 10.0.3)
+
+BUNDLED WITH
+   1.10.3
