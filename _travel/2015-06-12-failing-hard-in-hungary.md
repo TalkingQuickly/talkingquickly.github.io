@@ -9,6 +9,8 @@ description: "Having all my stuff stolen, a brief pitstop in London and then onw
 order: 80
 previous: "Hospitals in Hungary"
 previous_link: "/travel/2015-06-08-dispatches-budapest/"
+next: "From Hamburg to Berlin"
+next_link: "/travel/2015-07-01-from-hamburg-to-berlin-and-warsaw/"
 ---
 
 Date: 12 June 2015</br>
@@ -22,7 +24,7 @@ On returning from another excellent night in the ruin bars, I discovered my comb
 
 With the help of the hostel staff we pieced together what had happened. A gentleman had checked in for just one night, waited until everyone went out for the night and then forced the lock and left immediately.
 
-Even more galling we knew exactly who it was. We'd been worried nobody was talking to him so offered him coffee and later chatted to him a bit further in the rooom before leaving for the night.
+Even more galling we knew exactly who it was. We'd been worried nobody was talking to him so offered him coffee and later chatted to him a bit further in the room before leaving for the night.
 
 Having things stolen is an accepted risk of travelling, it happens to everyone eventually. There is however something unpleasant about the idea that somebody can sit and make conversation with the people they later plan to steal from.
 

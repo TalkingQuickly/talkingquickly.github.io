@@ -10,7 +10,7 @@ and leaving for Budapest"
 order: 60
 next: "Hospitals in Budapest"
 next_link: "/travel/2015-06-08-dispatches-budapest/"
-previous: "Sowrdfighting and Ham"
+previous: "Swordfighting and Ham"
 previous_link: "/travel/2015-06-01-dispatches-prague/"
 ---
 
