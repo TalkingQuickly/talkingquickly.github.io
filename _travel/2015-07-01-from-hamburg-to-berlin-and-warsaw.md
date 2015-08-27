@@ -7,8 +7,6 @@ biofooter: true
 excerpt: "After a brief pit stop in London to replace my lost possessions, Hamburg was supposed to be a quiet night with some sightseeing the next day. 2 hours later I was being taught what may be the most complex card game I've ever encountered."
 description: "Hamburg, Berlin, Warsaw. Rock and Roll Bands, Breakfast and trains"
 order: 80
-next: ""
-next_link: ""
 previous: "Failing in Hungary"
 previous_link: "/travel/2015-06-12-failing-hard-in-hungary/"
 ---
@@ -33,7 +31,7 @@ There's nothing quite like this:
 
 ![The most complicated card game ever](/assets/images/travel/berlin/breakfast.jpg)
 
-To perk you up when you realise you've somehow forgotten to eat for the previous 18 hours. I also strongly recommend the view from the top of the parliament building, it's free but requires booking in advance. If anyone can tell me how they lose the roof, I'll buy you a beer.
+To perk you up when you realise you've somehow forgotten to eat for the previous 18 hours. I also strongly recommend the view from the top of the parliament building, it's free but requires booking in advance. If anyone can tell me how they close the roof, I'll buy you a beer.
 
 I was hoping to fall in love with Berlin, so many of my friends seem to have and it's the startup capital of Europe after London. The street art is incredible, as oddly was the vietnamese food. But it didn't have the same buzz I found in places like Budapest.
 
@@ -45,7 +43,7 @@ This turned out to be completely unjustified. Stepping out of the station to see
 
 ![The palace of culture](/assets/images/travel/warsaw/culture.jpg)
 
-Is something special. Admittidly it did remind me slightly of the Ministry of Truth from 1984, but in a good way... Several people have said Warsaw reminds them of Chicago. I was skeptical but can now s where they're coming from, especially some of the newer syscrapers could have been taken straight from the windy city.
+Is something special. Admittidly it did remind me slightly of the Ministry of Truth from 1984, but in a good way... Several people have said Warsaw reminds them of Chicago. I was skeptical but can now see where they're coming from, especially some of the newer syscrapers could have been taken straight from the windy city.
 
 ![The palace of culture](/assets/images/travel/warsaw/skyscrapers.jpg)
 
