@@ -84,7 +84,7 @@ git clone -b develop git@github.com:TalkingQuickly/rails-server-template.git
 
 Here we're specifically cloning the develop branch which contains the updated, Chef Solo (not Knife Solo) based version.
 
-Move into the newly created project folder `cd rails-server-template` and run `bundle install` to install the required gems.
+Move into the newly created project folder `cd rails-server-template`.
 
 In the same directory, run `berks vendor`. [Berkshelf](https://github.com/berkshelf/berkshelf) is essentially Bundler for Chef Cookbooks. In Chef terminology, Cookbooks are the individual modules which tell chef how to install a particular pice of software.
 
@@ -110,7 +110,26 @@ cookbook 'postgresql', '~> 4.0.6'
 
 Shows the similarity to working with bundler. We have cookbooks for system components such as `memcached` & `postgresql`. Also like bundler, we can define constraints as to which versions should be installed. When we install cookbooks, a `Berksfile.lock` is created which captures the entire dependancy tree so we can be certain we always end up with the same versions.
 
-The use of `berks vendor` ensures we have the correct cookbooks available in the folder `berks-cookbooks` which is the source location specified in `knife.rb`. It's important to remember to re-run `berks vendor` after making changes to `Berksfile`.
+The use of `berks vendor` ensures we have the correct cookbooks available in the folder `berks-cookbooks` which is the source location specified in `knife.rb`.
+
+In practice our `knife.rb` file takes care of automatically runnings
+`berks vendor` when needed. Knife is the command line tool we use for interacting with chef.
+`knife.rb` is where this tool is configured
+
+```
+local_mode true
+chef_repo_path   File.expand_path('../' , __FILE__)
+
+knife[:ssh_attribute] = "knife_zero.host"
+knife[:use_sudo] = true
+knife[:editor] = '/usr/local/bin/vim'
+cookbook_path ["cookbooks", "berks-cookbooks"]
+
+# Automatically run berks vendor before converging
+if ARGV[0..1] == ["zero", "converge"] && ! Chef::Config.has_key?(:color)
+  system('berks vendor')
+end
+```
 
 ### Configure the new node
 
@@ -175,47 +194,126 @@ You can also see that the roles have been added to the run list by viewing the J
 }
 ```
 
-####
+See further down for how to customise the editor which the node
+definition is opened in.
 
-@TODO Setup monit etc
+### Configuring The Node
 
-### Setup users
+Begin by setting the master Postgres password. This is the password you'll need to login as the master postgres user for the purposes of creating new databases.
 
-The `users` cookbook handles creation of users. In this example we'll create a single user called `deploy`. To do this, begin by copying `data_bags/users/deploy.json.example` to data_bags/users/deploy.json`.
-
-`deploy.json` will look like this:
-
-```
-{
-  "id": "deploy",
-  // generate this with: openssl passwd -1 "plaintextpassword"
-  "password": "REPLACE",
-  // the below should contain a list of ssh public keys which should
-  // be able to login as deploy
-  "ssh_keys": [
-  ],
-  "groups": [ "sysadmin"],
-  "shell": "\/bin\/bash"
-}
-```
-
-Generate an encrypted password with:
+Generate the password with:
 
 ```
 openssl passwd -1 "plaintextpassword"
 ```
 
-and update the value of the `password` field. Then add your public key (usually `~/.ssh/id_rsa.pub`) to the `ssh_keys` array.
-
-E.g:
+Run `knife node edit NODE_NAME` and add the following snippet:
 
 ```
-"ssh_keys": [
-    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCWdcYOVux0i4n85DQD4ImkAMsv9ZaL9kS+nA5FKbpjPN/pmccwuuFRBEItzeCuFbY6L+LXIZ/zUW3OXA//LlK2ZdkMF3S5hMPuUyMnQmaX1B+guAYBgG0Wxr/4Lg5sVUVbzVqo8gb+d5wRdSQf/VPn8RiAp81mwsyxyQJBesEyDL70He1+M1GsUJB6FkDHU3xlGpn1i0GdKudtu8Nzff2m+0oZXP/6xJ+dbqTKPs4XWDJzlRpXh1FWK4YJnBRCvR8iEQAVtfibt2FuUOi3FP+WyHVAYsjSXBHpa8HleETxniznzAtYZNtMwo183jSpSIsUmnONUWHq2Ms5e2wGlYd7 ben@ben-laptop"
+"postgresql" : {
+  "password" : {
+    "postgres" : "OUTPUT_FROM_OPENSSL_PASSWD"
+  }
+},
+```
+
+Inside the object associated with the `normal` key. See [attribute precedence](https://docs.chef.io/attributes.html) for more about the significance of `normal`.
+
+Similarly, to set the ruby version add the following, replacing `2.3.1` with your desired Ruby verison:
+
+```
+"rbenv":{
+  "rubies": [
+    "2.3.1"
   ],
+  "global" : "2.3.1",
+  "gems": {
+    "2.3.1" : [
+      {"name":"bundler"}
+    ]
+  }
+},
 ```
 
-Groups specifies the groups this user will be a member of. The `sudo` cookbook we use makes `sudo` available to all users in this group.
+So the final node definition might look something like this:
+
+```
+{
+  "name": "rdrtest1",
+  "chef_environment": "_default",
+  "normal": {
+    "postgresql": {
+      "password": {
+        "postgres": "$1$TAdKe0fj$k.Y5DYgjiV6O0iz6ixq96/"
+      }
+    },
+    "rbenv": {
+      "rubies": [
+        "2.3.1"
+      ],
+      "global": "2.3.1",
+      "gems": {
+        "2.3.1": [
+          {
+            "name": "bundler"
+          }
+        ]
+      }
+    },
+    "knife_zero": {
+      "host": "188.166.151.185"
+    },
+    "tags": [
+
+    ]
+  },
+  "policy_name": null,
+  "policy_group": null,
+  "run_list": [
+    "role[server]",
+    "role[nginx-server]",
+    "role[postgres-server]",
+    "role[rails-app]",
+    "role[redis-server]"
+  ]
+}
+```
+
+### Setup users
+
+The `users` cookbook handles creation of users. In this example we'll create a single user called `deploy`.
+
+Begin by creating a data bag called `users` with a single entry; `deploy`:
+
+```
+knife data_bag create users deploy
+```
+
+Generate an encrypted password for the user with:
+
+```
+openssl passwd -1 "plaintextpassword"
+```
+
+Update the databag to look like the following, replacing `ENCRYPTED_PASSWORD` with the encrypted user password generated above and `YOUR_PUBLIC_KEY` with your public key (usually `~/.ssh/id_rsa.pub`):
+
+```
+{
+  "id": "deploy",
+  "password": "ENCRYPTED_PASSWORD",
+  "ssh_keys": [
+    "YOUR_PUBLIC_KEY"
+  ],
+  "groups": [
+    "sysadmin"
+  ],
+  "shell": "/bin/bash"
+}
+```
+
+Groups specifies the groups this user will be a member of. The `sudo` cookbook we use makes `sudo` available to all users in the `sysadmin` group.
+
+To subsequently edit the contents of the databag use `knife data_bag edit users deploy` and edit the key value pairs under `raw_data`, there's [more on interacting with databags using knife here](https://docs.chef.io/knife_data_bag.html).
 
 ### Apply configuration to node
 
@@ -239,15 +337,24 @@ knife zero converge "name:NODE_NAME" --ssh-user root
 
 To apply the new changes. This makes deploying new, identical servers in the future, completely painless.
 
-## Editing a node directly
+## Next Steps
 
-To edit a nodes JSON directly, set to the path to your editor in knife.rb:
+The node is now ready to deploy a Rails application to. Recommended tools for this:
+
+* [Capistrano](http://capistranorb.com/)
+* [Mina](http://nadarei.co/mina/)
+
+## Tips
+
+### Changing the JSON editor
+
+We can set the path to our editor of choice in `knife.rb`, for example to use sublime text:
 
 ```
-knife[:editor] = '/usr/local/bin/sublime'
+knife[:editor] = '/usr/local/bin/subl'
 ```
 
-In the above example, the editor is set to Sublime Text. To use vim you might set:
+To use vim you might set:
 
 ```
 knife[:editor] = /usr/local/bin/vim
@@ -255,7 +362,7 @@ knife[:editor] = /usr/local/bin/vim
 
 This will open the node definition JSON in the chosen editor. When saving and closing the editor, knife will parse the node defintiion to make sure it is valid before saving it.
 
-## Useful Commands
+### Useful Commands
 
 `knife search node` will return all nodes
 
@@ -263,6 +370,6 @@ This will open the node definition JSON in the chosen editor. When saving and cl
 
 `knife ssh "name:some_title" --ssh-user root hostname` will run the command `hostname` on any servers which  
 
-## Useful Links
+### Useful Links
 
 * <http://knife-zero.github.io/20_getting_started/>
