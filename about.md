@@ -19,4 +19,7 @@ Other projects include working as the software and embedded device developer beh
 
 I travel as much as possible and write about it [here](/travel).
 
-I'm always interested in chatting to new people whether it's about startups, tech, travel or photograpgy. You can find me on twitter as <a href="http://www.twitter.com/talkingquickly"target="_blank">@talkingquickly</a> or by emailing <a href="mailto:ben@talkingquickly.co.uk">ben@talkingquickly.co.uk</a>.
+If you only read one thing I've written, [I would suggest
+this](/2015/04/what-id-tell-myself-about-startups/).
+
+I'm always interested in chatting to new people whether it's about startups, tech, travel or photography. You can find me on twitter as <a href="http://www.twitter.com/talkingquickly"target="_blank">@talkingquickly</a> or by emailing <a href="mailto:ben@talkingquickly.co.uk">ben@talkingquickly.co.uk</a>.
