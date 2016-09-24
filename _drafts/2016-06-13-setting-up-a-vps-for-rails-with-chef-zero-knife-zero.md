@@ -52,11 +52,19 @@ Install ChefDK from <https://downloads.chef.io/chef-dk/> and ensure that
 Executing `which chef` should give the ChefDK path, e.g:
 `/opt/chefdk/bin/chef`.
 
+### Install Knife Zero
+
+```
+chef gem install knife-zero
+```
+
+@TODO finish this
+
 ### Setup a server
 
 Begin by creating a VPS, this has been tested on Linode & Digital Ocean. Provision the new server with Ubuntu 16.04 and boot it up.
 
-If you're re-using an existing IP address (e.g. re-provisioning a server)you'll need to remove existing references to the server from `known_hosts` with `ssh-keygen -R SERVER_IP_OR_HOSTNAME`.
+If you're re-using an existing IP address (e.g. re-provisioning a server) you'll need to remove existing references to the server from `known_hosts` with `ssh-keygen -R SERVER_IP_OR_HOSTNAME`.
 
 Now copy your SSH public key across to allow passwordless access:
 
@@ -72,7 +80,7 @@ Once this is complete you can test that this works by sshing into the server as 
 ssh root@SERVERI_IP_OR_HOSTNAME
 ```
 
-If everything has gone to plan, the login will complete without asking for a password.
+If everything has gone to plan, the login will complete without asking for a password. Use `exit` to return to the local terminal.
 
 ### Get the example code
 
@@ -110,11 +118,11 @@ cookbook 'postgresql', '~> 4.0.6'
 
 Shows the similarity to working with bundler. We have cookbooks for system components such as `memcached` & `postgresql`. Also like bundler, we can define constraints as to which versions should be installed. When we install cookbooks, a `Berksfile.lock` is created which captures the entire dependancy tree so we can be certain we always end up with the same versions.
 
-The use of `berks vendor` ensures we have the correct cookbooks available in the folder `berks-cookbooks` which is the source location specified in `knife.rb`.
+The use of `berks vendor` ensures we have the correct cookbooks available in the folder `berks-cookbooks` which is the location specified in `knife.rb` to read cookbooks from.
 
-In practice our `knife.rb` file takes care of automatically runnings
-`berks vendor` when needed. Knife is the command line tool we use for interacting with chef.
-`knife.rb` is where this tool is configured
+In practice our `knife.rb` file takes care of automatically running
+`berks vendor` when needed. `knife` is the command line tool we use for interacting with Chef.
+`knife.rb` is where this tool is configured:
 
 ```
 local_mode true
@@ -133,15 +141,15 @@ end
 
 ### Configure the new node
 
-In a terminal in the same folder, add the node to chef:
+In a terminal in the same folder, add the node to Chef:
 
 ```
 knife zero bootstrap SERVER_IP --ssh-user root --node-name NODE_NAME
 ```
 
-Replacing `NODE_NAME` with a descriptive name of the node.
+Replacing `NODE_NAME` with a descriptive name of the node. Notice the `zero` keyword which indicated we want to do this locally. In practice this means a Chef server instance is running locally and the data is being persisted to the current directory.
 
-This will connect to the remote server, install chef and generate the local file `nodes/demo-server-2.json`. This is the file where all details about the node and what should be installed on it will be stored.
+This will connect to the remote server, install chef and generate the local file `nodes/NODE_NAME.json`. This is the file where all details about the node and what should be installed on it will be stored.
 
 We can then use the `knife node run_list add` command to add recipes and roles which should be installed on the node.
 
@@ -194,7 +202,7 @@ You can also see that the roles have been added to the run list by viewing the J
 }
 ```
 
-See further down for how to customise the editor which the node
+See "Changing the JSON Editor" below for how to customise the editor which the node
 definition is opened in.
 
 ### Configuring The Node
@@ -219,7 +227,7 @@ Run `knife node edit NODE_NAME` and add the following snippet:
 
 Inside the object associated with the `normal` key. See [attribute precedence](https://docs.chef.io/attributes.html) for more about the significance of `normal`.
 
-Similarly, to set the ruby version add the following, replacing `2.3.1` with your desired Ruby verison:
+Similarly, to set the Ruby version, add the following replacing `2.3.1` with your desired Ruby verison:
 
 ```
 "rbenv":{
@@ -295,7 +303,7 @@ Generate an encrypted password for the user with:
 openssl passwd -1 "plaintextpassword"
 ```
 
-Update the databag to look like the following, replacing `ENCRYPTED_PASSWORD` with the encrypted user password generated above and `YOUR_PUBLIC_KEY` with your public key (usually `~/.ssh/id_rsa.pub`):
+Update the databag to look like the following, replacing `ENCRYPTED_PASSWORD` with the encrypted user password generated above and `YOUR_PUBLIC_KEY` with your public key (usually the contents of `~/.ssh/id_rsa.pub`):
 
 ```
 {
@@ -315,7 +323,7 @@ Groups specifies the groups this user will be a member of. The `sudo` cookbook w
 
 To subsequently edit the contents of the databag use `knife data_bag edit users deploy` and edit the key value pairs under `raw_data`, there's [more on interacting with databags using knife here](https://docs.chef.io/knife_data_bag.html).
 
-### Apply configuration to node
+### Apply configuration to the node
 
 At this point, our local definition of the node has been updated, but no changes have been made to the actual server. To apply these changes, we use `knife zero converge`:
 
