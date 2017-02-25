@@ -123,7 +123,7 @@ This is, in no particular order, what I'd tell myself about startups if I could 
 
 1. Read every [essay](http://www.paulgraham.com/articles.html) Paul Graham has written
 
-1. Tech news (and news is general) has a very low return on time invested. Prefer books and conversations
+1. Tech news (and news in general) has a very low return on time invested. Prefer books and conversations
 
 1. Read [Founders Stories](http://www.amazon.co.uk/Founders-Work-Stories-Startups-Problem-Solution/dp/1430210788), [Fooled By Randomness](http://www.amazon.co.uk/Fooled-Randomness-Hidden-Chance-Markets-ebook/dp/B002RI9BH6/) and [The Four Steps to the Ephiphany](http://www.amazon.co.uk/Four-Steps-Epiphany-Steve-Blank-ebook/dp/B00FLZKNUQ/)
 
