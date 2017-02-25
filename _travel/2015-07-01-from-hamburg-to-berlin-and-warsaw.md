@@ -7,6 +7,8 @@ biofooter: true
 excerpt: "After a brief pit stop in London to replace my lost possessions, Hamburg was supposed to be a quiet night with some sightseeing the next day. 2 hours later I was being taught what may be the most complex card game I've ever encountered."
 description: "Hamburg, Berlin, Warsaw. Rock and Roll Bands, Breakfast and trains"
 order: 80
+next: "Banaue & Batad Rice Terraces"
+next_link: "/travel/2017-02-25-manila-to-banaue-and-batad-rice-terraces/"
 previous: "Failing in Hungary"
 previous_link: "/travel/2015-06-12-failing-hard-in-hungary/"
 ---
