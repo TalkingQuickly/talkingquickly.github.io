@@ -4,7 +4,7 @@ title: "Manila to Banaue and the Batad Rice Terraces"
 date: 2017-02-25 12:00:00
 categories: travel
 biofooter: true
-excerpt: "The Omayami Trans bus terminal is just 13km from Ninoy Aquino airport. A simple 35 minute (350peso) journey by taxi. Unless you are making it in rush hour - as we were - in which case I was advised the estimate is 'between an hour an infinity.'' So far so good."
+excerpt: "The Omayami Trans bus terminal is just 13km from Ninoy Aquino airport. A simple 35 minute (350peso) journey by taxi. Unless you are making it in rush hour - as we were - in which case I was advised the estimate is 'between an hour an infinity.' So far so good."
 order: 90
 previous: "Hamburg to Berlin"
 previous_link: "/travel/2015-07-01-from-hamburg-to-berlin-and-warsaw/"
@@ -12,7 +12,7 @@ previous_link: "/travel/2015-07-01-from-hamburg-to-berlin-and-warsaw/"
 
 The [Omayami Trans](http://ohayamitrans.com/) bus terminal is just 13km from Ninoy Aquino airport. A simple 35 minute (350peso) journey by taxi. Unless you are making it in rush hour - as we were - in which case I was advised the estimate is "between an hour an infinity." So far so good.
 
-"Why does everyone believe their traffic is uniquely terrible?" I thought. I've experienced Athens, London, Bancock, Beijing all in rush hour. Sure the traffic is bad, but really nothing to write home about.
+"Why does everyone believe their traffic is uniquely terrible?" I thought. I've experienced Athens, London, Bangkok, Beijing all in rush hour. Sure the traffic is bad, but really nothing to write home about.
 
 All of my first messages home to friends and family were about Manilas traffic. 
 
@@ -34,19 +34,29 @@ The bus arrives around seven AM and goes straight to a restauraunt overlooking B
 
 The view from breakfast was spectacular as the morning cloud filled the valley and gradually lost its daily battle with the sun, revealing the plunging valleys which make the area so suitable for rice farming.
 
+![The view from the restaurant in Banaue](/assets/images/travel/philippines/banaue_from_the_restaurant.jpg)
+
 Having heard from several sources that the rice paddies at Batad were significantly better preserved than those at Banaue itself, we decided to go straight there and visit the Banaue paddies later if time.
 
 Time was of the essence given that we were returning on the 7PM bus that night so we opted to hire a private driver and guide so as to leave immediately. We paid 5.2k pesos for the two of us having negotiated very little so better deals may be available. Apparently the opening bid for a group is 2k per person. YMMV.
 
 Batad itself is not accessible by road, our driver took us an hour further West where the road ends. Our guide - who was wonderful, a local university student who works as a guide on the weekends - took us the rest of the way on foot.
 
+![Our guide in Banaue](/assets/images/travel/philippines/banaue_our_guide.jpg)
+
 Batad itself is about a thirty minute hike from the nearest road, after that we hiked for around an hour down through the rice paddies themselves. This is the key reason for hiring a guide, the path is a public right of way but the rice paddies themselves are private property so without a guide you're on shaky ground attempting this alone. There's also a huge risk of damaging the paddies - a UNESCO listed site and the main source of the local families food - by stepping in the wrong place so doing this alone shouldn't be considered an option. 
 
 As we climbed down through some of the oldest working rice paddies in the world, our guide explained the growing cycle of rice and pointed out where rice had been newly planted and where it was being picked, separated out and re-planted having completed the first stage of growing.
 
-We learned to our - or at least my - surprise that all of the rice grown in Batad is for consumption by the families which grow it. Each family will own around five paddies and a complicated system of inheritence and obligation ensures that the paddies continue to be used to provide for the family as a whole.
+![The rice terraces in Banaue](/assets/images/travel/philippines/banaue_rice_terraces.jpg)
 
-Working our way down through the rice paddies was by no means a stroll, requiring some fairly intricate balancing along narrow boundaries and more steps than I care to remember. This was followed by another thirty minute hike to the famous Tappiya waterfall.
+We learned to our - or at least my - surprise that all of the rice grown in Batad is for consumption by the families which grow it. It is also entirely organic, with no chemical fertalisers or pestisides being used. The only fetaliser used is made by fermenting rice waste, food scraps and other organic matter in one of the fallow paddies. This means that unlike commercial rice growing operations, where paddies may bear three crops per year, there is a single yearly harvest to preserve the nutrients in the soil.
+
+Each family will own around five paddies and a complicated system of inheritence and obligation ensures that the paddies continue to be used to provide for the family as a whole.
+
+Working our way down through the rice paddies was by no means a stroll, requiring some fairly intricate balancing along narrow boundaries and more stairs than I care to remember. This was followed by another thirty minute hike to the famous Tappiya waterfall.
+
+![Some stones by the waterfall, because there are lots of pictures of the waterfall...](/assets/images/travel/philippines/banaue_stones.jpg)
 
 This is definitely a hike not a walk. While it is without question worth it, by the time we reached the waterfall both of our legs were shaking uncontrollably. By the time we'd hiked back up afterwards, we were almost incapable of speech. Even our guide fell asleep on the drive back to Banaue.
 
