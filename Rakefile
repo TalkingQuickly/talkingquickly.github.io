@@ -7,7 +7,7 @@ require "jekyll"
 
 # Change your GitHub reponame
 GITHUB_REPONAME = "TalkingQuickly/talkingquickly.github.io"
-
+DEPLOY_DIR = '../talkingquickly.github.io.release'
 
 namespace :jekyll do
   task :generate do
@@ -15,6 +15,26 @@ namespace :jekyll do
     system "jekyll build"
   end
 
+  desc "Sets up folders for fast publising"
+  task :publish_fast_setup  do
+    pwd = Dir.pwd
+    system "git clone git@github.com:#{GITHUB_REPONAME}.git #{DEPLOY_DIR}"
+    Dir.chdir DEPLOY_DIR
+    system "git checkout master"
+    Dir.chdir pwd
+  end
+
+  desc "Publishes using a cache of the repo"
+  task :publish_fast => [:generate] do
+    pwd = Dir.pwd
+    
+    system "rsync -avh _site/ #{DEPLOY_DIR} --delete"
+    Dir.chdir DEPLOY_DIR
+    message = "Site updated at #{Time.now.utc}"
+    system "git add ."
+    system "git commit -m #{message.inspect}"
+    Dir.chdir pwd
+  end
 
   desc "Generate and publish blog to gh-pages"
   task :publish => [:generate] do
