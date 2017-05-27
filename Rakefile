@@ -27,12 +27,12 @@ namespace :jekyll do
   desc "Publishes using a cache of the repo"
   task :publish_fast => [:generate] do
     pwd = Dir.pwd
-    
-    system "rsync -avh _site/ #{DEPLOY_DIR} --delete"
+    system "rsync -avh _site/ #{DEPLOY_DIR} --delete --exclude '.git'"
     Dir.chdir DEPLOY_DIR
     message = "Site updated at #{Time.now.utc}"
     system "git add ."
     system "git commit -m #{message.inspect}"
+    system "git push origin master"
     Dir.chdir pwd
   end
 
