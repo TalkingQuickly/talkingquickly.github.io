@@ -62,6 +62,7 @@ Each has their own constantly evolving approach, but it's one developed with the
 * [The Everything Store: Jeff Bezos and the Age of Amazon (Book)](http://amzn.to/2nfeSQ7)
 * [The Design of Everyday Things (Book)](http://amzn.to/2njxcYq)
 * [Don't Make Me Think (Book)](http://amzn.to/2BzZlNJ)
+* [Shoe Dog (Book)](http://amzn.to/2Bxc1ot)
 
 ## But I don't have time!
 
