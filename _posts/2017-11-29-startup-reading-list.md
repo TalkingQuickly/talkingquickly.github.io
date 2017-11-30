@@ -68,5 +68,5 @@ Each has their own constantly evolving approach, but it's one developed with the
 The above could easily take a year to read, my suggested "hack" to gain maximum knowledge for minimum reading would be:
 
 * Watch every lecture in the [How To Start A Startup (Lecture Series from Stanford)](http://startupclass.samaltman.com/).
-* Read [How to get startup ideas](http://paulgraham.com/startupideas.html) and [Do things that don't scale](http://paulgraham.com/ds.html) by Paul Graham
+* Read [How to get startup ideas](http://paulgraham.com/startupideas.html) and [Do things that don't scale](http://paulgraham.com/ds.html) by Paul Graham. Generally [everything PG has written](http://www.paulgraham.com/articles.html) has a good return on time taken to read v insight provided.
 * Read [The Four Steps to the Epiphany](http://amzn.to/2kauV0g)
