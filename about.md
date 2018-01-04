@@ -5,7 +5,7 @@ title: About me
 
 My name's Ben Dixon, I'm a developer/ CTO focused on Ruby on Rails and iOS/ Android applications. I also have experience of front-end development in React and infrastructure management with Chef and Docker.
 
-I'm the co-founder and CTO of ventured backed on-demand staffing platform <a target="_blank" href="https://www.joincatapult.com">Catapult</a> which provides staff to many of the UK's most prominent retail and hospitality businesses.
+I'm the co-founder and CTO of venture backed on-demand staffing platform <a target="_blank" href="https://www.joincatapult.com">Catapult</a> which provides staff to many of the UK's most prominent retail and hospitality businesses.
 
 I'm the author of <a href="https://leanpub.com/deploying_rails_applications"
 target="_blank">Reliably Deploying Rails Applications</a> which covers how
