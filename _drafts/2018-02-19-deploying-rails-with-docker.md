@@ -167,7 +167,7 @@ To view logging output from the container.
 
 Once replicas reads `1/1` you should be able to view the management interface by visiting the URL you chose e.g. `https://load-balancer.yourdomain.com`. You'll then be prompted for the credentials you generated with `htpasswd` and should see the management interface presented over HTTPS. Keep in mind that basic auth should only ever be used over `https` otherwise passwords are transmitted in plaintext.
 
-The [documentation for traefik](https://docs.traefik.io/) is high quality and here we're barely scratching the service of what it's capable of. 
+The [documentation for traefik](https://docs.traefik.io/) is high quality and here we're barely scratching the service of what it's capable of.
 
 ## Deploying the registry
 
@@ -221,6 +221,10 @@ docker login URL_FOR_REGISTRY`
 ```
 
 ## Dockerising the Rails application
+
+Follow the steps [in my other tutorial here](@TODO) to setup an existing or create a new Rails application with a Docker development environment.
+
+## Building the Rails application for deployment
 
 ## Deploying the Rails application
 
