@@ -8,6 +8,8 @@ bookfooter: false
 ---
 There are a multitude of burning things I really need to do now. ShopOfMe is launching a huge new feature in five weeks, inbox zero has become “inbox less than three pages” and having just spoken to the doctors surgery I’ve been going to since I was a child, they’ve advised me I can't have an appointment because I don't exist.
 
+<!--more-->
+
 The above is pretty much a constant state for me. It used to drive me crazy. I was incapable of relaxing because if I did, I wasn’t keeping on top of all the burning things to be done and if I didn’t do that? Something really, really bad would happen.
 
 This got worse and worse until inevitably it reached a point where there was no way I could keep on top of everything which “needed” doing and stay sane. This forced me to stop and try to work out which “really bad thing” I was frantically trying to avoid.

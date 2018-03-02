@@ -9,6 +9,8 @@ bookfooter: true
 
 Git merge conflicts are something any developer who works in a team bigger than one, has to deal with from time to time. It's surprisingly common it seems to deal with these without really understanding what's going, I did for years and I know many others who still are.
 
+<!--more-->
+
 In a typical scenario, after running `git pull origin develop` we find that instead of the friendly `merge completed by something` type message we'd expected, we get something like:
 
     Automatic merge failed; fix conflicts and then commit the result.

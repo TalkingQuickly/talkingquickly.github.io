@@ -9,6 +9,8 @@ bookfooter: true
 
 Vagrant makes it easy to manage and distribute virtual machines. Vagrant is an extremely powerful tool in itself with a particular strength of making it easy to distribute local testing environments to developers which (almost) perfectly mirror your production configuration.
 
+<!--more-->
+
 This section does not cover how to use Vagrant to create these re-usable environments. Instead it covers a very specific workflow I use for testing Chef Recipes.
 
 This can be especially useful when you’re testing changes to recipes and want to see how it will interact with your existing production configuration.
@@ -129,11 +131,11 @@ Bootstrapping Chef...
  HTTP request sent, awaiting response... 200 OK
  Length: 6790 (6.6K) [application/x-sh]
  Saving to: `install.sh'
- 
+
 100%[======================================>] 6,790 --.-K/s in 0s
- 
+
 2013-10-20 15:27:56 (799 MB/s) - `install.sh' saved [6790/6790]
- 
+
 Downloading Chef 11.6.2 for ubuntu...
  Installing Chef 11.6.2
  Selecting previously unselected package chef.

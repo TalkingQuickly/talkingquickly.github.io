@@ -9,6 +9,8 @@ bookfooter: false
 
 If you purchase a Geotrust SSL Certificate from DNSimple for your domain, there's a small amount of setup required to get the certificate in a format you can use with Nginx. This post includes an overview of the process and a simple bash script to automate it.
 
+<!--more-->
+
 You'll have three certificate files:
 
 * Your Certificate

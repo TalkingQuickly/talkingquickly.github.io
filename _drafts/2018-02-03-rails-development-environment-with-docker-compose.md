@@ -1,6 +1,8 @@
-# A Docker Compose based Development Environment
+Docker and Docker Compose makes it a single command to bring up a development environment on any system which docker supports. This removes the need to invest substantial time setting up local development environments. This tutorial explains how to use Docker for Rails development.
 
-Docker and Docker Compose makes it a single command to bring up a development environment on any system which docker supports. This removes the need to invest substantial time setting up local development environments. This tutorial explains how to use Docker for Rails development. This tutorial is not a comprehensive introduction to either Docker or Docker Compose, for this this I highly recomend the [official docker compose tutorial](https://docs.docker.com/compose/gettingstarted/) as a starting point.
+<!--more-->
+
+This tutorial is not a comprehensive introduction to either Docker or Docker Compose, for this this I highly recomend the [official docker compose tutorial](https://docs.docker.com/compose/gettingstarted/) as a starting point.
 
 ## Installing Docker
 

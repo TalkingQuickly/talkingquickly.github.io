@@ -9,6 +9,8 @@ bookfooter: false
 
 An EKG (electrocardiogram) - also referred to as an ECG - is a recording of the electrical activity of the heart. This can be used for measuring the rate and regularity of heart beats. Using a readily available Arduino shield, an Arduino and a $10 set of electrodes, it's possible to generate this waveform at home and then manipulate and plot it in realtime using Javascript.
 
+<!--more-->
+
 First the obligatory disclaimer. Nothing here is suitable for medical use. The EKG shield being used has not been certified for medical use and I have no medical training at all. Attaching electrodes to yourself could result in electric shock or seizure, continue at your own risk!
 
 Now the fun part. The parts used here are:
@@ -86,7 +88,7 @@ TXBuf[11] = 0x00;   //CH4 Low Byte
 TXBuf[12] = 0x02;   //CH5 High Byte
 TXBuf[13] = 0x00;   //CH5 Low Byte
 TXBuf[14] = 0x02;   //CH6 High Byte
-TXBuf[15] = 0x00;   //CH6 Low Byte 
+TXBuf[15] = 0x00;   //CH6 Low Byte
 ```
 
 Therefore to get the first channel we can simply call `byteArrayToLong([TXBuf[5], TXBuff[4]])`, e.g. with the low byte first.

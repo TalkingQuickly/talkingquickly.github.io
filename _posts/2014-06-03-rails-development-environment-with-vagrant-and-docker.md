@@ -10,6 +10,8 @@ docker_book_footer: true
 
 Onboarding new developers to a Rails projects is still a far harder task than it should be. A big part of this is that setting up a development environment for an app or suite of apps, getting the correct ruby versions, database versions etc running locally, can in many cases take upwards of a day. A combination of Vagrant and Docker can make this a thing of the past.
 
+<!--more-->
+
 Vagrant alone has already gone a long way to alleviating this but with Docker we can go one step further. Not only can we have a fully functional development environment (for both new and existing devs) up in a matter of a minutes, we can use almost the same containers we create in development to deploy to production. This goes even further to avoiding the classic "it worked in dev" problem.
 
 In this tutorial, I'll show you how to use a combination of Vagrant and Docker to setup a fully functional Rails + Postgres + Redis development environment. In a follow up tutorial I'll demonstrate how to deploy the containers we create here to production.
@@ -268,7 +270,7 @@ Breaking these down:
 
 I find it useful to think of a Docker image like a class definition. We use a Dockerfile (basically a list of shell commands) and the `docker build` command to create an image.
 
-We then use the `docker run` command to create a container from that image. The container is like an instance of a class. We can create multiple containers (a new one every time we use `docker run`) from a single image. Each container (instance) is completely isolated from every other container, even if they are created from the same image. 
+We then use the `docker run` command to create a container from that image. The container is like an instance of a class. We can create multiple containers (a new one every time we use `docker run`) from a single image. Each container (instance) is completely isolated from every other container, even if they are created from the same image.
 
 That said, we can also do things like create images based on the state of a container, so the analogy shouldn't be extended much further(!)
 
@@ -297,7 +299,7 @@ Therefore, we use `ENV['DB_PORT_5432_TCP_ADDR']` to access this value in `databa
 The command to build the Postgres image includes:
 
 ```bash
--e POSTGRESQL_USER=docker -e POSTGRESQL_PASS=docker 
+-e POSTGRESQL_USER=docker -e POSTGRESQL_PASS=docker
 ```
 
 which sets environment variables in the docker container with the database access credentials. These will be available in your Rails container as `DB_ENV_POSTGRESQL_USER` and `DB_ENV_POSTGRESQL_PASS` respectively (as seen in `database.yml`). Notice the format `ALIAS_ENV_VARIABLE_NAME`.
@@ -353,12 +355,12 @@ This starts a new container based on the Rails image and runs `db:create` and `d
 
 `-i -t` attaches the console to Standard In, Out and Error, then assigns a TTY so that we can interact with it. This is required when running interactive commands such as `bundle exec rails console`
 
-`--rm` means that the container will be removed once execution completes. 
+`--rm` means that the container will be removed once execution completes.
 
 Doing this every time is cumbersome, so the example configuration includes some simple shell scripts to automate this. The first part of this is the file `d` in the root of the Rails project. This automates sshing into the vagrant host and executing a single command, for example:
 
 ```bash
-./d rc 
+./d rc
 ```
 
 invokes:

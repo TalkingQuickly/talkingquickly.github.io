@@ -14,17 +14,17 @@ about: 'about.html'
                 </a>
             {% endif %}
             <h1 class="blog-title">{{ site.name}}</h1>
-            <h2 class="blog-description"> 
+            <h2 class="blog-description">
                {{ site.description }}
             </h2>
-            <h2 class="blog-description"> 
-                {% if page.about %} <a href='{{site.baseurl}}{{ page.about }}'> About me</a> {% endif %} 
+            <h2 class="blog-description">
+                {% if page.about %} <a href='{{site.baseurl}}{{ page.about }}'> About me</a> {% endif %}
                 /
                 <a target="_blank" href='https://leanpub.com/deploying_rails_applications'>Deploying Rails Book</a>
                 /
                 <a href="/travel">
                     Travel
-                </a>    
+                </a>
             </h2>
         </div>
     </div>
@@ -36,7 +36,7 @@ about: 'about.html'
 
     <article class="post">
         <header class="post-header">
-            <span class="post-meta"><time datetime="{{ post.date | date_to_string }}">{{ post.date | date_to_string }}</time> {{!tags prefix="on "}}</span>
+            <span class="post-meta"><time datetime="{{ post.date | date_to_string }}">{{ post.date | date_to_string }}</time></span>
             <h2 class="post-title"><a href="{{ post.url}}">{{ post.title }}</a></h2>
 
         </header>
@@ -58,11 +58,11 @@ about: 'about.html'
         {% endif %}
 
         <span class="page-number"> Page {{paginator.page}} of {{paginator.total_pages}} </span>
-        
-        {% if paginator.next_page %} 
+
+        {% if paginator.next_page %}
         <a class="older-posts" href="/page{{ paginator.next_page }}/" title="Next Page">Older Posts &raquo;</a>
-        {% endif %} 
+        {% endif %}
     </nav>
-    
+
 
 </main>

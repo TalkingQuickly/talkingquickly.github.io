@@ -9,6 +9,8 @@ bookfooter: true
 
 One of the most popular posts on this blog is on how to use Capistrano 2 to deploy Rails applications to a VPS, including the scenario when you want to run several different applications on the same server. Capistrano 3 has now been released and having upgraded several large production applications to use it, I've found there to be a lot of worthwhile improvements over v2. This post explains, with sample code, how to use Capistrano 3 to deploy one or several Rails applications to a VPS.
 
+<!--more-->
+
 This post and the sample code has been updated to be compatible with the latest Capistrano 3.1.
 
 ## What's new in V3.
@@ -51,7 +53,7 @@ gem 'capistrano-rails', '~> 1.1.0'
 gem 'capistrano-bundler'
 
 # if you are using RBENV
-gem 'capistrano-rbenv', "~> 2.0" 
+gem 'capistrano-rbenv', "~> 2.0"
 
 # Use the Unicorn app server
 gem 'unicorn'
@@ -245,7 +247,7 @@ set :unicorn_worker_count, 5
 # whether we're using ssl or not, used for building nginx
 # config file
 set :enable_ssl, false
-``` 
+```
 
 The important variables to update are the server hostname:
 
@@ -298,7 +300,7 @@ set(:config_files, %w(
 set(:executable_config_files, %w(
   unicorn_init.sh
 ))
-``` 
+```
 
 Is a custom extension to the standard Capistrano 3 approach to configuration files which makes the initial creation of these files easier by adding the task `deploy:setup_config`.
 
@@ -356,7 +358,7 @@ And wait. The fist deploy can take a while as Gems are installed so be patient.
 
 ## Conclusion
 
-This configuration is based heavily on the vanilla capistrano configuration, with some extra convenience tasks added in `lib/capistrano/tasks/` to make workflows I've found to be efficient for big production configurations quick to setup. 
+This configuration is based heavily on the vanilla capistrano configuration, with some extra convenience tasks added in `lib/capistrano/tasks/` to make workflows I've found to be efficient for big production configurations quick to setup.
 
 I strongly recommend forking my sample configuration and tailoring it to fit the kind of applications you develop. I usually end up with a few different configurations, each of which are used for either a particular type of personal project or all of a particular clients applications.
 

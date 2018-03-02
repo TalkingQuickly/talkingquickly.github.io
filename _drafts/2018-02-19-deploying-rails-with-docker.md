@@ -1,6 +1,6 @@
-# Deploying Rails with Docker Swarm
+Since first experimenting with Docker it seemed like a no-brainer that it would make deployment easier. But whenever I tried to actually use it for small to medium scale deployments, it ended up adding complexity. There was lots to love but then lots of hacky command line, shell scripty stuff for the last 10-20%. With Docker + Docker Swarm, it's finallly the easiest option.
 
-## Overview
+<!--more-->
 
 At the end of this tutorial we will have:
 

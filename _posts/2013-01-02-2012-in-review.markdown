@@ -9,6 +9,8 @@ bookfooter: false
 
 At the start of 2012, my goal was fairly simple, remain solvent for a full year relying only on consulting income while leaving enough time to bootstrap ShopOfMe and InGuide. No-one has yet repossessed the computer I’m writing this on so it’s fair to say I got at least half way there.
 
+<!--more-->
+
 ## Consulting
 
 My bonus goal as well as making enough money to live was to rebalance the work I was doing to align with the skills I find most interesting. In particular this meant moving away from the primarily PHP work I’d done in the past in favour of Rails and Javascript frameworks.

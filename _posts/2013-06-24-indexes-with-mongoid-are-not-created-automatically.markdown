@@ -11,6 +11,8 @@ When coming from Mongoid from an Activerecord background, there are some
 subtle differences around uniqueness and indexes which can cause hard to
 debug problems.
 
+<!--more-->
+
 If you’re used to standard Active Record, then you’d expect the following:
 
 ``` ruby

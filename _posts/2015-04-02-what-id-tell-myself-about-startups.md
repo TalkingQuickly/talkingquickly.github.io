@@ -9,6 +9,8 @@ bookfooter: false
 
 This is, in no particular order, what I'd tell myself about startups if I could go back in time to when I first got involved. Which is probably the same as what I've learned. This is most definitely not advice, the "you" here is directed at me. So is "I". Grammar is hard.
 
+<!--more-->
+
 1. You're definitely going to end up building too much and shipping too late. Be obsessive about avoiding this
 
 1. Someone's always already working on the same idea and that's not a bad thing
@@ -119,7 +121,7 @@ This is, in no particular order, what I'd tell myself about startups if I could 
 
 1. Small teams can move VERY fast, be really careful getting extra people involved in any project where agility is important
 
-1. Multi-tasking isn't a thing, switching costs are huge, do one thing at a time and do it really well. Find a way to block out interruptions 
+1. Multi-tasking isn't a thing, switching costs are huge, do one thing at a time and do it really well. Find a way to block out interruptions
 
 1. Read every [essay](http://www.paulgraham.com/articles.html) Paul Graham has written
 

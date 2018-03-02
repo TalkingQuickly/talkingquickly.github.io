@@ -10,6 +10,8 @@ docker_book_footer: false
 
 If you use chef-solo to provision your production servers, Vagrant makes it easy to set up a production- like environment on a local VM for testing purposes. It can however seem like wasted time to have to manually replicate the contents of your node definition in your `Vagrantfile` and more importantly it's easy to make a change to either the `Vagrantfile` or the node definition and forget to update the other to match. In this post I'll look at a simple method of automatically generating Vagrant machines based on node definitions.
 
+<!--more-->
+
 This post will use as an example the sample configuration from the book [Reliably Deploying Rails applications](https://leanpub.com/deploying_rails_applications) but it should be applicable to any project which uses a standard Chef Solo configuration.
 
 The high level approach is simple, for any node we want a Vagrant machine for, we add a `vagrant` section to the definition json which defines some vagrant specific options, in particular the IP if we want to use private networking, the name to use and any items we should exclude from the run_list. In our `Vagrantfile` we then look for any `.json` files in the `nodes` directory, parse the JSON and if it contains a `vagrant` key, generate a Vagrant configuration on the fly.

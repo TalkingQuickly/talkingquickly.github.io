@@ -10,13 +10,15 @@ docker_book_footer: false
 
 Something most of the startup and product people I look up to have in common is that they read, a lot. They also challenge what they read. Rather than reading a chapter, then immediately trying to implement what they've read, their books are full of post-it notes and scribbles, dinners and emails are full of debates on one methodology or idea v another.
 
+<!--more-->
+
 Each has their own constantly evolving approach, but it's one developed with the benefit of the learnings from many hundreds of other people. This reading list is the books and articles which I return to most frequently which have had the biggest impact on my approach.
 
 ##General "Startups"
 
 * [Founders Stories (Book)](http://amzn.to/2ka2IH0). Insightful series of interviews covering everything from unexpected pivots to the impact startups have on your personal life.
 * [Zero To One (Book)](http://amzn.to/2BxKUty). Find an important truth not many people agree with you on, aim to build a monopoly business based on that truth. And make sure you nail Sales, Marketing, Hiring etc while you're at it.
-* [High Output Management (Book)](http://amzn.to/2ByT5Ge). One of the best books on management I've come across. Heavy focus on a managers output being a leveraged function of his direct reports. So to maximise this output, must maximise ability of direct reports to produce output. 
+* [High Output Management (Book)](http://amzn.to/2ByT5Ge). One of the best books on management I've come across. Heavy focus on a managers output being a leveraged function of his direct reports. So to maximise this output, must maximise ability of direct reports to produce output.
 * [How to get startup ideas (Article)](http://paulgraham.com/startupideas.html). Don't look for "startup ideas," Look for problems which need solving, which you care about being solved
 * [Anything you want (Book)](http://amzn.to/2k8bRjo). Everything should be about customers, good ideas don't feel special, they feel like common sense that no-one else gets. If you create a business you get to write the rules, make sure they're the ones you actually want.
 * [Making Ideas Happen (Book)](http://amzn.to/2BxcnM1). Very practical advice on moving from "here's an idea" to actually doing something. Arguably more of a productivity book but essential in unstructured environments like startups.
@@ -26,10 +28,10 @@ Each has their own constantly evolving approach, but it's one developed with the
 
 ##Product Development & Product Management
 
-* [The Four Steps to the Epiphany (Book)](http://amzn.to/2kauV0g). The original and most comprehensive book on the "lean" approach to startups and product development. 
+* [The Four Steps to the Epiphany (Book)](http://amzn.to/2kauV0g). The original and most comprehensive book on the "lean" approach to startups and product development.
 * [Lean Startup (Book)](http://amzn.to/2Bm6G2w) (first half). The most accessible and widely read introduction to the "lean" approach to startups and product development. Gets a bit repetitive towards the end.
 * [Good product manager bad product manager (Article)](https://a16z.com/2012/06/15/good-product-managerbad-product-manager/). Caveatted with a warning by the author that it was written over 15 years ago but I still think one of the best quick-reads on what's important from a product manager.
-* [Thinking fast and slow (Book)](http://amzn.to/2kbb411). One of the most comprehensive introductions to psychological biases, how people think and why people often don't behave rationally. 
+* [Thinking fast and slow (Book)](http://amzn.to/2kbb411). One of the most comprehensive introductions to psychological biases, how people think and why people often don't behave rationally.
 * [Do things that don't scale (Article)](http://paulgraham.com/ds.html). The initial push that makes startups take off is almost always hugely unscalable. This isn't a bad thing.
 * [Makers Schedule, Managers Schedule (Article)](http://www.paulgraham.com/makersschedule.html). Makers and Managers are doing fundamentally different things which require different ways of working. Don't fall into the trap of imposing manager ways of working on makers.
 * [Get one thing right (Article)](https://medium.com/@dunn/get-one-thing-right-89390244c553). Descriptions in the title.
@@ -41,7 +43,7 @@ Each has their own constantly evolving approach, but it's one developed with the
 ##Big Picture
 
 * [The master algorithm (Book)](http://amzn.to/2Bwyu5h). The single best book on approaches to machine learning / artificial intelligence I've encountered. It's easy to become skeptical with everyone throwing the term "AI" around. This is the book which made me want to get involved with it again.
-* [The Hard Thing about Hard Things (Book)](http://amzn.to/2kb3MdK). Drives home that fundamentally there can't be a "playbook" for solving hard problem x, because it's never been solved before. Filled with advice and practical experience for how to handle that. 
+* [The Hard Thing about Hard Things (Book)](http://amzn.to/2kb3MdK). Drives home that fundamentally there can't be a "playbook" for solving hard problem x, because it's never been solved before. Filled with advice and practical experience for how to handle that.
 
 ##General "Life"
 

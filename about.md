@@ -1,6 +1,10 @@
 ---
 layout: page
-title: About me 
+title: About me
+redirect_from:
+  - /about-me/
+  - /about/
+  - /hills-bede-portfolio/
 ---
 
 My name's Ben Dixon, I'm a developer/ CTO focused on Ruby on Rails and iOS/ Android applications. I also have experience of front-end development in React and infrastructure management with Chef and Docker.

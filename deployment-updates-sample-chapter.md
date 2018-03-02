@@ -1,6 +1,8 @@
 ---
 layout: page
 title: Sample Chapter
+redirect_from:
+  - /deployment-updates-sample-chapter/
 ---
 Thanks for your interest in the "Reliably Deploying Rails Applications"
 book. You can access the sample chapter by

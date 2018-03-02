@@ -1,6 +1,8 @@
 ---
 layout: page
 title: Resources for learning to deploy Rails Applications
+redirect_from:
+  - /resources-for-learning-to-deploy-rails-applications/
 ---
 This is a general collection of links I’ve found useful when learning how to deploy Rails applications, updated regularly as and when I find new things.
 

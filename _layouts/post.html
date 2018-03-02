@@ -12,7 +12,7 @@ archive: false
             //
             <a target="_blank" href='https://leanpub.com/deploying_rails_applications'>Deploying Rails Book</a>
         </header>
-        
+
         <span class="post-meta">
         	{% if post.categories %}
         		on
@@ -34,7 +34,7 @@ archive: false
     		<ul>
     			{% for post in site.posts %}
     				<li><span>{{ post.date | date_to_string }}</span>  <a href="{{ post.url }}">{{ post.title }}</a></li>
-    			{% endfor %}	
+    			{% endfor %}
     		</ul>
         </section>
         {% endif %}
@@ -50,13 +50,13 @@ archive: false
             {% include docker_book.html %}
           {% endif %}
 
-            
+
             {% if page.disqus %}
             <section class="disqus">
             	<div id="disqus_thread"></div>
             	<script type="text/javascript">
 
-            	    var disqus_shortname = ''; 
+            	    var disqus_shortname = '';
             		var disqus_developer = 0; // developer mode is on
             	    (function() {
             	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -68,7 +68,7 @@ archive: false
             	<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
             </section>
             {% endif %}
-        	
+
         </footer>
 
     </article>

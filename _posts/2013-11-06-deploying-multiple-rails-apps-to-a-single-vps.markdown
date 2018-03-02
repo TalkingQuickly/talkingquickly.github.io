@@ -9,6 +9,8 @@ bookfooter: true
 
 When I announced the release of my book, [deploying rails applications](https://leanpub.com/deploying_rails_applications), one of the most common questions I got was whether it covered deploying multiple apps to a single VPS. It does and since there was so much interest, I've put together a brief tutorial and sample code on the basics.
 
+<!--more-->
+
 ## Pre-requisites
 
 I'm assuming you have a VPS setup with Nginx and your database server of choice. You'll need to have SSH access to this server and I'll assume you've already copied your public key across.
@@ -29,7 +31,7 @@ Begin by adding the Capistrano Gem to your gemfile in the development group:
 group :development do
   gem 'capistrano', '~>2.15'
 end
-``` 
+```
 
 You'll also need to the Unicorn Gem:
 
@@ -38,7 +40,7 @@ group :production do
   gem 'unicorn'
 end
 ```
-    
+
 
 And then run `bundle install`.
 
@@ -47,14 +49,14 @@ Once this completes, in the root of your project, run:
 ``` bash
 capify .
 ```
-    
+
 
 This will create two files:
 
 ```
 ./Capfile
 ./config/deploy.rb
-``` 
+```
 
 In the simplest possible configuration, your deployment target can be defined directly in `deploy.rb` and deployments can be initiated by a simple `cap deploy`. We'll take a slightly more modular approach which allows for the easy addition of multiple environments - for example testing and staging - at a later date.
 
@@ -172,7 +174,7 @@ Once you've populated production.rb with the details of your application. Run:
 ``` bash
 cap production deploy:setup
 ```
-    
+
 
 This will create the configuration files on the remote server. Then SSH into the server, navigate to the shared directory and copy the database.example.yml to database.yml and enter the details of your database server.
 

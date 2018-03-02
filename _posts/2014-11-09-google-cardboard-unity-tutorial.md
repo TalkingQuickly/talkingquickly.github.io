@@ -9,6 +9,8 @@ bookfooter: false
 
 Having tried the Oculus I'd prepared myself to be completely unimpressed by Google's $2 VR solution. But after trying Roller Coaster VR I was blown away by how well the slightly shabby looking cardboard assembly performed. Naturally despite never have tried any game development or 3D modeling, I wanted to make stuff for it. Using Unity and some plugins, this turned out to be surprisingly easy. This tutorial covers the bare minimum needed to go from never having used Unity before, to a simple 3D environment you can look around using Google Cardboard.
 
+<!--more-->
+
 ## Prerequisites
 
 * Latest version of Unity (<http://unity3d.com/unity/download>)
@@ -89,7 +91,7 @@ If you select play now and look at the game window, notice that there is distort
 
 ## Trying it out
 
-We're now ready to test the scene with Cardboard. 
+We're now ready to test the scene with Cardboard.
 
 Begin by selecting "File" and then "Build Settings". Add our current Scene to the Build by clicking the "Add Current" button (middle right).
 

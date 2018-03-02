@@ -9,6 +9,8 @@ bookfooter: false
 
 I’ve always been intrigued by books like “Reminiscences of a stock operator” where trading is based on continually watching a market and developing a “feel” for it. Having spent a lot of time experimenting with them, i’m generally skeptical of automatic rule based trading systems but remain intrigued about entirely discretionary, immersion based systems.
 
+<!--more-->
+
 My intrigue primarily comes from experiments with compass belts. In these people wear a belt with vibrating pads, setup such that whichever pad is facing north will lightly vibrate. Over relatively short spaces of time, wearers are observed to incorporate this additional “sense” and develop augmented senses of direction and navigation, for example being able to backtrack along complex routes where they would previously have been incapable of doing so.
 
 The problem with applying this to the movements of financial instruments has always been obtaining immersion. Failing a desire – and the free time – to sit and watch stock tickers continually, what is the most efficient way to gain an “awareness” of a given metric and potentially as a result gain an awareness of when particular movements are likely?

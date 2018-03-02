@@ -8,6 +8,8 @@ bookfooter: true
 ---
 This is a brief overview of how to use chef to automate the provisioning of a server for a Ruby on Rails application. Sample code is provided as a starting point at <https://github.com/TalkingQuickly/rails-server-template>
 
+<!--more-->
+
 ## Our Requirements
 
 * Once setup, provisioning a new server should require just a few simple commands

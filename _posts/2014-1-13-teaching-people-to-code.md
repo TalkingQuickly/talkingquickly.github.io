@@ -3,10 +3,12 @@ layout : post
 title: "Teaching People to Code"
 date: 2014-1-11 19:36:00
 categories: ruby learning
-biofooter: true 
+biofooter: true
 bookfooter: false
 ---
 Recently I've been experimenting with ways of teaching people to code which match the way I and other succesful developers I know have learnt. These focus less on theory and syntax and more on problem solving and "hacking things together". Now I'm looking for five people who want to learn to make stuff with Ruby to teach.
+
+<!--more-->
 
 After my previous startup, shop of me, was relegated to side project status last October, I've been spending a lot of time wondering what to do next.
 
@@ -17,10 +19,10 @@ mind, the lovely <a href="http://www.twitter.com/bec_pr" target="_blank">bec_pr<
 
  The thing is, learning to code is generally dull. Making things with code is awesome but learning syntax on its own is about as much fun as memorising French verb conjugations - and in my view an equally terribly way of getting started.
 
- I 'built' websites before understanding HTML, database driven applications before knowing SQL and games before knowing what a loop was. By built I mean hacked together from things other people had made; I learnt just the bits I needed in order to make the stuff I wanted. As I discovered how awesome it was to actually make things, I learnt more and more of the theory simply because it was useful for building better things, not because that's what you're "meant to do". 
+ I 'built' websites before understanding HTML, database driven applications before knowing SQL and games before knowing what a loop was. By built I mean hacked together from things other people had made; I learnt just the bits I needed in order to make the stuff I wanted. As I discovered how awesome it was to actually make things, I learnt more and more of the theory simply because it was useful for building better things, not because that's what you're "meant to do".
 
  My learning cycle was:
- 
+
  * this doesn't work / do what I want it to do
  * why not? lots of googling / asking people
  * learn a little bit of new theory to solve the problem
@@ -32,7 +34,7 @@ But for this to work as a teaching method, there's a key ingredient which is oft
 
 This bit I can help with; when people get stuck, I can point them in the right direction. I think there might be a business there but that's a little way away, so here's what I'm proposing;
 
-**I'm looking to start off with 5 people who want to learn to make real stuff with Ruby**. There will be ten small exercises, each one of which is based around building a small program which does something. 
+**I'm looking to start off with 5 people who want to learn to make real stuff with Ruby**. There will be ten small exercises, each one of which is based around building a small program which does something.
 
 In the first three exercises you'll learn to make:
 

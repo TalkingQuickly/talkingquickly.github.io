@@ -5,12 +5,21 @@ meta_description: "Blog by Ben Dixon, Ruby on Rails Developer, about rails, devo
 permalink: /:year/:month/:title
 
 markdown: redcarpet
-pygments: true
+highlighter: pygments
 logo: false
 paginate: 15
+excerpt_separator: <!--more-->
+
+plugins:
+  - jekyll-paginate
+  - jekyll-feed
+  - jekyll-redirect-from
+
+feed:
+  path: rss.xml
 
 # Details for the RSS feed generator
-url:            'http://www.talkingquickly.co.uk'
+url:            'https://www.talkingquickly.co.uk'
 author:         'Ben Dixon'
 
 collections:
