@@ -7,9 +7,11 @@ biofooter: false
 bookfooter: true
 ---
 
-Still one of the most visited posts on this blog is one from 2013 on how to setup a VPS for Rails using Chef & Knife Solo. A lot has changed in the Chef ecosystem since then, in particular the evolution of Chef Zero means that it's no-longer neccessary to use Knife Solo, we can use Zero to interact with remote servers from our local development machine using exactly the same tools and commands required for a large scale Chef Server install.
+Still one of the most visited posts on this blog is one from 2013 on how to setup a VPS for Rails using Chef & Knife Solo. A lot has changed in the Chef ecosystem since then, in particular the evolution of Chef Zero means that it's no-longer neccessary to use Knife Solo, we can use Zero to interact with remote servers from our local development machine using exactly the same tools and commands required for a large scale Chef Server install. This blog post includes all commands needed to setup a VPS ready for hosting a Rails application and complete source code.
 
-This blog post includes all commands needed to setup a VPS ready for hosting a Rails application and complete source code is available here:
+<!--more-->
+
+Source code is available here:
 
 <https://github.com/talkingquickly/rails-server-template/tree/develop>
 

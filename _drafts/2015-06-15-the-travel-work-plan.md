@@ -1,8 +1,17 @@
-Dealing with the risks of theft while travelling and working as a developer
+---
+layout : post
+title: "The travel work plan"
+date: 2015-06-12 10:39:00
+categories: travel
+biofooter: true
+excerpt: "The encounter with Hungary's healthcare system had already made the trip somewhat exciting. It seems that Budapest was not yet done toying with us."
+description: "Having all my stuff stolen, a brief pitstop in London and then onwards"
+order: 80
+---
 
-Working while you travel has many upsides. Trips can be far longer because there's money coming in, you meet some fascinating people in co-working spaces and it can often be quite nice to take a break from sight seeing to sink your teeth into a challenging problem.
+Working while you travel has many upsides. Trips can be far longer because there's money coming in, you meet some fascinating people in co-working spaces and it can often be quite nice to take a break from sight seeing to sink your teeth into a challenging problem. Working as a developer however requires carrying around some expensive hardware, my initial "working while travelling" kit required a US3000 laptop, an iPad and a US1000 phone.
 
-Working as a developer however requires carrying around some expensive hardware, my initial "working while travelling" kit required a US3000 laptop, an iPad and a US1000 phone.
+<!--more-->
 
 Because the risks of theft are high and the items are expensive, most travel insurance companies will refuse to cover them. For example I've been unable to find a company that will insure an individual item worth more than ~US1000.
 
@@ -34,7 +43,7 @@ The switch to an Ubuntu based development environment above also removes the nee
 
 Whilst I'll probably always continue to use a Macbook whilst I'm in any one city for a long period, whilst travelling, there's no reason not to use the Ubuntu based setup on much cheaper hardware.
 
-This post is being written on a < US1000 Core i5 with 8GB RAM running Ubuntu 15.04 which is performing admirably. 
+This post is being written on a < US1000 Core i5 with 8GB RAM running Ubuntu 15.04 which is performing admirably.
 
 ## Having to adjust plans
 
