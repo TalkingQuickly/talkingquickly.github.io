@@ -7,3 +7,10 @@ services:
       - .:/app:delegated
     ports:
       - "4000:4000"
+
+  fast-publish:
+    build: .
+    command: bash
+    volumes:
+      - .:/app:delegated
+      - ~/.ssh:/home/deploy/.ssh

@@ -1,5 +1,5 @@
 FROM ruby:2.4.2
-MAINTAINER ben@joincatapult.com
+MAINTAINER ben@talkingquickly.co.uk
 
 # Install apt based dependencies required to run Rails as
 # well as RubyGems. As the Ruby image itself is based on a
@@ -8,11 +8,14 @@ RUN apt-get update && apt-get install -y \
   build-essential \
   nodejs
 
+RUN useradd -ms /bin/bash deploy
+USER deploy
+
 # Configure the main working directory. This is the base
 # directory used in any further RUN, COPY, and ENTRYPOINT
 # commands.
-RUN mkdir -p /app
-WORKDIR /app
+RUN mkdir -p /home/deploy/app
+WORKDIR /home/deploy/app
 
 # Copy the Gemfile as well as the Gemfile.lock and install
 # the RubyGems. This is a separate step so the dependencies
