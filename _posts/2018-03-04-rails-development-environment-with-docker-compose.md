@@ -1,16 +1,26 @@
-Docker and Docker Compose makes it a single command to bring up a development environment on any system which docker supports. This removes the need to invest substantial time setting up local development environments. This tutorial explains how to use Docker for Rails development.
+---
+layout : post
+title: "A Rails development environment with Docker"
+date: 2018-03-04 14:18:00
+categories: docker
+biofooter: false
+bookfooter: false
+docker_book_footer: true
+---
+
+Docker and Docker Compose makes it a single command to bring up a development environment on any system which supports Docker. This removes the need to invest time setting up local development environments. For me this means the time to a working development environment, even on a fresh machine for a project I haven't worked on for months or years, is just a few seconds.
 
 <!--more-->
 
-This tutorial is not a comprehensive introduction to either Docker or Docker Compose, for this this I highly recomend the [official docker compose tutorial](https://docs.docker.com/compose/gettingstarted/) as a starting point.
+This tutorial is not a comprehensive introduction to either Docker or Docker Compose, for this this I highly recomend the [official docker compose tutorial](https://docs.docker.com/compose/gettingstarted/) as a starting point. The steps here will stand alone but it's definitely beneficial to get familiar with the docker-compose fundamentals at some point.
 
 ## Installing Docker
 
-We'll need have Docker installed locally <https://docs.docker.com/install/>. We'll also need `docker-compose` installed, for OSX then this is included, for Linux, instructions are here; <https://docs.docker.com/compose/install/#install-compose>.
+We'll need to have Docker installed locally <https://docs.docker.com/install/>. We'll also need `docker-compose` installed, for OSX then this is included when installing Docker, for Linux, it must be installed separately and instructions are here; <https://docs.docker.com/compose/install/#install-compose>.
 
 ## Adding files
 
-If you already have a Rails application you wish to add Docker to, then the files below should be added to the root of your projects. If you don't have a project yet, then create an empty directory with the name of your project and create the files here. We'll cover generating the Rails application itself using Docker below.
+For an existing Rails application the files below should be added to the root of the project. If generating a new project we should create an empty directory with the name matching the desired name of the Rails project and create the files here. We'll cover generating the Rails application itself using Docker below.
 
 First we add a file called `Dockerfile` which defines how to build the runtime environment for our application:
 
@@ -45,7 +55,7 @@ RUN rm -rf tmp/*
 
 Replacing `YOUR_EMAIL` with your email address.
 
-Then add a second file called `docker-compose.yml` containing the following:
+Then we add a second file called `docker-compose.yml` containing the following:
 
 ```
 version: "3"
@@ -57,6 +67,10 @@ services:
       - .:/app:delegated
     ports:
       - "3000:3000"
+    environment:
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_HOST=postgres
 
   postgres:
     image: postgres:9.4
@@ -87,9 +101,9 @@ As mentioned at the start, this tutorial isn't an in depth introduction to Docke
 
 ## Generating a new application
 
-If you are working with an existing Rails application, you can skip this section. Using Docker to generate the entire application is especially useful when trying to maintain no local development environment at all, so you can develop Rails applications without ever needing a local Ruby install.
+When working with an existing Rails application, we can skip this section. Using Docker to generate the entire application is especially useful when trying to maintain no local development environment at all, so we can develop Rails applications without ever needing a local Ruby install.
 
-You'll need to add a `Gemfile` containing the following:
+Alongside our `Dockerfile`, we'll need to add a `Gemfile` containing the following:
 
 ```
 source 'https://rubygems.org' do
@@ -111,11 +125,11 @@ Then execute:
 docker-compose run app rails new . --database=postgresql
 ```
 
-Note this will create a Rails application called `App` and is the equivilant of running `rails new app` since it will be inferred from the `app folder` in the Dockerfile. There are a few approaches to changing this but the simplest is to replace all references to `app` in the `Dockerfile` with the desired name of your app before running `docker-compose build`.
+Note this will create a Rails application called `App` and is the equivilant of running `rails new app` since it will be inferred from the `app folder` in the Dockerfile. There are a few approaches to changing this but the simplest is to replace all references to `app` in the `Dockerfile` with the desired name of your app before running `docker-compose build` and then reverting them afterwards.
 
 If you pass in an application name instead of `.` then the application will be created in a sub-folder of the current directory and you'll need to move everything into the root.
 
-Once the rails application is created, re-run:
+Once the rails application is created, we revert any changes to the `Dockerfile` re-run:
 
 ```
 docker-compose build
@@ -125,9 +139,11 @@ To re-build the image with all required gems.
 
 ## Dockerising the application
 
-Our `docker-compose.yml` file will bring up not only our rails application, but supporting Postgres and Redis instances. We'll make some changes to our Rails application so that all configuration is taken from environment variables. We'll then update our `docker-compose.yml` file to set some environment variables. This lays the groundwork for using something like Hashicorp's [envconsul](https://github.com/hashicorp/envconsul) for managing configuration in production at a later date. It's also a core tenand of building [12 factor](https://12factor.net/config) applications.
+Our `docker-compose.yml` file will bring up not only our rails application, but supporting Postgres and Redis instances.
 
-First we'll modify `database.yml` to pull connection details from envionment variables by adding these three lines:
+First we'll make some changes to our Rails application so that all configuration is taken from environment variables. We'll then update our `docker-compose.yml` file to set some environment variables. This lays the groundwork for using something like Hashicorp's [envconsul](https://github.com/hashicorp/envconsul) for managing configuration in production at a later date. It's also a core tenant of building [12 factor](https://12factor.net/config) applications.
+
+We'll begin by modifying `config/database.yml` to pull connection details from the environment by adding these three lines:
 
 ```
 username: <%= ENV.fetch("DB_USERNAME") %>
@@ -137,10 +153,9 @@ host: <%= ENV.fetch("DB_HOST") %>
 
 These can either be added to the `default` section or individually to the `development` and `test` sections.
 
+It may look like we could skip this entirely and just use the standard `DATABASE_URL` environment variable with something like `postgres://username:password@postgres/DB_NAME` but this will cause problems when running commands such as `rake db:migrate`. These do not reload environment variables between operating on the test and development databases and therefore raise exceptions when trying to apply migrations to test and development as these will both try and use the same database name.
 
-It may look like we could skip this entirely and just use the standard `DATABASE_URL` environment variable with something like `postgres://username:password@postgres/DB_NAME` but this will cause problems when running commands such as `rake db:migrate`. These do not reload environment variables between operating on the test and development databases and therefore raise exceptions when trying to apply migrations to test and development as these will both try and use the same database.
-
-We can then update our `docker-compose.yml` file to set these environment variables, to do this we update the definition of the app service as follows:
+We can see these map to the values set in the `environment` section of our `app` definition in `docker-compose.yml`:
 
 ```
 services:
@@ -157,7 +172,7 @@ services:
       - DB_HOST=postgres
 ```
 
-the `environment` section allows us to set up the environment variables which will be set within the container. As discussed above, the `postgres` service will be available to our container automatically on the hostname `postgres`. The default credentials for the official postgres image are `postgres` and `postgres` and there's [more about customising here](https://hub.docker.com/_/postgres/).
+The `environment` section allows us to set up the environment variables which will be set within the container. As discussed above, the `postgres` service will be available to our container automatically on the hostname `postgres` which matches the service name in `docker-compose.yml`. The default credentials for the official postgres image are `postgres` and `postgres` and there's [more about customising here](https://hub.docker.com/_/postgres/).
 
 We can apply the same approach to the `config/secrets.yml` file if needed as well as anywhere else in the application we want to pass in configuration dynamically. If something like [dotenv](https://github.com/bkeepers/dotenv) is in use then we can simply update our local `.env` file with the above environment variables, rather than defining them in the compose file.
 
@@ -239,14 +254,14 @@ docker-compose run app bash
 
 It's important to bear in mind that each invocation of the above runs in a separate, completely isolated, container and so outside the `/app` directory which is bind mounted to our local directory, the file-systems are transitory and independent of one another.
 
-Being able to run a shell within our app container can be the key to avoiding a lot of frustrating workflow issues when working in a docker development environment.
+Being able to run a shell within our app container can be the key to avoiding a lot of frustrating workflow issues when working in a Docker based development environment.
 
 A great example is when upgrading a Rails version. The workflow is typically:
 
-* Update the version of GEM1 within the Gemfile
+* Update the version of GEM1 within the `Gemfile`
 * Execute `bundle update GEM1`
 * Look to see which dependency issues are raised
-* Update the Gemfile again
+* Update the `Gemfile` again
 * etc etc
 
 This can be slow and painful if a separate `docker-compose run app ...` is required every time. Instead we can use `docker-compose run app bash` once and then iterate within that container as many times as we want. Once it works we simply jump out of the container and execute `docker-compose build` to persist the new gems to the image.
@@ -256,3 +271,5 @@ This can be slow and painful if a separate `docker-compose run app ...` is requi
 Part two covers how to deploy this application to a Docker Swarm Cluster running on our own servers using just a few additional Docker Compose style files.
 
 Subscribe below to receive updates when this post is available.
+
+Feel free to ping me on twitter [@TalkingQuickly](https://www.twitter.com/talkingquickly) with any questions or feedback, in particular I'd love to know if a screencast version of this tutorial would be useful?
