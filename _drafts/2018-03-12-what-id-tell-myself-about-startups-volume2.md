@@ -66,6 +66,8 @@ Up until Catapult my experience was primarily in bootstrapped businesses, so thr
 
 1) If your pitch deck has more than 20 slides, it's probably worth having another think about it
 
+1) Constantly think about acquisition channels and how they scale, acquisition is bounded by both addressable market size & maximum rate of acquisition. Constantly re-visit the question "to what extent could I spend more and increase the number of clients I acquire through this channel". In particular marketing based models and sales based models scale very differently.
+
 1) Have zero tolerance of time-sinks like recurring unstructured catch ups and goal-less meeting. Meetings that begin with a clear agenda / goal will generally be useful, those that don't will generally be a waste of everyone's time
 
 1) Nobody can productively work 12 hour days for a pro-longed period. Lean towards being intolerant of those who highly value "first in, last out" type behaviour. Consistently long hours lead to low quality work output and burn out
@@ -74,7 +76,7 @@ Up until Catapult my experience was primarily in bootstrapped businesses, so thr
 
 1) Hire developers who love to ship and have a track record of shipping. When interviewing find out as much about what they've shipped and the trade-offs they had to consider to ship efficiently as you do about the technical side
 
-1) Developers who love to ship aren't averse to new and shiny, but they assess the new-shiny in terms of how it will allow them to ship more
+1) Developers who love to ship aren't averse to new and shiny, they embrace it, but they assess the new-shiny in terms of how it will allow them to ship more. They also tend to be passionately skeptical about new-shiny for the sake of it
 
 1) It's not wasted time to experiment with new shiny and then decide "this is great, but there's no business case here (_it won't really help us ship_), let's leave it for now"
 
