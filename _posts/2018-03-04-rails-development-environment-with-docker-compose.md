@@ -71,6 +71,10 @@ services:
       - DB_USERNAME=postgres
       - DB_PASSWORD=postgres
       - DB_HOST=postgres
+    depends_on:
+      - postgres
+      - redis
+
 
   postgres:
     image: postgres:9.4

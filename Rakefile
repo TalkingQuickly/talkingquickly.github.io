@@ -7,7 +7,7 @@ require "jekyll"
 
 # Change your GitHub reponame
 GITHUB_REPONAME = "TalkingQuickly/talkingquickly.github.io"
-DEPLOY_DIR = '../talkingquickly.github.io.release'
+DEPLOY_DIR = '/home/deploy/release'
 
 namespace :jekyll do
   task :generate do
