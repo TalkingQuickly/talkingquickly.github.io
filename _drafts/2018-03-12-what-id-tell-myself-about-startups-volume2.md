@@ -112,9 +112,9 @@ Prior to Catapult I'd focussed more on bootstrapped businesses, so three years i
 
 1. Get up early and have a routine. This won't be for everybody but a disproportionately large number of people who are achieving cool things, seem to develop this habit
 
-1. The 5 Minute Journal helps to maintain perspective on all the awesome things that are happening and remind you that there's a whole world outside of a startup
+1. The 5 Minute Journal (or something similar) helps to maintain perspective on all the awesome things that are happening and remind you that there's a whole world outside of a startup
 
-1. The Daily Stoic is a great companion for dealing with the fact that at best, 90% of a startup is by default outside of your control
+1. [The Daily Stoic](http://amzn.to/2G3q4nX) is a great companion for dealing with the fact that at best, 90% of a startup is by default outside of your control
 
 1. Constantly seek out feedback, it's easy to slip into very rarely receiving critical feedback from others, when you eventually get it, you'll wish you'd known it earlier
 
@@ -122,4 +122,4 @@ Prior to Catapult I'd focussed more on bootstrapped businesses, so three years i
 
 1. Some sort of exercise regime which gives a sense of progression and achievement, for example running, is essential to counter the bad weeks
 
-1. A startup will suck up as much energy and time as you can it, time for family and loved ones won't just "happen", you have to actively carve this out
+1. A startup will suck up as much energy and time as you can give it, time for family and loved ones won't just "happen", you have to actively carve this out
