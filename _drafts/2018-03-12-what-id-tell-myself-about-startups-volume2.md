@@ -72,7 +72,7 @@ Prior to Catapult I'd focussed more on bootstrapped businesses, so three years i
 
 1. Understand in which roles it's essential for people to "know their numbers" and make sure they understand this. Empower them by removing barriers to them accessing and manipulating data themselves
 
-1. Do not underestimate how powerful giving a smart person a KPI and the tools to change it and then stepping back is
+1. Do not underestimate how powerful giving a smart person a KPI and the tools to change it is
 
 1. The numbers in an investor deck in six months should be the same as the ones department heads are being measured on which in turn should be the core numbers which drive your financial model. If these differ for a significant period, somethings up
 
