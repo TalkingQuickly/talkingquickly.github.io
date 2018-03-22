@@ -272,8 +272,6 @@ This can be slow and painful if a separate `docker-compose run app ...` is requi
 
 ## Deploying to production
 
-Part two covers how to deploy this application to a Docker Swarm Cluster running on our own servers using just a few additional Docker Compose style files.
-
-Subscribe below to receive updates when this post is available.
+Part two covers how to deploy this application to a Kubernetes Cluster on any VPS or Bare Metal provider without having to learn several thousands previously unheard of pieces of terminology. 
 
 Feel free to ping me on twitter [@TalkingQuickly](https://www.twitter.com/talkingquickly) with any questions or feedback, in particular I'd love to know if a screencast version of this tutorial would be useful?

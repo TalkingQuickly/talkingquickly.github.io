@@ -2,7 +2,7 @@ version: "3"
 services:
   app:
     build: .
-    command: jekyll serve --host=0.0.0.0 --force_polling --incremental
+    command: jekyll serve --host=0.0.0.0 --force_polling --incremental --drafts
     volumes:
       - .:/home/deploy/app:delegated
     ports:
