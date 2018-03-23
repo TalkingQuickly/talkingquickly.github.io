@@ -7,9 +7,11 @@ redirect_from:
   - /hills-bede-portfolio/
 ---
 
-My name's Ben Dixon, I'm a developer/ CTO focused on Ruby on Rails and iOS/ Android applications. I also have experience of front-end development in React and infrastructure management with Chef and Docker.
+My name's Ben Dixon, I'm a CTO and developer with a passion for building difficult things. My current toolbox is mainly Rails + React with some Elixir and React Native for good measure and Docker + Kubernetes keeping it all running behind the scenes.
 
-I'm the co-founder and CTO of venture backed on-demand staffing platform <a target="_blank" href="https://www.joincatapult.com">Catapult</a> which provides staff to many of the UK's most prominent retail and hospitality businesses.
+I'm the co-founder and CTO of venture backed on-demand staffing platform <a target="_blank" href="https://www.joincatapult.com">Catapult</a> where we're building the worlds best part time job.
+
+If you only read one thing I've written, [I would suggest this](/2015/04/what-id-tell-myself-about-startups/).
 
 I'm the author of <a href="https://leanpub.com/deploying_rails_applications"
 target="_blank">Reliably Deploying Rails Applications</a> which covers how
@@ -22,8 +24,5 @@ Before that I was the back-end lead at Active In Time where among other things w
 Other projects include working as the software and embedded device developer behind the <a href="http://www.mousemet.com/" target="_blank">Mousemet Electronic Von Frey</a> and <a href="https://github.com/talkingquickly/dacker">Dacker</a>, an open source Docker orchestration tool written in Ruby.
 
 I travel as much as possible and write about it [here](/travel).
-
-If you only read one thing I've written, [I would suggest
-this](/2015/04/what-id-tell-myself-about-startups/).
 
 I'm always interested in chatting to new people whether it's about startups, tech, travel or photography. You can find me on twitter as <a href="http://www.twitter.com/talkingquickly"target="_blank">@talkingquickly</a> or by emailing <a href="mailto:ben@talkingquickly.co.uk">ben@talkingquickly.co.uk</a>.
