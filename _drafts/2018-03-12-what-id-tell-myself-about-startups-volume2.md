@@ -72,7 +72,7 @@ Prior to Catapult I'd focussed more on bootstrapped businesses, so three years i
 
 1. Understand in which roles it's essential for people to "know their numbers" and make sure they understand this. Empower them by removing barriers to them accessing and manipulating data themselves
 
-1. Do not underestimate how powerful giving a smart person a KPI and the tools to change it is
+1. Do not underestimate the power of giving a smart person a KPI and the tools to change it
 
 1. The numbers in an investor deck in six months should be the same as the ones department heads are being measured on which in turn should be the core numbers which drive your financial model. If these differ for a significant period, somethings up
 
@@ -81,8 +81,6 @@ Prior to Catapult I'd focussed more on bootstrapped businesses, so three years i
 1. Data warehouses are a thing. It (probably) just means "big ole database". With tools like Panoply and Funnel.io it's possible to get almost anything into a standard database (Jira, Zendesk, Adwords spend, Facebook spend, Mixpanel, you name it). Then you can build dashboards with Metabase or Chartio. Then you can measure it properly
 
 1. If your pitch deck has more than 20 slides, it's probably worth having another think about it
-
-1. Constantly think about acquisition channels and how they scale, acquisition is bounded by both addressable market size & maximum rate of acquisition. Constantly re-visit the question "to what extent could I spend more and increase the number of clients I acquire through this channel". In particular marketing based models and sales based models scale very differently.
 
 ## Development and tech
 
@@ -114,7 +112,7 @@ Prior to Catapult I'd focussed more on bootstrapped businesses, so three years i
 
 1. The 5 Minute Journal (or something similar) helps to maintain perspective on all the awesome things that are happening and remind you that there's a whole world outside of a startup
 
-1. [The Daily Stoic](http://amzn.to/2G3q4nX) is a great companion for dealing with the fact that at best, 90% of a startup is by default outside of your control
+1. [The Daily Stoic](http://amzn.to/2G3q4nX) is a great companion for dealing with the fact that you'll be constantly working in an environment where important outcomes will only be partially within your control. It's essential to get comfortable actioning everything that is within your control and then allocating that headspace to something else
 
 1. Constantly seek out feedback, it's easy to slip into very rarely receiving critical feedback from others, when you eventually get it, you'll wish you'd known it earlier
 
