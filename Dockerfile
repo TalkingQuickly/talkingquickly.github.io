@@ -6,10 +6,14 @@ MAINTAINER ben@talkingquickly.co.uk
 # Debian image, we use apt-get to install those.
 RUN apt-get update && apt-get install -y \
   build-essential \
-  nodejs
+  nodejs \
+  rsync
 
 RUN useradd -ms /bin/bash deploy
 USER deploy
+
+RUN git config --global user.email "ben@talkingquickly.co.uk"
+RUN git config --global user.name "Ben Dixon"
 
 # Configure the main working directory. This is the base
 # directory used in any further RUN, COPY, and ENTRYPOINT
