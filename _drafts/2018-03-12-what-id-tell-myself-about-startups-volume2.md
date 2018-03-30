@@ -64,6 +64,8 @@ Prior to Catapult I'd focussed more on bootstrapped businesses, so three years i
 
 1. Scoring systems are, in general, amazing tools for forcing structured, critical thinking and aligning stakeholders. But always be clear upfront that they're just tools, the "highest score" doesn't always "win"
 
+1. The 80/20 principle applies to almost everything, in terms of output and value add an amazing person who doesn't appreciate this may well be outperformed by someone who technically performs at a lower level but obsessively focusses on which 20% is going to deliver 80% of the results. It's shockingly hard to work out in an interview which person is which
+
 ## Fundraising & Numbers
 
 1. If you're going to need VC funding, don't underestimate the value of a "VC Proxy" who can give you insights into what numbers and parts of the story VC's will care about at which stage
