@@ -2,13 +2,16 @@ name: talkingquickly
 description: 'rails, docker, stress free deployment and small steps taken quickly'
 meta_description: "Blog by Ben Dixon, Ruby on Rails Developer, about rails, devops, docker, climbing and startups"
 
-permalink: /:year/:month/:title
+permalink: /:year/:month/:title/
 
 markdown: redcarpet
 highlighter: pygments
 logo: false
 paginate: 15
 excerpt_separator: <!--more-->
+
+exclude:
+  - _drafts/k8s-supporting
 
 plugins:
   - jekyll-paginate

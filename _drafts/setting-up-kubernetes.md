@@ -1,3 +1,13 @@
+---
+layout : post
+title: Setting up a Kubernetes Cluster with Kubeadm
+date: 2018-04-08 08:45:00
+categories: docker kubernetes
+biofooter: true
+bookfooter: false
+docker_book_footer: true
+---
+
 ## Setting up the cluster with Kubeadm
 
 https://kubernetes.io/docs/setup/independent/install-kubeadm/
@@ -61,9 +71,9 @@ Remove the master taint (optional)
 kubectl taint nodes --all node-role.kubernetes.io/master-
 ```
 
-Repeat on other nodes but instead of init, use the join command
+Repeat on other nodes but instead of init, use the join command. If using ufw, allow all traffic between nodes.
 
-If using UFW at a minimum need to open 6443
+If using UFW at a minimum need to open 6443 on the master. Remember that `ufw deny` and not having a ufw rule are different because there's a chain.
 
 Get local access to the cluster:
 
@@ -74,6 +84,8 @@ scp root@SERVER_IP:/etc/kubernetes/admin.conf ~/.kube/config-CLUSTER-NAME
 ```
 
 Setup $KUBECONFIG
+
+https://kubernetes.io/docs/tasks/access-application-cluster/configure-access-multiple-clusters/
 
 ```
 export KUBECONFIG=/home/ben/.kube/config-ONE:/home/ben/.kube/config-TWO
@@ -92,8 +104,156 @@ Can also do things like setting the namespace per context, e.g. one for `default
 
 Setup helm and tiller:
 
+https://github.com/kubernetes/helm/blob/master/docs/rbac.md
+
 ```
 kubectl create serviceaccount tiller --namespace kube-system
 ```
 
+```
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: tiller
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+  - kind: ServiceAccount
+    name: tiller
+    namespace: kube-system
+```
+
+```
+helm initi --service-account tiller
+```
+
+Install the dashboard:
+
+https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
+
+```
+kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
+```
+
+And give it admin privileges:
+
+https://github.com/kubernetes/dashboard/wiki/Access-control
+
+```
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: kubernetes-dashboard
+  labels:
+    k8s-app: kubernetes-dashboard
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: kubernetes-dashboard
+  namespace: kube-system
+```
+
+Then proxy and access using (https://dzone.com/articles/deploying-kubernetes-dashboard-to-a-kubeadm-create) :
+
+http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/login
+
+You can skip the login stage because we've given the dashboard full access
+
 Setup persistence:
+
+Deploy the rook operator (https://rook.github.io/docs/rook/master/helm-operator.html):
+
+```
+helm repo add rook-alpha https://charts.rook.io/alpha
+helm install --namespace rook-system rook-alpha/rook
+```
+
+Then create a rook cluster:
+
+```
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: rook
+---
+apiVersion: rook.io/v1alpha1
+kind: Cluster
+metadata:
+  name: rook
+  namespace: rook
+spec:
+  dataDirHostPath: /var/lib/rook
+  storage:
+    useAllNodes: true
+    useAllDevices: false
+    storeConfig:
+      storeType: bluestore
+      databaseSizeMB: 1024
+      journalSizeMB: 1024
+```
+
+Execute:
+
+```
+kubectl create -f rook-cluster.yaml
+```
+
+Create some block storage (https://rook.github.io/docs/rook/master/block.html :
+
+```
+  apiVersion: rook.io/v1alpha1
+  kind: Pool
+  metadata:
+    name: replicapool
+    namespace: rook
+  spec:
+    replicated:
+      size: 3
+  ---
+  apiVersion: storage.k8s.io/v1
+  kind: StorageClass
+  metadata:
+     name: rook-block
+  provisioner: rook.io/block
+  parameters:
+    pool: replicapool
+```
+
+Set the newly created storageclass to the default (https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/):
+
+```
+ kubectl patch storageclass rook-block -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+ ```
+
+ Now try deploying MySQL as an example:
+
+```
+helm install --name mysqltest2 stable/mysql
+```
+
+You can now see volume claims and volumes created:
+
+```
+kubectl get pvc
+kubectl get pv
+```
+
+and that the mysql pod is running:
+
+```
+kubectl get pods
+```
+
+
+## Accessing services
+
+Forwarding ports: https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/
+
+```
+kubectl port-forward redis-master-765d459796-258hz 6379:6379
+```

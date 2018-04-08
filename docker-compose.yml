@@ -13,5 +13,5 @@ services:
     command: bash
     volumes:
       - .:/home/deploy/app:delegated
-      - ~/.ssh:/home/deploy/.ssh
+      - /c/Users/Ben/.ssh:/home/deploy/.ssh
       - ../talkingquickly.github.io.release:/home/deploy/release
