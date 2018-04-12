@@ -173,7 +173,7 @@ helm repo add rook-alpha https://charts.rook.io/alpha
 helm install --namespace rook-system rook-alpha/rook
 ```
 
-Then create a rook cluster:
+Then create a rook cluster (https://rook.github.io/docs/rook/master/quickstart.html#create-a-rook-cluster):
 
 ```
 apiVersion: v1
@@ -247,6 +247,40 @@ and that the mysql pod is running:
 
 ```
 kubectl get pods
+```
+
+## Setting up ingress and SSL
+
+Setup a wildcard DNS entry, make sure port 80 & 443 is open on whichever node you want to be internet facing.
+
+```
+helm install stable/nginx-ingress --namespace kube-system --set controller.hostNetwork=true,controller.kind=DaemonSet --set rbac.create=true --set controller.extraArgs.v=5 --set controller.service.type=NodePort --name nginx-ingress-1
+```
+
+```
+helm install --name cert-manager --namespace kube-system stable/cert-manager --set ingressShim.extraArgs='{--default-issuer-name=letsencrypt-cluster-issuer,--default-issuer-kind=ClusterIssuer}'
+```
+
+```
+kubectl create -f cluster_issuer.yaml
+```
+
+Add an ingress section:
+
+```
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    certmanager.k8s.io/cluster-issuer: letsencrypt-cluster-issuer
+  path: /
+  hosts:
+    - DOMAIN
+  tls:
+   - secretName: APP_NAME-tls
+     hosts:
+       - DOMAIN
+
 ```
 
 
