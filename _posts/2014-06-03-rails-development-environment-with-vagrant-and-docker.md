@@ -12,6 +12,8 @@ Onboarding new developers to a Rails projects is still a far harder task than it
 
 <!--more-->
 
+Update April 2018 - Docker has evolved a lot since this post, [an updated approach is documented here](/2018/03/rails-development-environment-with-docker-compose/)
+
 Vagrant alone has already gone a long way to alleviating this but with Docker we can go one step further. Not only can we have a fully functional development environment (for both new and existing devs) up in a matter of a minutes, we can use almost the same containers we create in development to deploy to production. This goes even further to avoiding the classic "it worked in dev" problem.
 
 In this tutorial, I'll show you how to use a combination of Vagrant and Docker to setup a fully functional Rails + Postgres + Redis development environment. In a follow up tutorial I'll demonstrate how to deploy the containers we create here to production.

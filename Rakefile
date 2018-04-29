@@ -30,6 +30,7 @@ namespace :jekyll do
     system "rsync -avh _site/ #{DEPLOY_DIR} --delete --exclude '.git'"
     Dir.chdir DEPLOY_DIR
     message = "Site updated at #{Time.now.utc}"
+    system "touch .nojekyll"
     system "git add ."
     system "git commit -m #{message.inspect}"
     system "git push origin master"

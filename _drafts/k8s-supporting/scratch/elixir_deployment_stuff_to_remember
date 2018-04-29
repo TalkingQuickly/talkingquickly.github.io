@@ -1,0 +1,6 @@
+Stuff to remember about deploying:
+
+* have to go through distillery init process
+* have to set `server: true` in prod config
+* To connect to stuff and do stuff once it's up and running use; /app/_build/prod/rel/candidate_funnel/bin/candidate_funnel remote_console
+* Need to set tag and image if using generic helm chart

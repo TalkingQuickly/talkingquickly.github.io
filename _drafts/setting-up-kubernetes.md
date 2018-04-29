@@ -1,12 +1,17 @@
 ---
 layout : post
-title: Setting up a Kubernetes Cluster with Kubeadm
-date: 2018-04-08 08:45:00
+title: Setting up a Kubernetes Cluster on a VPS with Kubeadm
+date: 2018-04-29 08:45:00
 categories: docker kubernetes
 biofooter: true
 bookfooter: false
 docker_book_footer: true
+permalink: '/setting-up-kubernetes-with-kubeadm-on-vps-bare-metal'
 ---
+
+Kubernetes makes it easy to deploy containerised applications to a cluster of servers. At the end of this tutorial we'll have a cluster setup over multiple nodes on any standard VPS provider (e.g. Digital Ocean, Linode, Hetzner Cloud etc) or indeed bare metal. We'll have dynamic persistence management and automatic SSL certificates without relying on any provider specific functionality. Finally we'll have a visual dashboard where we can monitor the health of the cluster along with Tiller installed for managing our deployed applications.
+
+<!--more-->
 
 ## Setting up the cluster with Kubeadm
 
@@ -45,6 +50,8 @@ Make a note of the joining token:
 kubeadm join 195.201.123.113:6443 --token breel6.r2l2v8pg8tp32lri --discovery-token-ca-cert-hash sha256:5dc7b3346c92a05a53b6d6ab4b098ff3eddc5a0e852988cb225e44ff309d0efb
 ```
 
+## Setup local access to the cluster
+
 Setup configuration for kubectl locally (optional)
 
 ```
@@ -52,28 +59,6 @@ mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
-
-Setup a network
-
-```
-kubectl apply -f https://docs.projectcalico.org/v3.0/getting-started/kubernetes/installation/hosted/kubeadm/1.7/calico.yaml
-```
-
-Check everything is ready (takes a few minutes)
-
-```
-kubectl get nodes
-```
-
-Remove the master taint (optional)
-
-```
-kubectl taint nodes --all node-role.kubernetes.io/master-
-```
-
-Repeat on other nodes but instead of init, use the join command. If using ufw, allow all traffic between nodes.
-
-If using UFW at a minimum need to open 6443 on the master. Remember that `ufw deny` and not having a ufw rule are different because there's a chain.
 
 Get local access to the cluster:
 
@@ -102,7 +87,35 @@ kubectl config use-context CONTEXT-NAME
 
 Can also do things like setting the namespace per context, e.g. one for `default`, one for `kube-system` etc
 
-Setup helm and tiller:
+## Setup networking
+
+Setup a network
+
+```
+kubectl apply -f https://docs.projectcalico.org/v3.0/getting-started/kubernetes/installation/hosted/kubeadm/1.7/calico.yaml
+```
+
+Check everything is ready (takes a few minutes)
+
+```
+kubectl get nodes
+```
+
+## Setup a single node cluster
+
+Remove the master taint (optional)
+
+```
+kubectl taint nodes --all node-role.kubernetes.io/master-
+```
+
+## Configure other nodes
+
+Repeat on other nodes but instead of init, use the join command. If using ufw, allow all traffic between nodes.
+
+If using UFW at a minimum need to open 6443 on the master. Remember that `ufw deny` and not having a ufw rule are different because there's a chain.
+
+## Setup helm and tiller
 
 https://github.com/kubernetes/helm/blob/master/docs/rbac.md
 
@@ -126,8 +139,10 @@ subjects:
 ```
 
 ```
-helm initi --service-account tiller
+helm init --service-account tiller
 ```
+
+## Setup the dashboard
 
 Install the dashboard:
 
@@ -164,7 +179,7 @@ http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-da
 
 You can skip the login stage because we've given the dashboard full access
 
-Setup persistence:
+## Setup persistence
 
 Deploy the rook operator (https://rook.github.io/docs/rook/master/helm-operator.html):
 
@@ -249,6 +264,8 @@ and that the mysql pod is running:
 kubectl get pods
 ```
 
+Now delete the MySQL installation
+
 ## Setting up ingress and SSL
 
 Setup a wildcard DNS entry, make sure port 80 & 443 is open on whichever node you want to be internet facing.
@@ -283,6 +300,15 @@ ingress:
 
 ```
 
+## Private Registry
+
+kubectl create secret docker-registry regcred --docker-server=SERVER_URL:PORT --docker-username='USERNAME' --docker-password='PERSONAL ACCESS TOKEN' --docker-email='EMAIL'
+
+Remember this is namespaced, e.g. need one for every namespace
+
+## Setting up Gitlab
+
+The ca.crt is in /etc/kubernetes/pki/ca.crt on the root of the node, this is the PEM you have to give to gitlab see https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init/
 
 ## Accessing services
 

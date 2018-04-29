@@ -1,10 +1,23 @@
+---
+layout : post
+title: Deploying Rails to Kubernetes with Helm
+date: 2018-04-29 15:40:00
+categories: startups
+biofooter: true
+bookfooter: false
+docker_book_footer: false
+permalink: /deploying-rails-to-kubernetes-with-helm
+---
+
+Helm makes it easy to package up the services which make up a webapp, for example a Rails applications, a Postgres database and Redis, and then deploy them to a Kubernetes cluster. This tutorial covers how to create a Helm "Chart" from scratch to do exactly this. 
+
+<!--more-->
+
 Create a new helm chart:
 
 ```
 helm create APP_NAME
 ```
-
-For Gitlab auto-devops usage then may want to rename folder to `chart`
 
 Update `values.yaml` to have correct `image/repository`
 
@@ -56,4 +69,4 @@ env:
     value: "mysql2://{{ .Values.mysql.mysqlUser }}:{{ .Values.mysql.mysqlPassword }}@{{ .Release.Name }}-mysql/{{ .Values.mysql.mysqlDatabase }}"
 ```
 
-(May need to set `/admin/application_settings` registry token timeout to a higher value in gitlab) 
+(May need to set `/admin/application_settings` registry token timeout to a higher value in gitlab)
