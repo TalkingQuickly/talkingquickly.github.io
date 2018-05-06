@@ -52,6 +52,6 @@ These are the guidelines I aim to follow with the goal of maintaining a high out
 
 1. Be aware of crunch time. Whether it's shipping a feature, raising money or managing a project which has gone off the rails, sometimes there will be a defined period where all energy and then some has to be diverted to one thing. Recognise that you're depleting a finite store during these periods due to lack of sleep, exercise and downtime and that the further you or anyone else gets into this period, the less rational decision making will become and the lower the return on each additional hour worked will be. Give yourself and others you're responsible for time to re-charge afterwards.
 
-1. Make lists, lots of lists. The worse place to keep everything except hats and sunglasses is your head.
+1. Make lists, lots of lists. The worst place to keep everything except hats and sunglasses is your head.
 
 1. Drink lots of water, avoid caffeine and remember that cheap wine with awesome people will always taste better than a fancy vintage without them.
