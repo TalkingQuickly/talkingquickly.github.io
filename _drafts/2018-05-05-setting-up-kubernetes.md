@@ -307,29 +307,41 @@ When prompted enter the token we found above and the dashboard should then be av
 
 The approach we've seen above, of using `yaml` files combined with `kubectl -f` is one of the primary ways of interacting with Kubernetes, through this approach we can create any combination of Kubernetes primitives and so deploy complex applications, it's a good idea to [get familiar with these concepts and primatives here](https://kubernetes.io/docs/concepts/).
 
-If our goal is simply to be able to deploy web applications to the cluster quickly, Helm and Tiller offer a more suitable abstraction. [Helm](https://github.com/kubernetes/helm) is part of the core Kubernetes offering and is best explained by it's own strapline:
+While this approach is powerful, if our goal is simply to be able to deploy web applications to the cluster quickly, Helm and Tiller may offer a more suitable abstraction for day to day use. [Helm](https://github.com/kubernetes/helm) is part of the core Kubernetes offering and is best explained by it's own strapline:
 
 > Helm is a tool for managing Kubernetes charts. Charts are packages of pre-configured Kubernetes resources.
 
 By creating Helm charts, we can easily define exactly how to deploy an application, including any dependencies. What's more there's a large library of actively maintained charts for common pieces of software which we can make use of. So, for example, rather than trying to work out how to install PostgreSQL on Kubernetes from scratch, we can re-use the community chart to install and configure it with one command.
 
-Building on that we can create charts for our own web applications and package up in there any dependencies, so our custom chart might explain how to deploy a Rails or Phoenix application, along with how to run background workers and how to configure the community PostgreSQL and Redis charts. This allows us to deploy complex applications with minimal effort. 
+Building on that we can create charts for our own web applications and package up in there any dependencies, so our custom chart might explain how to deploy a Rails or Phoenix application, along with how to run background workers and how to configure the community PostgreSQL and Redis charts. This allows us to deploy complex applications with minimal effort.
 
+Behind the scenes Helm is primarily a lightweight abstraction which makes generating and applying the Yaml definitions we've already seen less repetitive and more structured. As a result documentation which refers to using `kubectl create -f` is generally immediately applicable when we are developing custom helm charts.
 
+Helm is made up of two components, the CLI (helm) and the server component Tiller which runs on the cluster and takes care of ensuring that the infrastructure state we define with our charts and apply using Helm is maintained on the server.
 
+To begin with we need to [install the Helm client as per the instructions here] on our local development machine. Note that we do not need to follow the part of the linked guide relating to installing Tiller.
 
+Once helm is installed then executing `helm` in a console our local machine should give a typical usage guide output.
 
+As with the dashboard, we first need to create a `ServiceAccount` and a `ClusterRoleBinding` which links this service account to the `cluster-admin` role, thus giving it permissions to add and change anything about the cluster. This is required to allow it to fully manage the lifecycle of workloads we deploy.
 
-
-
-
-
-
-https://github.com/kubernetes/helm/blob/master/docs/rbac.md
+First we create the `ServiceAccount`:
 
 ```
-kubectl create serviceaccount tiller --namespace kube-system
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tiller
+  namespace: kube-system
 ```
+
+With:
+
+```
+kubectl create -f kubernetes-definitions/tiller/service-account.yaml
+```
+
+And then the `ClusterRoleBinding`:
 
 ```
 apiVersion: rbac.authorization.k8s.io/v1beta1
@@ -341,27 +353,60 @@ roleRef:
   kind: ClusterRole
   name: cluster-admin
 subjects:
-  - kind: ServiceAccount
-    name: tiller
-    namespace: kube-system
+- kind: ServiceAccount
+  name: tiller
+  namespace: kube-system
 ```
+
+With:
+
+```
+kubectl create -f kubernetes-definitions/tiller/cluster-role-binding.yaml
+```
+
+Finally we tell helm to setup `tiller` on our cluster using the new `ServiceAccount` we've just created.
 
 ```
 helm init --service-account tiller
 ```
 
+Note that Helm will use whichever is our currently active `kubeconfig` file to determine which Cluster to interact with so if `kubectl get nodes` outputs the nodes for the correct cluster then we can be confident that helm will connect to the correct cluster.
+
+This process should only take a few seconds and will then display a confirmation that tiller is installed on the server. You can verify this by entering:
+
+```bash
+helm version
+```
+
+Which will show something like:
+
+```bash
+Client: &version.Version{SemVer:"v2.8.2", GitCommit:"a80231648a1473929271764b920a8e346f6de844", GitTreeState:"clean"}
+Server: &version.Version{SemVer:"v2.8.2", GitCommit:"a80231648a1473929271764b920a8e346f6de844", GitTreeState:"clean"}
+```
+
+Tip: if there's a problem installing Tiller such that `helm init` now gives an error that tiller is already installed by `helm list` outputs `Error: could not find tiller` there are two things we can try. Firstly we can use `helm reset --force`, if this fails then we can delete the deployment manually with `kubectl delete deployment tiller-deploy -n kube-system`, rectify the original mistake and then retry the installation.
+
 ## Setup persistence
 
-Deploy the rook operator (https://rook.github.io/docs/rook/master/helm-operator.html):
+Persistence is one of the harder problems when creating a Kubernetes cluster, a workload scheduled on one worker node could be moved to another worker node at any time and we need to ensure that any files persisted by the workload, for example the data directory of a database instance, will be available to it on the new node.
 
-```
+There are many possible solutions emerging, ranging from battle test but more complicated to configure options such as [Gluster](https://www.gluster.org/) to newer, Kubernetes native projects such as [Rook.io](https://rook.io/). Here we'll be using Rook for it's ease of configuration and first class integration with Kubernetes.
+
+Rook is built on top of [Ceph](https://ceph.com/ceph-storage/file-system/), a battle-tested object storage system and takes care of allocating space to workloads when they request it (via persistent volume claims) and ensuring the data is replicated across multiple nodes to provide fault tolerance.
+
+Now that we have Helm configured we can use it to install Rook, the below commands are taken from the [Rook installation instructions](https://rook.github.io/docs/rook/master/helm-operator.html):
+
+```bash
 helm repo add rook-alpha https://charts.rook.io/alpha
 helm install --namespace rook-system rook-alpha/rook
 ```
 
-Then create a rook cluster (https://rook.github.io/docs/rook/master/quickstart.html#create-a-rook-cluster):
+Once this is completed, helm will provide a detail summary of the installation and what has been created as well as command we can use to check the status of Rook. This pattern of providing either a status command or, for a deployed application, a URL we can access it at, is common for helm charts.
 
-```
+Rook is now installed, but before it can be used, we need to configure it. Firstly we [create the cluster](https://rook.github.io/docs/rook/master/quickstart.html#create-a-rook-cluster):
+
+```yaml
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -383,38 +428,43 @@ spec:
       journalSizeMB: 1024
 ```
 
-Execute:
+With the command:
 
-```
-kubectl create -f rook-cluster.yaml
-```
-
-Create some block storage (https://rook.github.io/docs/rook/master/block.html :
-
-```
-  apiVersion: rook.io/v1alpha1
-  kind: Pool
-  metadata:
-    name: replicapool
-    namespace: rook
-  spec:
-    replicated:
-      size: 3
-  ---
-  apiVersion: storage.k8s.io/v1
-  kind: StorageClass
-  metadata:
-     name: rook-block
-  provisioner: rook.io/block
-  parameters:
-    pool: replicapool
+```bash
+kubectl create -f kubernetes-definitions/rook/cluster.yaml
 ```
 
-Set the newly created storageclass to the default (https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/):
+Note that we are setting Rook to persist data to `/var/lib/rook` on each of our worker nodes. Alternatively if our nodes have dedicated block devices mounted for the purposes of persisting data, we could set `dataDirHostPath` to this path.
+
+
+Then we [create some block storage](https://rook.github.io/docs/rook/master/block.html) on top of this Cluster:
 
 ```
- kubectl patch storageclass rook-block -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
- ```
+apiVersion: rook.io/v1alpha1
+kind: Pool
+metadata:
+  name: replicapool
+  namespace: rook
+spec:
+  replicated:
+    size: 3
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: rook-block
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
+provisioner: rook.io/block
+parameters:
+  pool: replicapool
+```
+
+With:
+
+```bash
+kubectl create -f kubernetes-definitions/rook/block-storage.yaml
+```
 
  Now try deploying MySQL as an example:
 
@@ -488,3 +538,11 @@ Forwarding ports: https://kubernetes.io/docs/tasks/access-application-cluster/po
 ```
 kubectl port-forward redis-master-765d459796-258hz 6379:6379
 ```
+
+## Probably don't need this for Rook anymore
+
+Set the newly created storageclass to the default (https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/):
+
+```
+ kubectl patch storageclass rook-block -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+ ```

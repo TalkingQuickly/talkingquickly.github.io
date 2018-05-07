@@ -9,7 +9,7 @@ docker_book_footer: false
 permalink: /deploying-rails-to-kubernetes-with-helm
 ---
 
-Helm makes it easy to package up the services which make up a webapp, for example a Rails applications, a Postgres database and Redis, and then deploy them to a Kubernetes cluster. This tutorial covers how to create a Helm "Chart" from scratch to do exactly this. 
+Helm makes it easy to package up the services which make up a webapp, for example a Rails applications, a Postgres database and Redis, and then deploy them to a Kubernetes cluster. This tutorial covers how to create a Helm "Chart" from scratch to do exactly this.
 
 <!--more-->
 
@@ -70,3 +70,7 @@ env:
 ```
 
 (May need to set `/admin/application_settings` registry token timeout to a higher value in gitlab)
+
+## Configuration with Config Maps
+
+https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/
