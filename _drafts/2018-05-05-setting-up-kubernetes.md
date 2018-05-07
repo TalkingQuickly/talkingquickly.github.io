@@ -11,7 +11,7 @@ permalink: '/setting-up-kubernetes-with-kubeadm-on-vps-bare-metal'
 
 Kubernetes makes it easy to deploy containerised applications to a cluster of servers. At the end of this tutorial we'll have a cluster setup over multiple nodes on any standard VPS provider (e.g. Digital Ocean, Linode, Hetzner Cloud etc) or bare metal servers. This means we can leverage the power of Kubernetes without the additional cost of high value add services such as AWS or Google Cloud.
 
-The final system will have dynamic persistence management and automatic SSL certificates without relying on any provider specific functionality. Finally we'll have a visual dashboard where we can monitor the health of the cluster along with Tiller installed for managing our deployed applications.
+The final system will have dynamic persistence management and automatic SSL certificates without relying on any provider specific functionality. Finally we'll have a visual dashboard where we can monitor the health of the cluster along with Helm/ Tiller installed for managing our deployed applications.
 
 <!--more-->
 
@@ -30,6 +30,8 @@ SSH into each of the nodes and execute the following commands as root:
 ufw default deny incoming
 ufw default allow outgoing
 ufw allow 22/tcp
+ufw allow 80
+ufw allow 443
 ufw --force enable
 
 # Disable Swap
@@ -182,7 +184,7 @@ If you're just setting up a test cluster on a single node, then you'll need to r
 kubectl taint nodes --all node-role.kubernetes.io/master-
 ```
 
-If you're adding multiple nodes, you can skip this step.
+If you're adding multiple nodes and want the master to remain unable to run workloads directly, you can skip this step.
 
 ## Adding additional nodes
 
@@ -466,42 +468,142 @@ With:
 kubectl create -f kubernetes-definitions/rook/block-storage.yaml
 ```
 
- Now try deploying MySQL as an example:
+We can now test our cluster with an installation of [PostgresSQL](helm install --name my-release stable/postgresql) as follows:
 
 ```
-helm install --name mysqltest2 stable/mysql
+helm install --name pg-test-1 stable/postgresql
 ```
 
-You can now see volume claims and volumes created:
+Once the command completes, it's worth taking note of the `notes` section of helms output:
 
 ```
+NOTES:
+PostgreSQL can be accessed via port 5432 on the following DNS name from within your cluster:
+pg-test-1-postgresql.default.svc.cluster.local
+
+To get your user password run:
+
+    PGPASSWORD=$(kubectl get secret --namespace default pg-test-1-postgresql -o jsonpath="{.data.postgres-password}" | base64 --decode; echo)
+
+To connect to your database run the following command (using the env variable from above):
+
+   kubectl run --namespace default pg-test-1-postgresql-client --restart=Never --rm --tty -i --image postgres \
+   --env "PGPASSWORD=$PGPASSWORD" \
+   --command -- psql -U postgres \
+   -h pg-test-1-postgresql postgres
+
+To connect to your database directly from outside the K8s cluster:
+     PGHOST=127.0.0.1
+     PGPORT=5432
+
+     # Execute the following commands to route the connection:
+     export POD_NAME=$(kubectl get pods --namespace default -l "app=postgresql,release=pg-test-1" -o jsonpath="{.items[0].metadata.name}")
+     kubectl port-forward --namespace default $POD_NAME 5432:5432
+```
+
+This provides all the details needed to access the PostgreSQL instance we've created both from within the cluster and remotely.
+
+We can confirm that rook is functioning as expected with the following:
+
+```bash
 kubectl get pvc
+```
+
+Which will output something like:
+
+```bash
+NAME                   STATUS    VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+pg-test-1-postgresql   Bound     pvc-ff4235c6-51fa-11e8-ab88-9600000a4339   8Gi        RWO            rook-block     6m
+```
+
+And:
+
+```bash
 kubectl get pv
 ```
 
-and that the mysql pod is running:
+Which will output something like:
 
 ```
-kubectl get pods
+NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS    CLAIM                          STORAGECLASS   REASON    AGE
+pvc-ff4235c6-51fa-11e8-ab88-9600000a4339   8Gi        RWO            Delete           Bound     default/pg-test-1-postgresql   rook-block               7m
 ```
 
-Now delete the MySQL installation
+Indicating that when our PostgreSQL install requested a persistent volume, Rook took care of provisioning and providing one.
+
+We can now delete our test PostgreSQL installation:
+
+```bash
+helm delete --purge pg-test-1
+```
 
 ## Setting up ingress and SSL
 
-Setup a wildcard DNS entry, make sure port 80 & 443 is open on whichever node you want to be internet facing.
+The final step in setting up our cluster is to enable Ingress. For our purposes Ingress takes care of exposing web applications to the outside world. This will allow us to include details about the domain which a web application we deploy with Helm should be available on and have routing and SSL taken care of automatically.
+
+@TODO does this need to be a specific node? Setup a wildcard DNS entry, make sure port 80 & 443 is open on whichever node you want to be internet facing.
+
+First we install the Nginx Ingree provider with:
 
 ```
 helm install stable/nginx-ingress --namespace kube-system --set controller.hostNetwork=true,controller.kind=DaemonSet --set rbac.create=true --set controller.extraArgs.v=5 --set controller.service.type=NodePort --name nginx-ingress-1
 ```
 
+Followed by Cert Manager which is responsible for automatically requesting certificates for new domains:
+
 ```
 helm install --name cert-manager --namespace kube-system stable/cert-manager --set ingressShim.extraArgs='{--default-issuer-name=letsencrypt-cluster-issuer,--default-issuer-kind=ClusterIssuer}'
 ```
 
+Finally update the email address in `kubernetes-definitions/ingress/cluster-issuer.yaml` giving something like the following:
+
+```yaml
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-cluster-issuer
+spec:
+  acme:
+    # The ACME production api URL
+    server: https://acme-v01.api.letsencrypt.org/directory
+
+    # Email address used for ACME registration
+    email: EMAIL@EXAMPLE.ORG
+
+    # Name of a secret used to store the ACME account private key
+    privateKeySecretRef:
+      name: letsencrypt-cluster-key-pair
+
+    # Enable the HTTP-01 challenge provider
+    http01: {}
 ```
-kubectl create -f cluster_issuer.yaml
+
+And then create the `ClusterIssuer`:
+
+```bash
+kubectl create -f kubernetes-definitions/ingress/cluster-issuer.yaml
 ```
+We can confirm Ingress is working as expected by visiting http://WORKER_IP from a browser where we should see:
+
+```
+default backend - 404
+```
+
+Indicating the request was processed by the Nginx Ingress but there were no rules specified for where the request should be routed.
+
+When setting up DNS to point one or more domains at the cluster, any of the worker IP's can be used.
+
+## Deploying applications
+
+Our Kubernetes cluster is now ready to use, [Part 2](@TODO LINK) of this tutorial covers how to deploy a Rails application to this cluster using Helm.
+
+
+
+
+
+
+
+
 
 Add an ingress section:
 
