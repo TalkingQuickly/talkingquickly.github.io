@@ -9,9 +9,45 @@ docker_book_footer: false
 permalink: /deploying-rails-to-kubernetes-with-helm
 ---
 
-Helm makes it easy to package up the services which make up a webapp, for example a Rails applications, a Postgres database and Redis, and then deploy them to a Kubernetes cluster. This tutorial covers how to create a Helm "Chart" from scratch to do exactly this.
+Helm makes it easy to package up the services which make up a webapp, for example a Rails applications, a Postgres database and Redis, and then deploy them to a Kubernetes cluster. This tutorial covers how to create a Helm chart from scratch to do exactly this.
 
 <!--more-->
+
+The previous part of this tutorial explains [how to setup a Kubernetes cluster on any VPS or Bare Metal provider](/setting-up-kubernetes-with-kubeadm-on-vps-bare-metal).
+
+In this section we'll create a helm chart which can be used to deploy a vanilla Rails application to this cluster. The sample code includes a `Dockerfile` which can be used for a simple Rails application but [this post has more details on how to Dockerise an existing Rails application](/2018/03/rails-development-environment-with-docker-compose/) as well as how to move the complete development workflow to Docker.
+
+This tutorial assumes you have Docker installed and available locally as well as a working cluster from the previous tutorial. While this tutorial is primarily tested on the cluster configuration described their, it should work with minimal adaptations on any Kubernetes cluster with Helm / Tiller available.
+
+## Adding a Dockerfile
+
+## Running Locally Using a Dockerfile
+
+## Setting up a remote registry
+
+## Generating a new Chart with Helm
+
+## Setting up dependencies
+
+## Configuring Postgres
+
+## Deploying
+
+## Updating
+
+## Debugging Tips
+
+
+
+
+
+
+
+
+
+
+
+
 
 Create a new helm chart:
 

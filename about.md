@@ -5,6 +5,7 @@ redirect_from:
   - /about-me/
   - /about/
   - /hills-bede-portfolio/
+permalink: about.html
 ---
 
 My name's Ben Dixon, I'm a CTO and developer with a passion for building difficult things. My current toolbox is mainly Rails + React with some Elixir and React Native for good measure and Docker + Kubernetes keeping it all running behind the scenes.

@@ -595,7 +595,7 @@ When setting up DNS to point one or more domains at the cluster, any of the work
 
 ## Deploying applications
 
-Our Kubernetes cluster is now ready to use, [Part 2](@TODO LINK) of this tutorial covers how to deploy a Rails application to this cluster using Helm.
+Our Kubernetes cluster is now ready to use, [Part 2 of this tutorial covers how to deploy a Rails application to this cluster using Helm](@TODO LINK).
 
 
 
