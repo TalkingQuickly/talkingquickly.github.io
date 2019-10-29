@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem "jekyll", "~> 3.7.2"
+gem "jekyll", "~> 3.7.4"
 gem 'pygments.rb', '~> 1.2.1'
 gem 'redcarpet', '~> 3.4.0'
 gem 'jekyll-paginate', '~> 1.1.0'
