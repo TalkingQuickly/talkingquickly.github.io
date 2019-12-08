@@ -1,12 +1,12 @@
 ---
 layout : post
-title: Setting up a Kubernetes Cluster on a VPS with Kubeadm
-date: 2018-04-29 08:45:00
-categories: docker kubernetes
+title: Setting up a Kubernetes Cluster on a VPS with Kubeadm & Wireguard
+date: 2019-12-08 08:45:00
+categories: docker kubernetes wireguard
 biofooter: true
 bookfooter: false
 docker_book_footer: true
-permalink: '/setting-up-kubernetes-with-kubeadm-on-vps-bare-metal'
+permalink: '/setting-up-kubernetes-with-kubeadm-and-wireguard'
 ---
 
 Kubernetes makes it easy to deploy containerised applications to a cluster of servers. At the end of this tutorial we'll have a cluster setup over multiple nodes on any standard VPS provider (e.g. Digital Ocean, Linode, Hetzner Cloud etc) or bare metal servers. This means we can leverage the power of Kubernetes without the additional cost of high value add services such as AWS or Google Cloud.
@@ -14,6 +14,8 @@ Kubernetes makes it easy to deploy containerised applications to a cluster of se
 The final system will have dynamic persistence management and automatic SSL certificates without relying on any provider specific functionality. Finally we'll have a visual dashboard where we can monitor the health of the cluster along with Helm/ Tiller installed for managing our deployed applications.
 
 <!--more-->
+
+In practice, I'd always recommend using a configuration management tool such as Ansible for deploying anything production grade 
 
 ## Setting up the cluster with Kubeadm
 
