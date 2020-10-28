@@ -1,0 +1,68 @@
+---
+layout: page
+title: SaaStr Episode 338 - Okta CMO Ryan Carlson Summary
+---
+
+# SaaStr Podcast
+
+## 338 - OKTA CMO, Ryan Carlson
+
+His interview with Okta  was many many different sessions, e.g. he kept coming back as a candidate (finally product marketing). Last interview started 7 AM and ended 7PM, came back in twice on the day of that last interview.
+
+Interview process, to start with you're selling the role to them, then getting them to do some work as a trial of how you work together.
+
+Things people reverse the causation re category creation, you don't create a category from the start, you create a category by winning the market. Or at least winning the market allows them to create a category. People focus on category creation so much that they talk about their product in an unclear way, because they're so keen on trying to be something different. Sometimes you're just a better version of the thing that came before you and that's fine, If you win the market, you will create a category anyway.
+
+You want to "launch" when you have repeatability in your go to market strategy. E.g. know who buyers are, know what their problems are. Know something about your conversion rates etc. You build for a small audience, find you have something they really want and then launch big.
+
+References Steve Blank a lot. Author of (https://www.amazon.co.uk/Four-Steps-Epiphany-Successful-Strategies/dp/1119690358/ref=sr_1_2)
+
+Sceptical of books like "Good to Great", "Built to last", thinks these are fundamentally flawed because of servivorrship (or not) bias. Recommends "The Halo Effect".
+
+For reversible decisions, just gather data quickly, try something, then be prepared to change your mind. Spending so much time on the decision causes people to get attached to the viewpoint. Different for not reversible decisions.
+
+Importance of pipeline; it is the most important thing, but shouldn't measure it in such a way that excludes long term activities.
+
+Measuring pipeline value, incredibly difficult, thinks there will be a massive tech company in this space. Thinks most effective way of measuring is sales accepted opportunities. Bridges a part of the marketing and sales divide. Overall need to look at prioritised scorecard though not just one number.
+
+First marketing hire; don't hire VP of marketing. Hire two people, product marketing and a demand gen infrastructure person. They focus refining your message, what is the product, how to explain benefits and to who etc (product marketing). Also iterating on the channels and how you get the message out (demand gen); want to instrument that part as much as you can as early as you can. They should team up and work on that together.
+
+VP vs CMO title; if somebody really cares, flag for early stage.
+
+Product marketing:
+
+- Solutions that your product provides
+- Why those solutions matter (and quantify this)
+- Why your better than anyone else at solving it
+
+People get so caught up explaining the features, which don't matter, the important thing is what solutions are provided and why people should care about these.
+
+Primary metrics for product marketing:
+
+- Are you shortening the sales cycle
+- Increasing the competitive win rate
+- Increasing the average sales price
+
+Product marketing with wider marketing team:
+
+- Marketing often gets a bad rep, "have to wade through marketing bs to find out what this product does", this is often true. Product marketing can help to educate the marketing org on this, e.g. what is true not what sounds good. Product marketing can also pull customers into the discussion.
+
+First day at Okta, called top five customers and asked them why they bought the product.
+
+High performing teams will create unintended side effect of preventing innovation: quality bar ends up being so high that fear of failure is high which prevents people from surfacing ideas. This comes back to reversible vs irreversible ideas. Teams MUST know the difference between things that need to be done really well from the start and things where it's totally OK to fail.
+
+Need to get people to talk about their failures, e.g. present things honestly not in the best possible light, how do you create environment which does this:
+
+- Always talk about your own mistakes, e.g. in leadership, all-hands etc
+- Set aside some leadership meetings to talk about things that aren't working (no need to bring solutions)
+
+A customer success team that is really good can mask problems with the product. E.g. the product never fixes some things because customer success works around it. Equally can mean feedback never gets back to product team or doesn't get back urgently enough. Not just broken things, also things like how much customisation is required for fulfilment etc. Still want great customer success team, but they shouldn't end up doing everything themselves.
+
+Culture is most important tool in leading large team. Okta has an empowering culture, e.g. belief that whoever is close to the action will be best place to respond and make decisions, so minimal top down. NOTE TO SELF: we don't have this in product. For this to work, people need to know how the company makes decisions, e.g. what values to apply to make decisions. Ben Horowitz "What you do is what you are" e.g. values.
+
+Quick fire:
+
+- As you get big, people stop thinking bold
+- Frederic is great (Okta leader) because he is a "Connector" Malcolm Gladwell concept (https://www.shortform.com/blog/malcolm-gladwell-connectors/ "Connectors are sociable, gregarious, and are naturally skilled at making — and keeping in contact with — friends and acquaintances.") people who seem to know everybody and 
+- Coming to Okta career changing, realised that will only ever be as good as people around him, this is fundamentally different way of thinking about the world, e.g. elevating others rather than focussing on self being top of class
+- Advice to younger self; lots of people have long term plan for career, have shorter term view, technology changes so fast, if you look too far out, you miss opportunities.

@@ -1,6 +1,6 @@
 name: talkingquickly
-description: 'rails, docker, stress free deployment and small steps taken quickly'
-meta_description: "Blog by Ben Dixon, Ruby on Rails Developer, about rails, devops, docker, climbing and startups"
+description: 'kubernetes, rails, stress free deployment and small steps taken quickly'
+meta_description: "Blog by Ben Dixon, Ruby on Rails Developer, about rails, kubernetes, docker, climbing and startups"
 
 permalink: /:year/:month/:title/
 

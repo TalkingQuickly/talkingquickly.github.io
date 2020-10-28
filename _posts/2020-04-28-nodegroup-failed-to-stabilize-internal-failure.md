@@ -8,7 +8,7 @@ bookfooter: false
 docker_book_footer: false
 ---
 
-A recent change to AWS Subnet behaviour means that any CloudFormation stacks which create EKS NodeGroups may start to fail with the error `Nodegroup the-nodegroup-name failed to stabilize: Internal Failure`. Googling currently doesn't return much. The problem is related to [this change](https://aws.amazon.com/blogs/containers/upcoming-changes-to-ip-assignment-for-eks-managed-node-groups/) relating to whether or not public IP's are assigned to nodes.
+A recent change to AWS NodeGroup behaviour means that some CloudFormation stacks which create EKS NodeGroups may start to fail with the error `Nodegroup the-nodegroup-name failed to stabilize: Internal Failure`. Googling currently doesn't return much. The problem is related to [this change](https://aws.amazon.com/blogs/containers/upcoming-changes-to-ip-assignment-for-eks-managed-node-groups/) relating to whether or not public IP's are assigned to nodes.
 
 <!--more-->
 
@@ -39,4 +39,6 @@ Subnet1a:
     MapPublicIpOnLaunch: true
 ```
 
-For our existing configuration to continue working. More info is [in the AWS post](https://aws.amazon.com/blogs/containers/upcoming-changes-to-ip-assignment-for-eks-managed-node-groups/)
+For our existing configuration to continue working. More info is [in the AWS post](https://aws.amazon.com/blogs/containers/upcoming-changes-to-ip-assignment-for-eks-managed-node-groups/).
+
+The trick to debugging turned out to be setting `disable_rollback` to `true` (if using Ansible to manage Cloudformation) so that the NodeGroup wasn't deleted on failure making it possible to go in and inspect the NodeGroup.
