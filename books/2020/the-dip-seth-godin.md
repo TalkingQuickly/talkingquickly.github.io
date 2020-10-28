@@ -3,8 +3,6 @@ layout: page
 title: The Dip - Seth Godin
 ---
 
-# The Dip (Seth Godin)
-
 Overall:
 
 - Quit the wrong stuff
