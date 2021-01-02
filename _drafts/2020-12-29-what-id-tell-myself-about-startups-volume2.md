@@ -1,7 +1,7 @@
 ---
 layout : post
-title: What I'd tell myself about startups if I could go back 5 years
-date: 2012-12-29 15:40:00
+title: What I'd tell myself about startups if I could go back 5 years (again)
+date: 2020-12-29 15:40:00
 categories: startups
 biofooter: true
 bookfooter: false
@@ -14,29 +14,27 @@ In April 2015 I wrote "[What I'd tell myself about startups if I could go back 5
 
 It was through that post I met Oli and Steffen, my now co-founders at [Catapult](https://www.catapult.com). Since then we've raised money from some amazing investors, changed the way tens of thousands of people work across retail and hospitality, had the privilege of hiring some truly exceptional individuals, created the UK's largest on-demand staffing platform and moved into providing the SaaS tools that enable the future of work.
 
-Prior to Catapult I'd focussed more on bootstrapped businesses, so five years in, there have been a fair few more lessons learned. The usual caveats apply, this isn't advice, just what I'd tell myself, the "you" here is me, writing is still hard.
+Prior to Catapult I'd focussed on bootstrapped businesses. Five years into a venture backed business, there have been many lessons learned. The usual caveats apply, this isn't advice, just what I'd tell myself, the "you" here is me, writing is still hard.
 
 ## Product
 
-1. The single hardest thing to get right - particularly in the enterprise space - is talking to customers enough. This cannot be delegated or outsourced. If the entire founding team is not talking to multiple customers every week, it's very unlikely the business is going to end up pushing in the right direction
+1. The single hardest thing to get right is talking to customers enough. This cannot be delegated or outsourced. If the entire founding team is not talking to multiple customers every week, it's very unlikely the business is going to end up pushing in the right direction
 
-1. Be brutally honest with yourself when questioning how well you (and your business) really understands your customers. Can you fill in a [lean canvas](https://leanstack.com/leancanvas) and justify each of your answers with direct customer feedback? If not, something's up. Can everyone in your organisation do the same thing and get to similar answers while pointing at their own feedback? If not, something's up.
+1. Be brutally honest with yourself when questioning how well you (and your business) really understands your customers. Can you fill in a [lean canvas](https://leanstack.com/leancanvas) and justify each of your answers with direct customer feedback? If not, something's up. Can everyone in your organisation do the same thing and get to similar answers based on their own customer conversations? If not, something's up.
 
 1. The second hardest thing to get right remains not building too much, too soon. This gets exponentially harder the more people are involved
 
-1. Product Market Fit is a term that gets thrown around a lot. It's not easy to define but you really will know it when you see it. The best proxy I've yet seen is "when keeping up with the demand / inbound starts to feel intimidating". 
+1. Product Market Fit is a term that gets thrown around a lot. It's not easy to define but you really will know it when you see it. The best proxy I've yet seen is "when keeping up with the inbound starts to feel intimidating". 
 
 1. Don't do yourself a disservice by declaring "we've found product market fit" too soon. Some good questions to ask are "if we stop marketing this, would it keep growing?" and "How many clients would be devastated if this product went away tomorrow?"
 
 1. Once there are lots of people involved, brute force won't work for pushing back on building too much too soon, you need buy in from all stakeholders. [Lots](https://blog.intercom.com/rarely-say-yes-to-feature-requests/) of [examples](https://www.youtube.com/watch?v=9AM6QQlgLSQ) from other respected product led companies helps here
 
-1. You need to have a very clear separation between a) "don't build too much" and b) "building only what *you* think is right". If there is a perception you're doing the latter, getting buy in will always be an uphill battle
-
 1. Scoring systems are *invaluable* for getting buy in from larger teams about why some things are being built but others aren't. If you don't want to design your own, [RICE](https://blog.intercom.com/rice-simple-prioritization-for-product-managers/) is a good, simple starting point, but you'll probably end up needing one which aligns more closely with business objectives eventually
 
-1. Really good visual design *matters a lot*, hire a designer significantly earlier than you intuitively think you should. Where possible embrace component systems and design systems to make good design the default
+1. Really good visual design *matters a lot*, hire a designer significantly earlier than you intuitively think you should. Where possible embrace component and design systems to make good design the default
 
-1. Visual design is one of the easiest things to forget follows the 80/20 rule, which 20% is going to have 80% of the impact
+1. Visual design still follows the 80/20 rule
 
 1. Visual design and UX are not at all the same, people who are good at both are awesome. Be clear which you're hiring for and interview accordingly
 
@@ -58,21 +56,21 @@ Prior to Catapult I'd focussed more on bootstrapped businesses, so five years in
 
 1. Don't confuse someone not being clear what's expected from them with poor performance. The former is more likely to be your fault than theirs and this possibility should be eliminated before assuming poor performance
 
-1. Firing fast doesn't mean firing unexpectedly, feedback in the first one to three months should be regular and very honest. If in doubt be overly blunt, "at the moment X,Y,Z is good but A,B,C is not where we'd like it to be," then have regular conversations about A, B and C
+1. Firing fast doesn't mean firing unexpectedly, feedback in the first one to three months should be regular and honest. If in doubt be overly blunt, "at the moment X,Y,Z is good but A,B,C is not where we'd like it to be," then have regular conversations about A, B and C
 
-1. When hiring, don't underestimate how important peoples ability to communicate with empathy is. This is a very hard thing for someone to "pick up" quickly
+1. When hiring, don't underestimate how important peoples ability to communicate with empathy is. This is a very hard thing for someone to "pick up" subsequently
 
 1. Watching how people deal with those who are junior or they perceive as junior to them is a *very* good way of assessing how well they work with people in general. Bossiness, rudeness or a lack of self awareness should raise serious red flags
 
-1. It's painfully easy to make yourself a blocker. Once you've hired said smart people who you trust to make decisions, be brutally honest with yourself about whether you're really delegating enough decision making power to them
+1. It's painfully easy to make yourself a blocker. Once you've hired said smart people, be brutally honest with yourself about whether you're really delegating enough decision making power to them
 
-1. Be especially aware of making yourself a blocker in things you enjoy.
+1. Be especially aware of making yourself a blocker in things you enjoy
 
-1. As a rule of thumb, every time you say "it's quicker if I just do it myself", you're sacrificing medium and long term leverage while making the business a little bit less efficient and a little bit less resilient
+1. As a rule of thumb, every time you say "it's quicker if I just do it myself", you're sacrificing medium and long term leverage while making the business a little bit less resilient
 
-1. Hiring smart people and then micro-managing them is pretty much the worst thing you can do
+1. Hiring smart people and then micro-managing them is like hiring asking a michelin starred chef to pick you up a McDonalds
 
-1. As the team grows, it becomes much harder for everyone to stay in touch with what's happening across the business. There's no silver bullet, but as a way to keep alignment, maximising customer contact is close
+1. As the team grows, it becomes much harder for everyone to stay in touch with what's happening across the business. There's no silver bullet, but as a way to keep alignment, maximising customer contact helps
 
 1. Scoring systems are, in general, amazing tools for forcing structured, critical thinking and aligning stakeholders. But always be clear upfront that they're just tools, the "highest score" doesn't always "win"
 
@@ -88,13 +86,13 @@ Prior to Catapult I'd focussed more on bootstrapped businesses, so five years in
 
 1. Regularly re-visit which numbers are going to be on an investor deck in six months time, because six months time will be too late to make them better
 
-1. Understand in which roles it's essential for people to "know their numbers" and make sure they understand this. Empower them by removing barriers to them accessing and manipulating data themselves but do not tolerate them not knowing them.
+1. Develop a very low tolerence of people who don't "know their numbers". Empower people to understand their numbers by removing barriers to them accessing and manipulating data themselves but do not tolerate them not knowing them.
 
 1. Do not underestimate the power of giving a smart person a KPI and the tools to change it
 
 1. The numbers in an investor deck in six months should be the same as the ones department heads are being measured on which in turn should be the core numbers which drive your financial model. If these differ for a significant period, somethings up
 
-1. A smart person focussing exclusively on BI is valuable but en-powering people to answer their own questions is higher leverage. So where possible your BI person or team should focus on enablement rather than end user 
+1. A smart person focussing exclusively on BI is valuable but en-powering people to answer their own questions is higher leverage. So where possible your BI person or team should focus on enablement rather than end user data requests
 
 1. Data warehouses are a thing. It (probably) just means "big ole database". With tools like Redshift / BigQuery, Stitch and DBT it's possible to get almost anything into a standard database (Jira, Zendesk, Adwords spend, Facebook spend, Mixpanel, you name it). Then you can build dashboards with Metabase or Chartio. Then you can measure it properly
 
@@ -104,11 +102,13 @@ Prior to Catapult I'd focussed more on bootstrapped businesses, so five years in
 
 1. To quote Wear Sunscreen "Be careful whose advice you buy, but be patient with those who supply it". There are very few magic bullets or dramatic shortcuts out there. A good adviser who's been there before and can give you advice in both good times and bad is invaluable, but "landing adviser x" won't be what changes the game entirely for your business. Maintain a polite scepticism of people who give paid advice for a living. 10x this level of scepticism for anyone who gives advice about something they've never done themselves
 
+1. Get good at making it clear that your remote first engineering team is not outsourced, without ever using the word "outsourced"
+
 ## Development and tech
 
 1. Hire developers who love to ship and have a track record of shipping. When interviewing find out as much about what they've shipped and the trade-offs they had to consider to ship efficiently as you do about the technical side
 
-1. Developers who love to ship aren't averse to new and shiny, they embrace it, but they assess the new-shiny in terms of how it will allow them to ship more. They also tend to be passionately sceptical about new-shiny for the sake of it
+1. Developers who love to ship aren't averse to new and shiny, they assess the new-shiny in terms of whether it will allow them to ship more. They are generally passionately sceptical about new-shiny for the sake of it (because it gets in the way of shipping)
 
 1. It's not wasted time to experiment with new shiny and then decide "this is great, but there's no business case here (_it won't really help us ship_), let's leave it for now"
 
@@ -122,23 +122,25 @@ Prior to Catapult I'd focussed more on bootstrapped businesses, so five years in
 
 1. Cloud hosting, PaaS, IaaS makes sense in a *lot* of situations but not _all_ situations. Remember that it's only value for money if there's business benefit from the management and service layer they provide. Keep re-visiting this equation
 
-1. Remote-first is pretty much a no-brainer for development teams but be very careful to over-communicate that the team is remote-first, not out-sourced when dealing with investors
+1. Remote-first is pretty much a no-brainer for development teams, under normal circumstances, try and get everyone in one place about once every three months
 
 ## Learning
 
-1. It's almost certainly been done before, 
+1. It's almost certainly been done before and written about, not reading this is like leaving $50 bills on the pavement
+
+1. That doesn't mean you have to follow the way it's been done before, but you should be able to explain why you aren't
 
 1. If your goal is learning and personal growth, the hierarchy is something like: books > podcasts > articles > social media 
 
 1. Required reading; Four Steps to the Epiphany, High Output Management, The Hard Thing About Hard Things
 
-1. The A16Z, SaaStr and Indiehackers podcasts are great value for time, partly for the technical content, partly because it's motivating hearing smart people getting excited about stuff, great while running
+1. The [A16Z](@TODO), [SaaStr](@TODO) and [Indiehackers](@TODO) podcasts are great value for time, partly for the technical content, partly because it's motivating hearing smart people getting excited about stuff, great while running
 
 1. More reading and watching here; <https://www.talkingquickly.co.uk/2017/11/startup-reading-list/>
 
 ## Staying sane
 
-1. The busier you get, the more true it is that you'll be defined by your habits. Think a lot about these. The HabitShare app with a couple of people you really trust to keep you accountable works quite well
+1. The busier you get, the more true it is that you'll be defined by your habits. Think a lot about these. The HabitShare app with a couple of people you really trust to keep you accountable seems to help
 
 1. Get up early and have a routine. This won't be for everybody but a disproportionately large number of people who are achieving cool things, seem to develop this habit
 
@@ -150,6 +152,16 @@ Prior to Catapult I'd focussed more on bootstrapped businesses, so five years in
 
 1. It's worth persevering with some sort of mindfulness meditation, e.g. Headspace. Stick to it for at least a month or so and you'll _really_ start to feel the benefits
 
-1. Some sort of exercise regime which gives a sense of progression and achievement, for example running, is essential to counter the bad weeks
+1. Some sort of exercise regime which gives a standalone sense of progression and achievement, is essential to counter the bad weeks
 
 1. A startup will suck up as much energy and time as you can give it, time for family and loved ones won't just "happen", you have to actively carve this out
+
+1. Being a founder can often feel like being some sort of hybred secretary and intern; dealing with bitty things to make sure everyone else can get there stuff done. Get into the habit of carving out time at the start of the day to make progress on something big [One Thing](@TODO) is a great book on this
+
+1. Time will start to feel increasingly scarce, you're likely to become increasingly defensive of anyone making demands on it. [Make Time](@TODO) is a great book on this
+
+1. It's amazing how much time you can free up by cutting out social media, news and looking up random things on your phone
+
+1. Try and enjoy it; [it probably isn't a big deal](@TODO) is still good advice. Startups are still closer to marathons than sprints
+
+1. More on staying sane [here](@TODO)
