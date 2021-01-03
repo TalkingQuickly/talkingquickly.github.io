@@ -6,6 +6,7 @@ categories: devops ansible automation
 biofooter: true
 bookfooter: false
 docker_book_footer: false
+render_with_liquid: false
 ---
 
 Manual repetitive tasks are my nemesis and setting up a new Macbook from scratch is a prime example of this. Using Ansible we can completely automate this process. This is valuable both for individual efficiency and for facilitating standardised "team setups" so that new joiners avoid spending their first days googling obscure node version errors.
@@ -15,6 +16,8 @@ Manual repetitive tasks are my nemesis and setting up a new Macbook from scratch
 This posts outlines the setup I've evolved over the previous few years which means setting up a new Macbook pro for fairly broad development (Rails, Javascript, Elixir, Python, Android & iOS) now takes just a couple of commands. This includes loading all my shell customisations and GUI apps like Chrome, Office, Virtualbox etc.
 
 <!--more-->
+
+{% raw %}
 
 The repository for this post is here; <https://github.com/TalkingQuickly/ansible-osx-setup>. It's structured to be simple to understand and work with for inexperienced Ansible users.
 
@@ -81,17 +84,17 @@ Customise this by adding any additional third party repositories you need for so
 
 We then have:
 
-```yml
+```yaml
 - name: Install core packages via brew casks
-      community.general.homebrew_cask:
-        name: "{{ item }}"
-      ignore_errors: yes
-      with_items:
-        - 1password
-        - adoptopenjdk/openjdk/adoptopenjdk8
-        - android-sdk
-        - android-studio
-        ...
+  community.general.homebrew_cask:
+    name: "{{ item }}"
+  ignore_errors: yes
+  with_items:
+    - 1password
+    - adoptopenjdk/openjdk/adoptopenjdk8
+    - android-sdk
+    - android-studio
+    ...
 ```
 
 Which is responsible for installing graphical applications using homebrew casks. A huge proportion of GUI applications for MacOS have been packaged as Homebrew casks, so this allows us to automate the installation of everything from Office to Chrome, Firefox or VSCode.
@@ -100,15 +103,15 @@ This is using `community.general.homebrew_cask` which is the community maintaine
 
 We then install ordinary homebrew packages (both from core and the taps we added earlier):
 
-```
+```yaml
 - name: "Install homebrew packages"
-      community.general.homebrew:
-        name: [
-          'autoconf',
-          'automake',
-          'aws-iam-authenticator',
-          'awscli',
-          ...
+  community.general.homebrew:
+    name: [
+      'autoconf',
+      'automake',
+      'aws-iam-authenticator',
+      'awscli',
+      ...
 ```
 
 Note that at time of writing, certain types of exception (e.g. [this one](https://github.com/fishtown-analytics/homebrew-dbt/issues/7) in DBT) produce no logging output which can make failures at this step hard to debug. These types of failure are rare, but in this scenario the quickest way to find the offending package is to comment out half the list, re-run the playbook to see if the failure has gone away, and then continue to bisect the available packages. Once the offending package is found, then try to install it manually with `brew install PACKAGE` and see what the error is.
@@ -117,7 +120,7 @@ The next section is responsible for setting up ZSH as the users default shell al
 
 Note that Ansible provides some useful helpers for things like [ensuring that a line exists in a file](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/lineinfile_module.html), e.g:
 
-```yml
+```yaml
 - name: "Ensure homebrew zsh is in allowed shells"
   lineinfile:
     path: /etc/shells
@@ -129,7 +132,7 @@ Which is much easier to read than the `sed` magic we'd end up with if we were do
 
 Where needed however, there's nothing wrong with using Ansible to just automate the shell commands you'd usually run yourself, e.g. here we install Oh My ZSH and set ZSH as the default shell:
 
-```yml
+```yaml
 - name: Install Oh My ZSH
   shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
   args:
@@ -144,7 +147,7 @@ In many situations this is a great way to get started automating something with 
 
 We then have our first example of an Ansible template:
 
-```yml
+```yaml
 - name: "Create a default ZSH configuration"
   template:
     src: templates/.zshrc.j2
@@ -164,7 +167,7 @@ So when customising, e.g. adding aliases etc, rather than modifying `~/.zshrc` d
 
 We then move onto configuring VSCode, first by creating a default configuration file:
 
-```yml
+```yaml
 - name: Create a default VSCode configuration
   template:
     src: templates/vscode-settings.json.j2
@@ -179,7 +182,7 @@ We then use a similar task to create some default keybindings.
 
 Finally for VSCode, we install extensions:
 
-```yml
+```yaml
 - name: Install VSCode extensions
   shell: code --install-extension {{ item }}
   with_items:
@@ -207,7 +210,7 @@ The `.zshrc` which we looked at above already contains the lines to load asdf, t
 
 so we just need to clone the asdf repo which is done by this task:
 
-```yml
+```yaml
 - git:
     repo: https://github.com/asdf-vm/asdf.git
     dest: "/Users/{{ lookup('env', 'USER') }}/.asdf"
@@ -218,7 +221,7 @@ asdf is plugin based, e.g. there is a plugin to allow it to manage ruby versions
 
 So to begin with we install plugins for the languages we use:
 
-```yml
+```yaml
 - name: "Install asdf plugins"
   shell: |
     source /Users/{{ lookup('env', 'USER') }}/.asdf/asdf.sh
@@ -270,7 +273,7 @@ Which is only applicable if you will be using the machine for Android developmen
 
 Something not used in this playbook but also available is installing MacOS App Store apps directly with ansible via `mas` (which we installed with homebrew earlier):
 
-```yml
+```yaml
 - name: Install apps from the Mac App Store using mas (Assumes you're logged in etc)
   shell: mas install {{ item }}
   with_items:
@@ -315,3 +318,5 @@ ansible-playbook -i "localhost," -c local ansible_osx.yml --ask-become-pass
 If like me, Ansible commands just don't stick in your head, there's a shortcut for this in the form of `bin/apply`.
 
 If you follow this iterative approach of updating the playbook as you install new software, when the time comes to provision a new machine from scratch, it will be a much easier ride.
+
+{% endraw %}
