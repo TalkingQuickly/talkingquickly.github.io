@@ -1,7 +1,7 @@
 ---
 layout : post
 title: tmux, docker and SSH agent forwarding when developing remotely with VSCode
-date: 2021-01-04 10:00
+date: 2021-01-04 00:00
 categories: devops automation vscode
 biofooter: true
 bookfooter: false
@@ -55,7 +55,7 @@ The solution to this (not mine originally, see "thanks to" below) is to add anot
 
 ## Use within Docker
 
-Since `SSH_AUTH_SOCK` is a unix socket is essentially just like any other file and so can be mounted into docker containers and access from these. This is useful if you have CLI type docker containers. The below shows a very simple `docker-compose.yml` which assuming the above configuration, gives a bash shell with access to the docker hosts ssh agent (which can in turn be forwarded from another host).
+Since `SSH_AUTH_SOCK` is a unix socket it's essentially just like any other file and so can be mounted into docker containers and accessed from these. This is useful if you have CLI type docker containers. The below shows a very simple `docker-compose.yml` which assuming the above configuration, gives a bash shell with access to the docker hosts ssh agent (which can in turn be forwarded from another host).
 
 ```yaml
 version: "3"
@@ -71,4 +71,4 @@ services:
 
 ## Thanks to
 
-This is based heavily on the approach outlined here; https://werat.github.io/2017/02/04/tmux-ssh-agent-forwarding which didn't quite work for me; specifically I couldn't make setting `SSH_AUTH_SOCK` in `.tmux.conf` work.
+This is based heavily on the approach outlined [here](https://werat.github.io/2017/02/04/tmux-ssh-agent-forwarding) which didn't quite work for me; specifically I couldn't make setting `SSH_AUTH_SOCK` in `.tmux.conf` work.

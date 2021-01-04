@@ -23,7 +23,8 @@ RUN mkdir -p /home/deploy/app
 WORKDIR /home/deploy/app
 
 RUN mkdir /home/deploy/release
-RUN chown deploy:deploy /home/deploy/release
+RUN mkdir /home/deploy/.ssh
+RUN chown deploy:deploy /home/deploy/.ssh
 
 # Copy the Gemfile as well as the Gemfile.lock and install
 # the RubyGems. This is a separate step so the dependencies

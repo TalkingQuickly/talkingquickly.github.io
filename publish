@@ -1,0 +1,2 @@
+#!/bin/sh
+docker-compose run shell rake jekyll:publish_fast
