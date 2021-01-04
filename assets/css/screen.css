@@ -349,7 +349,7 @@ margin on the iframe, cause it breaks stuff. */
 .inner {
     position: relative;
     width: 80%;
-    max-width: 700px;
+    max-width: 800px;
     margin: 0 auto;
 }
 

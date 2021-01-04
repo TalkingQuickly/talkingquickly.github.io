@@ -28,7 +28,7 @@ Host A_FRIENDLY_NAME_FOR_THE_HOST
 
 You can then connect to this host locally with `ssh A_FRIENDLY_NAME_FOR_THE_HOST` and it will show up as `A_FRIENDLY_NAME_FOR_THE_HOST` in the VSCode remote explorer. SSH forwarding should "just work".
 
-To make SSH Forwarding play nicely with tmux, add the following to the **remote** machines `${shell}rc`, I use `zshc` so for me that's `.zshrc`:
+To make SSH Forwarding play nicely with tmux, add the following to the **remote** machines `${shell}rc`, I use `zsh` so for me that's `~/.zshrc`:
 
 ```bash
 # Make tmux play nicely with SSH Agent forwarding
