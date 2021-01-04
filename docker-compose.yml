@@ -12,6 +12,12 @@ services:
     build: .
     command: bash
     volumes:
-      - .:/home/deploy/app:delegated
-      - /Users/ben/.ssh:/home/deploy/.ssh
-      - ../talkingquickly.github.io.release:/home/deploy/release
+      - .:/home/deploy/app
+      - "${SSH_AUTH_SOCK}:/home/deploy/ssh_auth_sock"
+      - fast_deploy_cache:/home/deploy/release
+    environment:
+      SSH_AUTH_SOCK: /home/deploy/ssh_auth_sock
+
+
+volumes:
+  fast_deploy_cache:

@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y \
   rsync
 
 RUN useradd -ms /bin/bash deploy
+
 USER deploy
 
 RUN git config --global user.email "ben@talkingquickly.co.uk"
@@ -20,6 +21,9 @@ RUN git config --global user.name "Ben Dixon"
 # commands.
 RUN mkdir -p /home/deploy/app
 WORKDIR /home/deploy/app
+
+RUN mkdir /home/deploy/release
+RUN chown deploy:deploy /home/deploy/release
 
 # Copy the Gemfile as well as the Gemfile.lock and install
 # the RubyGems. This is a separate step so the dependencies
