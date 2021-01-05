@@ -60,12 +60,75 @@ On OSX if you don't have `ssh-copy-id` installed then you can install it with; `
 
 ## Provisioning the machine
 
-## 
+Now that you have a suitable VM, we can use Ansible to install the tools needed for development.
+
+Begin by cloning <https://github.com/TalkingQuickly/debian_dev_env>.
+
+We then need to [install Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) this is typically as simple as:
+
+```bash
+pip3 install ansible
+```
+
+Then from within the repo we cloned above, we fetch some community roles from Ansible Galaxy:
+
+```bash
+ansible-galaxy install -r requirements.yml
+```
+
+We then need to create an "inventory" file. An inventory file is just Ansible terminology for a file that tells it about the hosts it is going to be setting up. Start by creating a copy of the example inventory file:
+
+```bash
+cp inventory.example inventory.dev.yml
+```
+
+Which will create an inventory file `inventory.dev.yml` containing the following:
+
+```yml
+all:
+  hosts:
+    "SSH_HOST":
+      ansible_user: SSH_USERNAME
+      main_user: DESIRED_LOGIN_USER
+      ansible_ssh_port: SSH_PORT
+```
+
+Replace `SSH_HOST` with the hostname or IP address of the VM. For local virtualbox, this will be "localhost". Replace `SSH_USERNAME` with the user you use to connect via SSH, for virtualbox that's the user you created in the installer, for cloud VM providers it varies, for AWS it's often `ec2-user`, for GCP this will be shown to you when you create the VM and for hetzner VM's it's generally root.
+
+Replace `DESIRED_LOGIN_USER` with the user who you'll actually work as for development. If this user doesn't exist, they will be created and SSH key based login using the public key at `~/.ssh/id_rsa.pub` enabled. In the local Virtualbox scenario, this will be the user you created in the Debian installer (so `SSH_USERNAME` and `DESIRED_LOGIN_USER` will be the same).
+
+Finally replace `SSH_PORT` with the port for connecting to SSH, in most cases this will be 22, except for the local Virtualbox scenario where it will be `2222` (the host port we selected at the start).
+
+We're now ready to use Ansible to provision the machine:
+
+```bash
+ansible-playbook -i inventory.dev.yml main.yml --ask-become-pass
+```
+
+This will prompt you for a "BECOME password", this is the password which will be used to get root access. In the case of Virtualbox, this should be the root password.
+
+@TODO test this on Hetzner Cloud and GCP and find out how passwords work here.
+
+## VSCode Remote Development
+
+Now that the VM is provisioned, we're ready to use it for remote development. Let's begin by enabling SSH Forwarding. This means that rather than having to copy our SSH keys to the new VM to allow us to do things like clone git repositories, we can allow the VM to "forward" to our local machine and use those keys to access things, without the keys ever leaving our remote machine, there's more about how this works in my post on [making ssh forwarding play nicely with tmux](/2021/01/tmux-ssh-agent-forwarding-vs-code/).
+
+Add the following to `~/.ssh/config`:
+
+```
+Host A_FRIENDLY_NAME_FOR_THE_HOST
+  ForwardAgent yes
+  HostName ADDRESS_OR_IP_ADDRESS
+  User SSH_USERNAME
+  Port THE_SSH_PORT
+```
+
+Replacing the placeholders with your own values. You can now SSH into the remote machine using `ssh A_FRIENDLY_NAME_FOR_THE_HOST`.
+
+More importantly if you fire up VSCode, making sure you have the [Remote Development Extension Pack](https://code.visualstudio.com/docs/remote/remote-overview) installed, and navigate to the remote explorer tab, selecting "SSH targets" from the dropdown, you'll now see `A_FRIENDLY_NAME_FOR_THE_HOST` listed!
 
 ## What are we setting up
 
 ## Reading the Ansible playbook
-
-## VSCode Remote Development
 
 ## Faster docker development on macOS
