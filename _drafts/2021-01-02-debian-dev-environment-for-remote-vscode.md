@@ -1,7 +1,7 @@
 ---
 layout : post
 title: Automated Debian development environment for VSCode with Ansible
-date: 2021-01-05 00:00
+date: 2021-01-06 00:00
 categories: devops ansible automation vscode
 biofooter: true
 bookfooter: false
@@ -127,8 +127,35 @@ Replacing the placeholders with your own values. You can now SSH into the remote
 
 More importantly if you fire up VSCode, making sure you have the [Remote Development Extension Pack](https://code.visualstudio.com/docs/remote/remote-overview) installed, and navigate to the remote explorer tab, selecting "SSH targets" from the dropdown, you'll now see `A_FRIENDLY_NAME_FOR_THE_HOST` listed!
 
-## What are we setting up
+Right click on your host in this explorer and choose "Connect to host in current window" and you're ready to go! Opening the vscode built in terminal will seamlessly bring up a terminal on the remote machine. Using commands like `code FILENAME` to open a file will open files from the remote machine in the current vcode instance.
 
-## Reading the Ansible playbook
+Because we've setup SSH forwarding, we can use `git clone REPOSITORY` in this terminal to clone private repositories, and the public key on our local machine will be automatically used.
+
+Open folder allows folders on the remote machine to be opened in exactly the same way we usually open local folders and the file explorer will show the filesystem of the remote machine.
+
+If, having opened a project, we then start a server which can be access on a port, e.g. for Rails generally `3000`, we can go back to the "Remote Explorer", select "Forward a Port" and then enter `3000` and port `3000` will be made securely available on our local machine. So we can then access that server in our local web browser by going to `localhost:3000`. Ports can also be forwarded without using the mouse by opening the command palette and searching for "Forward a port".
 
 ## Faster docker development on macOS
+
+The Docker for Mac team have done an incredible job at creating a smooth developer experience for Mac users.
+
+The area which is still most problematic is filesystem performance. This is less an issue with Docker and more an issue with shared folder performance with virtual machines generally being substantially slower than native filesystem access.
+
+This problem is most notable when working with large projects, especially projects with many large files. [This post](https://www.jeffgeerling.com/blog/2020/revisiting-docker-macs-performance-nfs-volumes) provides an excellent summary of the key alternative approaches available for Docker for Mac and their performance characteristics. I tried all of these and Docker Sync (which is an amazing project in itself) yielded reasonable performance but with some admin complexity and reliability issues. It was mainly this quest for better docker performance on OSX that led me to switch to the approach outlined in this post.
+
+When using VSCode to develop remotely (either locally via Virtualbox or remotely on a cloud VM), we are operating directly on the filesystem of a Linux host, so there's no intermediate VM between our files and Docker. This means that there's no meaningful performance penalty, so commands run in Docker have almost identical performance characteristics to commands run locally.
+
+For a large Rails project, this was the difference between a time to first render of 30 seconds with vanilla Docker for Mac, 10 seconds with docker sync and 3 seconds using a local VM.
+
+## What are we setting up
+
+For a detailed understand of what's being installed and configured, see the next section (reading the ansible playbook). The core components we are installing and configuring:
+
+1. Hardening, enabling UFW to block all incoming connections except for SSH
+1. ZSH and OhMyZSH along with shell completions for docker, compose and Kubernetes tools
+1. ASDF as a version manager for all languages (including but not limited to Ruby, Python, Node, Elixir and Erlang)
+1. Docker and docker compose
+1. Common utilities (GCP and AWS clis, `htop`, `tmux`, `git` etc)
+1. Utilities for interacting with Kubernetes clusters; `kubectl`, `helm`, `kubectx` & `kubens`
+
+## Reading the Ansible playbook
