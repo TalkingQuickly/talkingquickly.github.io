@@ -127,7 +127,7 @@ Replacing the placeholders with your own values. You can now SSH into the remote
 
 More importantly if you fire up VSCode, making sure you have the [Remote Development Extension Pack](https://code.visualstudio.com/docs/remote/remote-overview) installed, and navigate to the remote explorer tab, selecting "SSH targets" from the dropdown, you'll now see `A_FRIENDLY_NAME_FOR_THE_HOST` listed!
 
-Right click on your host in this explorer and choose "Connect to host in current window" and you're ready to go! Opening the vscode built in terminal will seamlessly bring up a terminal on the remote machine. Using commands like `code FILENAME` to open a file will open files from the remote machine in the current vcode instance.
+Right click on your host in this explorer and choose "Connect to host in current window" and you're ready to go! Opening the vscode built in terminal will seamlessly bring up a terminal on the remote machine. Using commands like `code FILENAME` to open a file will open files from the remote machine in the current vscode instance.
 
 Because we've setup SSH forwarding, we can use `git clone REPOSITORY` in this terminal to clone private repositories, and the public key on our local machine will be automatically used.
 
@@ -159,3 +159,108 @@ For a detailed understand of what's being installed and configured, see the next
 1. Utilities for interacting with Kubernetes clusters; `kubectl`, `helm`, `kubectx` & `kubens`
 
 ## Reading the Ansible playbook
+
+One of the great things about Ansible is that it has a very shallow learning curve, you can get a lot done in it without having to learn that much. The goal of this section is to provide the bare minimum needed to understand what's happening and make simple tweaks. For a more comprehensive introduction, [start here](https://docs.ansible.com/ansible/latest/user_guide/intro_getting_started.html).
+
+Our command for running ansible is:
+
+```
+ansible-playbook -i inventory.dev.yml main.yml --ask-become-pass
+```
+
+This means "take the Ansible playbook defined in `main.yml` and apply it to the hosts defined in the inventory file `inventory.dev.yml`".
+
+If we look at `main.yml`, we see something like:
+
+```yaml
+# In a minimal Debian install, sudo won't be available, so we first
+# install that and make sure the user ansible connects to has access
+# to it
+- hosts: all
+  become: yes 
+  become_method: su
+  become_user: root
+
+  pre_tasks:
+    - include_role:
+        name: sudo
+  
+
+# Some tasks will fail if run directly as root (e.g. with `su` so once)
+# we have sudo installed above, we switch back to it before doing the
+# actual work
+- hosts: all
+  become: yes
+  become_method: sudo
+
+  roles:
+  - hardening
+  - docker
+  - general
+  - dotfiles
+  - asdf
+  - phraseapp
+  - kubernetes_tools
+```
+
+There are two distinct sections here. The first is purely responsible for ensuring that `sudo` is installed and available (which it isn't by default in a Debian install).
+
+The second section is where most of the work is done.
+
+`hosts: all` means that what's coming next should be run on all hosts in the inventory file, in our case there is only one.
+
+The `become` lines define how privileges should be escalated so that the Ansible user - who may not be root - is able to do things like installing software.
+
+`roles` accepts an array of role names. For each one (`$ROLE_NAME`), it then loads and executes the tasks defined in `roles/$ROLE_NAME/tasks/main.yml`. So for each of these roles, we now know to find out what it's doing we just need to look at the `main.yml` file in the relevant subdirectory.
+
+If we take `hardening` as an example, we see something like:
+
+```yaml
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
+- name: Install packages
+  package:
+    name:
+      - ufw
+
+- name: Allow rate limited connections to SSH
+  community.general.ufw:
+    rule: limit
+    port: ssh
+    proto: tcp
+
+- name: Deny everything else and enable UFW
+  community.general.ufw:
+    state: enabled
+    policy: deny
+```
+
+Which should be fairly self explanatory. For more information about what each task is doing, the Ansible documentation is excellent. So for example Googling "Ansible apt" gives [this](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_module.html) as it's first result which - as with all of their documentation - includes a large selection of easy to follow examples at the end.
+
+In our original setup, we executed this command:
+
+```
+ansible-galaxy install -r requirements.yml
+```
+
+In `requirements.yml` we describe any third party Ansible modules that we want to use. In this case it's a very short list:
+
+```yaml
+---
+collections:
+- name: community.general
+```
+
+We can then see a module from `community.general` being used in the above hardening example:
+
+```yaml
+- name: Allow rate limited connections to SSH
+  community.general.ufw:
+    rule: limit
+    port: ssh
+    proto: tcp
+```
+
+Googling "community.general.ufw" gives us [this](https://docs.ansible.com/ansible/latest/collections/community/general/ufw_module.html) page of documentation which includes comprehensive examples.
