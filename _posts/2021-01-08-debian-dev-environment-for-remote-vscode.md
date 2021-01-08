@@ -1,6 +1,6 @@
 ---
 layout : post
-title: Automated Debian development environment for VSCode with Ansible
+title: Automated remote Debian development environment for VSCode with Ansible
 date: 2021-01-08 00:00
 categories: devops ansible automation vscode
 biofooter: true
@@ -140,7 +140,7 @@ Replacing the placeholders with your own values. You can now SSH into the remote
 
 More importantly if you fire up VSCode, making sure you have the [Remote Development Extension Pack](https://code.visualstudio.com/docs/remote/remote-overview) installed, and navigate to the remote explorer tab, selecting "SSH targets" from the dropdown, you'll now see `A_FRIENDLY_NAME_FOR_THE_HOST` listed!
 
-Right click on your host in this explorer and choose "Connect to host in current window" and you're ready to go! Opening the vscode built in terminal will seamlessly bring up a terminal on the remote machine. Using commands like `code FILENAME` to open a file will open files from the remote machine in the current vscode instance.
+Right click on your host in this explorer and choose "Connect to host in current window" and you're ready to go! Opening the vscode built in terminal will seamlessly bring up a terminal on the remote machine. Using commands like `code FILENAME` to open a file will open files from the remote machine in the current vscode instance. If you're a tmux user see [this post](/2021/01/tmux-ssh-agent-forwarding-vs-code/) for the extra steps this Ansible playbook takes to make SSH forwarding play nicely with tmux.
 
 Because we've setup SSH forwarding, we can use `git clone REPOSITORY` in this terminal to clone private repositories, and the public key on our local machine will be automatically used.
 
