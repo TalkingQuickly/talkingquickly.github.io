@@ -1,16 +1,20 @@
 ---
 layout : post
 title: Automated Debian development environment for VSCode with Ansible
-date: 2021-01-06 00:00
+date: 2021-01-08 00:00
 categories: devops ansible automation vscode
 biofooter: true
 bookfooter: false
 docker_book_footer: false
 ---
 
-One of the things VSCode has done extremely well is creating a seamless remote development experience. Using the remote extension pack, specifically the SSH development extension, it's possible to run VSCode locally, while performing all actions on a remote server completely seamlessly. This allows us to use a local VM for much faster docker development on macOS. This also means we are free to spin up powerful Cloud VM's with many cores and plenty of RAM when we're working on more intensive tasks.
+One of the things VSCode has done extremely well is creating a seamless remote development experience. Using the remote extension pack, specifically the SSH development extension, it's possible to run VSCode locally, while performing all actions on a remote server completely seamlessly. This allows us to use a local VM for much faster docker development on macOS. It also means we are free to spin up powerful Cloud VM's with many cores and plenty of RAM when we're working on more intensive tasks.
 
-With this setup I seamlessly switch between fully local development using a Virtualbox VM and a 16 core cloud VM with 64GB of RAM when I need more horsepower. This is accomplished using an Ansible playbook which automatically sets up Debian VM's with sensible defaults for development, including a beautiful default ZSH configuration (inc auto-completions) and easy language version management with asdf. This post starts with the practical steps required for this setup, and then goes on to explain what's being installed and how it works.
+With this setup I seamlessly switch between fully local development using a Virtualbox VM and a 16 core cloud VM with 64GB of RAM when I need more horsepower. In both environments this provides the level of Docker performance I associate with developing directly on Linux machines.
+
+This is streamlined using an Ansible playbook which automatically sets up Debian VM's with sensible defaults for development, including a beautiful default ZSH configuration (inc auto-completions) and easy language version management with asdf. This post starts with the practical steps required for this setup, and then goes on to explain what's being installed and how it works.
+
+<!--more-->
 
 ## Set up a Virtualbox VM
 
@@ -24,7 +28,7 @@ Next go to the "Network" tab, choose "Advanced", then "Port Forwarding" and clic
 
 Download the latest Debian 10 installation ISO from the [Debian website](https://www.debian.org) and in "Settings / Storage" select the "Empty" slot under "Controller: IDE" and click the disc icon on the right, select "Choose a disc file" and then browse to the location of the downloaded Debian ISO and select it.
 
-Now start the VM where you'll be greeted by the Debian installer (if the display is tiny, try adjusting the scale factor for the VM under its video settings). Select your language, location etc and when asked for a hostname, enter something descriptive, this will be displayed in the shell prompt so that you know when you're working in the VM and when you're working locally, when prompted for domain name, you can leave this blank. Make sure you remember - or better store in your password manager - the root and user account credentials you create.
+Now start the VM where you'll be greeted by the Debian installer (if the display is tiny, try adjusting the scale factor for the VM under its video settings). Select your language, location etc and when asked for a hostname, enter something descriptive, this will be displayed in the shell prompt so that you know when you're working in the VM and when you're working locally. When prompted for domain name, you can leave this blank. Make sure you remember - or better store in your password manager - the root and user account credentials you create.
 
 Select default options for disk partitioning and then "Yes" when asked if you want to write the changes to disk (don't worry, you're writing changes to the Virtualbox disk, not your boot drive!). Choose no when asked if you want scan another CD / DVD. Select the defaults when going through the steps to setup the package manager.
 
@@ -44,7 +48,7 @@ The final step is to enable SSH key based login with:
 ssh-copy-id -p 2222 USERNAME@localhost
 ```
 
-On OSX if you don't have `ssh-copy-id` installed then you can install it with; `brew install ssh-copy-id` or `sudo port install openssh +ssh-copy-id`
+On MacOS if you don't have `ssh-copy-id` installed then you can install it with; `brew install ssh-copy-id` or `sudo port install openssh +ssh-copy-id`
 
 ## Cloud VM
 
@@ -56,7 +60,7 @@ If you're using a Cloud VM, choose the latest Debian 10 (Buster) image that's av
 ssh-copy-id USERNAME@SSH_HOST
 ```
 
-On OSX if you don't have `ssh-copy-id` installed then you can install it with; `brew install ssh-copy-id` or `sudo port install openssh +ssh-copy-id`
+On MacOS if you don't have `ssh-copy-id` installed then you can install it with; `brew install ssh-copy-id` or `sudo port install openssh +ssh-copy-id`
 
 ## Provisioning the machine
 
@@ -84,18 +88,21 @@ cp inventory.example inventory.dev.yml
 
 Which will create an inventory file `inventory.dev.yml` containing the following:
 
-```yml
+```yaml
 all:
   hosts:
     "SSH_HOST":
       ansible_user: SSH_USERNAME
       main_user: DESIRED_LOGIN_USER
       ansible_ssh_port: SSH_PORT
+      initial_become_method: su # this should be `su` if the SSH user does not, by default, have sudo access, otherwise (for most cloud providers) this should be `sudo`
 ```
 
-Replace `SSH_HOST` with the hostname or IP address of the VM. For local virtualbox, this will be "localhost". Replace `SSH_USERNAME` with the user you use to connect via SSH, for virtualbox that's the user you created in the installer, for cloud VM providers it varies, for AWS it's often `ec2-user`, for GCP this will be shown to you when you create the VM and for hetzner VM's it's generally root.
+Replace `SSH_HOST` with the hostname or IP address of the VM. For local virtualbox, this will be "localhost". Replace `SSH_USERNAME` with the user you use to connect via SSH, for virtualbox that's the user you created in the installer, for cloud VM providers it varies, for AWS it's often `ec2-user`, for GCP this will be your account username and for hetzner VM's it's generally root.
 
 Replace `DESIRED_LOGIN_USER` with the user who you'll actually work as for development. If this user doesn't exist, they will be created and SSH key based login using the public key at `~/.ssh/id_rsa.pub` enabled. In the local Virtualbox scenario, this will be the user you created in the Debian installer (so `SSH_USERNAME` and `DESIRED_LOGIN_USER` will be the same).
+
+`initial_become_method` should be set to `su` if the SSH user does not initially have sudo access, and `sudo` otherwise. So for Virtualbox, this should be `su`, for GCP; `sudo`.
 
 Finally replace `SSH_PORT` with the port for connecting to SSH, in most cases this will be 22, except for the local Virtualbox scenario where it will be `2222` (the host port we selected at the start).
 
@@ -105,9 +112,15 @@ We're now ready to use Ansible to provision the machine:
 ansible-playbook -i inventory.dev.yml main.yml --ask-become-pass
 ```
 
-This will prompt you for a "BECOME password", this is the password which will be used to get root access. In the case of Virtualbox, this should be the root password.
+This will prompt you for a "BECOME password", this is the password which will be used to get root access. If you set `initial_become_method` to `su` above, it should be the root password, otherwise it should be sudo password for `ansible_user`. In the case of Virtualbox, `initial_become_password` will be set to `su` so this should be the root password. For GCP this should be `sudo` and you can leave become pass blank, e.g. just press enter when prompted.
 
-@TODO test this on Hetzner Cloud and GCP and find out how passwords work here.
+If you get this error:
+
+```
+"Timeout (12s) waiting for privilege escalation prompt: 
+```
+
+Double check that you've set `initial_become_method` correctly above.
 
 ## VSCode Remote Development
 
@@ -141,7 +154,7 @@ The Docker for Mac team have done an incredible job at creating a smooth develop
 
 The area which is still most problematic is filesystem performance. This is less an issue with Docker and more an issue with shared folder performance with virtual machines generally being substantially slower than native filesystem access.
 
-This problem is most notable when working with large projects, especially projects with many large files. [This post](https://www.jeffgeerling.com/blog/2020/revisiting-docker-macs-performance-nfs-volumes) provides an excellent summary of the key alternative approaches available for Docker for Mac and their performance characteristics. I tried all of these and Docker Sync (which is an amazing project in itself) yielded reasonable performance but with some admin complexity and reliability issues. It was mainly this quest for better docker performance on OSX that led me to switch to the approach outlined in this post.
+This problem is most notable when working with large projects, especially projects with many large files. [This post](https://www.jeffgeerling.com/blog/2020/revisiting-docker-macs-performance-nfs-volumes) provides an excellent summary of the key alternative approaches available for Docker for Mac and their performance characteristics. I tried all of these and Docker Sync (which is an amazing project in itself) yielded reasonable performance but with some admin complexity and reliability issues. It was mainly this quest for better docker performance on MacOS that led me to switch to the approach outlined in this post.
 
 When using VSCode to develop remotely (either locally via Virtualbox or remotely on a cloud VM), we are operating directly on the filesystem of a Linux host, so there's no intermediate VM between our files and Docker. This means that there's no meaningful performance penalty, so commands run in Docker have almost identical performance characteristics to commands run locally.
 
@@ -264,3 +277,8 @@ We can then see a module from `community.general` being used in the above harden
 ```
 
 Googling "community.general.ufw" gives us [this](https://docs.ansible.com/ansible/latest/collections/community/general/ufw_module.html) page of documentation which includes comprehensive examples.
+
+
+## That's all folks
+
+Being able to quickly provision standardised linux development environments both locally and remotely has been a big boost to productivity and finally provided the best of both worlds in the Mac v Linux journey I've been flipflopping between for many years.
