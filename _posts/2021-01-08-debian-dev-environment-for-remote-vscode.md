@@ -18,7 +18,7 @@ This is streamlined using an Ansible playbook which automatically sets up Debian
 
 ## Set up a Virtualbox VM
 
-If you're using a cloud VM (e.g. GCP, AWS, Hetzner etc) then you can skip this section and go straight to "Cloud VM" below. 
+If you're using a cloud VM (e.g. GCP, AWS, Hetzner etc) then you can <a href="#cloud_vm">skip this section</a> and go straight to "Cloud VM" below. 
 
 Create a VM, select "Linux" as the type and "Debian (64 bit)" as the version. The amount of RAM to allocate to the VM varies depending on your workload but as a guide, I rarely allocate less than 4GB and often go for 8GB or 16GB. As a very rough rule of thumb, allocate half of your RAM and available threads to the development VM. Create a new virtual disk, if you're going to be working with Docker, allocate at least 100GB or so (Docker images add up quickly), choose VDI as the type of image and for optimal performance select "Fixed Size" when asked.
 
@@ -49,6 +49,8 @@ ssh-copy-id -p 2222 USERNAME@localhost
 ```
 
 On MacOS if you don't have `ssh-copy-id` installed then you can install it with; `brew install ssh-copy-id` or `sudo port install openssh +ssh-copy-id`
+
+<a id="cloud_vm">
 
 ## Cloud VM
 
