@@ -135,3 +135,5 @@ It's worth perusing [this Stack Overflow post](https://stackoverflow.com/questio
 Note that my test domain `ssotest.staging.talkingquickly.co.uk` results in a `dn` (Distinguished Name) made up of a comma separated list of `dc` (Domain Components)  `dc=ssotest,dc=staging,dc=talkingquickly,dc=co,dc=uk`. We can also see that our `ou`s from the `customLdiffFiles` have been created.
 
 So now we have an LDAP server and have a simple way of checking what's stored in it. We can now move onto installing Keycloak.
+
+{% include kubernetes-sso/contents.html active="openldap" %}

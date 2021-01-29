@@ -231,3 +231,5 @@ kubectl delete clusterrolebinding oidc-cluster-admin
 We can confirm that our groups login works with a simple `kubectl get pods`.
 
 We can take this further by creating more restrictive cluster roles (or using more of the in-built ones) to do things like creating users that only have access to certain namespaces within our cluster.
+
+{% include kubernetes-sso/contents.html active="kubernetesoidc" %}

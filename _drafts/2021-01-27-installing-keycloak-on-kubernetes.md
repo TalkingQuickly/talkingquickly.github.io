@@ -75,3 +75,5 @@ helm upgrade --install keycloak codecentric/keycloak --values keycloak/values-ke
 We've set the initial username and password of the keycloak user in the environment variables `KEYCLOAK_USER` and `KEYCLOAK_PASSWORD` in our `values-keycloak.yml`, well need these to login to the administrative console.
 
 We can then go to whichever URL we've selected for Ingress, in my case this was `https://sso.ssotest.staging.talkingquickly.co.uk`.
+
+{% include kubernetes-sso/contents.html active="keycloak" %}

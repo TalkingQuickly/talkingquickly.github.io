@@ -122,3 +122,5 @@ memberOf: cn=Administrators,ou=Group,dc=ssotest,dc=staging,dc=talkingquickly,dc=
 Which means the `memberOf` functionality we configured earlier is working. This is required by some applications - including the harbour docker registry - to manage access based on groups.
 
 This series of posts won't explore the use of `ldapsearch` much further, but it's a powerful tool and [this page](https://docs.oracle.com/cd/E19450-01/820-6169/ldapsearch-examples.html) is a handy cookbook of how it can be used. 
+
+{% include kubernetes-sso/contents.html active="keycloak_openldap" %}
