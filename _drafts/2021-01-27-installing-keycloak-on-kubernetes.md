@@ -9,13 +9,14 @@ docker_book_footer: false
 permalink: '/installing-keycloak-kubernetes-helm'
 ---
 
-In this post we cover how to install Keycloak on Kubernetes.
+Keycloak is a widely used open source identity and access management system. Think Okta but open source. This is where users will actually enter their username and password for services and where we'll configure which users can login to which applications. It will also provide users with a single directory of applications they can login to.
 
-This post is part of a series on single sign on for Kubernetes
+In this post - as part of the larger series on Kubernetes SSO - we cover how to install Keycloak on Kubernetes.
+
+<!--more-->
 
 {% include kubernetes-sso/contents.html active="keycloak" %}
 
-<!--more-->
 
 {% include kubernetes-sso/pre-reqs.html %}
 

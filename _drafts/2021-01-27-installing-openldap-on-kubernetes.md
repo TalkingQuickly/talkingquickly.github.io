@@ -11,11 +11,15 @@ permalink: '/installing-openldap-kubernetes-helm'
 
 In this post we cover how to install OpenLDAP on Kubernetes and how to test that it is working using the command line.
 
+LDAP while an older - and in some ways more challenging to work with - approach to SSO than something like OIDC, is still the de-facto standard.
+
+There are many popular applications which don't support OIDC but do support LDAP. This is likely to be the case for many years to come so for now, any robust SSO solution is likely to need to support LDAP.
+
 This post is part of a series on single sign on for Kubernetes
 
-{% include kubernetes-sso/contents.html active="openldap" %}
-
 <!--more-->
+
+{% include kubernetes-sso/contents.html active="openldap" %}
 
 {% include kubernetes-sso/pre-reqs.html %}
 

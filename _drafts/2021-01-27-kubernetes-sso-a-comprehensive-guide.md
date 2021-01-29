@@ -1,6 +1,6 @@
 ---
 layout : post
-title: Single Sign on to Kubernetes
+title: Kubernetes Single Sign On - a comprehensive guide
 date: 2021-01-27 15:40:00
 categories: devops
 biofooter: true
