@@ -126,3 +126,120 @@ Note that if we are still signed in as the admin user (rather than as a regular 
 
 Once we've successfully logged in with Keycloak, we'll simply be re-directed to a 404 page not found error because at the moment, there is nothing to authenticate. In practice we won't ever go to this URL directly, instead the authentication flow will be triggered automatically by visiting a protected application. So visiting this URL and logging in like this is purely to show that it works.
 
+## Putting an application behind auth
+
+Now that we've setup OAuth2 Proxy, we can install an example application and add annotations to the ingress definition to have it protected behind the auth.
+
+In this example we're going to simply install an instance of NGINX which serves up the default "Welcome to nginx!" page but require that users login with Keycloak before they can access it. Note that this is completely separate to the [NGINX Ingress](https://kubernetes.github.io/ingress-nginx/) that we're using for Kubernetes.
+
+We're going to be using the bitnami nginx helm chart for this so first we'll need to add the repo with:
+
+```
+helm repo add bitnami https://charts.bitnami.com/bitnami
+```
+
+We then configure our NGINX demo application along the lines of:
+
+```yaml
+serverBlock: |
+  log_format    withauthheaders '$remote_addr - $remote_user [$time_local] '
+                    '"$request" $status  $body_bytes_sent "$http_referer" '
+                    '"$http_user_agent" "$http_x_forwarded_for" "$http_x_auth_request_access_token"';
+                    
+    add_header    x-auth-request-access-token "$http_x_auth_request_access_token";
+
+  # HTTP Server
+  server {
+      # Port to listen on, can also be set in IP:PORT format
+      listen  8080;
+
+      include  "/opt/bitnami/nginx/conf/bitnami/*.conf";
+
+      location /status {
+          stub_status on;
+          access_log   off;
+          allow 127.0.0.1;
+          deny all;
+      }
+
+      access_log /dev/stdout withauthheaders;
+  }
+
+ingress:
+  enabled: true
+  hostname: nginx-demo-app2.ssotest.staging.talkingquickly.co.uk
+  tls: true
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-staging
+    nginx.ingress.kubernetes.io/auth-url: "https://oauth.ssotest.staging.talkingquickly.co.uk/oauth2/auth"
+    nginx.ingress.kubernetes.io/auth-signin: "https://oauth.ssotest.staging.talkingquickly.co.uk/oauth2/start?rd=$scheme://$best_http_host$request_uri"
+    nginx.ingress.kubernetes.io/auth-response-headers: "x-auth-request-user, x-auth-request-email, x-auth-request-access-token"
+    acme.cert-manager.io/http01-edit-in-place: "true"
+  
+service:
+  type: ClusterIP
+```
+
+The custom `serverBlock` is nothing to do with the actual authentication process. It instead does the following two things to facilitate using NGINX as a demo for the auth functionality:
+
+- Modifies the logging so that the `x-auth-request-access-token` header will be include in log output, this allows us to watch the logs and extract the tokens for analysis and testing
+- It automatically appends the `x-auth-request-access-token` header from the incoming request to the final user response, so that we can inspect it in the browser
+
+Note that especially outputting access tokens to logs is a security risk and should never be done in production.
+
+The lines associated with the authentication are the following:
+
+```yml
+ingress:
+  annotations:
+    nginx.ingress.kubernetes.io/auth-url: "https://oauth.ssotest.staging.talkingquickly.co.uk/oauth2/auth"
+    nginx.ingress.kubernetes.io/auth-signin: "https://oauth.ssotest.staging.talkingquickly.co.uk/oauth2/start?rd=$scheme://$best_http_host$request_uri"
+    nginx.ingress.kubernetes.io/auth-response-headers: "x-auth-request-user, x-auth-request-email, x-auth-request-access-token"
+    acme.cert-manager.io/http01-edit-in-place: "true"
+```
+
+The first, `nginx.ingress.kubernetes.io/auth-url` specifies the URL which should be used for checking if the current user is authenticated.
+
+When a request comes in, NGINX auth will first send the request onto this URL, note that it will not send the request body, only the headers, most importantly, any cookies which are associated with the request.
+
+The service at this URL (in our case OAuth2 Proxy) is responsible for validating, based on any cookies or headers present, whether the user is authenticated.
+
+If the user is authenticated, then the service returns a 2xx status code, and the request is passed onto our application. If it is not authenticated, then it is passed to the URL specified in `nginx.ingress.kubernetes.io/auth-signin` to kick off the authentication flow.
+
+This is why we had to set the cookie domain of OAuth2 Proxy to explicitly be the base domain, so that the cookie is available on all of the subdomains that we wish to authenticate from.
+
+Because of the `set_authorization_header = true` in our configuration, When a request is authenticated, OAuth2 Proxy will set the `x-auth-request-access-token` header on the 2xx response it sends back to NGINX to contain the auth token, in this case a JWT containing information about the user and their session.
+
+By default, there's no way for our original application to access this token and if we want our application to know which user is logging in or which groups they are a member of, it will need this information. 
+
+To rectify this, the annotation `nginx.ingress.kubernetes.io/auth-response-headers: "x-auth-request-user, x-auth-request-email, x-auth-request-access-token"` instructs the NGINX Ingress to take the listed headers from the returned 2xx response and append them to the response which goes to the backend application.
+
+Our backend application can then take this header and decode the JWT to gain information about the user.
+
+In the case of this simple example we simply output it to the logs (insecurely) and append it to the response sent to the user. So if we now go to our Ingress URL for our nginx demo app, in the example case this was https://nginx-demo-app2.ssotest.staging.talkingquickly.co.uk we'll be asked to login and then redirected to the "Welcome to nginx!" page. 
+
+We can then inspect the request using the network tab in our browser and we'll see that the `x-auth-request-access-token` is set on the response.
+
+If we copy the value of this header into a decoder such as the one at <https://jwt.io/> we'll see something like:
+
+```json
+{
+...
+  "scope": "openid email profile",
+  "email_verified": false,
+  "name": "Ben Dixon",
+  "groups": [
+    "/DockerRegistry",
+    "/KubernetesAdmins",
+    "/Administrators"
+  ],
+  "preferred_username": "talkingquickly",
+  "given_name": "Ben",
+  "family_name": "Dixon",
+  "email": "ben@talkingquickly.co.uk"
+}
+```
+
+Which in a more complex system, could then be used by our backend application to show different content depending on group membership or surface profile information to the user.
+
+## Limiting access to certain groups
