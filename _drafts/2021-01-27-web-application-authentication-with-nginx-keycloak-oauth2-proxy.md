@@ -9,15 +9,17 @@ docker_book_footer: false
 permalink: '/webapp-authentication-keycloak-OAuth2-proxy-nginx-ingress-kubernetes'
 ---
 
-Many third party applications we run on Kubernetes will already support either OIDC or LDAP based login. Some however will not. In addition we may wish to deploy our own applications and use Keycloak to manage access to them without going through the work of adding OIDC or LDAP integration to them.
-
-In this post we'll use OAuth2 Proxy to add authentication to a simple Ruby application. We'll then go one step further and get information about the logged in user and their group membership from within our web application. In it's simplest form, this would allow us to protect internal admin applications. In a more complete setup, we could setup a "customers" realm within Keycloak and delegate all of our authentication and authorization to Keycloak.
-
-We'll be able to add this authentication using simple ingress annotations on the ingress definitions, making this a great alternative to basic auth on Kubernetes.
-
-Note that OAuth2 Proxy is the [suggested replacement](https://www.keycloak.org/2020/08/sunsetting-louketo-project.adoc) for Keycloaks Gatekeeper / Louketo project which reached EOL in August 2020.
+In this post we'll setup a generic solution which allows us to add authentication via Keycloak to any application, simply by adding an ingress annotation. This gives us a much more extendable and secure alternative to basic auth.
 
 <!--more-->
+
+Many third party applications we run on Kubernetes will already support either OIDC or LDAP based login. Some however will not. In addition we may wish to deploy our own applications and use Keycloak to manage access to them without going through the work of adding OIDC or LDAP integration to them.
+
+We'll use OAuth2 Proxy to add authentication to a simple Ruby application. We'll then go one step further and get information about the logged in user and their group membership from within our web application. In it's simplest form, this would allow us to protect internal admin applications. In a more complete setup, we could setup a "customers" realm within Keycloak and delegate all of our authentication and authorization to Keycloak.
+
+We'll be using a generic OIDC adapter for OAuth2 Proxy, so while this tutorial focusses on Keycloak, this should be applicable to any OIDC capable identity provider.
+
+Note that OAuth2 Proxy is the [suggested replacement](https://www.keycloak.org/2020/08/sunsetting-louketo-project.adoc) for Keycloaks Gatekeeper / Louketo project which reached EOL in August 2020.
 
 {% include kubernetes-sso/contents.html active="webapp" %}
 
@@ -60,7 +62,12 @@ Finally we go to the "Mappers" tab, choose "Create" and select:
 
 And then choose save. This ensures that the groups the user is a member of are passed back to OAuth2 Proxy and subsequently to the application itself.
 
+While OAuth2 Proxy does have a "Keycloak" provider, we're going to use the generic OIDC provider. This is both a more general solution and allows for some additional functionality which is missing the the Keycloak provider, in particular automatic cookie refresh. There is an ongoing discussion within the OAuth2 Proxy team about modifying the Keycloak provider to use the OIDC provider.
+
 We can then create our configuration for OAuth2 Proxy, an example is included in `oauth2-proxy/values-oauth2-proxy.yml` and looks like this:
+
+@TODO update for OIDC provider 
+@TODO update for buffer sizes
 
 ```yaml
 # Oauth client configuration specifics
@@ -242,4 +249,11 @@ If we copy the value of this header into a decoder such as the one at <https://j
 
 Which in a more complex system, could then be used by our backend application to show different content depending on group membership or surface profile information to the user.
 
+## Token expiry and validation
+
+- @TODO Aligning cookie refresh and cookie expire with keycloak
+- @TODO Getting the public key and validating in a Ruby app
+
 ## Limiting access to certain groups
+
+- @TODO See if it's possible to limit to groups using the OIDC provider
