@@ -258,7 +258,7 @@ If we copy the value of this header into a decoder such as the one at <https://j
 
 Which in a more complex system, could then be used by our backend application to show different content depending on group membership or surface profile information to the user.
 
-## Token expiry and validation
+## Token expiry
 
 We effectively have two levels of authentication going on. When a request is first authenticated, OAuth2 Proxy communicates with Keycloak and gets an access token. Going forward when requests come in, as long as the OAuth2 Proxy cookie is present and valid, then the request will not be re-authenticated with Keycloak.
 
@@ -276,6 +276,32 @@ The first part `cookie_refresh`, instructs OAuth2 Proxy to refresh the access to
 The second part `cookie_expire` instructs OAuth 2 Proxy to expire the cookie if it's more than 30 minutes old. The user will then be passed back to KeyCloak to re-authenticate. This is again aligned with the default session expiry in Keycloak.
 
 ## Working with the token
+
+The file `jwt-ruby-example/main.rb` contains a simple example of how we could work with this token in a Ruby application. The code itself is very simple:
+
+```ruby
+require 'jwt'
+
+public_key_string = """
+PUBLIC_KEY_GOES_HERE
+"""
+
+public_key = OpenSSL::PKey::RSA.new(public_key_string)
+
+token = "TOKEN_GOES_HERE"
+
+decoded_token = JWT.decode token, public_key, true, { algorithm: 'RS256' }
+
+puts decoded_token
+```
+
+Here we replace `PUBLIC_KEY_GOES_HERE` with the public key which can be found by going to "Realm Settings" and then "Keys" in our Keycloak realm and then choosing "Public Key" for the `RS256` entry. 
+
+We then replace `TOKEN_GOES_HERE` with a token that we've copied from our example apps logs or headers and execute the script with `ruby main.rb` (after having run `bundle install` etc).
+
+The output will be the decoded token as a ruby map. So in a full web application (e.g. a Rails or Sinatra app), we could make decisions based on the groups the user is a member of or display to the user their currently logged in email address.
+
+Note that by default the tokens issued by Keycloak have a 1 minute expiry, so you have to be quick copying and pasting them into this script.
 
 ## Limiting access to certain groups
 
