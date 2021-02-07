@@ -275,6 +275,18 @@ The first part `cookie_refresh`, instructs OAuth2 Proxy to refresh the access to
 
 The second part `cookie_expire` instructs OAuth 2 Proxy to expire the cookie if it's more than 30 minutes old. The user will then be passed back to KeyCloak to re-authenticate. This is again aligned with the default session expiry in Keycloak.
 
+## Limiting access to certain groups
+
+It is possible to crudely limit login to users in particular groups by adding:
+
+```
+allowed_groups = ["/DemoAdmin"]
+```
+
+To the `configFile` block in OAuth2 Proxies configuration. This would have the effect of only allowing access if the logged in user was in the `DemoAdmin` Keycloak group. It's worth noting that at time of writing the user experience of this approach is quite poor because the user trying to login will simply see a 500 Internal Server error rather than an informative error message. If we look at the NGinx Ingress logs we'll see something like `auth request unexpected status: 400 while sending to client` which is because OAuth2 Proxy returns a 400 response when the user logs in but is not found to be in one of the allowed groups. 
+
+So while this approach is suitable for simple internal applications, handling group membership within the authenticated application will allow for a more user friendly experience.
+
 ## Working with the token
 
 The file `jwt-ruby-example/main.rb` contains a simple example of how we could work with this token in a Ruby application. The code itself is very simple:
@@ -299,10 +311,6 @@ Here we replace `PUBLIC_KEY_GOES_HERE` with the public key which can be found by
 
 We then replace `TOKEN_GOES_HERE` with a token that we've copied from our example apps logs or headers and execute the script with `ruby main.rb` (after having run `bundle install` etc).
 
-The output will be the decoded token as a ruby map. So in a full web application (e.g. a Rails or Sinatra app), we could make decisions based on the groups the user is a member of or display to the user their currently logged in email address.
-
 Note that by default the tokens issued by Keycloak have a 1 minute expiry, so you have to be quick copying and pasting them into this script.
 
-## Limiting access to certain groups
-
-- @TODO See if it's possible to limit to groups using the OIDC provider
+The output will be the decoded token as a ruby map. So in a full web application (e.g. a Rails or Sinatra app), we could make decisions based on the groups the user is a member of or display to the user their currently logged in email address.
