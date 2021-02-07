@@ -21,7 +21,7 @@ We'll be using a generic OIDC adapter for OAuth2 Proxy, so while this tutorial f
 
 Note that OAuth2 Proxy is the [suggested replacement](https://www.keycloak.org/2020/08/sunsetting-louketo-project.adoc) for Keycloaks Gatekeeper / Louketo project which reached EOL in August 2020.
 
-{% include kubernetes-sso/contents.html active="webapp" %}
+{% include kubernetes-sso/contents.html active="webapps" %}
 
 {% include kubernetes-sso/pre-reqs.html %}
 
@@ -124,7 +124,7 @@ The `set_authorization_header` line ensures that the JWT is passed back to the N
 
 Finally the `nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"` avoids an issue where the large headers which are often passed around with OAuth requests don't exceed the buffer size in NGinx which leads to errors along the lines of "Cookie "_oauth2_proxy" not present" and "upstream sent too big header while reading response header from upstream".
 
-## Installation OAuth2 Proxy
+## Installing OAuth2 Proxy
 
 While we wait for the `OAuth2 Proxy` chart to get a new home following the deprecation of the old helm stable repository, the most recent version is mirrored in the example code for this tutorial, so we can install OAuth 2 Proxy with:
 
@@ -202,7 +202,7 @@ Note that especially outputting access tokens to logs is a security risk and sho
 
 The lines associated with the authentication are the following:
 
-```yml
+```yaml
 ingress:
   annotations:
     nginx.ingress.kubernetes.io/auth-url: "https://oauth.ssotest.staging.talkingquickly.co.uk/oauth2/auth"
