@@ -43,7 +43,7 @@ In practice we don't need a deep understanding of the above because OAuth2 Proxy
 
 So we simple need to configure OAuth2 Proxy and then add suitable ingress annotations to the service we want to protect.
 
-## Installing OAuth2 Proxy
+## Configuring OAuth2 Proxy
 
 First we'll need to create a client application with Keycloak. Crate a new OpenID Connection application and set:
 
@@ -73,16 +73,14 @@ We can then create our configuration for OAuth2 Proxy, an example is included in
 # Oauth client configuration specifics
 config:
   clientID: "oauth2-proxy"
-  clientSecret: "YOUR_CLIENT_SECRET"
+  clientSecret: "YOUR_SECRET"
   # Create a new secret with the following command
   # openssl rand -base64 32 | head -c 32 | base64
-  cookieSecret: "GENERATE_A_NEW_SECRET"
+  cookieSecret: "YOUR_COOKIE_SECRET"
   configFile: |-
-    provider = "keycloak"
+    provider = "oidc"
     provider_display_name = "Keycloak"
-    login_url = "https://sso.ssotest.staging.talkingquickly.co.uk/auth/realms/master/protocol/openid-connect/auth"
-    redeem_url = "https://sso.ssotest.staging.talkingquickly.co.uk/auth/realms/master/protocol/openid-connect/token"
-    validate_url = "https://sso.ssotest.staging.talkingquickly.co.uk/auth/realms/master/protocol/openid-connect/userinfo"
+    oidc_issuer_url = "YOUR_ISSUER"
     email_domains = [ "*" ]
     scope = "openid profile email"
     cookie_domain = ".ssotest.staging.talkingquickly.co.uk"
@@ -92,6 +90,8 @@ config:
     pass_user_headers = true
     set_authorization_header = true
     set_xauthrequest = true
+    cookie_refresh = "1m"
+    cookie_expire = "30m"
 
 ingress:
   enabled: true
@@ -100,6 +100,7 @@ ingress:
     - oauth.ssotest.staging.talkingquickly.co.uk
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
+    nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
   tls:
     - secretName: oauth-proxy-tls
       hosts:
@@ -121,6 +122,10 @@ The `scope = "openid profile email"` line is important because by default, OAuth
 
 The `set_authorization_header` line ensures that the JWT is passed back to the NGinx ingress, this is important because it allows us to then pass this header back to the authenticating application so that it can access more information about the logged in user.
 
+Finally the `nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"` avoids an issue where the large headers which are often passed around with OAuth requests don't exceed the buffer size in NGinx which leads to errors along the lines of "Cookie "_oauth2_proxy" not present" and "upstream sent too big header while reading response header from upstream".
+
+## Installation OAuth2 Proxy
+
 While we wait for the `OAuth2 Proxy` chart to get a new home following the deprecation of the old helm stable repository, the most recent version is mirrored in the example code for this tutorial, so we can install OAuth 2 Proxy with:
 
 ```
@@ -129,7 +134,7 @@ helm upgrade --install oauth2-proxy ./charts/oauth2-proxy --values oauth2-proxy/
 
 We can then go the ingress domain that we selected for OAuth2 Proxy and we will see a "Sign in with Keycloak" option.
 
-Note that if we are still signed in as the admin user (rather than as a regular user in the realm we configured OAuth2 Proxy with(), then we will see something along the lines of 403 Permission Denied, Invalid Account. Incognito / private browsing windows are useful for avoiding this.
+Note that if we are still signed in as the admin user (rather than as a regular user in the realm we configured OAuth2 Proxy with, then we will see something along the lines of 403 Permission Denied, Invalid Account. Incognito / private browsing windows are useful for avoiding this.
 
 Once we've successfully logged in with Keycloak, we'll simply be re-directed to a 404 page not found error because at the moment, there is nothing to authenticate. In practice we won't ever go to this URL directly, instead the authentication flow will be triggered automatically by visiting a protected application. So visiting this URL and logging in like this is purely to show that it works.
 
@@ -182,6 +187,7 @@ ingress:
     nginx.ingress.kubernetes.io/auth-signin: "https://oauth.ssotest.staging.talkingquickly.co.uk/oauth2/start?rd=$scheme://$best_http_host$request_uri"
     nginx.ingress.kubernetes.io/auth-response-headers: "x-auth-request-user, x-auth-request-email, x-auth-request-access-token"
     acme.cert-manager.io/http01-edit-in-place: "true"
+    nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
   
 service:
   type: ClusterIP
@@ -203,9 +209,12 @@ ingress:
     nginx.ingress.kubernetes.io/auth-signin: "https://oauth.ssotest.staging.talkingquickly.co.uk/oauth2/start?rd=$scheme://$best_http_host$request_uri"
     nginx.ingress.kubernetes.io/auth-response-headers: "x-auth-request-user, x-auth-request-email, x-auth-request-access-token"
     acme.cert-manager.io/http01-edit-in-place: "true"
+    nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
 ```
 
-The first, `nginx.ingress.kubernetes.io/auth-url` specifies the URL which should be used for checking if the current user is authenticated.
+We include `acme.cert-manager.io/http01-edit-in-place: "true"` to workaround an issue with Cert Manager and setting auth response headers. We use `nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"` to avoid the same buffer size issue with OAuth headers which we described when installing OAuth 2 Proxy.
+
+The first core line is `nginx.ingress.kubernetes.io/auth-url` which specifies the URL which should be used for checking if the current user is authenticated.
 
 When a request comes in, NGINX auth will first send the request onto this URL, note that it will not send the request body, only the headers, most importantly, any cookies which are associated with the request.
 
@@ -251,8 +260,22 @@ Which in a more complex system, could then be used by our backend application to
 
 ## Token expiry and validation
 
-- @TODO Aligning cookie refresh and cookie expire with keycloak
-- @TODO Getting the public key and validating in a Ruby app
+We effectively have two levels of authentication going on. When a request is first authenticated, OAuth2 Proxy communicates with Keycloak and gets an access token. Going forward when requests come in, as long as the OAuth2 Proxy cookie is present and valid, then the request will not be re-authenticated with Keycloak.
+
+When working with JSON Web Tokens, this presents a problem because they will typically be issued with an expiry (by default in Keycloak this is 1 minute). This leads to a situation where the user is considered authenticated by OAuth2 Proxy but the JSON web token which is being passed in the `x-auth-request-access-token` header is expired. So if we were to then validate this token with our library of choice, we'd receive an exception that the token is invalid.
+
+The solution of this lies in the following part of the OAuth 2 Proxy configuration file:
+
+```
+cookie_refresh = "1m"
+cookie_expire = "30m"
+```
+
+The first part `cookie_refresh`, instructs OAuth2 Proxy to refresh the access token if the OAuth2 Proxy cookie hasn't been refreshed for a minute or more. This is aligned with the token expiry set in Keycloak and prevents us from adding stale access tokens to requests. Note that the reason for using the generic OIDC provider in OAuth2 Proxy rather than the specific "Keycloak" one is that the "Keycloak" provider does not (at time of writing) support refresh tokens).
+
+The second part `cookie_expire` instructs OAuth 2 Proxy to expire the cookie if it's more than 30 minutes old. The user will then be passed back to KeyCloak to re-authenticate. This is again aligned with the default session expiry in Keycloak.
+
+## Working with the token
 
 ## Limiting access to certain groups
 
