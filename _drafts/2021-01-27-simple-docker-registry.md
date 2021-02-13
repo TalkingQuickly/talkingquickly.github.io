@@ -19,7 +19,7 @@ This post is part of a series on single sign on for Kubernetes.
 
 {% include kubernetes-sso/pre-reqs.html %}
 
-This post assumes you've already completed the "Intalling OpenLDAP" and "Installing Keycloak" sections.
+This post assumes you've already completed the "Installing Keycloak" section.
 
 ## Configuring Keycloak
 
@@ -148,6 +148,10 @@ docker pull registry-keycloak.ssotest.staging.talkingquickly.co.uk/SOME_NAME
 ```
 
 Where we'll receive a permission denied message.
+
+## Use with Kubernetes
+
+In order to access images in the registry we'll need to create appropriate image pull secrets as described [here in the kubernetes documentation](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/).
 
 ## Summary
 
