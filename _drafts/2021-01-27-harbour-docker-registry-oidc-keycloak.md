@@ -1,12 +1,12 @@
 ---
 layout : post
-title: Comprehensive docker registry with Harbor and Keycloak for single sign on
+title: Comprehensive docker registry on Kubernetes with Harbor and Keycloak for single sign on
 date: 2021-01-27 15:40:00
 categories: devops
 biofooter: true
 bookfooter: false
 docker_book_footer: false
-permalink: '/harbor-docker-registry-authentication-with-keycloak'
+permalink: '/harbor-docker-registry-on-kubernetes-authentication-with-keycloak'
 ---
 
 In this post we'll install a feature rich but lightweight docker registry and integrate login and authorization with Keycloak and Keycloak groups. 
