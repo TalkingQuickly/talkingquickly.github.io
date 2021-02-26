@@ -9,9 +9,9 @@ docker_book_footer: false
 permalink: '/harbor-docker-registry-on-kubernetes-authentication-with-keycloak'
 ---
 
-In this post we'll install a feature rich but lightweight docker registry and integrate login and authorization with Keycloak and Keycloak groups. 
+In this post we'll install a feature rich but lightweight docker registry and integrate login and authorization with Keycloak users and groups. 
 
-[Harbor](https://goharbor.io) is a open source registry which can serve multiple types of cloud artifacts and secure them using fine grained access control. In this case we'll be focussed on using harbor as a docker image registry and linking it's authentication with Keycloak but it is also capable of serving multiple other types of artifact, including helm charts.
+[Harbor](https://goharbor.io) is an open source registry which can serve multiple types of cloud artifacts and secure them using fine grained access control. In this case we'll be focussed on using harbor as a docker image registry and linking it's authentication with Keycloak but it is also capable of serving multiple other types of artifact, including helm charts.
 
 This post is part of a series on single sign on for Kubernetes.
 
@@ -71,20 +71,20 @@ helm repo add harbor https://helm.goharbor.io
 helm upgrade --install harbor-registry harbor/harbor --values=./harbor/values-harbor.yml
 ```
 
-Once this command completes, we'll be able to access the Harbor UI using the ingress URL we selected for `core` with the username `admin` and the password we specified in `harborAdminPassword`. It takes a while for the various components to start and it's not unusual to see a few pods in `CrashLoopBackoff` for a while while this is happening.
+Once this command completes, we'll be able to access the Harbor UI using the ingress URL we selected for `core` with the username `admin` and the password we specified in `harborAdminPassword`. It takes a while for the various components to start and it's not unusual to see a few pods in `CrashLoopBackoff` temporarily while this is happening.
 
-Note that we cannot `docker login` with our admin user and we don't currently have any regular users. We should not create any regular users because we can only switch to OIDC based login if no users other than `admin` have been created.
+Note that we cannot `docker login` with our Harbor admin user and we don't currently have any regular harbor users. We should not create any regular users because we can only switch to OIDC based login if no users other than `admin` have been created.
 
-If we create a test user now and then subsequently delete it, we still won't be able to switch to OIDC based login.
+If we create a test user now and then subsequently delete it, we still won't be able to switch to OIDC based login. Instead we'll configure Keycloak login.
 
 ## Creating a client in Keycloak
 
 In the KeyCloak clients UI create a new client with Client ID `harbor` and Client Protocol "openid-connect" with the following configuration:
 
 - **Access Type**: `confidential`
-- **Valid Redirect URIs**: `https://YOUR_HARBOR_INGRESS_DOMAIN/c/oidc/callback`
+- **Valid Redirect URIs**: `https://YOUR_HARBOR_CORE_INGRESS_DOMAIN/c/oidc/callback`
 
-Then save the client and make a note of the "Client Secret" in the newly appeared credentials tab.
+Then save the client and make a note of the "Client Secret" in the newly available credentials tab.
 
 Finally head to the "Mappers" tab for the client and create the following Protocol Mapper:
 
@@ -125,7 +125,7 @@ As an example we can then as an admin user, create a private project called "tes
 
 ## Use with Docker
 
-Assuming we have created the `test1` private project above and given our Keycloak user access to it, we can login to the docker registry from our local CLI with the following command:
+Assuming we have created the `test1` private project above and given our Keycloak master realm user access to it, we can login to the docker registry from our local CLI with the following command:
 
 ```
 docker login YOUR_HARBOR_CORE_INGRESS_URL
@@ -137,7 +137,7 @@ So in my example case this would be:
 docker login core.harbor.ssotest.staging.talkingquickly.co.uk
 ```
 
-We can then use our keycloak username. For a password, we should not use our Keycloak password (this won't work) we should instead obtain our CLI Secret from Harbor by clicking on our username in the top right hand corner, choosing "User Profile" and copying the CLI secret.
+We can then use our keycloak master realm user username. For a password, we should not use our Keycloak password (this won't work) we should instead obtain our CLI Secret from Harbor by clicking on our username in the top right hand corner, choosing "User Profile" and copying the CLI secret.
 
 We can then tag an image to be pushed to this repository with:
 
@@ -171,7 +171,7 @@ curl -u "admin:HARBOR_ADMIN_PASSWORD" -H "Content-Type: application/json" -ki YO
 
 Note that at time of writing, the docs at <https://goharbor.io/docs/1.10/install-config/configure-user-settings-cli/> were slightly behind the current version and while this is the case, getting the existing configuration object provides a better overview of the configuration options available.
 
-So to set up OIDC auth via CLI:
+So to set up OIDC auth via CLI we can use:
 
 ```
 curl -X PUT -u "admin:YOUR_ADMIN_PASSWORD" -H "Content-Type: application/json" -ki YOUR_HARBOR_CORE_INGRESS_URL/api/v2.0/configurations -d'{"auth_mode":"oidc_auth", "oidc_name":"Keycloak Auth", "oidc_endpoint":"YOUR_KEYCLOAK_REALM_INGRESS", "oidc_client_id":"harbor", "oidc_client_secret":"YOUR_KEYCLOAK_CLIENT_SECRET", "oidc_scope":"openid,profile,email,offline_access", "oidc_groups_claim":"groups", "oidc_auto_onboard":"true", "oidc_user_claim":"preferred_username"}'
@@ -194,3 +194,5 @@ In order to access images in the registry we'll need to create appropriate image
 ## Summary
 
 We now have a self hosted registry for docker images which is fully integrated with Keycloak for authentication. We can also configure this via the command line if we want to automate setup with a configuration management tool such as Chef or Ansible.
+
+{% include kubernetes-sso/contents.html active="harborregistry" %}
