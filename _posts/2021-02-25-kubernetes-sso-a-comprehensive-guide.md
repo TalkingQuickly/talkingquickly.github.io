@@ -13,7 +13,7 @@ In this series of posts we cover how to setup a comprehensive group based single
 
 The full solution uses Keycloak backed by OpenLDAP. OpenLDAP is required for the Gitea component, but can be skipped for the other components, including OIDC based SSO for `kubectl`.
 
-Some of the highlights this series explains how to do are:
+Some of the highlights this series covers are:
 
 1. Login to the `kubectl` cli using SSO credentials via the browser
 1. Replace basic auth ingress annotations with equally simple but much more secure SSO annotations
