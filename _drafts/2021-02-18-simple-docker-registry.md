@@ -9,7 +9,7 @@ docker_book_footer: false
 permalink: '/docker-registry-authentication-with-keycloak'
 ---
 
-In this post we'll cover how to use Keycloak to provide a simple authentication layer for a Docker registry. Simple meaning that in order to push and pull images to the registry, the user will first need to `docker login` as any valid user in the provided Keycloak realm. Note that there is no additional access control, so all Keycloak users have the ability to perform any action on any image once authenticated. For more fine grained controls, see the section on using Harbour.
+In this post we'll cover how to use Keycloak to provide a simple authentication layer for a Docker registry. Simple meaning that in order to push and pull images to the registry, the user will first need to `docker login` as any valid user in the provided Keycloak realm. Note that there is no additional access control, so all Keycloak users have the ability to perform any action on any image once authenticated. For more fine grained controls, see the section on [using Harbour](/harbor-docker-registry-on-kubernetes-authentication-with-keycloak).
 
 This post is part of a series on single sign on for Kubernetes.
 
@@ -87,7 +87,7 @@ The `configData` section at the top configures the Docker Registry to use token 
 
 You'll then need to update the ingress definitions to reflect the URL you wish to make your docker registry available on, so replacing `registry-keycloak.ssotest.staging.talkingquickly.co.uk` with the subdomain you'll be using.
 
-Note that ingress annotation `nginx.ingress.kubernetes.io/proxy-body-size: "0"` which removes the default limit on the maximum body size NGINX will accept and avoids `413 Request Entity Too Large` when pushing large images.
+Note that ingress annotation `nginx.ingress.kubernetes.io/proxy-body-size: "0"` removes the default limit on the maximum body size NGINX will accept and avoids `413 Request Entity Too Large` when pushing large images.
 
 The `extraVolumes` section creates a volume which will contain the files from the `docker-registry-auth-token-rootcertbundle` secret we created. The `extraVolumeMounts` section instructs Kubernetes to mount this volume at the `/root-cert-bundle` path within the Docker registry container which matches the `rootcertbundle` path that we specified in the `configData` map at the start.
 
@@ -155,4 +155,6 @@ In order to access images in the registry we'll need to create appropriate image
 
 ## Summary
 
-We now have a private Docker Registry which can only be accessed by users authenticated via Keycloak. For more advanced configurations, for example where only certain users should be able to access the registry or where more granular access control is required, see [Harbour Docker Registry with Keycloak](@TODO).
+We now have a private Docker Registry which can only be accessed by users authenticated via Keycloak. For more advanced configurations, for example where only certain users should be able to access the registry or where more granular access control is required, see [Harbour Docker Registry with Keycloak](/harbor-docker-registry-on-kubernetes-authentication-with-keycloak).
+
+{% include kubernetes-sso/contents.html active="dockerregistry" %}
