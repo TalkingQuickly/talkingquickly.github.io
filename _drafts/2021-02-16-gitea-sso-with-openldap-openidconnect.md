@@ -1,7 +1,7 @@
 ---
 layout : post
 title: Gitea SSO with Keycloak, OpenLDAP and OpenID Connect
-date: 2021-01-27 15:40:00
+date: 2021-02-16 15:40:00
 categories: devops
 biofooter: true
 bookfooter: false

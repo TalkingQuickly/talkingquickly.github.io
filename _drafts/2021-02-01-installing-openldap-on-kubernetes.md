@@ -1,7 +1,7 @@
 ---
 layout : post
 title: Installing OpenLDAP on Kubernetes with Helm
-date: 2021-01-27 15:40:00
+date: 2021-02-01 15:40:00
 categories: devops
 biofooter: true
 bookfooter: false

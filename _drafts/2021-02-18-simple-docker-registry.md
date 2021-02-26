@@ -1,7 +1,7 @@
 ---
 layout : post
 title: Docker Registry Authentication on Kubernetes with Keycloak
-date: 2021-01-27 15:40:00
+date: 2021-02-18 15:40:00
 categories: devops
 biofooter: true
 bookfooter: false

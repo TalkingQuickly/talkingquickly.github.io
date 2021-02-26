@@ -1,7 +1,7 @@
 ---
 layout : post
 title: Web application authentication and authorization with Keycloak and OAuth2 Proxy on Kubernetes using Nginx Ingress
-date: 2021-01-27 15:40:00
+date: 2021-02-21 15:40:00
 categories: devops
 biofooter: true
 bookfooter: false

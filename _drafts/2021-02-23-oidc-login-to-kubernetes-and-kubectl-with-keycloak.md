@@ -1,7 +1,7 @@
 ---
 layout : post
 title: OIDC Login to Kubernetes and Kubectl with Keycloak
-date: 2021-01-27 15:40:00
+date: 2021-02-23 15:40:00
 categories: devops
 biofooter: true
 bookfooter: false
@@ -11,7 +11,7 @@ permalink: '/setting-up-oidc-login-kubernetes-kubectl-with-keycloak'
 
 A commonly cited pain point for teams working with Kubernetes clusters is managing the configuration to connect to the cluster. All to often this ends up being either distributing Kubeconfig files with hardcoded credentials (insecure) or custom shell scripts over the AWS or GCP cli's.
 
-In this post we'll integrate Kubernetes with Keycloak so that when we execute a `kubectl` or `helm` command, if the user is not already authenticated, they'll be presented with a keycloak browser login where they can enter their credentials.
+In this post we'll integrate Kubernetes with Keycloak so that when we execute a `kubectl` or `helm` command, if the user is not already authenticated, they'll be presented with a keycloak browser login where they can enter their credentials. No more sharing KUBECONFIG files and forgetting to export different KUBECONFIG paths.
 
 We'll also configure group based access control, so we can, for example create a "KubernetesAdminstrators" group, and have all users in that group given `cluster-admin` access.
 

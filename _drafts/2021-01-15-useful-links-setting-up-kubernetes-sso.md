@@ -1,7 +1,7 @@
 ---
 layout : post
 title: Useful Links when Setting up SSO on Kubernetes
-date: 2021-01-27 15:40:00
+date: 2021-01-15 15:40:00
 categories: devops
 biofooter: true
 bookfooter: false
