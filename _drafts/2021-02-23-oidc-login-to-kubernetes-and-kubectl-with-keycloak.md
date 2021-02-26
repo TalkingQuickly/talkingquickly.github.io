@@ -9,17 +9,17 @@ docker_book_footer: false
 permalink: '/setting-up-oidc-login-kubernetes-kubectl-with-keycloak'
 ---
 
-A commonly cited pain point for teams working with Kubernetes clusters is managing the configuration to connect to the cluster. All to often this ends up being either distributing Kubeconfig files with hardcoded credentials (insecure) or custom shell scripts over the AWS or GCP cli's.
+A commonly cited pain point for teams working with Kubernetes clusters is managing the configuration to connect to the cluster. All to often this ends up being either sending KUBECONFIG files with hardcoded credentials back and forth or fragile custom shell scripts wrapping the AWS or GCP cli's.
 
-In this post we'll integrate Kubernetes with Keycloak so that when we execute a `kubectl` or `helm` command, if the user is not already authenticated, they'll be presented with a keycloak browser login where they can enter their credentials. No more sharing KUBECONFIG files and forgetting to export different KUBECONFIG paths.
+In this post we'll integrate Kubernetes with Keycloak so that when we execute a `kubectl` or `helm` command, if the user is not already authenticated, they'll be presented with a keycloak browser login where they can enter their credentials. No more sharing KUBECONFIG files and forgetting to export different KUBECONFIG paths!
 
-We'll also configure group based access control, so we can, for example create a "KubernetesAdminstrators" group, and have all users in that group given `cluster-admin` access.
+We'll also configure group based access control, so we can, for example create a `KubernetesAdminstrators` group, and have all users in that group given `cluster-admin` access automatically.
 
 When we remove a user from Keycloak (or remove them from the relevant groups within Keycloak) they will then lose access to the cluster (subject to token expiry).
 
 For this we'll be using OpenID Connect, more [here](https://kubernetes.io/docs/reference/access-authn-authz/authentication/#openid-connect-tokens) on how this works.
 
-By default, configuring Kubernetes to support OIDC auth requires passing flags to the kubernetes API server. The challenge with this approach is that only one such provider can be configured and managed Kubernetes offerings - e.g. GCP or AWS - use this for their proprietary IAM systems.
+By default, configuring Kubernetes to support OIDC auth requires passing flags to the kubelet API server. The challenge with this approach is that only one such provider can be configured and managed Kubernetes offerings - e.g. GCP or AWS - use this for their proprietary IAM systems.
 
 To address this we will use [kube-oidc-proxy](https://github.com/jetstack/kube-oidc-proxy), a tool from Jetstack which allows us to connect to a proxy server which will manage OIDC authentication and use impersonation to give the authenticating user the required permissions. This approach has the benefit of being universal across clusters, so we don't have to follow different approaches for our managed vs unmanaged clusters.
 
@@ -38,13 +38,13 @@ This also assumes you've already followed the Installing Keycloak section and ha
 First we'll create a new client in Keycloak with Client ID: `kube-oidc-proxy` and client protocol: `openid-connect`. We'll then configure the following parameters for this client:
 
 - **Access Type**: `confidential`, this is required for a client secret to be generated
-- **Valid Redirect URLs**: `http://localhost:8000` and `http://localhost:18000`. This is used by [kubelogin](https://github.com/int128/kubelogin) as a callback when we login to kubectl and a browser window can be opened for us to authenticate with keycloak.
+- **Valid Redirect URLs**: `http://localhost:8000` and `http://localhost:18000`. This is used by [kubelogin](https://github.com/int128/kubelogin) as a callback when we login with `kubectl` so a browser window can be opened for us to authenticate with keycloak.
 
 We can then save this new client and a new "Credentials" tab will appear. We'll need the generated client secret along with our client id (`kube-oidc-proxy`) for later steps.
 
 ## Setting up Kube OIDC Proxy
 
-Having created the client, we can now create our configuration for `kube-oidc-proxy`. A base configuration can be found in `kube-oidc-proxy/values-kube-oidc.yml` and looks something like this:
+Having created the client, we can now create our configuration for `kube-oidc-proxy`. A sample configuration can be found in `kube-oidc-proxy/values-kube-oidc.yml` and looks like this:
 
 ```yaml
 oidc:
@@ -72,7 +72,7 @@ ingress:
 
 The important things to customise here are:
 
-- The `issuerUrl`, this is the URL of our keycloak instance, including the realm (in our case we're using the default master realm)
+- The `issuerUrl`, this is the URL of our keycloak instance, including the realm (in this case we're using the default master realm)
 - The hostnames within the ingress definition. This URL will be a second Kubernetes API URL, so once our SSO login is setup, our kubeconfig files will point at this URL instead of the default cluster endpoint
 
 The `extraArgs` `v: 10` sets `kube-oidc-proxy` to output verbose logging methods which is useful for debugging issues. In production this line can be removed.
@@ -137,7 +137,7 @@ export KUBECONFIG=./kubelogin/kubeconfig.yml
 kubectl get pods  
 ```
 
-Managing your kubeconfig files is beyond the scope of this tutorial but if you aren't already I strongly recommend some combination of [direnv](https://direnv.net) and [kubectx](https://github.com/ahmetb/kubectx). Both my Debian Remote Dev Env Environement (@todo link) and OSX Setup (@todo link) provide these tools out of the box.
+Managing your kubeconfig files is beyond the scope of this tutorial but if you aren't already I strongly recommend some combination of [direnv](https://direnv.net) and [kubectx](https://github.com/ahmetb/kubectx). Both my [Debian Remote Dev Env Environment](/2021/01/debian-dev-environment-for-remote-vscode/) and [OSX Setup](/2021/01/macos-setup-with-ansible/) provide these tools out of the box.
 
 It's important to note that the `export KUBECONFIG=./kubelogin/kubeconfig.yml` is local to an individual terminal session, so if you switch to a new terminal tab or close and re-open your terminal, it will be gone and you'll fallback to using whichever `KUBECONFIG` envrironment variable your shell is set to use by default.
 
@@ -153,7 +153,7 @@ Although our user is authenticated, e.g. Kubernetes knows that the current user 
 
 We can fix this by creating a cluster role binding which binds our user to the `cluster-admin` role which is the "superuser" role on Kubernetes.
 
-We'll need to execute this in a separate temrinal, e.g. one in which we have not run `export KUBECONFIG=./kubelogin/kubeconfig.yml` and so `KUBECONFIG` is still pointing at a kubeconfig file which gives us admin access to the cluster.
+We'll need to execute this in a separate temrinal, e.g. one in which we have not run `export KUBECONFIG=./kubelogin/kubeconfig.yml` and so `KUBECONFIG` is still pointing at a kubeconfig file which gives us `cluster-admin` access to the cluster.
 
 ```
 kubectl create clusterrolebinding oidc-cluster-admin --clusterrole=cluster-admin --user='oidcuser:OUR_USER_ID'
@@ -167,7 +167,7 @@ Note the `oidcuser:` prefix which is added due to the `usernamePrefix: "oidcuser
 
 The above setup allows us to use `kubectl` while authenticating with our keycloak user. However for each user we have to create an individual cluster role binding assigning them permissions. This is manual and becomes painful for anything beyond a small handful of users.
 
-The solution to this lies in groups, we'll configure our kubernetes oidc implementation to be aware of Keycloak groups. We can then create a `kubernetes-admins` group and have all users in this group given `cluster-admin` permissions automatically using a single ClusterRoleBinding.
+The solution to this lies in groups, we'll configure our kubernetes oidc implementation to be aware of Keycloak groups. We can then create a `KubernetesAdmin` group in Keycloak and have all users in this group given `cluster-admin` permissions automatically using a single ClusterRoleBinding.
 
 Begin by creating a `KubernetesAdmins` group in Keycloak and then creating a new user and adding them to this group. 
 
