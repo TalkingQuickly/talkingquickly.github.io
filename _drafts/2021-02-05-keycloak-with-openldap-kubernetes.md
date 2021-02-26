@@ -1,7 +1,7 @@
 ---
 layout : post
 title: Keycloak and OpenLDAP on Kubernetes
-date: 2021-01-27 15:40:00
+date: 2021-02-05 15:40:00
 categories: devops
 biofooter: true
 bookfooter: false
@@ -9,7 +9,7 @@ docker_book_footer: false
 permalink: '/keycloak-and-openldap-on-kubernetes'
 ---
 
-In this post we'll cover how - having installed Keycloak and OpenLDAP separately on Kubernetes - to link the two together so that Keycloak users OpenLDAP as it's primary store for user data.
+In this post we'll cover how - having installed Keycloak and OpenLDAP separately on Kubernetes - to link the two together so that Keycloak uses OpenLDAP as it's primary store for user data.
 
 This post is part of a series on single sign on for Kubernetes.
 
@@ -23,7 +23,7 @@ This post assumes you've already completed the "Intalling OpenLDAP" and "Install
 
 ## Configuring OpenLDAP in Keycloak
 
-After logging into Keycloak with our admin user, head to User Federation and select `ldap` from the "Add Provider` dropdown. Then choose the following options:
+After logging into the Keycloak administrative console with our admin user, head to User Federation and select `ldap` from the "Add Provider` dropdown. Then choose the following options:
 
 - **Edit Mode**: `Writable`
 - **Sync Registrations**: `On`
@@ -47,17 +47,15 @@ We then need to select "Create", enter `group` as the Name for our federation ma
 - **Membership LDAP Attribute**: `uniqueMember`
 - **User Groups Retrieve Strategy**: `LOAD_GROUPS_BY_MEMBER_ATTRIBUTE`
 
-And choose save. This configuration is slightly different to the default and ensures that the `memberOf` attribute works correctly. There's a long Github issue on it [here](https://github.com/osixia/docker-openldap/issues/304). This is required by some applications - including the harbour docker registry - to manage access based on groups.
+And choose save. This configuration is slightly different to the default and ensures that the `memberOf` attribute works correctly. There's a long Github issue on it [here](https://github.com/osixia/docker-openldap/issues/304). This is required by some applications to manage access based on groups.
 
-Note that in order to test that `memberOf` is working correctly, we'll need to include "+" as part of our `ldapsearch` command e.g:
+Note that in order to test that `memberOf` is working correctly with `ldapsearch`, we'll need to [include operational attributes](https://docs.oracle.com/cd/E19623-01/820-6169/searching-for-special-entries-and-attributes.html) by including "+" as part of our `ldapsearch` command e.g:
 
 ```
 ldapsearch -x -H ldap://localhost:3890 -b dc=ssotest,dc=staging,dc=talkingquickly,dc=co,dc=uk -D "cn=admin,dc=ssotest,dc=staging,dc=talkingquickly,dc=co,dc=uk" "+" -w password
 ```
 
-To [include operational attributes](https://docs.oracle.com/cd/E19623-01/820-6169/searching-for-special-entries-and-attributes.html).
-
-To run the commands locally you'll need to forward the OpenLDAP port to your local machine with:
+To run the commands locally we'll need to forward the OpenLDAP port to our local machine with:
 
 ```bash
 kubectl port-forward --namespace identity \
@@ -67,7 +65,7 @@ kubectl port-forward --namespace identity \
 
 ## Managing users and testing that it works
 
-We can now use Keycloak to add a user by going to the "Users" option in the left hand pane and choosing Add user. After populating and saving the new user form, we can use `ldapsearch` to check that the user has been created in `openldap`. To run the commands locally you'll need to forward the OpenLDAP port to your local machine with:
+We can now use Keycloak to add a user by going to the "Users" option in the left hand pane and choosing Add user. After populating and saving the new user form, we can use `ldapsearch` to check that the user has been created in `openldap`. To run the commands locally we'll need to forward the OpenLDAP port to our local machine with:
 
 ```bash
 kubectl port-forward --namespace identity \
@@ -119,7 +117,7 @@ If we then look at the entry for our user, assuming we have used the "+" option 
 memberOf: cn=Administrators,ou=Group,dc=ssotest,dc=staging,dc=talkingquickly,dc=co,dc=uk
 ```
 
-Which means the `memberOf` functionality we configured earlier is working. This is required by some applications - including the harbour docker registry - to manage access based on groups.
+Which means the `memberOf` functionality we configured earlier is working.
 
 This series of posts won't explore the use of `ldapsearch` much further, but it's a powerful tool and [this page](https://docs.oracle.com/cd/E19450-01/820-6169/ldapsearch-examples.html) is a handy cookbook of how it can be used. 
 

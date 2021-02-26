@@ -76,4 +76,12 @@ We've set the initial username and password of the keycloak user in the environm
 
 We can then go to whichever URL we've selected for Ingress, in my case this was `https://sso.ssotest.staging.talkingquickly.co.uk`.
 
+And can then choose to login to the administrative console. From here we can create users and "client" apps that we'll use for configuring other applications with Keycloak SSO.
+
+Note that logging into the administrative console is separate to logging in as a Keycloak service user.
+
+Within Keycloak we can create multiple "realms" which are essentially standalone auth services. For example we might have one realm for internal systems and one real for customers. The default realm is called "master" and so using my ingress URL, users would login to this realm at <https://sso.ssotest.staging.talkingquickly.co.uk/auth/realms/master/account>. Visiting <https://sso.ssotest.staging.talkingquickly.co.uk/auth/realms/master> would give some useful information about the realm.
+
+A common source of confusion is attempting to test logins using administrative credentials rather than credentials from a user who has been created in a specific realm. Incognito or Sandboxed browser tabs are useful for this.
+
 {% include kubernetes-sso/contents.html active="keycloak" %}
