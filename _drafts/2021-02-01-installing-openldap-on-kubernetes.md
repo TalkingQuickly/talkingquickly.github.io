@@ -27,7 +27,7 @@ This post is part of a series on single sign on for Kubernetes
 
 The Helm chart for OpenLDAP was deprecated as part of the deprecation of the `stable` chart repository. So while we await a replacement to appear, the most recent version is mirrored in the repo for this tutorial.
 
-. We'll want to create a `openldap/values-openldap.yml` file and customise the following variables:
+An example helm values file is abailable in `openldap/values-openldap.yml` and we'll want to customise the following sections:
 
 ```yaml
 # Default configuration for openldap as environment variables. These get injected directly in the container.
@@ -62,9 +62,9 @@ customLdifFiles:
 
 In this case `dc=ssotest,dc=staging,dc=talkingquickly,dc=co,dc=uk` is the base domain I'm using for my test Kubernetes cluster. For the purposes of setting up our LDAP server, this is just an internal identifier, so does not need to map to any sort of DNS.
 
-The `customLdifFiles` section is being used to pre-seed the LDAP database. In this case with two `organizationalUnit`'s, one `People` will be used to store individual users and another `Group` will be used to store Groups. `OU`s can be though of simplistically as analogous to folders in a traditional file system, [this article on ous](ttps://www.theurbanpenguin.com/openldap-ous/) is well worth a read to get a better understanding for how they fit together.
+The `customLdifFiles` section is being used to pre-seed the LDAP database. In this case with two `organizationalUnit`'s, one of type `People` which will be used to store individual users and another with type `Group` will be used to store Groups. `OU`s can be though of simplistically as analogous to folders in a traditional file system, [this article on ous](ttps://www.theurbanpenguin.com/openldap-ous/) is well worth a read to get a better understanding for how they fit together.
 
-We can install OpenLDAP with the following command:
+We can now install OpenLDAP with the following command:
 
 ```bash
 helm upgrade --install openldap ./charts/openldap --values openldap/values-openldap.yml
@@ -72,7 +72,7 @@ helm upgrade --install openldap ./charts/openldap --values openldap/values-openl
 
 Once it installs, you should see some output confirming success and some examples of how to access the server.
 
-Importantly this will includes the commands which will give instructions for getting the config and administration passwords, e.g:
+Importantly this will include the commands for retrieving the config and administration passwords, e.g:
 
 ```
 kubectl get secret --namespace identity openldap -o jsonpath="{.data.LDAP_ADMIN_PASSWORD}" | base64 --decode; echo
