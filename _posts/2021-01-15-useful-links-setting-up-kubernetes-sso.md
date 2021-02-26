@@ -13,8 +13,6 @@ While creating the comprehensive guide to Kubernetes SSO, I leant heavily on man
 
 <!--more-->
 
-{% include kubernetes-sso/contents.html active="links" %}
-
 LDAP section of the Keycloak manual: <https://www.keycloak.org/docs/6.0/server_admin/#_ldap>
 
 Tutorial on Keycloak + OpenLDAP: <https://geek-cookbook.funkypenguin.co.nz/recipes/keycloak/authenticate-against-openldap/>
@@ -75,8 +73,10 @@ Tool for logging into kubectl via OIDC; <https://github.com/int128/kubelogin/blo
 
 More on debugging OIDC login; <https://github.com/int128/kubelogin/issues/156>
 
-More on different kubelogin flows, e.g. browser vs password (https://github.com/int128/kubelogin/blob/master/docs/usage.md)
+More on different kubelogin flows, e.g. browser vs password <https://github.com/int128/kubelogin/blob/master/docs/usage.md>
 
 Grafana OIDC info: <https://grafana.com/docs/grafana/latest/auth/generic-oauth/>
+
+The series:
 
 {% include kubernetes-sso/contents.html active="links" %}
