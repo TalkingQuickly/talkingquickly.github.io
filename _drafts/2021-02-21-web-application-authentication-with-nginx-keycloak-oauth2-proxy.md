@@ -15,11 +15,13 @@ In this post we'll setup a generic solution which allows us to add authenticatio
 
 Many third party applications we run on Kubernetes will already support either OIDC or LDAP based login. Some however will not. In addition we may wish to deploy our own applications and use Keycloak to manage access to them without going through the work of adding OIDC or LDAP integration to them.
 
-We'll use OAuth2 Proxy to add authentication to a simple Ruby application. We'll then go one step further and get information about the logged in user and their group membership from within our web application. In it's simplest form, this would allow us to protect internal admin applications. In a more complete setup, we could setup a "customers" realm within Keycloak and delegate all of our authentication and authorization to Keycloak.
+We'll use OAuth2 Proxy to add authentication to a simple nginx container.
 
-We'll be using a generic OIDC adapter for OAuth2 Proxy, so while this tutorial focusses on Keycloak, this should be applicable to any OIDC capable identity provider.
+We'll then look at how the application being authenticated can access and decode the Keycloak JSON Web Token and use this for things like group based authorization.
 
-Note that OAuth2 Proxy is the [suggested replacement](https://www.keycloak.org/2020/08/sunsetting-louketo-project.adoc) for Keycloaks Gatekeeper / Louketo project which reached EOL in August 2020.
+In it's simplest form, this would allow us to protect internal admin applications. In a more complete setup, we could setup a "customers" realm within Keycloak and delegate all of our authentication and authorization to Keycloak.
+
+For this we'll be using [OAuth2 Proxy](https://github.com/oauth2-proxy/oauth2-proxy) which is the [suggested replacement](https://www.keycloak.org/2020/08/sunsetting-louketo-project.adoc) for Keycloaks Gatekeeper / Louketo project which reached EOL in August 2020.
 
 {% include kubernetes-sso/contents.html active="webapps" %}
 
@@ -314,3 +316,5 @@ We then replace `TOKEN_GOES_HERE` with a token that we've copied from our exampl
 Note that by default the tokens issued by Keycloak have a 1 minute expiry, so you have to be quick copying and pasting them into this script.
 
 The output will be the decoded token as a ruby map. So in a full web application (e.g. a Rails or Sinatra app), we could make decisions based on the groups the user is a member of or display to the user their currently logged in email address.
+
+{% include kubernetes-sso/contents.html active="webapps" %}
