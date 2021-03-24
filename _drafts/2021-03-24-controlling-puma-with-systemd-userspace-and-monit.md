@@ -13,7 +13,7 @@ Many guides to deploying Rails with Capistrano will use systemd to have it auto-
 
 The typical workaround for this is either to grant our Capistrano deployment user passwordless sudo access or to grant them passwordless sudo access to just the commands required to restart the rails (and potentially sidekiq) systemd services.
 
-This can be avoided by using the systemd user instance, which allows persistent services to be managed as a non-root user.
+This can be avoided by using the systemd user instance, which allows persistent services to be managed as a non-root user. This is compatible with the default systemd configuration in Ubuntu 20.04.
 
 <!-- More -->
 
