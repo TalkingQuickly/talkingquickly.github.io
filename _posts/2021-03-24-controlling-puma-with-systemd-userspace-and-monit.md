@@ -15,7 +15,7 @@ The typical workaround for this is either to grant our Capistrano deployment use
 
 This can be avoided by using the systemd user instance, which allows persistent services to be managed as a non-root user. This is compatible with the default systemd configuration in Ubuntu 20.04.
 
-<!-- More -->
+<!--more-->
 
 There are multiple locations systemd user instance units can be located, there's more [here](https://wiki.archlinux.org/index.php/systemd/User), in this case we'll be using: 
 
