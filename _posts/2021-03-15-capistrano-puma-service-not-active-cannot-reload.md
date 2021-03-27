@@ -3,8 +3,8 @@ layout : post
 title: Capistrano & Puma; service puma is not active, cannot reload
 date: 2021-03-14 15:40:00
 categories: devops
-biofooter: true
-bookfooter: false
+biofooter: false
+bookfooter: true
 docker_book_footer: false
 permalink: '/capistrano-puma-is-not-active-cannot-reload'
 ---

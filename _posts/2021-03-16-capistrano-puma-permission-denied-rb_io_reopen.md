@@ -3,8 +3,8 @@ layout : post
 title: Capistrano & Puma with Systemd; Permission denied @ rb_io_reopen
 date: 2021-03-16 15:40:00
 categories: devops
-biofooter: true
-bookfooter: false
+biofooter: false
+bookfooter: true
 docker_book_footer: false
 permalink: '/capistrano-puma-systemd-permission-denied-@rb_io_repopen'
 ---

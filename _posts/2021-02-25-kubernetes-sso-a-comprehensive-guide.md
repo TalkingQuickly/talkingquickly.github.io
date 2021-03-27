@@ -3,8 +3,8 @@ layout : post
 title: Kubernetes Single Sign On - A detailed guide
 date: 2021-02-25 15:40:00
 categories: devops
-biofooter: true
-bookfooter: false
+biofooter: false
+bookfooter: true
 docker_book_footer: false
 permalink: '/kubernetes-sso-a-detailed-guide'
 ---

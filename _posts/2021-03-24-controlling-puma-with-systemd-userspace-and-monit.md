@@ -3,8 +3,8 @@ layout : post
 title: Managing puma with the systemd user instance and monit
 date: 2021-03-23 15:40:00
 categories: devops
-biofooter: true
-bookfooter: false
+biofooter: false
+bookfooter: true
 docker_book_footer: false
 permalink: '/managing-puma-with-systemd-user-instance-and-monit'
 ---

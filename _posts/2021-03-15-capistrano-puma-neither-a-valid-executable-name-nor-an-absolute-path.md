@@ -3,8 +3,8 @@ layout : post
 title: Capistrano & Puma; neither a valid executable name nor an absolute path
 date: 2021-03-14 15:40:00
 categories: devops
-biofooter: true
-bookfooter: false
+biofooter: false
+bookfooter: true
 docker_book_footer: false
 permalink: '/capistrano-puma-neither-valid-executable-nor-absolute-path'
 ---

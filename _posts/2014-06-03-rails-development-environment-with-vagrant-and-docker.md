@@ -4,8 +4,8 @@ title: "A Rails Development Environment with Docker and Vagrant"
 date: 2014-06-03 08:00:00
 categories: devops
 biofooter: false
-bookfooter: false
-docker_book_footer: true
+bookfooter: true
+docker_book_footer: false
 ---
 
 Onboarding new developers to a Rails projects is still a far harder task than it should be. A big part of this is that setting up a development environment for an app or suite of apps, getting the correct ruby versions, database versions etc running locally, can in many cases take upwards of a day. A combination of Vagrant and Docker can make this a thing of the past.
