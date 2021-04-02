@@ -3,8 +3,8 @@ layout : post
 title: Web application authentication and authorization with Keycloak and OAuth2 Proxy on Kubernetes using Nginx Ingress
 date: 2021-02-21 15:40:00
 categories: devops
-biofooter: false
-bookfooter: true
+biofooter: true
+bookfooter: false
 docker_book_footer: false
 permalink: '/webapp-authentication-keycloak-OAuth2-proxy-nginx-ingress-kubernetes'
 ---

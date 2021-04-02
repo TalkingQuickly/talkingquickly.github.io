@@ -3,8 +3,8 @@ layout : post
 title: OIDC Login to Kubernetes and Kubectl with Keycloak
 date: 2021-02-23 15:40:00
 categories: devops
-biofooter: false
-bookfooter: true
+biofooter: true
+bookfooter: false
 docker_book_footer: false
 permalink: '/setting-up-oidc-login-kubernetes-kubectl-with-keycloak'
 ---
