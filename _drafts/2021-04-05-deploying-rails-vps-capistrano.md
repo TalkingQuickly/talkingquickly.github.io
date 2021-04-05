@@ -15,7 +15,7 @@ We'll first use Chef to provision a VPS including securing and hardening the ser
 
 This tutorial is in two parts:
 
-- [Setting up a VPS for Rails app Deployment](/setting-up-ubuntu-20-04-for-rails-app-deployment)
+- [Setting up a VPS for Rails app Deployment](/setting-up-ubuntu-20-04-focal-fossa-vps-for-rails-app-deployment)
 - **[Deploying Rails to Ubuntu 20.04 with Capistrano](/deploying-rails-to-a-vps-with-capistrano-and-systemd)**
 
 <!--more-->
