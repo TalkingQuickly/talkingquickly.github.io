@@ -13,7 +13,7 @@ One of the most popular posts on this blog is on how to use Capistrano 2 to depl
 
 This post and the sample code has been updated to be compatible with the latest Capistrano 3.1.
 
-**2021 Update**: A revised version of this tutorial is [available here](/deploying-rails-to-a-vps-with-capistrano-and-systemd).
+**2021 Update**: A revised version of this tutorial is [available here](/deploying-rails-to-a-vps-with-capistrano-v3-and-systemd).
 
 ## What's new in V3.
 
