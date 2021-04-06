@@ -252,6 +252,8 @@ bundle exec cap production database:create
 
 And our database will be ready for use.
 
+If we wish to setup our database manually, we will need to create the appropriate database and user, then create a suitable `database.yml` file on our remote server in `/home/deploy/apps/FULL_APP_NAME/shared/config` replacing `FULL_APP_NAME` with the value that will be generated for `:full_app_name` in our `production.rb`. This is typically `APP_NAME_STAGE` e.g. `my_rails_app_production`.
+
 ## Disabling Passwordless Sudo (optional)
 
 Our configuration commands require the ability for our deploy user to execute sudo commands without being prompted for a password.
