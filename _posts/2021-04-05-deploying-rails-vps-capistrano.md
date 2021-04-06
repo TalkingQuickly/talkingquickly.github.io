@@ -20,7 +20,7 @@ In this tutorial we'll use Capistrano to automate deployment of our application,
 This tutorial is in two parts:
 
 - [Setting up a VPS for Rails app Deployment](/setting-up-ubuntu-20-04-focal-fossa-vps-for-rails-app-deployment)
-- **[Deploying Rails to Ubuntu 20.04 with Capistrano](/deploying-rails-to-a-vps-with-capistrano-and-systemd)**
+- **[Deploying Rails to Ubuntu 20.04 with Capistrano](/deploying-rails-to-a-vps-with-capistrano-v3-and-systemd)**
 
 
 Note that this post is intended to be a tutorial rather than a reference, so the focus will be on the steps that need to be completed rather than exploring the why.
