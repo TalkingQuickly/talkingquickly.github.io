@@ -13,12 +13,12 @@ Deploying Rails to a VPS with Capistrano remains one of the simplest and most re
 
 We'll first use Chef to provision a VPS including securing and hardening the server, installing the correct Ruby version(s) and setting up Postgres and Redis. We'll then use Capistrano to deploy our Rails app, including appropriate systemd units to ensure our services are started automatically on boot .
 
+<!--more-->
+
 This tutorial is in two parts:
 
 - **[Setting up a VPS for Rails app Deployment](/setting-up-ubuntu-20-04-focal-fossa-vps-for-rails-app-deployment)**
 - [Deploying Rails to Ubuntu 20.04 with Capistrano](/deploying-rails-to-a-vps-with-capistrano-and-systemd)
-
-<!--more-->
 
 Note that this post is intended to be a tutorial rather than a reference, so the focus will be on the steps that need to be completed rather than exploring the why.
 

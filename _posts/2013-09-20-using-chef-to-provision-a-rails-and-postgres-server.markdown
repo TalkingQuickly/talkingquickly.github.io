@@ -8,6 +8,8 @@ bookfooter: true
 ---
 This is a brief overview of how to use chef to automate the provisioning of a server for a Ruby on Rails application. Sample code is provided as a starting point at <https://github.com/TalkingQuickly/rails-server-template>
 
+**2021 Update**: a revised version of this tutorial is [available here](/setting-up-ubuntu-20-04-focal-fossa-vps-for-rails-app-deployment)
+
 <!--more-->
 
 ## Our Requirements
