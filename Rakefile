@@ -33,7 +33,7 @@ namespace :jekyll do
     system "touch .nojekyll"
     system "git add ."
     system "git commit -m #{message.inspect}"
-    system "git push origin master"
+    system "git push origin master --force"
     Dir.chdir pwd
   end
 

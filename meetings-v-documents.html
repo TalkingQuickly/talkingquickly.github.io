@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-    <title>Habits and Batching</title>
+    <title>Meetings vs Documents</title>
     
         <meta name="description" content="Blog by Ben Dixon, Ruby on Rails Developer, about rails, kubernetes, docker, climbing and startups" />
     
@@ -23,7 +23,7 @@
     <!-- Customisation  -->
     <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
     <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml"/>
-    <link rel="canonical" href="https://www.talkingquickly.co.uk/habits-and-batching">
+    <link rel="canonical" href="https://www.talkingquickly.co.uk/meetings-v-documents">
 
 </head>
 <body class="home-template">
@@ -42,28 +42,55 @@
       
     </span>
 
-    <h1 class="post-title">Habits and Batching</h1>
+    <h1 class="post-title">Meetings vs Documents</h1>
 
     <section class="post-content">
-      <p>One of the most high leverage tools available to us is habit. We are the sum of the things we do, our habits tend to be the things we do most and therefore we tend towards being the sum of our habits. Charles Duhigg&#39;s <a href="https://www.amazon.co.uk/Power-Habit-Why-What-Change/dp/1847946240">The Power of Habit</a> is a great primer on this. An interplay I&#39;m increasingly interested in is the one between habits and batching (or habits of batching).</p>
+      <p>A common topic of discussion is whether meetings should be used for information distribution or only discussion.</p>
+
+<p>Probably the most famous example of a conclusion on this is the Amazon approach (documented in <a href="https://amzn.to/43pemPl">working backwards</a>) where all meetings begin with some form of document and 15 minutes silence for people to read followed by discussion.</p>
+
+<p>I&#39;m a strong advocate of this approach but wanted to be better able to explain why I believe it&#39;s applicable to most situations and what&#39;s different about the small subset of exceptions.</p>
+
+<p>So I attempted to break down the factors which play into it and what I believe is different between the possible approaches.</p>
 
 <!--more-->
 
-<p>A typical example of a habit is something we do every day, like going to the gym or writing in a journal. But a habit more broadly is anything we regularly do as a result of a trigger. So going to the gym as soon as we wake up is a habit, but so is checking our email the moment we get a notification.</p>
+<p>| |Document|Meeting|Document + Meeting|
+|--|--|--|--|
+|Organiser Prep Time|2 hours|15 mins|2 hours|
+|Collaboration Time / person|15mins|45mins|1 hour|
+|Comprehension|50%|20%|75%|
+|Re usability|100%|0%|75%|
+|Alignment + 1 hour|50%|75%|95%|
+|Alignment + 1 day|50%|30%|95%|
+|Alignment + 7 days|40%|20%|85%|
+|Alignment + 1 Month|30%|5%|75%|</p>
 
-<p>Many things lend themselves well to becoming habits. Always defaulting to whatever doesn’t come with potatoes, going to the gym immediately after waking up and automating everything that needs doing more than twice are example of habits I believe make my life better. </p>
+<p>In this model I&#39;ve suggested there are 3 main results we&#39;re likely to be looking for:</p>
 
-<p>One of the most common forms of productivity reducing habit is reactively dealing with things that have setup or switching costs costs. If the machine to make a nail takes five minutes to warm up and then 10 seconds to make a nail, then the habit of waiting until I need a nail then going and making one will lead to each nail taking five minutes and ten seconds. If I wait until I need 30 nails and do them in one go, it will take 10 minutes in total, or 20 seconds per nail.</p>
+<ol>
+<li>Comprehension, e.g. at time of processing, how much of what was being communicated are participants likely to understand</li>
+<li>Re-usability, e.g. to what extent are others able to re-use the effort expended to understand the same topic </li>
+<li>Alignment, e.g. to what extent do the participants come away with the same understanding. This is separate to comprehension in that it includes clarifications and requests for additional information the organiser may not have immediately provided</li>
+</ol>
 
-<p>This is called batching. By grouping similar tasks together we save on setup and tear down times, and in many real life scenarios, also complete the individual tasks more quickly as a result of increase flow.</p>
+<p>I&#39;ve then suggested that alignment shouldn&#39;t be thought of as binary and measured at the end of the meeting, it should be thought about as a curve which changes (decays) over time. </p>
 
-<p>If we can develop a habit of batching tasks which benefit from it, we can expect to complete them more effectively. One of the most common examples of this is deciding to look and and respond to email at only one or two points in the day. By doing this we save the switching costs associated with being interrupted by email notifications and dramatically reduce the amount of time required to deal with our inbox.</p>
+<p>So we&#39;re not just asking &quot;how well does this initially align people&quot; we&#39;re asking &quot;to what extent is this a good way to achieve alignment over a given time period.&quot;</p>
 
-<p>The Interplay between habits and batching is one of those things where once you&#39;ve seen it somewhere, you start seeing it everywhere. Particularly in the sense that the solution to a lot of bad habits, it&#39;s to replace a trigger response which is &quot;do x immediately&quot; with a trigger response &quot;add x to a batch&quot;.</p>
+<p>My observations if you believe in this model were:</p>
 
-<p>Processing the batch may then, in itself, be a new habit to be formed. E.g. Adding things to a todo list is a habit which can show immediate results in terms of reduced mental load, but it will quickly fall apart if you do not have a habit or set of habits which mean the list gets regularly prioritised and processed.</p>
+<ol>
+<li>If your only goal is comprehension, e.g. pure information sharing, meetings  on there own will always perform less well than either a document or a document + a discussion meeting</li>
+<li>If alignment needs to persist over any period of time of more than a day, then a document or a document + discussion meeting will always tend to perform better</li>
+<li>If alignment purely relates to actions being taken immediately, e.g. over a period of less than 1 day, then a meeting on its own will tend to perform better than a document on its own. A document + meeting will probably still outperform both but given the short time horizon it may make sense to avoid the preparation overhead</li>
+</ol>
 
-<p>So a useful mental model I&#39;ve now explicitly added to my arsenal is; &quot;is this an example of a thing which would be better dealt with by two new habits, one to reactively add it to batches and another to process those batches&quot;.</p>
+<p>So examples of where a meeting alone may be preferable to a document driven approach are things like stand ups, plan for the day and incident response type meetings where alignment is only need to persist at a high level for &lt; 24 hours. </p>
+
+<p>For anything other than this a document or a document + discussion meeting will probably perform better.</p>
+
+<p>This does not take into account the standalone benefits of &quot;<a href="/writing-is-thinking">writing is thinking</a>&quot; if you subscribe to that view (I do).</p>
 
     </section>
 

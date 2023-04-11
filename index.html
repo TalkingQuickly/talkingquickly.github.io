@@ -61,12 +61,54 @@
 
     <article class="post">
         <header class="post-header">
+            <span class="post-meta"><time datetime="11 Apr 2023">11 Apr 2023</time></span>
+            <h2 class="post-title"><a href="/writing-is-thinking">Writing is thinking</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            <p><p>In the book &quot;High Output Management,&quot; author Andrew Grove writes:</p>
+
+<blockquote>
+<p>“Reports are more a medium of self-discipline than a way to communicate information. Writing the report is important; reading it often is not.”</p>
+</blockquote>
+
+<p>Over the last ten years of building startups, this concept that the purpose of writing is often more to help the writer develop their thinking than it is to help others understand them has become increasingly central to the culture I aim to drive in an organisation.</p>
+</p>
+        </section>
+    </article>
+
+    
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta"><time datetime="12 Jan 2023">12 Jan 2023</time></span>
+            <h2 class="post-title"><a href="/meetings-v-documents">Meetings vs Documents</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            <p><p>A common topic of discussion is whether meetings should be used for information distribution or only discussion.</p>
+
+<p>Probably the most famous example of a conclusion on this is the Amazon approach (documented in <a href="https://amzn.to/43pemPl">working backwards</a>) where all meetings begin with some form of document and 15 minutes silence for people to read followed by discussion.</p>
+
+<p>I&#39;m a strong advocate of this approach but wanted to be better able to explain why I believe it&#39;s applicable to most situations and what&#39;s different about the small subset of exceptions.</p>
+
+<p>So I attempted to break down the factors which play into it and what I believe is different between the possible approaches.</p>
+</p>
+        </section>
+    </article>
+
+    
+
+    <article class="post">
+        <header class="post-header">
             <span class="post-meta"><time datetime="04 Apr 2021">04 Apr 2021</time></span>
             <h2 class="post-title"><a href="/deploying-rails-to-a-vps-with-capistrano-v3-and-systemd">Deploying Rails to a VPS with Capistrano V3</a></h2>
 
         </header>
         <section class="post-excerpt">
             <p><p>Deploying Rails to a VPS with Capistrano remains one of the simplest and most reliable methods for getting a Rails app up-and running. With the likes of Hetzner Cloud, Digital Ocean and Linode providing inexpensive, reliable virtual machines, Rails app serving substantial amounts of traffic can be hosted with minimal cost and complexity.</p>
+
+<p>In the previous post we used Chef to prepare an Ubuntu 20.04 server for deployment of our Rails application. This included installing Nginx, PostgreSQL, Redis and our Ruby version of choice. We used Chef for this rather than entering command manually so that we can trivially create additional identical servers in future without needing to remember lots of terminal commands and config file edits.</p>
 
 <p>In this tutorial we&#39;ll use Capistrano to automate deployment of our application, including generating all required config files, obtaining a free SSL certificate with Lets Encrypt and enabling zero downtime deployment.</p>
 </p>
@@ -269,7 +311,7 @@ WantedBy=&lt;%=(fetch(:puma_systemctl_user) == :system) ? &quot;multi-user.targe
 
 <ol>
   <li>
-    <a href="/kubernetes-sso-a-detailed-guide">
+    <a href="/kubernetes-sso-a-comprehensive-guide">
   <strong>Contents and overview</strong>
 </a>
   </li>
@@ -434,47 +476,11 @@ WantedBy=&lt;%=(fetch(:puma_systemctl_user) == :system) ? &quot;multi-user.targe
 
     
 
-    <article class="post">
-        <header class="post-header">
-            <span class="post-meta"><time datetime="01 Feb 2021">01 Feb 2021</time></span>
-            <h2 class="post-title"><a href="/installing-openldap-kubernetes-helm">Installing OpenLDAP on Kubernetes with Helm</a></h2>
-
-        </header>
-        <section class="post-excerpt">
-            <p><p>In this post we cover how to install OpenLDAP on Kubernetes and how to test that it is working using the command line.</p>
-
-<p>LDAP while an older - and in some ways more challenging to work with - approach to SSO than something like OIDC, is still the de-facto standard.</p>
-
-<p>There are many popular applications which don&#39;t support OIDC but do support LDAP. This is likely to be the case for many years to come so for now, any robust SSO solution is likely to need to support LDAP.</p>
-
-<p>This post is part of a series on single sign on for Kubernetes</p>
-</p>
-        </section>
-    </article>
-
-    
-
-    <article class="post">
-        <header class="post-header">
-            <span class="post-meta"><time datetime="27 Jan 2021">27 Jan 2021</time></span>
-            <h2 class="post-title"><a href="/installing-keycloak-kubernetes-helm">Installing Keycloak on Kubernetes</a></h2>
-
-        </header>
-        <section class="post-excerpt">
-            <p><p>Keycloak is a widely used open source identity and access management system. Think Okta but open source. This is where users will actually enter their username and password for services and where we&#39;ll configure which users can login to which applications. It will also provide users with a single directory of applications they can login to.</p>
-
-<p>In this post - as part of the larger series on Kubernetes SSO - we cover how to install Keycloak on Kubernetes.</p>
-</p>
-        </section>
-    </article>
-
-    
-
     <nav class="pagination" role="pagination">
 
         
 
-        <span class="page-number"> Page 1 of 3 </span>
+        <span class="page-number"> Page 1 of 4 </span>
 
         
         <a class="older-posts" href="/page2/" title="Next Page">Older Posts &raquo;</a>

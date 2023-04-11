@@ -1,4 +1,4 @@
-FROM ruby:2.4.2
+FROM ruby:2.7-buster
 MAINTAINER ben@talkingquickly.co.uk
 
 # Install apt based dependencies required to run Rails as
@@ -31,4 +31,4 @@ RUN chown deploy:deploy /home/deploy/.ssh
 # will be cached unless changes to one of those two files
 # are made.
 COPY Gemfile Gemfile.lock ./
-RUN gem install bundler && bundle install --jobs 20 --retry 5
+RUN gem install bundler:1.16.1 && bundle install --jobs 20 --retry 5

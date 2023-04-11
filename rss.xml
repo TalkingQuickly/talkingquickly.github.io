@@ -3,7 +3,7 @@
 <generator uri="http://jekyllrb.com" version="3.7.2">Jekyll</generator>
 <link href="https://www.talkingquickly.co.uk/rss.xml" rel="self" type="application/atom+xml" />
 <link href="https://www.talkingquickly.co.uk/" rel="alternate" type="text/html" />
-<updated>2021-04-06T21:31:08+00:00</updated>
+<updated>2023-04-11T16:07:45+00:00</updated>
 <id>https://www.talkingquickly.co.uk/</id>
 <title>talkingquickly</title>
 <subtitle>kubernetes, rails, stress free deployment and small steps taken quickly</subtitle>
@@ -11,12 +11,107 @@
 <name>Ben Dixon</name>
 </author>
 <entry>
+<title>Writing is thinking</title>
+<link href="https://www.talkingquickly.co.uk/writing-is-thinking" rel="alternate" type="text/html" title="Writing is thinking" />
+<published>2023-04-11T15:40:00+00:00</published>
+<updated>2023-04-11T15:40:00+00:00</updated>
+<id>https://www.talkingquickly.co.uk/writing-is-thinking</id>
+<content type="html" xml:base="https://www.talkingquickly.co.uk/writing-is-thinking">&lt;p&gt;In the book &amp;quot;High Output Management,&amp;quot; author Andrew Grove writes:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;“Reports are more a medium of self-discipline than a way to communicate information. Writing the report is important; reading it often is not.”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Over the last ten years of building startups, this concept that the purpose of writing is often more to help the writer develop their thinking than it is to help others understand them has become increasingly central to the culture I aim to drive in an organisation.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;Andy Grove suggests that the process of writing forces us to clarify our thoughts and ideas, making them more concrete and actionable. This is because writing requires a level of specificity and organization that thinking or talking alone may not achieve.&lt;/p&gt;
+
+&lt;p&gt;When we write, we are forced to articulate our ideas in a clear and logical way. We need to choose our words carefully and structure our sentences in a way that conveys our message effectively.&lt;/p&gt;
+
+&lt;p&gt;In my experience the initial process of writing is often a fairly small proportion of the time invested. By my crude estimations, sub twenty five precent of the total time.&lt;/p&gt;
+
+&lt;p&gt;Far more important and time consuming is the process of editing. &lt;/p&gt;
+
+&lt;p&gt;Often the narrative or concept which seemed so clear when we sat down to write now has clear gaps, inconsistencies and new assumptions which require validation or explanation. Multiple passes through document resolve these as well as allowing us time to re-consider things like structure and order. It forces us to think through things like &amp;quot;what things will my audience need to believe and in what order&amp;quot;.&lt;/p&gt;
+
+&lt;p&gt;By extension combining written documents with an &amp;quot;FAQ&amp;quot; type approach, where you spend time putting yourself in the shoes of your audience and thinking &amp;quot;what will they ask me&amp;quot; after reading this drive a much more rounded consideration of a problem space or idea.&lt;/p&gt;
+
+&lt;p&gt;This highlights one of the benefits of building an organisational culture which leverages written documents more than it does meetings. Or at least which leverages written documents &lt;em&gt;before&lt;/em&gt; it leverages meetings.&lt;/p&gt;
+
+&lt;p&gt;In an organisation which starts with meetings, the raw material people have to work with is the unrefined narrative. Multiple peoples time will be spent just drawing out the gaps, inconsistencies and assumptions the majority of which would have been caught in a writing and editing process.&lt;/p&gt;
+
+&lt;p&gt;Worse due to the natural ceiling on how long a productive meeting can be, in many scenarios once this initial work is completed, the meeting will be close to finishing, depriving the group the opportunity to discuss the &amp;quot;core&amp;quot; of the issue, or at least requiring another expensive meeting.&lt;/p&gt;
+
+&lt;p&gt;This isn&amp;#39;t to de-value meetings, instead to highlight one of the reasons why a meeting will generally be far more valuable if someone has first spent substantial time writing and editing their thoughts.&lt;/p&gt;
+</content>
+<summary>In the book &amp;quot;High Output Management,&amp;quot; author Andrew Grove writes:“Reports are more a medium of self-discipline than a way to communicate information. Writing the report is important; reading it often is not.”Over the last ten years of building startups, this concept that the purpose of writing is often more to help the writer develop their thinking than it is to help others understand them has become increasingly central to the culture I aim to drive in an organisation.</summary>
+</entry>
+<entry>
+<title>Meetings vs Documents</title>
+<link href="https://www.talkingquickly.co.uk/meetings-v-documents" rel="alternate" type="text/html" title="Meetings vs Documents" />
+<published>2023-01-12T15:40:00+00:00</published>
+<updated>2023-01-12T15:40:00+00:00</updated>
+<id>https://www.talkingquickly.co.uk/meetings-v-documents</id>
+<content type="html" xml:base="https://www.talkingquickly.co.uk/meetings-v-documents">&lt;p&gt;A common topic of discussion is whether meetings should be used for information distribution or only discussion.&lt;/p&gt;
+
+&lt;p&gt;Probably the most famous example of a conclusion on this is the Amazon approach (documented in &lt;a href=&quot;https://amzn.to/43pemPl&quot;&gt;working backwards&lt;/a&gt;) where all meetings begin with some form of document and 15 minutes silence for people to read followed by discussion.&lt;/p&gt;
+
+&lt;p&gt;I&amp;#39;m a strong advocate of this approach but wanted to be better able to explain why I believe it&amp;#39;s applicable to most situations and what&amp;#39;s different about the small subset of exceptions.&lt;/p&gt;
+
+&lt;p&gt;So I attempted to break down the factors which play into it and what I believe is different between the possible approaches.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;| |Document|Meeting|Document + Meeting|
+|--|--|--|--|
+|Organiser Prep Time|2 hours|15 mins|2 hours|
+|Collaboration Time / person|15mins|45mins|1 hour|
+|Comprehension|50%|20%|75%|
+|Re usability|100%|0%|75%|
+|Alignment + 1 hour|50%|75%|95%|
+|Alignment + 1 day|50%|30%|95%|
+|Alignment + 7 days|40%|20%|85%|
+|Alignment + 1 Month|30%|5%|75%|&lt;/p&gt;
+
+&lt;p&gt;In this model I&amp;#39;ve suggested there are 3 main results we&amp;#39;re likely to be looking for:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Comprehension, e.g. at time of processing, how much of what was being communicated are participants likely to understand&lt;/li&gt;
+&lt;li&gt;Re-usability, e.g. to what extent are others able to re-use the effort expended to understand the same topic &lt;/li&gt;
+&lt;li&gt;Alignment, e.g. to what extent do the participants come away with the same understanding. This is separate to comprehension in that it includes clarifications and requests for additional information the organiser may not have immediately provided&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;I&amp;#39;ve then suggested that alignment shouldn&amp;#39;t be thought of as binary and measured at the end of the meeting, it should be thought about as a curve which changes (decays) over time. &lt;/p&gt;
+
+&lt;p&gt;So we&amp;#39;re not just asking &amp;quot;how well does this initially align people&amp;quot; we&amp;#39;re asking &amp;quot;to what extent is this a good way to achieve alignment over a given time period.&amp;quot;&lt;/p&gt;
+
+&lt;p&gt;My observations if you believe in this model were:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;If your only goal is comprehension, e.g. pure information sharing, meetings  on there own will always perform less well than either a document or a document + a discussion meeting&lt;/li&gt;
+&lt;li&gt;If alignment needs to persist over any period of time of more than a day, then a document or a document + discussion meeting will always tend to perform better&lt;/li&gt;
+&lt;li&gt;If alignment purely relates to actions being taken immediately, e.g. over a period of less than 1 day, then a meeting on its own will tend to perform better than a document on its own. A document + meeting will probably still outperform both but given the short time horizon it may make sense to avoid the preparation overhead&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;So examples of where a meeting alone may be preferable to a document driven approach are things like stand ups, plan for the day and incident response type meetings where alignment is only need to persist at a high level for &amp;lt; 24 hours. &lt;/p&gt;
+
+&lt;p&gt;For anything other than this a document or a document + discussion meeting will probably perform better.&lt;/p&gt;
+
+&lt;p&gt;This does not take into account the standalone benefits of &amp;quot;&lt;a href=&quot;/writing-is-thinking&quot;&gt;writing is thinking&lt;/a&gt;&amp;quot; if you subscribe to that view (I do).&lt;/p&gt;
+</content>
+<summary>A common topic of discussion is whether meetings should be used for information distribution or only discussion.Probably the most famous example of a conclusion on this is the Amazon approach (documented in working backwards) where all meetings begin with some form of document and 15 minutes silence for people to read followed by discussion.I&amp;#39;m a strong advocate of this approach but wanted to be better able to explain why I believe it&amp;#39;s applicable to most situations and what&amp;#39;s different about the small subset of exceptions.So I attempted to break down the factors which play into it and what I believe is different between the possible approaches.</summary>
+</entry>
+<entry>
 <title>Deploying Rails to a VPS with Capistrano V3</title>
 <link href="https://www.talkingquickly.co.uk/deploying-rails-to-a-vps-with-capistrano-v3-and-systemd" rel="alternate" type="text/html" title="Deploying Rails to a VPS with Capistrano V3" />
 <published>2021-04-04T15:40:00+00:00</published>
 <updated>2021-04-04T15:40:00+00:00</updated>
 <id>https://www.talkingquickly.co.uk/deploying-rails-vps-capistrano</id>
 <content type="html" xml:base="https://www.talkingquickly.co.uk/deploying-rails-to-a-vps-with-capistrano-v3-and-systemd">&lt;p&gt;Deploying Rails to a VPS with Capistrano remains one of the simplest and most reliable methods for getting a Rails app up-and running. With the likes of Hetzner Cloud, Digital Ocean and Linode providing inexpensive, reliable virtual machines, Rails app serving substantial amounts of traffic can be hosted with minimal cost and complexity.&lt;/p&gt;
+
+&lt;p&gt;In the previous post we used Chef to prepare an Ubuntu 20.04 server for deployment of our Rails application. This included installing Nginx, PostgreSQL, Redis and our Ruby version of choice. We used Chef for this rather than entering command manually so that we can trivially create additional identical servers in future without needing to remember lots of terminal commands and config file edits.&lt;/p&gt;
 
 &lt;p&gt;In this tutorial we&amp;#39;ll use Capistrano to automate deployment of our application, including generating all required config files, obtaining a free SSL certificate with Lets Encrypt and enabling zero downtime deployment.&lt;/p&gt;
 
@@ -29,7 +124,7 @@
 &lt;li&gt;&lt;strong&gt;&lt;a href=&quot;/deploying-rails-to-a-vps-with-capistrano-v3-and-systemd&quot;&gt;Deploying Rails to Ubuntu 20.04 with Capistrano&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;In the previous tutorial we used Chef to prepare an Ubuntu 20.04 server for deployment of our Rails application. This included installing Nginx, PostgreSQL, Redis and our Ruby version of choice. We used Chef for this rather than entering command manually so that we can trivially create additional identical servers in future without needing to remember lots of terminal commands and config file edits.&lt;/p&gt;
+&lt;p&gt;Note that this post is intended to be a tutorial rather than a reference, so the focus will be on the steps that need to be completed rather than exploring the why.&lt;/p&gt;
 
 &lt;h2&gt;Setting up DNS&lt;/h2&gt;
 
@@ -41,13 +136,13 @@
 
 &lt;p&gt;We can check that our DNS entry has been created correctly using &lt;code&gt;dig myapp.example.com&lt;/code&gt;. Replacing &lt;code&gt;myapp.example.com&lt;/code&gt; with your domain.&lt;/p&gt;
 
-&lt;p&gt;If we don&amp;#39;t have a domain yet, we can still follow this tutorial, but it won&amp;#39;t be possible to obtain an SSL certificate. In this scenario we simply add the following line to our local hosts file &lt;code&gt;/etc/hosts&lt;/code&gt;:&lt;/p&gt;
+&lt;p&gt;If you don&amp;#39;t have a domain yet, you can still follow this tutorial, but it won&amp;#39;t be possible to obtain an SSL certificate. In this scenario simply add the following line to your local hosts file &lt;code&gt;/etc/hosts&lt;/code&gt;:&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;SERVER_IP LOCALHOSTNAME
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;So, for example:&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;203.0.113.1 myapp.local
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;This will allow us to access the app over http (but not https) on &lt;code&gt;myapp.local&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;This will allow you to access the app over http (but not https) on &lt;code&gt;myapp.local&lt;/code&gt;.&lt;/p&gt;
 
 &lt;h2&gt;Adding Gems&lt;/h2&gt;
 
@@ -282,7 +377,7 @@ config
 
 &lt;p&gt;There&amp;#39;s also an example Rails app available &lt;a href=&quot;https://github.com/TalkingQuickly/rdra_rails6_example&quot;&gt;here&lt;/a&gt; which shows this configuration in action.&lt;/p&gt;
 </content>
-<summary>Deploying Rails to a VPS with Capistrano remains one of the simplest and most reliable methods for getting a Rails app up-and running. With the likes of Hetzner Cloud, Digital Ocean and Linode providing inexpensive, reliable virtual machines, Rails app serving substantial amounts of traffic can be hosted with minimal cost and complexity.In this tutorial we&amp;#39;ll use Capistrano to automate deployment of our application, including generating all required config files, obtaining a free SSL certificate with Lets Encrypt and enabling zero downtime deployment.</summary>
+<summary>Deploying Rails to a VPS with Capistrano remains one of the simplest and most reliable methods for getting a Rails app up-and running. With the likes of Hetzner Cloud, Digital Ocean and Linode providing inexpensive, reliable virtual machines, Rails app serving substantial amounts of traffic can be hosted with minimal cost and complexity.In the previous post we used Chef to prepare an Ubuntu 20.04 server for deployment of our Rails application. This included installing Nginx, PostgreSQL, Redis and our Ruby version of choice. We used Chef for this rather than entering command manually so that we can trivially create additional identical servers in future without needing to remember lots of terminal commands and config file edits.In this tutorial we&amp;#39;ll use Capistrano to automate deployment of our application, including generating all required config files, obtaining a free SSL certificate with Lets Encrypt and enabling zero downtime deployment.</summary>
 </entry>
 <entry>
 <title>Setting up Ubuntu 20.04 for Rails app Deployment</title>
@@ -302,6 +397,8 @@ config
 &lt;li&gt;&lt;strong&gt;&lt;a href=&quot;/setting-up-ubuntu-20-04-focal-fossa-vps-for-rails-app-deployment&quot;&gt;Setting up a VPS for Rails app Deployment&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;/deploying-rails-to-a-vps-with-capistrano-v3-and-systemd&quot;&gt;Deploying Rails to Ubuntu 20.04 with Capistrano&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;Note that this post is intended to be a tutorial rather than a reference, so the focus will be on the steps that need to be completed rather than exploring the why.&lt;/p&gt;
 
 &lt;h2&gt;The Stack&lt;/h2&gt;
 
@@ -959,478 +1056,5 @@ kubectl get pods
 &lt;p&gt;{% include kubernetes-sso/contents.html active=&amp;quot;kubernetesoidc&amp;quot; %}&lt;/p&gt;
 </content>
 <summary>A commonly cited pain point for teams working with Kubernetes clusters is managing the configuration to connect to the cluster. All to often this ends up being either sending KUBECONFIG files with hardcoded credentials back and forth or fragile custom shell scripts wrapping the AWS or GCP cli&amp;#39;s.In this post we&amp;#39;ll integrate Kubernetes with Keycloak so that when we execute a kubectl or helm command, if the user is not already authenticated, they&amp;#39;ll be presented with a keycloak browser login where they can enter their credentials. No more sharing KUBECONFIG files and forgetting to export different KUBECONFIG paths!We&amp;#39;ll also configure group based access control, so we can, for example create a KubernetesAdminstrators group, and have all users in that group given cluster-admin access automatically.When we remove a user from Keycloak (or remove them from the relevant groups within Keycloak) they will then lose access to the cluster (subject to token expiry).For this we&amp;#39;ll be using OpenID Connect, more here on how this works.By default, configuring Kubernetes to support OIDC auth requires passing flags to the kubelet API server. The challenge with this approach is that only one such provider can be configured and managed Kubernetes offerings - e.g. GCP or AWS - use this for their proprietary IAM systems.To address this we will use kube-oidc-proxy, a tool from Jetstack which allows us to connect to a proxy server which will manage OIDC authentication and use impersonation to give the authenticating user the required permissions. This approach has the benefit of being universal across clusters, so we don&amp;#39;t have to follow different approaches for our managed vs unmanaged clusters.This post is part of a series on single sign on for Kubernetes.</summary>
-</entry>
-<entry>
-<title>Web application authentication and authorization with Keycloak and OAuth2 Proxy on Kubernetes using Nginx Ingress</title>
-<link href="https://www.talkingquickly.co.uk/webapp-authentication-keycloak-OAuth2-proxy-nginx-ingress-kubernetes" rel="alternate" type="text/html" title="Web application authentication and authorization with Keycloak and OAuth2 Proxy on Kubernetes using Nginx Ingress" />
-<published>2021-02-21T15:40:00+00:00</published>
-<updated>2021-02-21T15:40:00+00:00</updated>
-<id>https://www.talkingquickly.co.uk/web-application-authentication-with-nginx-keycloak-oauth2-proxy</id>
-<content type="html" xml:base="https://www.talkingquickly.co.uk/webapp-authentication-keycloak-OAuth2-proxy-nginx-ingress-kubernetes">&lt;p&gt;In this post we&amp;#39;ll setup a generic solution which allows us to add authentication via Keycloak to any application, simply by adding an ingress annotation. This gives us a much more extendable and secure alternative to basic auth.&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;p&gt;Many third party applications we run on Kubernetes will already support either OIDC or LDAP based login. Some however will not. In addition we may wish to deploy our own applications and use Keycloak to manage access to them without going through the work of adding OIDC or LDAP integration to them.&lt;/p&gt;
-
-&lt;p&gt;We&amp;#39;ll use OAuth2 Proxy to add authentication to a simple nginx container.&lt;/p&gt;
-
-&lt;p&gt;We&amp;#39;ll then look at how the application being authenticated can access and decode the Keycloak JSON Web Token and use this for things like group based authorization.&lt;/p&gt;
-
-&lt;p&gt;In it&amp;#39;s simplest form, this would allow us to protect internal admin applications. In a more complete setup, we could setup a &amp;quot;customers&amp;quot; realm within Keycloak and delegate all of our authentication and authorization to Keycloak.&lt;/p&gt;
-
-&lt;p&gt;For this we&amp;#39;ll be using &lt;a href=&quot;https://github.com/oauth2-proxy/oauth2-proxy&quot;&gt;OAuth2 Proxy&lt;/a&gt; which is the &lt;a href=&quot;https://www.keycloak.org/2020/08/sunsetting-louketo-project.adoc&quot;&gt;suggested replacement&lt;/a&gt; for Keycloaks Gatekeeper / Louketo project which reached EOL in August 2020.&lt;/p&gt;
-
-&lt;p&gt;{% include kubernetes-sso/contents.html active=&amp;quot;webapps&amp;quot; %}&lt;/p&gt;
-
-&lt;p&gt;{% include kubernetes-sso/pre-reqs.html %}&lt;/p&gt;
-
-&lt;p&gt;This post assumes you&amp;#39;ve completed the &amp;quot;Installing Keycloak&amp;quot; section and have a working Keycloak installation.&lt;/p&gt;
-
-&lt;h2&gt;Keycloak authentication for an Nginx server&lt;/h2&gt;
-
-&lt;p&gt;First we&amp;#39;ll configure OAuth2 Proxy to work with our Keycloak installation and deploy it using a helm chart. &lt;/p&gt;
-
-&lt;p&gt;Then we&amp;#39;ll deploy the &lt;a href=&quot;https://hub.docker.com/_/nginx&quot;&gt;official Nginx container&lt;/a&gt; image using a helm chart as an example application and then we&amp;#39;ll restrict access to it via Keycloak using ingress annotations.&lt;/p&gt;
-
-&lt;p&gt;We&amp;#39;ll then look at how the app we&amp;#39;re authenticating can access information about the logged in user and how this information could be used to implement more fine-grained access control.&lt;/p&gt;
-
-&lt;h2&gt;How it works&lt;/h2&gt;
-
-&lt;p&gt;Nginx supports authentication &lt;a href=&quot;https://docs.nginx.com/nginx/admin-guide/security-controls/configuring-subrequest-authentication/&quot;&gt;based on the result of a sub-request&lt;/a&gt;. This means that when a request comes in for a protected page, it will make a sub-request to an additional URL, if that URL returns any 2xx response code then the request will be allowed, if it returns a 401 or 403 it will be denied.&lt;/p&gt;
-
-&lt;p&gt;In practice we don&amp;#39;t need a deep understanding of the above because OAuth2 Proxy links with keycloak on one side for the actual authentication and provides suitable endpoints for the NGinx to use to check whether a user is authenticated or not.&lt;/p&gt;
-
-&lt;p&gt;So we simple need to configure OAuth2 Proxy and then add suitable ingress annotations to the service we want to protect.&lt;/p&gt;
-
-&lt;h2&gt;Configuring OAuth2 Proxy&lt;/h2&gt;
-
-&lt;p&gt;First we&amp;#39;ll need to create a client application with Keycloak. Crate a new OpenID Connection application and set:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Client ID&lt;/strong&gt;: &lt;code&gt;oauth2-proxy&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Access Type&lt;/strong&gt;: &lt;code&gt;confidential&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Valid Redirect URLs&lt;/strong&gt;:: &lt;code&gt;https://oauth.ssotest.staging.talkingquickly.co.uk/oauth2/callback&lt;/code&gt; replacing &lt;code&gt;oauth.ssotest.staging.talkingquickly.co.uk&lt;/code&gt; with the subdomain you plan to install OAuth2 Proxy on&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;You&amp;#39;ll then need to save the entry and go to the newly available &amp;quot;Credentials&amp;quot; tab and make a note of the &amp;quot;Secret&amp;quot;.&lt;/p&gt;
-
-&lt;p&gt;Finally we go to the &amp;quot;Mappers&amp;quot; tab, choose &amp;quot;Create&amp;quot; and select:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Name&lt;/strong&gt;: &lt;code&gt;Groups&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Mapper Type&lt;/strong&gt;: &lt;code&gt;Group Membership&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Token Claim Name&lt;/strong&gt;: &lt;code&gt;groups&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;All other options &amp;quot;On&amp;quot;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;And then choose save. This ensures that the groups the user is a member of are passed back to OAuth2 Proxy and subsequently to the application itself.&lt;/p&gt;
-
-&lt;p&gt;While OAuth2 Proxy does have a &amp;quot;Keycloak&amp;quot; provider, we&amp;#39;re going to use the generic OIDC provider. This is both a more general solution and allows for some additional functionality which is missing the the Keycloak provider, in particular automatic cookie refresh. There is an ongoing discussion within the OAuth2 Proxy team about modifying the Keycloak provider to use the OIDC provider.&lt;/p&gt;
-
-&lt;p&gt;We can then create our configuration for OAuth2 Proxy, an example is included in &lt;code&gt;oauth2-proxy/values-oauth2-proxy.yml&lt;/code&gt; and looks like this:&lt;/p&gt;
-
-&lt;p&gt;@TODO update for OIDC provider 
-@TODO update for buffer sizes&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Oauth client configuration specifics&lt;/span&gt;
-&lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;clientID&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;oauth2-proxy&amp;quot;&lt;/span&gt;
-  &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;clientSecret&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;YOUR_SECRET&amp;quot;&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;# Create a new secret with the following command&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;# openssl rand -base64 32 | head -c 32 | base64&lt;/span&gt;
-  &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;cookieSecret&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;YOUR_COOKIE_SECRET&amp;quot;&lt;/span&gt;
-  &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;configFile&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p p-Indicator&quot;&gt;|-&lt;/span&gt;
-    &lt;span class=&quot;no&quot;&gt;provider = &amp;quot;oidc&amp;quot;&lt;/span&gt;
-    &lt;span class=&quot;no&quot;&gt;provider_display_name = &amp;quot;Keycloak&amp;quot;&lt;/span&gt;
-    &lt;span class=&quot;no&quot;&gt;oidc_issuer_url = &amp;quot;YOUR_ISSUER&amp;quot;&lt;/span&gt;
-    &lt;span class=&quot;no&quot;&gt;email_domains = [ &amp;quot;*&amp;quot; ]&lt;/span&gt;
-    &lt;span class=&quot;no&quot;&gt;scope = &amp;quot;openid profile email&amp;quot;&lt;/span&gt;
-    &lt;span class=&quot;no&quot;&gt;cookie_domain = &amp;quot;.ssotest.staging.talkingquickly.co.uk&amp;quot;&lt;/span&gt;
-    &lt;span class=&quot;no&quot;&gt;whitelist_domains = &amp;quot;.ssotest.staging.talkingquickly.co.uk&amp;quot;&lt;/span&gt;
-    &lt;span class=&quot;no&quot;&gt;pass_authorization_header = true&lt;/span&gt;
-    &lt;span class=&quot;no&quot;&gt;pass_access_token = true&lt;/span&gt;
-    &lt;span class=&quot;no&quot;&gt;pass_user_headers = true&lt;/span&gt;
-    &lt;span class=&quot;no&quot;&gt;set_authorization_header = true&lt;/span&gt;
-    &lt;span class=&quot;no&quot;&gt;set_xauthrequest = true&lt;/span&gt;
-    &lt;span class=&quot;no&quot;&gt;cookie_refresh = &amp;quot;1m&amp;quot;&lt;/span&gt;
-    &lt;span class=&quot;no&quot;&gt;cookie_expire = &amp;quot;30m&amp;quot;&lt;/span&gt;
-
-&lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;ingress&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;enabled&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;true&lt;/span&gt;
-  &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;/&lt;/span&gt;
-  &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;hosts&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;p p-Indicator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;oauth.ssotest.staging.talkingquickly.co.uk&lt;/span&gt;
-  &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;annotations&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;cert-manager.io/cluster-issuer&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;letsencrypt-production&lt;/span&gt;
-    &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;nginx.ingress.kubernetes.io/proxy-buffer-size&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;16k&amp;quot;&lt;/span&gt;
-  &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;tls&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;p p-Indicator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;secretName&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;oauth-proxy-tls&lt;/span&gt;
-      &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;hosts&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;p p-Indicator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;oauth.ssotest.staging.talkingquickly.co.uk&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The key fields to update with your own values are:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;clientSecret&lt;/strong&gt;: This is the client secret noted down from the Keycloak credentials page&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;cookieSecret&lt;/strong&gt;: This can be randomly generated with: &lt;code&gt;openssl rand -base64 32 | head -c 32 | base64&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;login&lt;em&gt;url, redeem&lt;/em&gt;url, validate_url&lt;/strong&gt;: which should be updated to match the relevant 
-URL&amp;#39;s for your Keycloak installation and realm (in the example above I&amp;#39;m using the master realm)&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;cookie&lt;em&gt;domain, whitelist&lt;/em&gt;domain&lt;/strong&gt;: which should be updated to match the base URL you&amp;#39;re deploying services on. E.g. in this example configuration I have &lt;code&gt;sso.ssotest.staging.talkingquickly.co.uk&lt;/code&gt;, &lt;code&gt;someapp.ssotest.staging.talkingquickly.co.uk&lt;/code&gt;, &lt;code&gt;oauth.ssotest.staging.talkingquickly.co.uk&lt;/code&gt; etc and so my base domain would be &lt;code&gt;.ssotest.staging.talkingquickly.co.uk&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;ingress hosts&lt;/strong&gt;: These should be set the subdomain you wish to deploy OAuth2 Proxy to&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Setting the &lt;code&gt;cookie_domain&lt;/code&gt; and &lt;code&gt;whitelist_domain&lt;/code&gt; is important because by default, OAuth2 Proxy is configured to work only with the subdomain it is deployed on. So cookies will be specific to that subdomain and redirects will only be allowed to that subdomain.&lt;/p&gt;
-
-&lt;p&gt;The &lt;code&gt;scope = &amp;quot;openid profile email&amp;quot;&lt;/code&gt; line is important because by default, OAuth2 Proxy will request a scope called &lt;code&gt;api&lt;/code&gt; which does not exist in Keycloak which will result in a 403 Invalid Scopes erorr.&lt;/p&gt;
-
-&lt;p&gt;The &lt;code&gt;set_authorization_header&lt;/code&gt; line ensures that the JWT is passed back to the NGinx ingress, this is important because it allows us to then pass this header back to the authenticating application so that it can access more information about the logged in user.&lt;/p&gt;
-
-&lt;p&gt;Finally the &lt;code&gt;nginx.ingress.kubernetes.io/proxy-buffer-size: &amp;quot;16k&amp;quot;&lt;/code&gt; avoids an issue where the large headers which are often passed around with OAuth requests don&amp;#39;t exceed the buffer size in NGinx which leads to errors along the lines of &amp;quot;Cookie &amp;quot;&lt;em&gt;oauth2&lt;/em&gt;proxy&amp;quot; not present&amp;quot; and &amp;quot;upstream sent too big header while reading response header from upstream&amp;quot;.&lt;/p&gt;
-
-&lt;h2&gt;Installing OAuth2 Proxy&lt;/h2&gt;
-
-&lt;p&gt;While we wait for the &lt;code&gt;OAuth2 Proxy&lt;/code&gt; chart to get a new home following the deprecation of the old helm stable repository, the most recent version is mirrored in the example code for this tutorial, so we can install OAuth 2 Proxy with:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;helm upgrade --install oauth2-proxy ./charts/oauth2-proxy --values oauth2-proxy/values-oauth2-proxy.yml
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;We can then go the ingress domain that we selected for OAuth2 Proxy and we will see a &amp;quot;Sign in with Keycloak&amp;quot; option.&lt;/p&gt;
-
-&lt;p&gt;Note that if we are still signed in as the admin user (rather than as a regular user in the realm we configured OAuth2 Proxy with, then we will see something along the lines of 403 Permission Denied, Invalid Account. Incognito / private browsing windows are useful for avoiding this.&lt;/p&gt;
-
-&lt;p&gt;Once we&amp;#39;ve successfully logged in with Keycloak, we&amp;#39;ll simply be re-directed to a 404 page not found error because at the moment, there is nothing to authenticate. In practice we won&amp;#39;t ever go to this URL directly, instead the authentication flow will be triggered automatically by visiting a protected application. So visiting this URL and logging in like this is purely to show that it works.&lt;/p&gt;
-
-&lt;h2&gt;Putting an application behind auth&lt;/h2&gt;
-
-&lt;p&gt;Now that we&amp;#39;ve setup OAuth2 Proxy, we can install an example application and add annotations to the ingress definition to have it protected behind the auth.&lt;/p&gt;
-
-&lt;p&gt;In this example we&amp;#39;re going to simply install an instance of NGINX which serves up the default &amp;quot;Welcome to nginx!&amp;quot; page but require that users login with Keycloak before they can access it. Note that this is completely separate to the &lt;a href=&quot;https://kubernetes.github.io/ingress-nginx/&quot;&gt;NGINX Ingress&lt;/a&gt; that we&amp;#39;re using for Kubernetes.&lt;/p&gt;
-
-&lt;p&gt;We&amp;#39;re going to be using the bitnami nginx helm chart for this so first we&amp;#39;ll need to add the repo with:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;helm repo add bitnami https://charts.bitnami.com/bitnami
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;We then configure our NGINX demo application along the lines of:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;serverBlock&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p p-Indicator&quot;&gt;|&lt;/span&gt;
-  &lt;span class=&quot;no&quot;&gt;log_format    withauthheaders &amp;#39;$remote_addr - $remote_user [$time_local] &amp;#39;&lt;/span&gt;
-                    &lt;span class=&quot;no&quot;&gt;&amp;#39;&amp;quot;$request&amp;quot; $status  $body_bytes_sent &amp;quot;$http_referer&amp;quot; &amp;#39;&lt;/span&gt;
-                    &lt;span class=&quot;no&quot;&gt;&amp;#39;&amp;quot;$http_user_agent&amp;quot; &amp;quot;$http_x_forwarded_for&amp;quot; &amp;quot;$http_x_auth_request_access_token&amp;quot;&amp;#39;;&lt;/span&gt;
-
-    &lt;span class=&quot;no&quot;&gt;add_header    x-auth-request-access-token &amp;quot;$http_x_auth_request_access_token&amp;quot;;&lt;/span&gt;
-
-  &lt;span class=&quot;no&quot;&gt;# HTTP Server&lt;/span&gt;
-  &lt;span class=&quot;no&quot;&gt;server {&lt;/span&gt;
-      &lt;span class=&quot;no&quot;&gt;# Port to listen on, can also be set in IP:PORT format&lt;/span&gt;
-      &lt;span class=&quot;no&quot;&gt;listen  8080;&lt;/span&gt;
-
-      &lt;span class=&quot;no&quot;&gt;include  &amp;quot;/opt/bitnami/nginx/conf/bitnami/*.conf&amp;quot;;&lt;/span&gt;
-
-      &lt;span class=&quot;no&quot;&gt;location /status {&lt;/span&gt;
-          &lt;span class=&quot;no&quot;&gt;stub_status on;&lt;/span&gt;
-          &lt;span class=&quot;no&quot;&gt;access_log   off;&lt;/span&gt;
-          &lt;span class=&quot;no&quot;&gt;allow 127.0.0.1;&lt;/span&gt;
-          &lt;span class=&quot;no&quot;&gt;deny all;&lt;/span&gt;
-      &lt;span class=&quot;no&quot;&gt;}&lt;/span&gt;
-
-      &lt;span class=&quot;no&quot;&gt;access_log /dev/stdout withauthheaders;&lt;/span&gt;
-  &lt;span class=&quot;no&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;ingress&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;enabled&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;true&lt;/span&gt;
-  &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;hostname&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;nginx-demo-app2.ssotest.staging.talkingquickly.co.uk&lt;/span&gt;
-  &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;tls&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;true&lt;/span&gt;
-  &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;annotations&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;cert-manager.io/cluster-issuer&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;letsencrypt-staging&lt;/span&gt;
-    &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;nginx.ingress.kubernetes.io/auth-url&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;https://oauth.ssotest.staging.talkingquickly.co.uk/oauth2/auth&amp;quot;&lt;/span&gt;
-    &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;nginx.ingress.kubernetes.io/auth-signin&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;https://oauth.ssotest.staging.talkingquickly.co.uk/oauth2/start?rd=$scheme://$best_http_host$request_uri&amp;quot;&lt;/span&gt;
-    &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;nginx.ingress.kubernetes.io/auth-response-headers&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;x-auth-request-user,&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;x-auth-request-email,&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;x-auth-request-access-token&amp;quot;&lt;/span&gt;
-    &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;acme.cert-manager.io/http01-edit-in-place&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;true&amp;quot;&lt;/span&gt;
-    &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;nginx.ingress.kubernetes.io/proxy-buffer-size&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;16k&amp;quot;&lt;/span&gt;
-
-&lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;service&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;ClusterIP&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The custom &lt;code&gt;serverBlock&lt;/code&gt; is nothing to do with the actual authentication process. It instead does the following two things to facilitate using NGINX as a demo for the auth functionality:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Modifies the logging so that the &lt;code&gt;x-auth-request-access-token&lt;/code&gt; header will be include in log output, this allows us to watch the logs and extract the tokens for analysis and testing&lt;/li&gt;
-&lt;li&gt;It automatically appends the &lt;code&gt;x-auth-request-access-token&lt;/code&gt; header from the incoming request to the final user response, so that we can inspect it in the browser&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Note that especially outputting access tokens to logs is a security risk and should never be done in production.&lt;/p&gt;
-
-&lt;p&gt;The lines associated with the authentication are the following:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;ingress&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;annotations&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;nginx.ingress.kubernetes.io/auth-url&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;https://oauth.ssotest.staging.talkingquickly.co.uk/oauth2/auth&amp;quot;&lt;/span&gt;
-    &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;nginx.ingress.kubernetes.io/auth-signin&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;https://oauth.ssotest.staging.talkingquickly.co.uk/oauth2/start?rd=$scheme://$best_http_host$request_uri&amp;quot;&lt;/span&gt;
-    &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;nginx.ingress.kubernetes.io/auth-response-headers&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;x-auth-request-user,&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;x-auth-request-email,&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;x-auth-request-access-token&amp;quot;&lt;/span&gt;
-    &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;acme.cert-manager.io/http01-edit-in-place&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;true&amp;quot;&lt;/span&gt;
-    &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;nginx.ingress.kubernetes.io/proxy-buffer-size&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;16k&amp;quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;We include &lt;code&gt;acme.cert-manager.io/http01-edit-in-place: &amp;quot;true&amp;quot;&lt;/code&gt; to workaround an issue with Cert Manager and setting auth response headers. We use &lt;code&gt;nginx.ingress.kubernetes.io/proxy-buffer-size: &amp;quot;16k&amp;quot;&lt;/code&gt; to avoid the same buffer size issue with OAuth headers which we described when installing OAuth 2 Proxy.&lt;/p&gt;
-
-&lt;p&gt;The first core line is &lt;code&gt;nginx.ingress.kubernetes.io/auth-url&lt;/code&gt; which specifies the URL which should be used for checking if the current user is authenticated.&lt;/p&gt;
-
-&lt;p&gt;When a request comes in, NGINX auth will first send the request onto this URL, note that it will not send the request body, only the headers, most importantly, any cookies which are associated with the request.&lt;/p&gt;
-
-&lt;p&gt;The service at this URL (in our case OAuth2 Proxy) is responsible for validating, based on any cookies or headers present, whether the user is authenticated.&lt;/p&gt;
-
-&lt;p&gt;If the user is authenticated, then the service returns a 2xx status code, and the request is passed onto our application. If it is not authenticated, then it is passed to the URL specified in &lt;code&gt;nginx.ingress.kubernetes.io/auth-signin&lt;/code&gt; to kick off the authentication flow.&lt;/p&gt;
-
-&lt;p&gt;This is why we had to set the cookie domain of OAuth2 Proxy to explicitly be the base domain, so that the cookie is available on all of the subdomains that we wish to authenticate from.&lt;/p&gt;
-
-&lt;p&gt;Because of the &lt;code&gt;set_authorization_header = true&lt;/code&gt; in our configuration, When a request is authenticated, OAuth2 Proxy will set the &lt;code&gt;x-auth-request-access-token&lt;/code&gt; header on the 2xx response it sends back to NGINX to contain the auth token, in this case a JWT containing information about the user and their session.&lt;/p&gt;
-
-&lt;p&gt;By default, there&amp;#39;s no way for our original application to access this token and if we want our application to know which user is logging in or which groups they are a member of, it will need this information. &lt;/p&gt;
-
-&lt;p&gt;To rectify this, the annotation &lt;code&gt;nginx.ingress.kubernetes.io/auth-response-headers: &amp;quot;x-auth-request-user, x-auth-request-email, x-auth-request-access-token&amp;quot;&lt;/code&gt; instructs the NGINX Ingress to take the listed headers from the returned 2xx response and append them to the response which goes to the backend application.&lt;/p&gt;
-
-&lt;p&gt;Our backend application can then take this header and decode the JWT to gain information about the user.&lt;/p&gt;
-
-&lt;p&gt;In the case of this simple example we simply output it to the logs (insecurely) and append it to the response sent to the user. So if we now go to our Ingress URL for our nginx demo app, in the example case this was https://nginx-demo-app2.ssotest.staging.talkingquickly.co.uk we&amp;#39;ll be asked to login and then redirected to the &amp;quot;Welcome to nginx!&amp;quot; page. &lt;/p&gt;
-
-&lt;p&gt;We can then inspect the request using the network tab in our browser and we&amp;#39;ll see that the &lt;code&gt;x-auth-request-access-token&lt;/code&gt; is set on the response.&lt;/p&gt;
-
-&lt;p&gt;If we copy the value of this header into a decoder such as the one at &lt;a href=&quot;https://jwt.io/&quot;&gt;https://jwt.io/&lt;/a&gt; we&amp;#39;ll see something like:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-&lt;span class=&quot;err&quot;&gt;...&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;quot;scope&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;openid email profile&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;quot;email_verified&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;quot;name&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Ben Dixon&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;quot;groups&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
-    &lt;span class=&quot;s2&quot;&gt;&amp;quot;/DockerRegistry&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;s2&quot;&gt;&amp;quot;/KubernetesAdmins&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;s2&quot;&gt;&amp;quot;/Administrators&amp;quot;&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;quot;preferred_username&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;talkingquickly&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;quot;given_name&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Ben&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;quot;family_name&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Dixon&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;ben@talkingquickly.co.uk&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Which in a more complex system, could then be used by our backend application to show different content depending on group membership or surface profile information to the user.&lt;/p&gt;
-
-&lt;h2&gt;Token expiry&lt;/h2&gt;
-
-&lt;p&gt;We effectively have two levels of authentication going on. When a request is first authenticated, OAuth2 Proxy communicates with Keycloak and gets an access token. Going forward when requests come in, as long as the OAuth2 Proxy cookie is present and valid, then the request will not be re-authenticated with Keycloak.&lt;/p&gt;
-
-&lt;p&gt;When working with JSON Web Tokens, this presents a problem because they will typically be issued with an expiry (by default in Keycloak this is 1 minute). This leads to a situation where the user is considered authenticated by OAuth2 Proxy but the JSON web token which is being passed in the &lt;code&gt;x-auth-request-access-token&lt;/code&gt; header is expired. So if we were to then validate this token with our library of choice, we&amp;#39;d receive an exception that the token is invalid.&lt;/p&gt;
-
-&lt;p&gt;The solution of this lies in the following part of the OAuth 2 Proxy configuration file:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;cookie_refresh = &amp;quot;1m&amp;quot;
-cookie_expire = &amp;quot;30m&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The first part &lt;code&gt;cookie_refresh&lt;/code&gt;, instructs OAuth2 Proxy to refresh the access token if the OAuth2 Proxy cookie hasn&amp;#39;t been refreshed for a minute or more. This is aligned with the token expiry set in Keycloak and prevents us from adding stale access tokens to requests. Note that the reason for using the generic OIDC provider in OAuth2 Proxy rather than the specific &amp;quot;Keycloak&amp;quot; one is that the &amp;quot;Keycloak&amp;quot; provider does not (at time of writing) support refresh tokens).&lt;/p&gt;
-
-&lt;p&gt;The second part &lt;code&gt;cookie_expire&lt;/code&gt; instructs OAuth 2 Proxy to expire the cookie if it&amp;#39;s more than 30 minutes old. The user will then be passed back to KeyCloak to re-authenticate. This is again aligned with the default session expiry in Keycloak.&lt;/p&gt;
-
-&lt;h2&gt;Limiting access to certain groups&lt;/h2&gt;
-
-&lt;p&gt;It is possible to crudely limit login to users in particular groups by adding:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;allowed_groups = [&amp;quot;/DemoAdmin&amp;quot;]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;To the &lt;code&gt;configFile&lt;/code&gt; block in OAuth2 Proxies configuration. This would have the effect of only allowing access if the logged in user was in the &lt;code&gt;DemoAdmin&lt;/code&gt; Keycloak group. It&amp;#39;s worth noting that at time of writing the user experience of this approach is quite poor because the user trying to login will simply see a 500 Internal Server error rather than an informative error message. If we look at the NGinx Ingress logs we&amp;#39;ll see something like &lt;code&gt;auth request unexpected status: 400 while sending to client&lt;/code&gt; which is because OAuth2 Proxy returns a 400 response when the user logs in but is not found to be in one of the allowed groups. &lt;/p&gt;
-
-&lt;p&gt;So while this approach is suitable for simple internal applications, handling group membership within the authenticated application will allow for a more user friendly experience.&lt;/p&gt;
-
-&lt;h2&gt;Working with the token&lt;/h2&gt;
-
-&lt;p&gt;The file &lt;code&gt;jwt-ruby-example/main.rb&lt;/code&gt; contains a simple example of how we could work with this token in a Ruby application. The code itself is very simple:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;jwt&amp;#39;&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;public_key_string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;s2&quot;&gt;PUBLIC_KEY_GOES_HERE&lt;/span&gt;
-&lt;span class=&quot;s2&quot;&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;public_key&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;OpenSSL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;PKey&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;RSA&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;public_key_string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;token&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;TOKEN_GOES_HERE&amp;quot;&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;decoded_token&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;JWT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decode&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;public_key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;algorithm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;RS256&amp;#39;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;decoded_token&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Here we replace &lt;code&gt;PUBLIC_KEY_GOES_HERE&lt;/code&gt; with the public key which can be found by going to &amp;quot;Realm Settings&amp;quot; and then &amp;quot;Keys&amp;quot; in our Keycloak realm and then choosing &amp;quot;Public Key&amp;quot; for the &lt;code&gt;RS256&lt;/code&gt; entry. &lt;/p&gt;
-
-&lt;p&gt;We then replace &lt;code&gt;TOKEN_GOES_HERE&lt;/code&gt; with a token that we&amp;#39;ve copied from our example apps logs or headers and execute the script with &lt;code&gt;ruby main.rb&lt;/code&gt; (after having run &lt;code&gt;bundle install&lt;/code&gt; etc).&lt;/p&gt;
-
-&lt;p&gt;Note that by default the tokens issued by Keycloak have a 1 minute expiry, so you have to be quick copying and pasting them into this script.&lt;/p&gt;
-
-&lt;p&gt;The output will be the decoded token as a ruby map. So in a full web application (e.g. a Rails or Sinatra app), we could make decisions based on the groups the user is a member of or display to the user their currently logged in email address.&lt;/p&gt;
-
-&lt;p&gt;{% include kubernetes-sso/contents.html active=&amp;quot;webapps&amp;quot; %}&lt;/p&gt;
-</content>
-<summary>In this post we&amp;#39;ll setup a generic solution which allows us to add authentication via Keycloak to any application, simply by adding an ingress annotation. This gives us a much more extendable and secure alternative to basic auth.</summary>
-</entry>
-<entry>
-<title>Comprehensive docker registry on Kubernetes with Harbor and Keycloak for single sign on</title>
-<link href="https://www.talkingquickly.co.uk/harbor-docker-registry-on-kubernetes-authentication-with-keycloak" rel="alternate" type="text/html" title="Comprehensive docker registry on Kubernetes with Harbor and Keycloak for single sign on" />
-<published>2021-02-19T15:40:00+00:00</published>
-<updated>2021-02-19T15:40:00+00:00</updated>
-<id>https://www.talkingquickly.co.uk/harbour-docker-registry-oidc-keycloak</id>
-<content type="html" xml:base="https://www.talkingquickly.co.uk/harbor-docker-registry-on-kubernetes-authentication-with-keycloak">&lt;p&gt;In this post we&amp;#39;ll install a feature rich but lightweight docker registry and integrate login and authorization with Keycloak users and groups. &lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://goharbor.io&quot;&gt;Harbor&lt;/a&gt; is an open source registry which can serve multiple types of cloud artifacts and secure them using fine grained access control. In this case we&amp;#39;ll be focussed on using harbor as a docker image registry and linking it&amp;#39;s authentication with Keycloak but it is also capable of serving multiple other types of artifact, including helm charts.&lt;/p&gt;
-
-&lt;p&gt;This post is part of a series on single sign on for Kubernetes.&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;p&gt;{% include kubernetes-sso/contents.html active=&amp;quot;harborregistry&amp;quot; %}&lt;/p&gt;
-
-&lt;p&gt;{% include kubernetes-sso/pre-reqs.html %}&lt;/p&gt;
-
-&lt;p&gt;This post assumes you&amp;#39;ve already completed the &amp;quot;Installing Keycloak&amp;quot; section.&lt;/p&gt;
-
-&lt;h2&gt;Installing harbor&lt;/h2&gt;
-
-&lt;p&gt;The official helm chart for installing harbor can be found here: &lt;a href=&quot;https://github.com/goharbor/harbor-helm&quot;&gt;https://github.com/goharbor/harbor-helm&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;As with most helm charts, we learn a lot by inspecting the &lt;a href=&quot;https://github.com/goharbor/harbor-helm/blob/master/values.yaml&quot;&gt;values file which can be found here&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;In this tutorial we&amp;#39;re going to customise the sections which define ingress and TLS certificate generation. OIDC configuration has to be done post installation and can either be done using the HTTP API or the web UI.&lt;/p&gt;
-
-&lt;p&gt;Our initial values file will look something like this:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;expose&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;ingress&lt;/span&gt;
-  &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;tls&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;certSource&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;secret&lt;/span&gt;
-    &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;secret&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt;
-      &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;secretName&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;harbor-ingress-tls&lt;/span&gt;
-  &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;ingress&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;annotations&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt;
-      &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;cert-manager.io/cluster-issuer&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;letsencrypt-production&lt;/span&gt;
-
-    &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;hosts&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt;
-      &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;core&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;core.harbor.ssotest.staging.talkingquickly.co.uk&lt;/span&gt;
-
-&lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;harborAdminPassword&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;85nsafg87ehfgk0fgsgfg6u&lt;/span&gt;
-&lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;externalURL&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;https://core.harbor.ssotest.staging.talkingquickly.co.uk&lt;/span&gt;
-&lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;secretKey&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;8d10dlskeit8fhtg&amp;quot;&lt;/span&gt;
-
-&lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;notary&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;enabled&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;false&lt;/span&gt;
-
-&lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;metrics&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;enabled&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;true&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Important things to note here:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;certSource: secret&lt;/code&gt; combined with &lt;code&gt;secretName: harbor-ingress-tls&lt;/code&gt; mean that harbor will use the certificate generated for the ingress (by cert manager) rather than generating it&amp;#39;s own certificates. This avoids errors such as &lt;code&gt;x509: certificate signed by unknown authority&lt;/code&gt; when running &lt;code&gt;docker login&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;The &lt;code&gt;core:&lt;/code&gt; ingress url should be replaced with the URL you wish Harbour to run on, which should have appropriate DNS records to point it to your NGINX ingress&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;harbourAdminPassword&lt;/code&gt;, &lt;code&gt;externalURL&lt;/code&gt; and &lt;code&gt;secretKey&lt;/code&gt; should all be customised with your own values, &lt;code&gt;secretKey&lt;/code&gt; should be a random 16 character value&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;We can then add the helm repository and install harbor with:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;helm repo add harbor https://helm.goharbor.io
-helm upgrade --install harbor-registry harbor/harbor --values=./harbor/values-harbor.yml
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Once this command completes, we&amp;#39;ll be able to access the Harbor UI using the ingress URL we selected for &lt;code&gt;core&lt;/code&gt; with the username &lt;code&gt;admin&lt;/code&gt; and the password we specified in &lt;code&gt;harborAdminPassword&lt;/code&gt;. It takes a while for the various components to start and it&amp;#39;s not unusual to see a few pods in &lt;code&gt;CrashLoopBackoff&lt;/code&gt; temporarily while this is happening.&lt;/p&gt;
-
-&lt;p&gt;Note that we cannot &lt;code&gt;docker login&lt;/code&gt; with our Harbor admin user and we don&amp;#39;t currently have any regular harbor users. We should not create any regular users because we can only switch to OIDC based login if no users other than &lt;code&gt;admin&lt;/code&gt; have been created.&lt;/p&gt;
-
-&lt;p&gt;If we create a test user now and then subsequently delete it, we still won&amp;#39;t be able to switch to OIDC based login. Instead we&amp;#39;ll configure Keycloak login.&lt;/p&gt;
-
-&lt;h2&gt;Creating a client in Keycloak&lt;/h2&gt;
-
-&lt;p&gt;In the KeyCloak clients UI create a new client with Client ID &lt;code&gt;harbor&lt;/code&gt; and Client Protocol &amp;quot;openid-connect&amp;quot; with the following configuration:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Access Type&lt;/strong&gt;: &lt;code&gt;confidential&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Valid Redirect URIs&lt;/strong&gt;: &lt;code&gt;https://YOUR_HARBOR_CORE_INGRESS_DOMAIN/c/oidc/callback&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Then save the client and make a note of the &amp;quot;Client Secret&amp;quot; in the newly available credentials tab.&lt;/p&gt;
-
-&lt;p&gt;Finally head to the &amp;quot;Mappers&amp;quot; tab for the client and create the following Protocol Mapper:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Name&lt;/strong&gt;: Groups&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Mapper Type&lt;/strong&gt;: Group Membership&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Token Claim Name&lt;/strong&gt;: &lt;code&gt;groups&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;All Other Options&lt;/strong&gt;: On&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2&gt;Configuring Harbor OIDC via the admin UI&lt;/h2&gt;
-
-&lt;p&gt;Login to the Harbour web UI available at the ingress URL you selected using the username &lt;code&gt;admin&lt;/code&gt; and the password you specified in &lt;code&gt;harborAdminPassword&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Head to &lt;code&gt;Administration&lt;/code&gt; and then &lt;code&gt;Configuration&lt;/code&gt; and choose the &lt;code&gt;Authentication&lt;/code&gt; tab. Change the &lt;code&gt;Auth Mode&lt;/code&gt; to &lt;code&gt;OIDC&lt;/code&gt; and then enter the following configuration:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;OIDC Provider Name&lt;/strong&gt;: Keycloak&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;OIDC Endpoint&lt;/strong&gt;: &lt;code&gt;https://YOUR_KEYCLOAK_BASE_URL/auth/realms/YOURREALM&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;OIDC Client ID&lt;/strong&gt;: &lt;code&gt;harbor&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;OIDC Client Secret&lt;/strong&gt;: The secret from keycloak clients credentials tab&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Group Claim Name&lt;/strong&gt;: &lt;code&gt;groups&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;OIDC Scope&lt;/strong&gt;: &lt;code&gt;openid,profile,email,offline_access&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Verify Certificate&lt;/strong&gt;: checked if you&amp;#39;re using a valid SSL cert&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Automatic Onboarding&lt;/strong&gt;: checked&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Username Claim&lt;/strong&gt;: &lt;code&gt;preferred_username&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;We can then use the &amp;quot;Test OIDC Server&amp;quot; button to make sure everything is working and once it is, choose &amp;quot;Save&amp;quot;.&lt;/p&gt;
-
-&lt;h2&gt;Testing that it works&lt;/h2&gt;
-
-&lt;p&gt;If we now logout from our admin user (or use a private browsing tab), and return to our Harbor core ingress URL, we now have the option to &amp;quot;Login with OIDC Provider&amp;quot;. If we select this we&amp;#39;ll be redirected to Keycloak to login. Here we should login with a regular Keycloak user from the realm we&amp;#39;re using (by default master), &lt;strong&gt;NOT&lt;/strong&gt; our keycloak admin user.&lt;/p&gt;
-
-&lt;p&gt;We&amp;#39;ll then be logged into Harbor and an account automatically created for us based on our Keycloak preferred username.&lt;/p&gt;
-
-&lt;p&gt;If we now log back in as our admin user and go to &amp;quot;Administration&amp;quot; and &amp;quot;Groups&amp;quot; we&amp;#39;ll see that any Keycloak groups the user was a member of have now been replicated into Harbor. This means we can link certain groups to certain projects to automatically give users access to the correct projects.&lt;/p&gt;
-
-&lt;p&gt;Note that by default, all users can create projects. Since all Keycloak users can login to Harbor by default, it may be preferred to limit project creation to admins which can be done by choosing Administration/ Configuration/ System Settings and setting &amp;quot;Project Creation&amp;quot; to Admin Only.&lt;/p&gt;
-
-&lt;p&gt;As an example we can then as an admin user, create a private project called &amp;quot;test1&amp;quot;, then head to the &amp;quot;Members&amp;quot; tab of this project and choose &amp;quot;+ Group&amp;quot;. We can then enter &lt;code&gt;/Administrators&lt;/code&gt; as the Group Name and choose &amp;quot;Project Admin&amp;quot; as the role. Any users in the &lt;code&gt;Administrators&lt;/code&gt; Keycloak group will then automatically be given the &lt;code&gt;Project Admin&lt;/code&gt; role for this project.&lt;/p&gt;
-
-&lt;h2&gt;Use with Docker&lt;/h2&gt;
-
-&lt;p&gt;Assuming we have created the &lt;code&gt;test1&lt;/code&gt; private project above and given our Keycloak master realm user access to it, we can login to the docker registry from our local CLI with the following command:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;docker login YOUR_HARBOR_CORE_INGRESS_URL
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;So in my example case this would be:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;docker login core.harbor.ssotest.staging.talkingquickly.co.uk
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;We can then use our keycloak master realm user username. For a password, we should not use our Keycloak password (this won&amp;#39;t work) we should instead obtain our CLI Secret from Harbor by clicking on our username in the top right hand corner, choosing &amp;quot;User Profile&amp;quot; and copying the CLI secret.&lt;/p&gt;
-
-&lt;p&gt;We can then tag an image to be pushed to this repository with:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;docker tag SOURCE_IMAGE[:TAG] core.harbor.ssotest.staging.talkingquickly.co.uk/test1/REPOSITORY[:TAG]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;and push it with:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;docker push core.harbor.ssotest.staging.talkingquickly.co.uk/test1/REPOSITORY[:TAG]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;When we need to give things like CI servers or Kubernetes access to the repository, we can head to the &amp;quot;Robot Accounts&amp;quot; tab in Harbor to generate limited access tokens for exactly this.&lt;/p&gt;
-
-&lt;h2&gt;Configuring Harbor OIDC from the command line&lt;/h2&gt;
-
-&lt;p&gt;In any sort of automated environment (e.g. Ansible, Chef etc) it&amp;#39;s desirable to be able to configure everything without touching the UI. For this Harbor offers a comprehensive API. To view the API documentation login as the admin user and click on the &amp;quot;Habor API V2.0&amp;quot; option at the bottom which will take you to the swagger documentation.&lt;/p&gt;
-
-&lt;p&gt;By default the API will be available on &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;YOUR_INGRESS_URL/api/v2.0/
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;So for example to view the current configuration we can use:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;curl -u &amp;quot;admin:HARBOR_ADMIN_PASSWORD&amp;quot; -H &amp;quot;Content-Type: application/json&amp;quot; -ki YOUR_INGRESS_URL/api/v2.0/configurations
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Note that at time of writing, the docs at &lt;a href=&quot;https://goharbor.io/docs/1.10/install-config/configure-user-settings-cli/&quot;&gt;https://goharbor.io/docs/1.10/install-config/configure-user-settings-cli/&lt;/a&gt; were slightly behind the current version and while this is the case, getting the existing configuration object provides a better overview of the configuration options available.&lt;/p&gt;
-
-&lt;p&gt;So to set up OIDC auth via CLI we can use:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;curl -X PUT -u &amp;quot;admin:YOUR_ADMIN_PASSWORD&amp;quot; -H &amp;quot;Content-Type: application/json&amp;quot; -ki YOUR_HARBOR_CORE_INGRESS_URL/api/v2.0/configurations -d&amp;#39;{&amp;quot;auth_mode&amp;quot;:&amp;quot;oidc_auth&amp;quot;, &amp;quot;oidc_name&amp;quot;:&amp;quot;Keycloak Auth&amp;quot;, &amp;quot;oidc_endpoint&amp;quot;:&amp;quot;YOUR_KEYCLOAK_REALM_INGRESS&amp;quot;, &amp;quot;oidc_client_id&amp;quot;:&amp;quot;harbor&amp;quot;, &amp;quot;oidc_client_secret&amp;quot;:&amp;quot;YOUR_KEYCLOAK_CLIENT_SECRET&amp;quot;, &amp;quot;oidc_scope&amp;quot;:&amp;quot;openid,profile,email,offline_access&amp;quot;, &amp;quot;oidc_groups_claim&amp;quot;:&amp;quot;groups&amp;quot;, &amp;quot;oidc_auto_onboard&amp;quot;:&amp;quot;true&amp;quot;, &amp;quot;oidc_user_claim&amp;quot;:&amp;quot;preferred_username&amp;quot;}&amp;#39;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;A 200 response indicates that we have Succesfully setup Keycloak auth.&lt;/p&gt;
-
-&lt;p&gt;We could then restrict project creation to admins only with:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;curl -X PUT -u &amp;quot;admin:YOUR_ADMIN_PASSWORD&amp;quot; -H &amp;quot;Content-Type: application/json&amp;quot; -ki YOUR_HARBOR_CORE_INGRESS_URL/api/v2.0/configurations -d &amp;#39;{&amp;quot;project_creation_restriction&amp;quot;:&amp;quot;adminonly&amp;quot;}&amp;#39;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The Habor API is comprehensive e.g. we can also create projects and give groups permission to access these projects entirely via the API so it&amp;#39;s well worth spending time with the Swagger documentation.&lt;/p&gt;
-
-&lt;h2&gt;Use with Kubernetes&lt;/h2&gt;
-
-&lt;p&gt;In order to access images in the registry we&amp;#39;ll need to create appropriate image pull secrets as described &lt;a href=&quot;https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/&quot;&gt;here in the kubernetes documentation&lt;/a&gt; for this we should use project &amp;quot;Robot Tokens&amp;quot;. &lt;/p&gt;
-
-&lt;h2&gt;Summary&lt;/h2&gt;
-
-&lt;p&gt;We now have a self hosted registry for docker images which is fully integrated with Keycloak for authentication. We can also configure this via the command line if we want to automate setup with a configuration management tool such as Chef or Ansible.&lt;/p&gt;
-
-&lt;p&gt;{% include kubernetes-sso/contents.html active=&amp;quot;harborregistry&amp;quot; %}&lt;/p&gt;
-</content>
-<summary>In this post we&amp;#39;ll install a feature rich but lightweight docker registry and integrate login and authorization with Keycloak users and groups. Harbor is an open source registry which can serve multiple types of cloud artifacts and secure them using fine grained access control. In this case we&amp;#39;ll be focussed on using harbor as a docker image registry and linking it&amp;#39;s authentication with Keycloak but it is also capable of serving multiple other types of artifact, including helm charts.This post is part of a series on single sign on for Kubernetes.</summary>
 </entry>
 </feed>
