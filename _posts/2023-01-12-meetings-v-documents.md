@@ -19,8 +19,8 @@ So I attempted to break down the factors which play into it and what I believe i
 
 <!--more-->
 
-| |Document|Meeting|Document + Meeting|
-|--|--|--|--|
+| | Document | Meeting | Document + Meeting |
+|---|---|---|---|
 |Organiser Prep Time|2 hours|15 mins|2 hours|
 |Collaboration Time / person|15mins|45mins|1 hour|
 |Comprehension|50%|20%|75%|
@@ -31,6 +31,7 @@ So I attempted to break down the factors which play into it and what I believe i
 |Alignment + 1 Month|30%|5%|75%|
 
 In this model I've suggested there are 3 main results we're likely to be looking for:
+
 
 1. Comprehension, e.g. at time of processing, how much of what was being communicated are participants likely to understand
 2. Re-usability, e.g. to what extent are others able to re-use the effort expended to understand the same topic 

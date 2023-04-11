@@ -9,7 +9,7 @@ docker_book_footer: false
 permalink: '/writing-is-thinking'
 ---
 
-In the book "High Output Management," author Andrew Grove writes:
+In the book "[High Output Management](https://amzn.to/3MzNIgQ)," author Andrew Grove writes:
 
 > “Reports are more a medium of self-discipline than a way to communicate information. Writing the report is important; reading it often is not.”
 

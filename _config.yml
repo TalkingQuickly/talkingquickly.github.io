@@ -10,6 +10,9 @@ logo: false
 paginate: 15
 excerpt_separator: <!--more-->
 
+redcarpet:
+  extensions: ["tables", "autolink", "strikethrough", "with_toc_data"]
+
 exclude:
   - _drafts/k8s-supporting
 
