@@ -3,7 +3,7 @@
 <generator uri="http://jekyllrb.com" version="3.9.3">Jekyll</generator>
 <link href="https://www.talkingquickly.co.uk/rss.xml" rel="self" type="application/atom+xml" />
 <link href="https://www.talkingquickly.co.uk/" rel="alternate" type="text/html" />
-<updated>2023-04-11T16:31:07+00:00</updated>
+<updated>2023-04-11T16:36:09+00:00</updated>
 <id>https://www.talkingquickly.co.uk/</id>
 <title>talkingquickly</title>
 <subtitle>kubernetes, rails, stress free deployment and small steps taken quickly</subtitle>
@@ -16,7 +16,7 @@
 <published>2023-04-11T15:40:00+00:00</published>
 <updated>2023-04-11T15:40:00+00:00</updated>
 <id>https://www.talkingquickly.co.uk/writing-is-thinking</id>
-<content type="html" xml:base="https://www.talkingquickly.co.uk/writing-is-thinking">&lt;p&gt;In the book &amp;quot;High Output Management,&amp;quot; author Andrew Grove writes:&lt;/p&gt;
+<content type="html" xml:base="https://www.talkingquickly.co.uk/writing-is-thinking">&lt;p&gt;In the book &amp;quot;&lt;a href=&quot;https://amzn.to/3MzNIgQ&quot;&gt;High Output Management&lt;/a&gt;,&amp;quot; author Andrew Grove writes:&lt;/p&gt;
 
 &lt;blockquote&gt;
 &lt;p&gt;“Reports are more a medium of self-discipline than a way to communicate information. Writing the report is important; reading it often is not.”&lt;/p&gt;
