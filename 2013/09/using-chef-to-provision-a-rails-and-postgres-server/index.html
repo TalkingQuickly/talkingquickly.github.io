@@ -51,7 +51,7 @@
 
 <!--more-->
 
-<h2>Our Requirements</h2>
+<h2 id="our-requirements">Our Requirements</h2>
 
 <ul>
 <li>Once setup, provisioning a new server should require just a few simple commands</li>
@@ -60,7 +60,7 @@
 <li>Once setup the server should take care of itself as much as possible and alert us if anything goes wrong</li>
 </ul>
 
-<h2>Our stack</h2>
+<h2 id="our-stack">Our stack</h2>
 
 <ul>
 <li>Ruby 1.9.3+ (this can be selected)</li>
@@ -77,7 +77,7 @@
 
 <p>Finally we’ll be using berkshelf (<a href="http://berkshelf.com/">http://berkshelf.com/</a>) to manage our cookbooks and the dependencies between them, this can be thought of like bundler for chef cookbooks.</p>
 
-<h2>Steps</h2>
+<h2 id="steps">Steps</h2>
 
 <p>1) Install Tools</p>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>git clone git@github.com:TalkingQuickly/rails-server-template.git
@@ -118,7 +118,7 @@ bundle <span class="nb">exec</span> berks install --path ./cookbooks
 </code></pre></div>
 <p>Sit back, relax and enjoy. This process takes quite a while and once it’s completed, you’ve got a server ready for a Rails + Postgres + Redis app.</p>
 
-<h2>Next Steps</h2>
+<h2 id="next-steps">Next Steps</h2>
 
 <p>You can read more about using Capistrano to deploy to VPS configured
 with this method in <a href="/2013/11/deploying-multiple-rails-apps-to-a-single-vps">this post</a></p>

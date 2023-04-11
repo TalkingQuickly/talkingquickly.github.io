@@ -53,7 +53,7 @@
 
 <p><strong>2021 Update</strong>: A revised version of this tutorial is <a href="/deploying-rails-to-a-vps-with-capistrano-v3-and-systemd">available here</a>.</p>
 
-<h2>What&#39;s new in V3.</h2>
+<h2 id="whats-new-in-v3">What&#39;s new in V3.</h2>
 
 <p>For full details see the <a href="http://www.capistranorb.com/2013/06/01/release-announcement.html" target="_blank">release annoucement</a>, but the key bits I think make the upgrade worthwhile are:</p>
 
@@ -62,7 +62,7 @@
 <li>It uses SSHkit for lower level functions around connecting and interacting with remote machines. This makes writing convenience tasks which do things like streaming logs or checking processes, much easier.</li>
 </ul>
 
-<h2>The Stack</h2>
+<h2 id="the-stack">The Stack</h2>
 
 <p>This recipe has been tested on a VPS provisioned using the method described in <a href="/2013/09/using-chef-to-provision-a-rails-and-postgres-server/">this post</a>. In particular it assumes:</p>
 
@@ -73,14 +73,14 @@
 
 <p>As well as using this in production across several sites, this process has been tested on fresh Rails 3.2 and 4.0 projects.</p>
 
-<h2>Upgrading from V2</h2>
+<h2 id="upgrading-from-v2">Upgrading from V2</h2>
 
 <p>If you already have a Capistrano V2 configuration for the application to be deployed, I suggest you archive all of this off and start from scratch with Capistrano 3. In general this will mean renaming (for example appenidng .old) all of the following:</p>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>Capfile
 config/deploy.rb
 config/deploy/
 </code></pre></div>
-<h2>Step by step</h2>
+<h2 id="step-by-step">Step by step</h2>
 
 <p>1) Add the following Gems to your Gemfile</p>
 <div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span></span><span class="n">gem</span> <span class="s1">&#39;capistrano&#39;</span><span class="p">,</span> <span class="s1">&#39;~&gt; 3.1.0&#39;</span>
@@ -349,7 +349,7 @@ after &#39;deploy:setup_config&#39;, &#39;monit:restart&#39;
 </code></pre></div>
 <p>And wait. The fist deploy can take a while as Gems are installed so be patient.</p>
 
-<h2>Conclusion</h2>
+<h2 id="conclusion">Conclusion</h2>
 
 <p>This configuration is based heavily on the vanilla capistrano configuration, with some extra convenience tasks added in <code>lib/capistrano/tasks/</code> to make workflows I&#39;ve found to be efficient for big production configurations quick to setup.</p>
 

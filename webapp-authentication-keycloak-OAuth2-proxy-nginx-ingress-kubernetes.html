@@ -123,7 +123,7 @@
 
 <p>This post assumes you&#39;ve completed the &quot;Installing Keycloak&quot; section and have a working Keycloak installation.</p>
 
-<h2>Keycloak authentication for an Nginx server</h2>
+<h2 id="keycloak-authentication-for-an-nginx-server">Keycloak authentication for an Nginx server</h2>
 
 <p>First we&#39;ll configure OAuth2 Proxy to work with our Keycloak installation and deploy it using a helm chart. </p>
 
@@ -131,7 +131,7 @@
 
 <p>We&#39;ll then look at how the app we&#39;re authenticating can access information about the logged in user and how this information could be used to implement more fine-grained access control.</p>
 
-<h2>How it works</h2>
+<h2 id="how-it-works">How it works</h2>
 
 <p>Nginx supports authentication <a href="https://docs.nginx.com/nginx/admin-guide/security-controls/configuring-subrequest-authentication/">based on the result of a sub-request</a>. This means that when a request comes in for a protected page, it will make a sub-request to an additional URL, if that URL returns any 2xx response code then the request will be allowed, if it returns a 401 or 403 it will be denied.</p>
 
@@ -139,7 +139,7 @@
 
 <p>So we simple need to configure OAuth2 Proxy and then add suitable ingress annotations to the service we want to protect.</p>
 
-<h2>Configuring OAuth2 Proxy</h2>
+<h2 id="configuring-oauth2-proxy">Configuring OAuth2 Proxy</h2>
 
 <p>First we&#39;ll need to create a client application with Keycloak. Crate a new OpenID Connection application and set:</p>
 
@@ -223,7 +223,7 @@ URL&#39;s for your Keycloak installation and realm (in the example above I&#39;m
 
 <p>Finally the <code>nginx.ingress.kubernetes.io/proxy-buffer-size: &quot;16k&quot;</code> avoids an issue where the large headers which are often passed around with OAuth requests don&#39;t exceed the buffer size in NGinx which leads to errors along the lines of &quot;Cookie &quot;<em>oauth2</em>proxy&quot; not present&quot; and &quot;upstream sent too big header while reading response header from upstream&quot;.</p>
 
-<h2>Installing OAuth2 Proxy</h2>
+<h2 id="installing-oauth2-proxy">Installing OAuth2 Proxy</h2>
 
 <p>While we wait for the <code>OAuth2 Proxy</code> chart to get a new home following the deprecation of the old helm stable repository, the most recent version is mirrored in the example code for this tutorial, so we can install OAuth 2 Proxy with:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>helm upgrade --install oauth2-proxy ./charts/oauth2-proxy --values oauth2-proxy/values-oauth2-proxy.yml
@@ -234,7 +234,7 @@ URL&#39;s for your Keycloak installation and realm (in the example above I&#39;m
 
 <p>Once we&#39;ve successfully logged in with Keycloak, we&#39;ll simply be re-directed to a 404 page not found error because at the moment, there is nothing to authenticate. In practice we won&#39;t ever go to this URL directly, instead the authentication flow will be triggered automatically by visiting a protected application. So visiting this URL and logging in like this is purely to show that it works.</p>
 
-<h2>Putting an application behind auth</h2>
+<h2 id="putting-an-application-behind-auth">Putting an application behind auth</h2>
 
 <p>Now that we&#39;ve setup OAuth2 Proxy, we can install an example application and add annotations to the ingress definition to have it protected behind the auth.</p>
 
@@ -321,7 +321,7 @@ URL&#39;s for your Keycloak installation and realm (in the example above I&#39;m
 
 <p>Our backend application can then take this header and decode the JWT to gain information about the user.</p>
 
-<p>In the case of this simple example we simply output it to the logs (insecurely) and append it to the response sent to the user. So if we now go to our Ingress URL for our nginx demo app, in the example case this was https://nginx-demo-app2.ssotest.staging.talkingquickly.co.uk we&#39;ll be asked to login and then redirected to the &quot;Welcome to nginx!&quot; page. </p>
+<p>In the case of this simple example we simply output it to the logs (insecurely) and append it to the response sent to the user. So if we now go to our Ingress URL for our nginx demo app, in the example case this was <a href="https://nginx-demo-app2.ssotest.staging.talkingquickly.co.uk">https://nginx-demo-app2.ssotest.staging.talkingquickly.co.uk</a> we&#39;ll be asked to login and then redirected to the &quot;Welcome to nginx!&quot; page. </p>
 
 <p>We can then inspect the request using the network tab in our browser and we&#39;ll see that the <code>x-auth-request-access-token</code> is set on the response.</p>
 
@@ -344,7 +344,7 @@ URL&#39;s for your Keycloak installation and realm (in the example above I&#39;m
 </code></pre></div>
 <p>Which in a more complex system, could then be used by our backend application to show different content depending on group membership or surface profile information to the user.</p>
 
-<h2>Token expiry</h2>
+<h2 id="token-expiry">Token expiry</h2>
 
 <p>We effectively have two levels of authentication going on. When a request is first authenticated, OAuth2 Proxy communicates with Keycloak and gets an access token. Going forward when requests come in, as long as the OAuth2 Proxy cookie is present and valid, then the request will not be re-authenticated with Keycloak.</p>
 
@@ -358,7 +358,7 @@ cookie_expire = &quot;30m&quot;
 
 <p>The second part <code>cookie_expire</code> instructs OAuth 2 Proxy to expire the cookie if it&#39;s more than 30 minutes old. The user will then be passed back to KeyCloak to re-authenticate. This is again aligned with the default session expiry in Keycloak.</p>
 
-<h2>Limiting access to certain groups</h2>
+<h2 id="limiting-access-to-certain-groups">Limiting access to certain groups</h2>
 
 <p>It is possible to crudely limit login to users in particular groups by adding:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>allowed_groups = [&quot;/DemoAdmin&quot;]
@@ -367,7 +367,7 @@ cookie_expire = &quot;30m&quot;
 
 <p>So while this approach is suitable for simple internal applications, handling group membership within the authenticated application will allow for a more user friendly experience.</p>
 
-<h2>Working with the token</h2>
+<h2 id="working-with-the-token">Working with the token</h2>
 
 <p>The file <code>jwt-ruby-example/main.rb</code> contains a simple example of how we could work with this token in a Ruby application. The code itself is very simple:</p>
 <div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span></span><span class="nb">require</span> <span class="s1">&#39;jwt&#39;</span>

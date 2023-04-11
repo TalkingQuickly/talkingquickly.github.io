@@ -62,7 +62,7 @@
 
 <p>Note that this post is intended to be a tutorial rather than a reference, so the focus will be on the steps that need to be completed rather than exploring the why.</p>
 
-<h2>Setting up DNS</h2>
+<h2 id="setting-up-dns">Setting up DNS</h2>
 
 <p>In order to obtain an SSL certificate for our application, we will need to have public DNS setup.</p>
 
@@ -80,7 +80,7 @@
 </code></pre></div>
 <p>This will allow you to access the app over http (but not https) on <code>myapp.local</code>.</p>
 
-<h2>Adding Gems</h2>
+<h2 id="adding-gems">Adding Gems</h2>
 
 <p>We then add the following to our Gemfile:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text"><span></span># The puma application server, we probably already have this
@@ -94,7 +94,7 @@ end
 </code></pre></div>
 <p>and run <code>bundle install</code>.</p>
 
-<h2>Generating Local Configuration</h2>
+<h2 id="generating-local-configuration">Generating Local Configuration</h2>
 
 <p>Capistrano Cookbook is a convenience gem that provides some helper tasks and a Rails Generator for bootstrapping the typical configuration used when deploying a Rails application both with or without Sidekiq.</p>
 
@@ -135,7 +135,7 @@ config
 
 <p>It also generates Monit definitions which are compatible with systemd. While in some respects systemd and Monit serve similar functions - both can ensure that our application and background workers are always running and started at boot - Monit can provide a layer of additional verification, for example checking ports are accessible and HTTP response codes and taking actions if this changes, so we&#39;ll generally require both for a robust configuration. </p>
 
-<h2>Configuring Stages</h2>
+<h2 id="configuring-stages">Configuring Stages</h2>
 
 <p>The file <code>deploy.rb</code> contains our general deployment configuration, and looks something like this:</p>
 <div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span></span><span class="c1"># config valid for current version and patch releases of Capistrano</span>
@@ -237,7 +237,7 @@ config
 
 <p>The only value we may want to tweak is <code>:branch</code> which defines which branch should be used to deploy to this server. So if we were following a &quot;git flow&quot; type model, we might set this to <code>master</code> in <code>production.rb</code> and <code>develop</code> in <code>staging.rb</code>.</p>
 
-<h2>Generating Remote Configuration</h2>
+<h2 id="generating-remote-configuration">Generating Remote Configuration</h2>
 
 <p>Now that we&#39;ve confirmed all of our local configuration is correct, we can upload all of our one time configuration to the remote server.</p>
 
@@ -257,7 +257,7 @@ config
 <p>We can execute this task with:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>bundle exec cap production deploy:setup_config
 </code></pre></div>
-<h2>Setting up our database</h2>
+<h2 id="setting-up-our-database">Setting up our database</h2>
 
 <p>The final step required before deploying our application for the first time is setting up our database.</p>
 
@@ -276,7 +276,7 @@ config
 
 <p>If we wish to setup our database manually, we will need to create the appropriate database and user, then create a suitable <code>database.yml</code> file on our remote server in <code>/home/deploy/apps/FULL_APP_NAME/shared/config</code> replacing <code>FULL_APP_NAME</code> with the value that will be generated for <code>:full_app_name</code> in our <code>production.rb</code>. This is typically <code>APP_NAME_STAGE</code> e.g. <code>my_rails_app_production</code>.</p>
 
-<h2>Disabling Passwordless Sudo (optional)</h2>
+<h2 id="disabling-passwordless-sudo-optional">Disabling Passwordless Sudo (optional)</h2>
 
 <p>Our configuration commands require the ability for our deploy user to execute sudo commands without being prompted for a password.</p>
 
@@ -296,7 +296,7 @@ config
 
 <p>This provides us with some level of additional security because if - through some exploit - an attacker gained the ability to execute arbitrary shell commands as our app user, they would not automatically be able to execute commands as root.</p>
 
-<h2>Deploying our application</h2>
+<h2 id="deploying-our-application">Deploying our application</h2>
 
 <p>We&#39;re now ready to deploy our application. It&#39;s important to note here that Capistrano uses SSH Keychain Forwarding to clone the repository specified in <code>config/deploy.rb</code> at the branch specified in <code>config/deploy/STAGE_NAME.rb</code>.</p>
 
@@ -307,7 +307,7 @@ config
 </code></pre></div>
 <p>Our configuration is setup to allow zero downtime deploys, so when we deploy future versions, our newly deployed code will be loaded in the background and then traffic seamlessly transferred over to this new version.</p>
 
-<h2>Next</h2>
+<h2 id="next">Next</h2>
 
 <p>If you&#39;ve run into any issues, please feel free to ping me on Twitter where I&#39;m <a href="https://www.twitter.com/talkingquickly">@talkingquickly</a> or open an issue on the <a href="https://github.com/TalkingQuickly/capistrano-cookbook">capistrano cookbook repository</a> and I&#39;ll do my best to help.</p>
 

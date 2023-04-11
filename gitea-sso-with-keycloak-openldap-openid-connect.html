@@ -119,7 +119,7 @@
 
 <p>This post assumes you&#39;ve completed the &quot;Installing OpenLDAP&quot;, &quot;Installing Keycloak&quot; and &quot;Linking Keycloak and OpenLDAP&quot; sections.</p>
 
-<h2>Installing Gitea</h2>
+<h2 id="installing-gitea">Installing Gitea</h2>
 
 <p>Since we&#39;re primarily concerned with configuring Gitea to use LDAP for authentication, we&#39;ll only cover setting up the web UI here.</p>
 
@@ -153,7 +153,7 @@
 </code></pre></div>
 <p>We should then be able to login to our Gitea instance.</p>
 
-<h2>Configuring Gitea to use LDAP</h2>
+<h2 id="configuring-gitea-to-use-ldap">Configuring Gitea to use LDAP</h2>
 
 <p>While Gitea does support OIDC login, this is only for existing accounts, so it&#39;s not suitable for centralised user management. So here we&#39;ll be using LDAP.</p>
 
@@ -184,7 +184,7 @@
 
 <p>There&#39;s no re-direction, password authentication is performed behind the scenes. If we go to the security settings for the account, we&#39;ll see that because this user is managed externally, the password cannot be changed from with Gitea, only from within Keycloak.</p>
 
-<h2>Configuring Gitea to use OpenID Connect</h2>
+<h2 id="configuring-gitea-to-use-openid-connect">Configuring Gitea to use OpenID Connect</h2>
 
 <p>While OpenID connect cannot be used for &quot;full&quot; SSO in Gitea, e.g. the underlying users must already exist, it&#39;s possible for users who have already logged in, to configure Keycloak OIDC as an additional login, so that they can go through the Keycloak flow rather than entering their keycloak username and password in Gitea.</p>
 

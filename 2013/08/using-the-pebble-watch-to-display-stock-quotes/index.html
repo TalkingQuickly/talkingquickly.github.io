@@ -55,7 +55,7 @@
 
 <p>The pebble watch provides the opportunity to use that space on our wrist traditionally devoted to time to monitor whatever figures we choose. When I’m running or cycling it shows my pace and distance but outside of those times it simply shows the time – something I’m rarely interested in knowing. In this experiment I will create simple Android and Pebble applications which pull the level of the FTSE100 from Google Finance and display it (and only it) on the screen of the pebble continually.</p>
 
-<h2>Getting the quotes</h2>
+<h2 id="getting-the-quotes">Getting the quotes</h2>
 
 <p>This is fairly simple, Google Finance provides a simple (if undocumented) api for accessing stock quotes, a URL such as the following:</p>
 
@@ -66,7 +66,7 @@
 </code></pre></div>
 <p>where q in the url is the url escaped representation of the Google Finance ticker and l in the returned JSON is the 20 minute delayed level of the instrument.</p>
 
-<h2>Making it happen</h2>
+<h2 id="making-it-happen">Making it happen</h2>
 
 <p>The source for an app to get the quotes and push the quotes to a pebble watch is available here:</p>
 
@@ -76,11 +76,11 @@
 
 <p><a href="https://github.com/TalkingQuickly/pebble_stock">https://github.com/TalkingQuickly/pebble_stock</a></p>
 
-<h2>Resources</h2>
+<h2 id="resources">Resources</h2>
 
-<p>This was also my first attempt at writing a native Android App (and several years since I last wrote Java) and I relied heavily on this article (http://technicalmumbojumbo.wordpress.com/2012/01/19/android-tutorial-restful-webservices-google-maps-integration/) for guidance on how to access a restful api from an Android App.</p>
+<p>This was also my first attempt at writing a native Android App (and several years since I last wrote Java) and I relied heavily on this article (<a href="http://technicalmumbojumbo.wordpress.com/2012/01/19/android-tutorial-restful-webservices-google-maps-integration/">http://technicalmumbojumbo.wordpress.com/2012/01/19/android-tutorial-restful-webservices-google-maps-integration/</a>) for guidance on how to access a restful api from an Android App.</p>
 
-<h2>Get in Touch</h2>
+<h2 id="get-in-touch">Get in Touch</h2>
 
 <p>If you&#39;d like to chat further about the ideas in the post, get in touch
 on twitter, <a href="http://www.twitter.com/talkingquickly">http://www.twitter.com/talkingquickly</a></p>

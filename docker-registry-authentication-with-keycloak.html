@@ -115,7 +115,7 @@
 
 <p>This post assumes you&#39;ve already completed the &quot;Installing Keycloak&quot; section.</p>
 
-<h2>Configuring Keycloak</h2>
+<h2 id="configuring-keycloak">Configuring Keycloak</h2>
 
 <p>When we configured Keycloak, we included the following in the helm values file:</p>
 <div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span></span><span class="l l-Scalar l-Scalar-Plain">args</span><span class="p p-Indicator">:</span>
@@ -123,11 +123,11 @@
 </code></pre></div>
 <p>Which enabled the optional support for the Docker registry.</p>
 
-<h2>Setting up the Docker Registry in Keycloak</h2>
+<h2 id="setting-up-the-docker-registry-in-keycloak">Setting up the Docker Registry in Keycloak</h2>
 
 <p>Begin by creating a new client in Keycloak with client id &quot;simple-docker-registry&quot; using client protocol <code>docker-v2</code>. On the following screen go to the installation tab, choose &quot;Docker Compose YAML&quot; and select the &quot;Download&quot; option. Note that we aren&#39;t going to be using Docker Compose, but this provides a convenient method for downloading the certificate files we&#39;ll need to create as Kubernetes secrets.</p>
 
-<h2>Creating the certificate secrets</h2>
+<h2 id="creating-the-certificate-secrets">Creating the certificate secrets</h2>
 
 <p>Having downloaded the Docker Compose YAML zip file from Keycloak, extract it to a locally accessible folder and check that it contains a file <code>certs/localhost_trust_chain.pem</code>. We can then create a Kubernetes secret containing the file with the following:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>kubectl create secret generic docker-registry-auth-token-rootcertbundle --from-file YOUR_PATH_TO/certs/localhost_trust_chain.pem
@@ -136,7 +136,7 @@
 
 <p>This will create a secret called <code>docker-registry-auth-token-rootcertbundle</code> containing the certificate contents.</p>
 
-<h2>Configuring the docker registry</h2>
+<h2 id="configuring-the-docker-registry">Configuring the docker registry</h2>
 
 <p>The documentation for the helm chart we&#39;ll be using to install the Docker Registry is here: <a href="https://github.com/twuni/docker-registry.helm">https://github.com/twuni/docker-registry.helm</a>. Our configuration file will look like this:</p>
 <div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span></span><span class="l l-Scalar l-Scalar-Plain">configData</span><span class="p p-Indicator">:</span>
@@ -176,13 +176,13 @@
 
 <p>The <code>extraVolumes</code> section creates a volume which will contain the files from the <code>docker-registry-auth-token-rootcertbundle</code> secret we created. The <code>extraVolumeMounts</code> section instructs Kubernetes to mount this volume at the <code>/root-cert-bundle</code> path within the Docker registry container which matches the <code>rootcertbundle</code> path that we specified in the <code>configData</code> map at the start.</p>
 
-<h2>Installing the Docker Registry</h2>
+<h2 id="installing-the-docker-registry">Installing the Docker Registry</h2>
 
 <p>We can then add the repository for the helm chart and install the Docker registry with:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>helm repo add twuni https://helm.twun.io
 helm upgrade --install simple-docker-registry twuni/docker-registry --values ./docker-registry/values-docker-registry.yml
 </code></pre></div>
-<h2>Testing the registry</h2>
+<h2 id="testing-the-registry">Testing the registry</h2>
 
 <p>We&#39;ll need to give certificates a small window to be generated via LetsEncrypt, we can check on the progress of the certificates with <code>kubectl get certificates</code>. Once they are ready we can login to our registry with:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>docker login registry-keycloak.ssotest.staging.talkingquickly.co.uk
@@ -213,11 +213,11 @@ docker push registry-keycloak.ssotest.staging.talkingquickly.co.uk/SOME_NAME
 </code></pre></div>
 <p>Where we&#39;ll receive a permission denied message.</p>
 
-<h2>Use with Kubernetes</h2>
+<h2 id="use-with-kubernetes">Use with Kubernetes</h2>
 
 <p>In order to access images in the registry we&#39;ll need to create appropriate image pull secrets as described <a href="https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/">here in the kubernetes documentation</a>.</p>
 
-<h2>Summary</h2>
+<h2 id="summary">Summary</h2>
 
 <p>We now have a private Docker Registry which can only be accessed by users authenticated via Keycloak. For more advanced configurations, for example where only certain users should be able to access the registry or where more granular access control is required, see <a href="/harbor-docker-registry-on-kubernetes-authentication-with-keycloak">Harbour Docker Registry with Keycloak</a>.</p>
 

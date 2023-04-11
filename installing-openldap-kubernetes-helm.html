@@ -117,7 +117,7 @@
 
 <p>All commands in the tutorial assume that they&#39;re being executed from the root of this cloned repository.</p>
 
-<h2>Installing OpenLDAP</h2>
+<h2 id="installing-openldap">Installing OpenLDAP</h2>
 
 <p>The Helm chart for OpenLDAP was deprecated as part of the deprecation of the <code>stable</code> chart repository. So while we await a replacement to appear, the most recent version is mirrored in the repo for this tutorial.</p>
 
@@ -164,7 +164,7 @@
 <div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>kubectl get secret --namespace identity openldap -o jsonpath=&quot;{.data.LDAP_ADMIN_PASSWORD}&quot; | base64 --decode; echo
 kubectl get secret --namespace identity openldap -o jsonpath=&quot;{.data.LDAP_CONFIG_PASSWORD}&quot; | base64 --decode; echo
 </code></pre></div>
-<h2>Using The OpenLDAP CLI</h2>
+<h2 id="using-the-openldap-cli">Using The OpenLDAP CLI</h2>
 
 <p>Although we&#39;ll primarily manage our LDAP directory through KeyCloak, it&#39;s useful to have a basic familiarity with the CLI for testing purposes. <a href="https://www.splunk.com/en_us/blog/tips-and-tricks/ldapsearch-is-your-friend.html">Splunk has a great introduction to the CLI here</a>.</p>
 

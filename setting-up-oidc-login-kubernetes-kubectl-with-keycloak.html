@@ -127,7 +127,7 @@
 
 <p>This also assumes you&#39;ve already followed the Installing Keycloak section and have a functioning Keycloak instance you can login to with administrator rights.</p>
 
-<h2>Setting up Keycloak</h2>
+<h2 id="setting-up-keycloak">Setting up Keycloak</h2>
 
 <p>First we&#39;ll create a new client in Keycloak with Client ID: <code>kube-oidc-proxy</code> and client protocol: <code>openid-connect</code>. We&#39;ll then configure the following parameters for this client:</p>
 
@@ -138,7 +138,7 @@
 
 <p>We can then save this new client and a new &quot;Credentials&quot; tab will appear. We&#39;ll need the generated client secret along with our client id (<code>kube-oidc-proxy</code>) for later steps.</p>
 
-<h2>Setting up Kube OIDC Proxy</h2>
+<h2 id="setting-up-kube-oidc-proxy">Setting up Kube OIDC Proxy</h2>
 
 <p>Having created the client, we can now create our configuration for <code>kube-oidc-proxy</code>. A sample configuration can be found in <code>kube-oidc-proxy/values-kube-oidc.yml</code> and looks like this:</p>
 <div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span></span><span class="l l-Scalar l-Scalar-Plain">oidc</span><span class="p p-Indicator">:</span>
@@ -245,7 +245,7 @@ kubectl get pods
 
 <p>Note the <code>oidcuser:</code> prefix which is added due to the <code>usernamePrefix: &quot;oidcuser:&quot;</code> prefix configuration line in our Kube OIDC Proxy values file. This prevents users defined in Keycloak from conflicting with any kubernetes internal users.</p>
 
-<h2>Keycloak login to kubernetes with groups</h2>
+<h2 id="keycloak-login-to-kubernetes-with-groups">Keycloak login to kubernetes with groups</h2>
 
 <p>The above setup allows us to use <code>kubectl</code> while authenticating with our keycloak user. However for each user we have to create an individual cluster role binding assigning them permissions. This is manual and becomes painful for anything beyond a small handful of users.</p>
 

@@ -51,7 +51,7 @@
 
 <!--more-->
 
-<h2>tldr;</h2>
+<h2 id="tldr">tldr;</h2>
 
 <p>To enable SSH forwarding for a particular remote host, add the following to the <strong>local</strong> machines <code>~/ssh/config</code>:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>Host A_FRIENDLY_NAME_FOR_THE_HOST
@@ -76,7 +76,7 @@
 </code></pre></div>
 <p>If you&#39;re using any version of my <a href="https://github.com/TalkingQuickly/debian_dev_env">Debian development environment</a> this is done automatically, specifically in <a href="https://github.com/TalkingQuickly/debian_dev_env/blob/master/dotfiles/.zshrc.personal.after">this file</a>.</p>
 
-<h2>So what&#39;s going on</h2>
+<h2 id="so-whats-going-on">So what&#39;s going on</h2>
 
 <p>When you connect to a remote machine with SSH Agent forwarding enabled, ssh-agent creates a temporary socket which other applications can then use, the location of which is stored in <code>SSH_AUTH_SOCK</code>.</p>
 
@@ -84,7 +84,7 @@
 
 <p>The solution to this (not mine originally, see &quot;thanks to&quot; below) is to add another level of indirection. We update the remote machines shell rc file so that when we connect, it creates a symlink from the temporary socket to a known permanent location; <code>~/.ssh/ssh_auth_sock</code>. We then detect if we&#39;re in a tmux session and if we are, replace <code>SSH_AUTH_SOCK</code> with this unchanging, permanent location.</p>
 
-<h2>Use within Docker</h2>
+<h2 id="use-within-docker">Use within Docker</h2>
 
 <p>Since <code>SSH_AUTH_SOCK</code> is a unix socket it&#39;s essentially just like any other file and so can be mounted into docker containers and accessed from these. This is useful if you have CLI type docker containers. The below shows a very simple <code>docker-compose.yml</code> which assuming the above configuration, gives a bash shell with access to the docker hosts ssh agent (which can in turn be forwarded from another host).</p>
 <div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="s">&quot;3&quot;</span>
@@ -97,7 +97,7 @@
     <span class="l l-Scalar l-Scalar-Plain">environment</span><span class="p p-Indicator">:</span>
       <span class="l l-Scalar l-Scalar-Plain">SSH_AUTH_SOCK</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/home/deploy/ssh_auth_sock</span>
 </code></pre></div>
-<h2>Thanks to</h2>
+<h2 id="thanks-to">Thanks to</h2>
 
 <p>This is based heavily on the approach outlined <a href="https://werat.github.io/2017/02/04/tmux-ssh-agent-forwarding">here</a> which didn&#39;t quite work for me; specifically I couldn&#39;t make setting <code>SSH_AUTH_SOCK</code> in <code>.tmux.conf</code> work.</p>
 

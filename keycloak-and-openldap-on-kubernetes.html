@@ -115,7 +115,7 @@
 
 <p>This post assumes you&#39;ve already completed the &quot;Intalling OpenLDAP&quot; and &quot;Installing Keycloak&quot; sections.</p>
 
-<h2>Configuring OpenLDAP in Keycloak</h2>
+<h2 id="configuring-openldap-in-keycloak">Configuring OpenLDAP in Keycloak</h2>
 
 <p>After logging into the Keycloak administrative console with our admin user, head to User Federation and select <code>ldap</code> from the &quot;Add Provider` dropdown. Then choose the following options:</p>
 
@@ -155,7 +155,7 @@
       <span class="k">$(</span>kubectl get pods -n identity --selector<span class="o">=</span><span class="s1">&#39;release=openldap&#39;</span> -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.items[0].metadata.name}&#39;</span><span class="k">)</span> <span class="se">\</span>
       <span class="m">3890</span>:389
 </code></pre></div>
-<h2>Managing users and testing that it works</h2>
+<h2 id="managing-users-and-testing-that-it-works">Managing users and testing that it works</h2>
 
 <p>We can now use Keycloak to add a user by going to the &quot;Users&quot; option in the left hand pane and choosing Add user. After populating and saving the new user form, we can use <code>ldapsearch</code> to check that the user has been created in <code>openldap</code>. To run the commands locally we&#39;ll need to forward the OpenLDAP port to our local machine with:</p>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>kubectl port-forward --namespace identity <span class="se">\</span>

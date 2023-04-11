@@ -117,7 +117,7 @@
 
 <p>This post assumes you&#39;ve already completed the &quot;Installing Keycloak&quot; section.</p>
 
-<h2>Installing harbor</h2>
+<h2 id="installing-harbor">Installing harbor</h2>
 
 <p>The official helm chart for installing harbor can be found here: <a href="https://github.com/goharbor/harbor-helm">https://github.com/goharbor/harbor-helm</a>.</p>
 
@@ -167,7 +167,7 @@ helm upgrade --install harbor-registry harbor/harbor --values=./harbor/values-ha
 
 <p>If we create a test user now and then subsequently delete it, we still won&#39;t be able to switch to OIDC based login. Instead we&#39;ll configure Keycloak login.</p>
 
-<h2>Creating a client in Keycloak</h2>
+<h2 id="creating-a-client-in-keycloak">Creating a client in Keycloak</h2>
 
 <p>In the KeyCloak clients UI create a new client with Client ID <code>harbor</code> and Client Protocol &quot;openid-connect&quot; with the following configuration:</p>
 
@@ -187,7 +187,7 @@ helm upgrade --install harbor-registry harbor/harbor --values=./harbor/values-ha
 <li><strong>All Other Options</strong>: On</li>
 </ul>
 
-<h2>Configuring Harbor OIDC via the admin UI</h2>
+<h2 id="configuring-harbor-oidc-via-the-admin-ui">Configuring Harbor OIDC via the admin UI</h2>
 
 <p>Login to the Harbour web UI available at the ingress URL you selected using the username <code>admin</code> and the password you specified in <code>harborAdminPassword</code>.</p>
 
@@ -207,7 +207,7 @@ helm upgrade --install harbor-registry harbor/harbor --values=./harbor/values-ha
 
 <p>We can then use the &quot;Test OIDC Server&quot; button to make sure everything is working and once it is, choose &quot;Save&quot;.</p>
 
-<h2>Testing that it works</h2>
+<h2 id="testing-that-it-works">Testing that it works</h2>
 
 <p>If we now logout from our admin user (or use a private browsing tab), and return to our Harbor core ingress URL, we now have the option to &quot;Login with OIDC Provider&quot;. If we select this we&#39;ll be redirected to Keycloak to login. Here we should login with a regular Keycloak user from the realm we&#39;re using (by default master), <strong>NOT</strong> our keycloak admin user.</p>
 
@@ -219,7 +219,7 @@ helm upgrade --install harbor-registry harbor/harbor --values=./harbor/values-ha
 
 <p>As an example we can then as an admin user, create a private project called &quot;test1&quot;, then head to the &quot;Members&quot; tab of this project and choose &quot;+ Group&quot;. We can then enter <code>/Administrators</code> as the Group Name and choose &quot;Project Admin&quot; as the role. Any users in the <code>Administrators</code> Keycloak group will then automatically be given the <code>Project Admin</code> role for this project.</p>
 
-<h2>Use with Docker</h2>
+<h2 id="use-with-docker">Use with Docker</h2>
 
 <p>Assuming we have created the <code>test1</code> private project above and given our Keycloak master realm user access to it, we can login to the docker registry from our local CLI with the following command:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>docker login YOUR_HARBOR_CORE_INGRESS_URL
@@ -237,7 +237,7 @@ helm upgrade --install harbor-registry harbor/harbor --values=./harbor/values-ha
 </code></pre></div>
 <p>When we need to give things like CI servers or Kubernetes access to the repository, we can head to the &quot;Robot Accounts&quot; tab in Harbor to generate limited access tokens for exactly this.</p>
 
-<h2>Configuring Harbor OIDC from the command line</h2>
+<h2 id="configuring-harbor-oidc-from-the-command-line">Configuring Harbor OIDC from the command line</h2>
 
 <p>In any sort of automated environment (e.g. Ansible, Chef etc) it&#39;s desirable to be able to configure everything without touching the UI. For this Harbor offers a comprehensive API. To view the API documentation login as the admin user and click on the &quot;Habor API V2.0&quot; option at the bottom which will take you to the swagger documentation.</p>
 
@@ -259,11 +259,11 @@ helm upgrade --install harbor-registry harbor/harbor --values=./harbor/values-ha
 </code></pre></div>
 <p>The Habor API is comprehensive e.g. we can also create projects and give groups permission to access these projects entirely via the API so it&#39;s well worth spending time with the Swagger documentation.</p>
 
-<h2>Use with Kubernetes</h2>
+<h2 id="use-with-kubernetes">Use with Kubernetes</h2>
 
 <p>In order to access images in the registry we&#39;ll need to create appropriate image pull secrets as described <a href="https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/">here in the kubernetes documentation</a> for this we should use project &quot;Robot Tokens&quot;. </p>
 
-<h2>Summary</h2>
+<h2 id="summary">Summary</h2>
 
 <p>We now have a self hosted registry for docker images which is fully integrated with Keycloak for authentication. We can also configure this via the command line if we want to automate setup with a configuration management tool such as Chef or Ansible.</p>
 

@@ -49,19 +49,19 @@
 
 <!--more-->
 
-<h2>Pre-requisites</h2>
+<h2 id="pre-requisites">Pre-requisites</h2>
 
 <p>I&#39;m assuming you have a VPS setup with Nginx and your database server of choice. You&#39;ll need to have SSH access to this server and I&#39;ll assume you&#39;ve already copied your public key across.</p>
 
 <p>This tutorial has been tested with my example configuration, full instructions for setting up a VPS with this configuration is available here: <a href="http://www.talkingquickly.co.uk/2013/09/using-chef-to-provision-a-rails-and-postgres-server/">http://www.talkingquickly.co.uk/2013/09/using-chef-to-provision-a-rails-and-postgres-server/</a></p>
 
-<h2>Which version of Capistrano to use</h2>
+<h2 id="which-version-of-capistrano-to-use">Which version of Capistrano to use</h2>
 
 <p>Capistrano 3 is currently available however in this tutorial I&#39;ll be using Capistrano 2. The focus of this tutorial is primarily on the configuration required for running multiple applications on a single VPS rather than how to use Capistrano so it should still be relevant even if you prefer Capistrano 3.</p>
 
 <p>I&#39;m generally quite conservative on which tools to use for provisioning and deployment, as version 3 gains more traction and becomes better tested, I&#39;ll look at doing an updated version.</p>
 
-<h2>Setting up</h2>
+<h2 id="setting-up">Setting up</h2>
 
 <p>Begin by adding the Capistrano Gem to your gemfile in the development group:</p>
 <div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span></span><span class="n">group</span> <span class="ss">:development</span> <span class="k">do</span>
@@ -106,7 +106,7 @@
 
 <p>Next create a new directory <code>deploy</code> within the config directory.</p>
 
-<h2>Defining a production stage</h2>
+<h2 id="defining-a-production-stage">Defining a production stage</h2>
 
 <p>A very simple production capistrano staging template is available at:</p>
 
@@ -143,19 +143,19 @@
 </code></pre></div>
 <p>These variables are then propogated automatically to the config files created in setup.</p>
 
-<h2>Setup</h2>
+<h2 id="setup">Setup</h2>
 
 <p>production.rb defines a task <code>setup_config</code> which is called when we run <code>cap deploy production:setup</code>. This task is responsible for creating all configuration specific to our application on the server we&#39;re deploying to.</p>
 
 <p>In this simple stage definition there are four key pieces of configuration which are created.</p>
 
-<h3>database.yml</h3>
+<h3 id="database-yml">database.yml</h3>
 
 <p>It&#39;s good practice not to store details of our production database in source control. Therefore the setup task will copy the databaes.sample.yml template to the shared folder on the remote server and you can SSH in, rename this file to database.yml and enter the production database details.</p>
 
 <p>Whenever the application is deployed, the task <code>symlink_config</code> will create a link from app_root/config/database.yml to this shared file.</p>
 
-<h3>unicorn.rb.erb</h3>
+<h3 id="unicorn-rb-erb">unicorn.rb.erb</h3>
 
 <p>This defines the configuration for the Unicorn web server. It also ensures that pidfiles are created for the unicorn worker processes which allows them to be monitored and managed if you choose to implement zero downtime deployments.</p>
 
@@ -170,18 +170,18 @@
 <li>  the number of cores available</li>
 </ul>
 
-<h3>unicorn_init.sh.erb</h3>
+<h3 id="unicorn_init-sh-erb">unicorn_init.sh.erb</h3>
 
 <p>This is copied to <code>/etc/init.d/unicorn_application</code> and manages the starting, stopping and restarting of unicorn worker processes. The following key commands are available:</p>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>/etc/init.d/unicorn_application restart
 /etc/init.d/unicorn_application start
 /etc/init.d/unicorn_application stop
 </code></pre></div>
-<h3>nginx.conf</h3>
+<h3 id="nginx-conf">nginx.conf</h3>
 
 <p>This is an nginx virtual host file which directs traffic to the domain set as application_domain in production.rb to the unicorn workers.</p>
 
-<h2>Deploying</h2>
+<h2 id="deploying">Deploying</h2>
 
 <p>Once you&#39;ve populated production.rb with the details of your application. Run:</p>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>cap production deploy:setup
@@ -191,7 +191,7 @@
 <p>You&#39;re then ready to deploy your application for the first time:</p>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>cap production deploy
 </code></pre></div>
-<h2>Additional Applications</h2>
+<h2 id="additional-applications">Additional Applications</h2>
 
 <p>Using this approach, each application is responsible for maintaing its own configuration and nginx will proxy requests back to the correct unicorn workers depending on the domain which is accessed so the only limit to the number of rails applications which can be deployed to a single server is the resources available.</p>
 

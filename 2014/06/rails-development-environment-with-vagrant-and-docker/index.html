@@ -55,7 +55,7 @@
 
 <p>In this tutorial, I&#39;ll show you how to use a combination of Vagrant and Docker to setup a fully functional Rails + Postgres + Redis development environment. In a follow up tutorial I&#39;ll demonstrate how to deploy the containers we create here to production.</p>
 
-<h1>Vagrant Docker Provider</h1>
+<h1 id="vagrant-docker-provider">Vagrant Docker Provider</h1>
 
 <p>Vagrant 1.6 added native support for Docker as a provider. If you&#39;re developing on a Linux machine, it will run Docker natively, otherwise it will transparently spin up a virtual machine to use as the Docker host.</p>
 
@@ -68,7 +68,7 @@
 
 <p>Here, therefore, Vagrant is used to setup a standard Ubuntu VM and install Docker, while everything else is done using standard Docker shell commands.</p>
 
-<h1>The End Result</h1>
+<h1 id="the-end-result">The End Result</h1>
 
 <p>The final system will require a simple</p>
 
@@ -83,9 +83,9 @@
 <li>A simple interface for running all the normal Rails commands (<code>rake db: migrate</code>, <code>rails c</code> etc) in the Docker environment</li>
 </ul>
 
-<h1>Steps</h1>
+<h1 id="steps">Steps</h1>
 
-<h2>Pre-requisites</h2>
+<h2 id="pre-requisites">Pre-requisites</h2>
 
 <ul>
 <li>Vagrant 1.6+ <a href="https://www.vagrantup.com/downloads.html">https://www.vagrantup.com/downloads.html</a></li>
@@ -96,9 +96,9 @@
 
 <p>I&#39;ve tested this tutorial on OSX and Ubuntu 12.04. It should work on other nix flavours, but it may require more tweaking for use on Windows.</p>
 
-<h2>Dockerising the App</h2>
+<h2 id="dockerising-the-app">Dockerising the App</h2>
 
-<h3>Configuration</h3>
+<h3 id="configuration">Configuration</h3>
 
 <p>I started with a standard Rails 4.1.0 application generated with <code>rails new</code> then added a single model + scaffolding and converted it to use PostgreSQL. The final source for this is available at <a href="https://github.com/TalkingQuickly/docker_rails_dev_env_example">https://github.com/TalkingQuickly/docker_rails_dev_env_example</a></p>
 
@@ -128,7 +128,7 @@
   <span class="l l-Scalar l-Scalar-Plain">password</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;%= ENV[&#39;DB_ENV_POSTGRESQL_PASS&#39;] %&gt;</span>
   <span class="l l-Scalar l-Scalar-Plain">host</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;%= ENV[&#39;DB_PORT_5432_TCP_ADDR&#39;] %&gt;</span>
 </code></pre></div>
-<h3>Dockerfiles and Scripts</h3>
+<h3 id="dockerfiles-and-scripts">Dockerfiles and Scripts</h3>
 
 <p>The example configuration requires three Dockerfiles: one for Rails, one for Redis and one for PostgreSQL. The Rails Dockerfile is stored in the root of the Rails project, the others are stored in sub-folders of the <code>docker/</code> directory.</p>
 
@@ -144,11 +144,11 @@
     ├── redis/
     └── scripts/
 </code></pre></div>
-<h2>Setting Up Vagrant</h2>
+<h2 id="setting-up-vagrant">Setting Up Vagrant</h2>
 
 <p>If you&#39;re completely new to Vagrant it&#39;s worth briefly going through their getting started tutorial <a href="http://docs.vagrantup.com/v2/getting-started/">http://docs.vagrantup.com/v2/getting-started/</a> at least through to the end of the provisioning section.</p>
 
-<h3>The Vagrantfile</h3>
+<h3 id="the-vagrantfile">The Vagrantfile</h3>
 
 <p>The Vagrantfile should be stored in the root of your Rails project and look like this:</p>
 <div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span></span><span class="c1"># Commands required to setup working docker environment, link</span>
@@ -213,7 +213,7 @@
   <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provision</span> <span class="s2">&quot;shell&quot;</span><span class="p">,</span> <span class="ss">run</span><span class="p">:</span> <span class="s2">&quot;always&quot;</span><span class="p">,</span> <span class="ss">inline</span><span class="p">:</span> <span class="vg">$start</span>
 <span class="k">end</span>
 </code></pre></div>
-<h3>The Vagrant Shared Folder</h3>
+<h3 id="the-vagrant-shared-folder">The Vagrant Shared Folder</h3>
 
 <p>We want our Docker container to use the Rails app directly from our local filesystem so we can make changes on our development machine as we normally would and have these changes instantly reflected on our development server.</p>
 
@@ -224,7 +224,7 @@
 </code></pre></div>
 <p>For more on NFS shares and what&#39;s required to set them up, see <a href="https://docs.vagrantup.com/v2/synced-folders/nfs.html">https://docs.vagrantup.com/v2/synced-folders/nfs.html</a>. On OSX it should work out of the box, on Linux you may need to install <code>nfsd</code>.</p>
 
-<h2>Vagrant Up</h2>
+<h2 id="vagrant-up">Vagrant Up</h2>
 
 <p>Run <code>vagrant up</code> in the root of your project to start the new development environment.</p>
 
@@ -247,7 +247,7 @@ vagrant reload
 
 <p>This will create an Ubuntu Virtual Machine, install Docker on it and proceed to running the script defined in your <code>$setup</code> variable in the Vagrantfile. In this example, for completeness, we build all of the containers from scratch rather than pulling them from an Index so the first time you run this, it will take a while.</p>
 
-<h3>The Setup Script</h3>
+<h3 id="the-setup-script">The Setup Script</h3>
 
 <p>The first time we start the VM, this line in the Vagrantfile:</p>
 <div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span></span><span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provision</span> <span class="s2">&quot;shell&quot;</span><span class="p">,</span> <span class="ss">inline</span><span class="p">:</span> <span class="vg">$setup</span>
@@ -298,7 +298,7 @@ docker run -d --name redis redis:latest
 
 <p><code>--link postgres:db</code> establishes a link between the container you&#39;re starting (your Rails app) and the Postgres container you started previously. This is in the format <code>name:alias</code> and will make ports exposed by the Postgres container available to the Rails container.</p>
 
-<h3>Environment Variables in Linked Containers</h3>
+<h3 id="environment-variables-in-linked-containers">Environment Variables in Linked Containers</h3>
 
 <p>Linking will also make the environment variables from the Postgres container available to the Rails container with the prefix <code>ALIAS</code>. When you expose a port in a container, a corresponding environment variable is created within that container.</p>
 
@@ -315,13 +315,13 @@ docker run -d --name redis redis:latest
 
 <p>It&#39;s worth reading <a href="http://docs.docker.io/reference/run/#env-environment-variables">http://docs.docker.io/reference/run/#env-environment-variables</a> for more on the environment variables available. It&#39;s also interesting to inspect the contents of <code>ENV</code> from a Rails console once the full environment is up and running.</p>
 
-<h3>Why make this a shell script?</h3>
+<h3 id="why-make-this-a-shell-script">Why make this a shell script?</h3>
 
 <p>The few lines in our <code>$setup</code> script are everything we need to build and run our application on any machine with Docker installed. If you wanted to run this application in development on a Linode, you could just create a new node, install Docker, upload your code and run this same script, and you&#39;d have a working development version of your application on this server.</p>
 
 <p>Later in this series of tutorials I&#39;ll demonstrate how the commands in this script can be adapted to form the basis of a production deployment with Docker. Getting familiar with the commands as part of the day-to-day development workflow means that working with the production stack is much less of a learning curve for any developer on the team.</p>
 
-<h2>Interacting with the Rails Application</h2>
+<h2 id="interacting-with-the-rails-application">Interacting with the Rails Application</h2>
 
 <p>Once the above process is complete, the Rails application should be available in a browser on your local development machine at <code>http://localhost:3000</code>. However, the first thing you&#39;re likely to see is an error that the database does not exist.</p>
 
@@ -381,7 +381,7 @@ bundle <span class="nb">exec</span> unicorn -p <span class="m">3000</span>
 
 <p>The exception in the case of this development configuration is the <code>/app/</code> directory, which is a shared folder and, therefore, any files created here will persist and be available to all containers. It should be kept in mind that, in a production configuration, there should be no such shared local storage and so this should not be relied upon for any sort of shared state. It&#39;s worth reading the Twelve Factor App guide for more on how sharing state should be approached <a href="http://12factor.net/">http://12factor.net/</a>.</p>
 
-<h2>Bootstrapping the Database</h2>
+<h2 id="bootstrapping-the-database">Bootstrapping the Database</h2>
 
 <p>Generally, when setting up a development environment, I want the development database populated with a recent dump of data from production. Sometimes this is a direct dump and sometimes it&#39;s a segment of the production data, or modified version of production with sensitive information removed. Either way, this normally takes the form of a .sql file (assuming MySQL or Postgres). It&#39;s useful to be able to quickly restore future dumps to the development database.</p>
 
@@ -399,9 +399,9 @@ bundle <span class="nb">exec</span> unicorn -p <span class="m">3000</span>
 
 <p>Note the naming, it expects a zip archive at <code>db/current.sql.zip</code> which contains a single file called <code>current.sql</code>.</p>
 
-<h2>Upcoming Tutorials</h2>
+<h2 id="upcoming-tutorials">Upcoming Tutorials</h2>
 
-<p>I&#39;ll be releasing further tutorials over the next few months on the topics below, you can follow me on twitter <a href="http://www.twitter.com/talkingquickly">@talkingquickly</a> for updates. If you run into any issues with this tutorial, feel free to tweet or email me, ben@talkingquickly.co.uk.</p>
+<p>I&#39;ll be releasing further tutorials over the next few months on the topics below, you can follow me on twitter <a href="http://www.twitter.com/talkingquickly">@talkingquickly</a> for updates. If you run into any issues with this tutorial, feel free to tweet or email me, <a href="mailto:ben@talkingquickly.co.uk">ben@talkingquickly.co.uk</a>.</p>
 
 <ul>
 <li>Setting up a private index so you can build your Docker images centrally and then just pull them when you start a new development environment, rather than rebuilding each time</li>

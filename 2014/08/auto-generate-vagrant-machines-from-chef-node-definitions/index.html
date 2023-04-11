@@ -144,7 +144,7 @@
 </code></pre></div>
 <p>For a complete example <code>Vagrantfile</code> see <a href="https://github.com/TalkingQuickly/rails-server-template/blob/master/Vagrantfile">https://github.com/TalkingQuickly/rails-server-template/blob/master/Vagrantfile</a></p>
 
-<h2>Using with Berkshelf</h2>
+<h2 id="using-with-berkshelf">Using with Berkshelf</h2>
 
 <p>If you&#39;re using Berkshelf, it may be tempting to simply use the <code>cookbooks</code> directory as <code>chef.cookbooks_path</code>. The problem with this however is that the <code>cookbooks</code> directory is only populated when we run <code>knife solo cook</code> so there&#39;s no guarantee that <code>cookbooks</code> always contains the correct versions, just the correct versions from when we last ran a cook.</p>
 
@@ -168,7 +168,7 @@
 </code></pre></div>
 <p>To your Vagrantfile. The key limitation is that it states on the projects web page that it doesn&#39;t currently support multi machine vagrant files which is usually what we&#39;ll be generating with this approach.</p>
 
-<h2>Directory Structure</h2>
+<h2 id="directory-structure">Directory Structure</h2>
 
 <p>This assumes that the <code>Vagrantfile</code> is in the root of a chef-solo repository. In some situations the chef repository will actually be in a subfolder, for a example if your chef repository is a subfolder (<code>chef</code>) in a Rails application and the Vagrantfile sits in the root of the Rails project.</p>
 
@@ -180,7 +180,7 @@
 </code></pre></div>
 <p>and update the <code>chef.*_path</code> entries to be prefixed with <code>chef/</code>.</p>
 
-<h2>Exclusions</h2>
+<h2 id="exclusions">Exclusions</h2>
 
 <p>While the purpose of using Vagrant and Chef is often to allow us to create testing environments which closely match our production environment, there are sometimes scenario where we need to subtly vary the configuration between our production VM&#39;s and our vagrant configurations.</p>
 
@@ -225,7 +225,7 @@
 </code></pre></div>
 <p>Both roles and recipes can be removed in this mannger.</p>
 
-<h2>Starting the Vagrant Box(es)</h2>
+<h2 id="starting-the-vagrant-box-es">Starting the Vagrant Box(es)</h2>
 
 <ul>
 <li>Make sure you have the vagrant omnibus plugin (<a href="https://github.com/schisamo/vagrant-omnibus">https://github.com/schisamo/vagrant-omnibus</a>) installed which allows you to specify the chef version which is used. To install it simply enter <code>vagrant plugin install vagrant-omnibus</code>.</li>
@@ -236,7 +236,7 @@
 
 <p>This will setup the VM and automatically run chef solo to provision it as per the node definition. Once this completes, you can then access the node as you would any other remote machine using the IP address specified in the <code>vagrant</code> section of the node definition.</p>
 
-<h2>Users and SSH</h2>
+<h2 id="users-and-ssh">Users and SSH</h2>
 
 <p>A common issue when working with chef and vagrant is that it&#39;s normal for chef scripts to modify both users and who has access to sudo. If this means that the vagrant user is removed or removed from the sudoers group, this can mean that commands such as <code>vagrant ssh</code>, <code>vagrant halt</code> etc will stop working. More importantly if the vagrant user doesn&#39;t behave as expected, shared folders will generally not work correctly.</p>
 
@@ -256,7 +256,7 @@
 </code></pre></div>
 <p>The vagrant user also by default has passwordless sudo enabled, behavior seems to be unpredictable if this is disabled but sometimes it will simply prompt you for the vagrant users password which is <code>vagrant</code>.</p>
 
-<h2>Tips</h2>
+<h2 id="tips">Tips</h2>
 
 <ul>
 <li>Node names must be made up of the characters a-z, 0-9, hyphens and dots only. This allows the hostname to be set to the node name</li>

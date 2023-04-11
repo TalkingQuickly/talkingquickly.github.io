@@ -1,5 +1,4 @@
 FROM ruby:2.7-buster
-MAINTAINER ben@talkingquickly.co.uk
 
 # Install apt based dependencies required to run Rails as
 # well as RubyGems. As the Ruby image itself is based on a

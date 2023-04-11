@@ -57,7 +57,7 @@
 
 <p><a href="http://docs.vagrantup.com/v2/getting-started/index.html">http://docs.vagrantup.com/v2/getting-started/index.html</a></p>
 
-<h2>Getting Setup</h2>
+<h2 id="getting-setup">Getting Setup</h2>
 
 <p>Go to <a href="http://downloads.vagrantup.com/">http://downloads.vagrantup.com/</a> and download then install the most recent version of Vagrant (I used 1.3.5). You’ll also need VirtualBox installed as Vagrant in this scenario acts as a tool for managing VirtualBox instances.</p>
 
@@ -86,7 +86,7 @@ Usage: vagrant <span class="o">[</span>-v<span class="o">]</span> <span class="o
 </code></pre></div>
 <p>Which will log you in as the vagrant user. Passwordless sudo is enabled so you don’t have to worry about default passwords</p>
 
-<h2>SSHing in directly</h2>
+<h2 id="sshing-in-directly">SSHing in directly</h2>
 
 <p>When testing chef cookbooks, roles and node definitions, I like to be able to apply a definition to my vagrant virtual machine in exactly the same way I will my production server. A pre-requisite for this is that I can interact with it without using any vagrant specific commands. Happily SSHing in the old fashioned way is very simple. Begin by running:</p>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>vagrant ssh-config
@@ -109,15 +109,15 @@ LogLevel FATAL
 </code></pre></div>
 <p>Which means establish a connection to 127.0.0.1 on port 2222 using the vagrant generated private key file to authorise the user <code>vagrant</code>.</p>
 
-<h2>Why not just use Vagrants built in chef and chef-solo support?</h2>
+<h2 id="why-not-just-use-vagrants-built-in-chef-and-chef-solo-support">Why not just use Vagrants built in chef and chef-solo support?</h2>
 
 <p>Vagrant has excellant chef-solo support built in. Rather than using our existing node definition files, we can effectively include the data from a node definition file, in our vagrantfile. When <code>vagrant up</code> is run for the first time, the vagrant image will be automatically provisioned. This is very powerful when we’re using vagrant to make it easy for developers to provision environments which closely match production.</p>
 
 <p>However when developing testing Chef cookbooks, role definitions and node definitions, I prefer the process of provisioning the Vagrant VM to be identical in as many ways as possible to the process of provisioning production and staging VM’s.</p>
 
-<p>For me this means using exactly the same commands (knife solo prepare, knife solo cook etc). I strongly recommend reading http://docs.vagrantup.com/v2/provisioning/chef_solo.html to understand how chef provisioning can be built into a Vagrantfile if you do start using Vagrant for local development environments.</p>
+<p>For me this means using exactly the same commands (knife solo prepare, knife solo cook etc). I strongly recommend reading <a href="http://docs.vagrantup.com/v2/provisioning/chef_solo.html">http://docs.vagrantup.com/v2/provisioning/chef_solo.html</a> to understand how chef provisioning can be built into a Vagrantfile if you do start using Vagrant for local development environments.</p>
 
-<h2>Testing chef cookbooks</h2>
+<h2 id="testing-chef-cookbooks">Testing chef cookbooks</h2>
 
 <p>Now we have a vagrant virtual machine which we can ssh into as we would any VPS, we can test our chef configuration on it.</p>
 
@@ -162,7 +162,7 @@ Downloading Chef <span class="m">11</span>.6.2 <span class="k">for</span> ubuntu
 
 <p>Once this process completes, the Vagrant VM should now be configured as per your chef definition.</p>
 
-<h2>Users, Sudo and Root</h2>
+<h2 id="users-sudo-and-root">Users, Sudo and Root</h2>
 
 <p>By default Vagrant sets up the <code>vagrant</code> user with the password <code>vagrant</code>. This user has passwordless sudo enabled so you never have to worry about default passwords (however read to the end for a gotcha here).</p>
 
@@ -190,7 +190,7 @@ Downloading Chef <span class="m">11</span>.6.2 <span class="k">for</span> ubuntu
 </code></pre></div>
 <p>Personally I prefer a hybrid. I generally add the vagrant user to the sudoers list in the node defintiion so that the vagrant interface can continue to function as usual however I use the above format when I want to test that provisioning as the deploy user works as expected.</p>
 
-<h2>Conclusion</h2>
+<h2 id="conclusion">Conclusion</h2>
 
 <p>If you use Chef Solo, this configuration allows you to use Vagrant to test cookbooks using local, disposable VM’s through a process that is almost identical to the production workflow. For more on Vagrant, such as how to forward ports, manage shared folders and package images for distribution, see the excellant Vagrant documentation at: <a href="http://docs.vagrantup.com/v2/getting-started/">http://docs.vagrantup.com/v2/getting-started/</a></p>
 

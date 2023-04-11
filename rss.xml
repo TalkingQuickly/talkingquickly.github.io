@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-<generator uri="http://jekyllrb.com" version="3.7.2">Jekyll</generator>
+<generator uri="http://jekyllrb.com" version="3.9.3">Jekyll</generator>
 <link href="https://www.talkingquickly.co.uk/rss.xml" rel="self" type="application/atom+xml" />
 <link href="https://www.talkingquickly.co.uk/" rel="alternate" type="text/html" />
-<updated>2023-04-11T16:07:45+00:00</updated>
+<updated>2023-04-11T16:31:07+00:00</updated>
 <id>https://www.talkingquickly.co.uk/</id>
 <title>talkingquickly</title>
 <subtitle>kubernetes, rails, stress free deployment and small steps taken quickly</subtitle>
@@ -64,16 +64,63 @@
 
 &lt;!--more--&gt;
 
-&lt;p&gt;| |Document|Meeting|Document + Meeting|
-|--|--|--|--|
-|Organiser Prep Time|2 hours|15 mins|2 hours|
-|Collaboration Time / person|15mins|45mins|1 hour|
-|Comprehension|50%|20%|75%|
-|Re usability|100%|0%|75%|
-|Alignment + 1 hour|50%|75%|95%|
-|Alignment + 1 day|50%|30%|95%|
-|Alignment + 7 days|40%|20%|85%|
-|Alignment + 1 Month|30%|5%|75%|&lt;/p&gt;
+&lt;table&gt;&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;Document&lt;/th&gt;
+&lt;th&gt;Meeting&lt;/th&gt;
+&lt;th&gt;Document + Meeting&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Organiser Prep Time&lt;/td&gt;
+&lt;td&gt;2 hours&lt;/td&gt;
+&lt;td&gt;15 mins&lt;/td&gt;
+&lt;td&gt;2 hours&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Collaboration Time / person&lt;/td&gt;
+&lt;td&gt;15mins&lt;/td&gt;
+&lt;td&gt;45mins&lt;/td&gt;
+&lt;td&gt;1 hour&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Comprehension&lt;/td&gt;
+&lt;td&gt;50%&lt;/td&gt;
+&lt;td&gt;20%&lt;/td&gt;
+&lt;td&gt;75%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Re usability&lt;/td&gt;
+&lt;td&gt;100%&lt;/td&gt;
+&lt;td&gt;0%&lt;/td&gt;
+&lt;td&gt;75%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Alignment + 1 hour&lt;/td&gt;
+&lt;td&gt;50%&lt;/td&gt;
+&lt;td&gt;75%&lt;/td&gt;
+&lt;td&gt;95%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Alignment + 1 day&lt;/td&gt;
+&lt;td&gt;50%&lt;/td&gt;
+&lt;td&gt;30%&lt;/td&gt;
+&lt;td&gt;95%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Alignment + 7 days&lt;/td&gt;
+&lt;td&gt;40%&lt;/td&gt;
+&lt;td&gt;20%&lt;/td&gt;
+&lt;td&gt;85%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Alignment + 1 Month&lt;/td&gt;
+&lt;td&gt;30%&lt;/td&gt;
+&lt;td&gt;5%&lt;/td&gt;
+&lt;td&gt;75%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
 
 &lt;p&gt;In this model I&amp;#39;ve suggested there are 3 main results we&amp;#39;re likely to be looking for:&lt;/p&gt;
 
@@ -126,7 +173,7 @@
 
 &lt;p&gt;Note that this post is intended to be a tutorial rather than a reference, so the focus will be on the steps that need to be completed rather than exploring the why.&lt;/p&gt;
 
-&lt;h2&gt;Setting up DNS&lt;/h2&gt;
+&lt;h2 id=&quot;setting-up-dns&quot;&gt;Setting up DNS&lt;/h2&gt;
 
 &lt;p&gt;In order to obtain an SSL certificate for our application, we will need to have public DNS setup.&lt;/p&gt;
 
@@ -144,7 +191,7 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;This will allow you to access the app over http (but not https) on &lt;code&gt;myapp.local&lt;/code&gt;.&lt;/p&gt;
 
-&lt;h2&gt;Adding Gems&lt;/h2&gt;
+&lt;h2 id=&quot;adding-gems&quot;&gt;Adding Gems&lt;/h2&gt;
 
 &lt;p&gt;We then add the following to our Gemfile:&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;# The puma application server, we probably already have this
@@ -158,7 +205,7 @@ end
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;and run &lt;code&gt;bundle install&lt;/code&gt;.&lt;/p&gt;
 
-&lt;h2&gt;Generating Local Configuration&lt;/h2&gt;
+&lt;h2 id=&quot;generating-local-configuration&quot;&gt;Generating Local Configuration&lt;/h2&gt;
 
 &lt;p&gt;Capistrano Cookbook is a convenience gem that provides some helper tasks and a Rails Generator for bootstrapping the typical configuration used when deploying a Rails application both with or without Sidekiq.&lt;/p&gt;
 
@@ -199,7 +246,7 @@ config
 
 &lt;p&gt;It also generates Monit definitions which are compatible with systemd. While in some respects systemd and Monit serve similar functions - both can ensure that our application and background workers are always running and started at boot - Monit can provide a layer of additional verification, for example checking ports are accessible and HTTP response codes and taking actions if this changes, so we&amp;#39;ll generally require both for a robust configuration. &lt;/p&gt;
 
-&lt;h2&gt;Configuring Stages&lt;/h2&gt;
+&lt;h2 id=&quot;configuring-stages&quot;&gt;Configuring Stages&lt;/h2&gt;
 
 &lt;p&gt;The file &lt;code&gt;deploy.rb&lt;/code&gt; contains our general deployment configuration, and looks something like this:&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# config valid for current version and patch releases of Capistrano&lt;/span&gt;
@@ -301,7 +348,7 @@ config
 
 &lt;p&gt;The only value we may want to tweak is &lt;code&gt;:branch&lt;/code&gt; which defines which branch should be used to deploy to this server. So if we were following a &amp;quot;git flow&amp;quot; type model, we might set this to &lt;code&gt;master&lt;/code&gt; in &lt;code&gt;production.rb&lt;/code&gt; and &lt;code&gt;develop&lt;/code&gt; in &lt;code&gt;staging.rb&lt;/code&gt;.&lt;/p&gt;
 
-&lt;h2&gt;Generating Remote Configuration&lt;/h2&gt;
+&lt;h2 id=&quot;generating-remote-configuration&quot;&gt;Generating Remote Configuration&lt;/h2&gt;
 
 &lt;p&gt;Now that we&amp;#39;ve confirmed all of our local configuration is correct, we can upload all of our one time configuration to the remote server.&lt;/p&gt;
 
@@ -321,7 +368,7 @@ config
 &lt;p&gt;We can execute this task with:&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;bundle exec cap production deploy:setup_config
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;Setting up our database&lt;/h2&gt;
+&lt;h2 id=&quot;setting-up-our-database&quot;&gt;Setting up our database&lt;/h2&gt;
 
 &lt;p&gt;The final step required before deploying our application for the first time is setting up our database.&lt;/p&gt;
 
@@ -340,7 +387,7 @@ config
 
 &lt;p&gt;If we wish to setup our database manually, we will need to create the appropriate database and user, then create a suitable &lt;code&gt;database.yml&lt;/code&gt; file on our remote server in &lt;code&gt;/home/deploy/apps/FULL_APP_NAME/shared/config&lt;/code&gt; replacing &lt;code&gt;FULL_APP_NAME&lt;/code&gt; with the value that will be generated for &lt;code&gt;:full_app_name&lt;/code&gt; in our &lt;code&gt;production.rb&lt;/code&gt;. This is typically &lt;code&gt;APP_NAME_STAGE&lt;/code&gt; e.g. &lt;code&gt;my_rails_app_production&lt;/code&gt;.&lt;/p&gt;
 
-&lt;h2&gt;Disabling Passwordless Sudo (optional)&lt;/h2&gt;
+&lt;h2 id=&quot;disabling-passwordless-sudo-optional&quot;&gt;Disabling Passwordless Sudo (optional)&lt;/h2&gt;
 
 &lt;p&gt;Our configuration commands require the ability for our deploy user to execute sudo commands without being prompted for a password.&lt;/p&gt;
 
@@ -360,7 +407,7 @@ config
 
 &lt;p&gt;This provides us with some level of additional security because if - through some exploit - an attacker gained the ability to execute arbitrary shell commands as our app user, they would not automatically be able to execute commands as root.&lt;/p&gt;
 
-&lt;h2&gt;Deploying our application&lt;/h2&gt;
+&lt;h2 id=&quot;deploying-our-application&quot;&gt;Deploying our application&lt;/h2&gt;
 
 &lt;p&gt;We&amp;#39;re now ready to deploy our application. It&amp;#39;s important to note here that Capistrano uses SSH Keychain Forwarding to clone the repository specified in &lt;code&gt;config/deploy.rb&lt;/code&gt; at the branch specified in &lt;code&gt;config/deploy/STAGE_NAME.rb&lt;/code&gt;.&lt;/p&gt;
 
@@ -371,7 +418,7 @@ config
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Our configuration is setup to allow zero downtime deploys, so when we deploy future versions, our newly deployed code will be loaded in the background and then traffic seamlessly transferred over to this new version.&lt;/p&gt;
 
-&lt;h2&gt;Next&lt;/h2&gt;
+&lt;h2 id=&quot;next&quot;&gt;Next&lt;/h2&gt;
 
 &lt;p&gt;If you&amp;#39;ve run into any issues, please feel free to ping me on Twitter where I&amp;#39;m &lt;a href=&quot;https://www.twitter.com/talkingquickly&quot;&gt;@talkingquickly&lt;/a&gt; or open an issue on the &lt;a href=&quot;https://github.com/TalkingQuickly/capistrano-cookbook&quot;&gt;capistrano cookbook repository&lt;/a&gt; and I&amp;#39;ll do my best to help.&lt;/p&gt;
 
@@ -400,7 +447,7 @@ config
 
 &lt;p&gt;Note that this post is intended to be a tutorial rather than a reference, so the focus will be on the steps that need to be completed rather than exploring the why.&lt;/p&gt;
 
-&lt;h2&gt;The Stack&lt;/h2&gt;
+&lt;h2 id=&quot;the-stack&quot;&gt;The Stack&lt;/h2&gt;
 
 &lt;ul&gt;
 &lt;li&gt;Ubuntu 20.04 Focal Fossa (Current &lt;a href=&quot;https://ubuntu.com/about/release-cycle&quot;&gt;LTS&lt;/a&gt;)&lt;/li&gt;
@@ -409,11 +456,11 @@ config
 &lt;li&gt;Redis, Memcached (optional)&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2&gt;Chef&lt;/h2&gt;
+&lt;h2 id=&quot;chef&quot;&gt;Chef&lt;/h2&gt;
 
 &lt;p&gt;Rather than executing lots of commands by hand, we&amp;#39;ll use Chef to automate the setup of the server. This means that when we need to provision another, identical server, we need just one command rather than having to try and remember all the shell commands. Chef is similar to tools such as Puppet or Ansible with the advantage for our use case that it&amp;#39;s both written in and leverages for configuration, Ruby.&lt;/p&gt;
 
-&lt;h2&gt;Installing Chef&lt;/h2&gt;
+&lt;h2 id=&quot;installing-chef&quot;&gt;Installing Chef&lt;/h2&gt;
 
 &lt;p&gt;On OSX we can Install Chef by executing the following in a terminal:&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;curl https://packages.chef.io/files/stable/chef-workstation/21.2.303/mac_os_x/11.0/chef-workstation-21.2.303-1.x86_64.dmg --output /tmp/chef-workstation.dmg
@@ -429,14 +476,14 @@ sudo dpkg -i /tmp/chef-workstation.deb
 
 &lt;p&gt;Once this step is complete, executing &lt;code&gt;chef&lt;/code&gt; in a local terminal should give help output from Chef, rather than a command not found error.&lt;/p&gt;
 
-&lt;h2&gt; Installing Knife&lt;/h2&gt;
+&lt;h2 id=&quot;installing-knife&quot;&gt; Installing Knife&lt;/h2&gt;
 
 &lt;p&gt;Knife is the CLI tool that we will use to interact with Chef, we can install it by executing:&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;chef gem install knife-zero
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Note this command should not be executed from within a folder with a &lt;code&gt;Gemfile&lt;/code&gt; as this may lead to hard to debug &lt;code&gt;bundler not found&lt;/code&gt; errors.&lt;/p&gt;
 
-&lt;h2&gt;Creating a VPS&lt;/h2&gt;
+&lt;h2 id=&quot;creating-a-vps&quot;&gt;Creating a VPS&lt;/h2&gt;
 
 &lt;p&gt;We should now head to our favourite VPS provider. My current preference is Hetzner Cloud with Digital Ocean and Linode in close second. &lt;/p&gt;
 
@@ -444,7 +491,7 @@ sudo dpkg -i /tmp/chef-workstation.deb
 
 &lt;p&gt;We can now choose Ubuntu 20.04 as the system image, boot it up and make a note of the IP address.&lt;/p&gt;
 
-&lt;h2&gt;Setup key based SSH&lt;/h2&gt;
+&lt;h2 id=&quot;setup-key-based-ssh&quot;&gt;Setup key based SSH&lt;/h2&gt;
 
 &lt;p&gt;If we configured key based authentication as part of the VPS creation process, this step can be skipped.&lt;/p&gt;
 
@@ -459,14 +506,14 @@ sudo dpkg -i /tmp/chef-workstation.deb
 
 &lt;p&gt;We should then be able to execute &lt;code&gt;ssh USERNAME@SERVER_IP&lt;/code&gt; to login to our remote server without being required to enter a password. Note if we&amp;#39;re still being required to enter the passphrase for our local SSH key, we can avoid this by executing &lt;code&gt;ssh-add&lt;/code&gt; to temporarily store credentials in the local ssh agent.&lt;/p&gt;
 
-&lt;h2&gt;Getting the sample code&lt;/h2&gt;
+&lt;h2 id=&quot;getting-the-sample-code&quot;&gt;Getting the sample code&lt;/h2&gt;
 
 &lt;p&gt;Next we need to clone the sample Chef &lt;a href=&quot;https://github.com/TalkingQuickly/rails-server-template&quot;&gt;repository&lt;/a&gt;:&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;git clone git@github.com:TalkingQuickly/rails-server-template.git
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;And then enter the sample code folder with &lt;code&gt;cd rails-server-template&lt;/code&gt;&lt;/p&gt;
 
-&lt;h2&gt;Preparing the node&lt;/h2&gt;
+&lt;h2 id=&quot;preparing-the-node&quot;&gt;Preparing the node&lt;/h2&gt;
 
 &lt;p&gt;We can now prepare the server (node in Chef terminology) for provisioning with the following command:&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;knife zero bootstrap SERVER_IP --connection-user SSH_USER --node-name NODE_NAME
@@ -477,7 +524,7 @@ sudo dpkg -i /tmp/chef-workstation.deb
 
 &lt;p&gt;If we&amp;#39;ve never connected to the node via SSH before, we may be asked to confirm the servers fingerprint by entering &lt;code&gt;Y&lt;/code&gt; and pressing enter.&lt;/p&gt;
 
-&lt;h2&gt;Configuring the Node&lt;/h2&gt;
+&lt;h2 id=&quot;configuring-the-node&quot;&gt;Configuring the Node&lt;/h2&gt;
 
 &lt;p&gt;The above step created a JSON file which stores information about the node in &lt;code&gt;nodes/NODE_NAME.json&lt;/code&gt; but we should not edit that file directly.&lt;/p&gt;
 
@@ -541,7 +588,7 @@ sudo dpkg -i /tmp/chef-workstation.deb
 
 &lt;p&gt;We can then save and close the node definition.&lt;/p&gt;
 
-&lt;h2&gt;Setting up users&lt;/h2&gt;
+&lt;h2 id=&quot;setting-up-users&quot;&gt;Setting up users&lt;/h2&gt;
 
 &lt;p&gt;Our final step is to create a non-root user which will later be used by Capistrano to deploy our application.&lt;/p&gt;
 
@@ -568,7 +615,7 @@ sudo dpkg -i /tmp/chef-workstation.deb
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Replacing &lt;code&gt;ENCRYPTED_PASSWORD&lt;/code&gt; with the output of the &lt;code&gt;openssl&lt;/code&gt; command above and &lt;code&gt;PUBLIC_KEY&lt;/code&gt; with your public key, generally the contents of your local &lt;code&gt;~/.ssh/id_rsa.pub&lt;/code&gt;.&lt;/p&gt;
 
-&lt;h2&gt;Applying configuration to the node&lt;/h2&gt;
+&lt;h2 id=&quot;applying-configuration-to-the-node&quot;&gt;Applying configuration to the node&lt;/h2&gt;
 
 &lt;p&gt;We&amp;#39;re now ready to apply our configuration to the node with the following command:&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;knife zero converge &amp;quot;name:NODE_NAME&amp;quot; --ssh-user `SSH_USER`.
@@ -579,7 +626,7 @@ sudo dpkg -i /tmp/chef-workstation.deb
 
 &lt;p&gt;If we make changes to our configuration, for example by editing the node definition and overriding more values from roles, we simply run the above command again to have the changes applied.&lt;/p&gt;
 
-&lt;h2&gt;What we&amp;#39;ve set up&lt;/h2&gt;
+&lt;h2 id=&quot;what-weve-set-up&quot;&gt;What we&amp;#39;ve set up&lt;/h2&gt;
 
 &lt;p&gt;We now have a hardened server, ready to deploy a Rails application for. We can create an unlimited number of identical servers simply by following the above process.&lt;/p&gt;
 
@@ -592,7 +639,7 @@ sudo dpkg -i /tmp/chef-workstation.deb
 &lt;li&gt;Installed Nginx, Postgres, Redis and Memcached&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2&gt;Next&lt;/h2&gt;
+&lt;h2 id=&quot;next&quot;&gt;Next&lt;/h2&gt;
 
 &lt;p&gt;Assuming everything has gone well, we can now continue to &lt;a href=&quot;deploying-rails-to-a-vps-with-capistrano-and-systemd&quot;&gt;deploying our Rails application with Capistrano&lt;/a&gt;&lt;/p&gt;
 
@@ -876,7 +923,7 @@ WantedBy=&amp;lt;%=(fetch(:puma_systemctl_user) == :system) ? &amp;quot;multi-us
 
 &lt;p&gt;This also assumes you&amp;#39;ve already followed the Installing Keycloak section and have a functioning Keycloak instance you can login to with administrator rights.&lt;/p&gt;
 
-&lt;h2&gt;Setting up Keycloak&lt;/h2&gt;
+&lt;h2 id=&quot;setting-up-keycloak&quot;&gt;Setting up Keycloak&lt;/h2&gt;
 
 &lt;p&gt;First we&amp;#39;ll create a new client in Keycloak with Client ID: &lt;code&gt;kube-oidc-proxy&lt;/code&gt; and client protocol: &lt;code&gt;openid-connect&lt;/code&gt;. We&amp;#39;ll then configure the following parameters for this client:&lt;/p&gt;
 
@@ -887,7 +934,7 @@ WantedBy=&amp;lt;%=(fetch(:puma_systemctl_user) == :system) ? &amp;quot;multi-us
 
 &lt;p&gt;We can then save this new client and a new &amp;quot;Credentials&amp;quot; tab will appear. We&amp;#39;ll need the generated client secret along with our client id (&lt;code&gt;kube-oidc-proxy&lt;/code&gt;) for later steps.&lt;/p&gt;
 
-&lt;h2&gt;Setting up Kube OIDC Proxy&lt;/h2&gt;
+&lt;h2 id=&quot;setting-up-kube-oidc-proxy&quot;&gt;Setting up Kube OIDC Proxy&lt;/h2&gt;
 
 &lt;p&gt;Having created the client, we can now create our configuration for &lt;code&gt;kube-oidc-proxy&lt;/code&gt;. A sample configuration can be found in &lt;code&gt;kube-oidc-proxy/values-kube-oidc.yml&lt;/code&gt; and looks like this:&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;oidc&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt;
@@ -994,7 +1041,7 @@ kubectl get pods
 
 &lt;p&gt;Note the &lt;code&gt;oidcuser:&lt;/code&gt; prefix which is added due to the &lt;code&gt;usernamePrefix: &amp;quot;oidcuser:&amp;quot;&lt;/code&gt; prefix configuration line in our Kube OIDC Proxy values file. This prevents users defined in Keycloak from conflicting with any kubernetes internal users.&lt;/p&gt;
 
-&lt;h2&gt;Keycloak login to kubernetes with groups&lt;/h2&gt;
+&lt;h2 id=&quot;keycloak-login-to-kubernetes-with-groups&quot;&gt;Keycloak login to kubernetes with groups&lt;/h2&gt;
 
 &lt;p&gt;The above setup allows us to use &lt;code&gt;kubectl&lt;/code&gt; while authenticating with our keycloak user. However for each user we have to create an individual cluster role binding assigning them permissions. This is manual and becomes painful for anything beyond a small handful of users.&lt;/p&gt;
 

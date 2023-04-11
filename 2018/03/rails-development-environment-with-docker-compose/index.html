@@ -51,11 +51,11 @@
 
 <p>This tutorial is not a comprehensive introduction to either Docker or Docker Compose, for this this I highly recomend the <a href="https://docs.docker.com/compose/gettingstarted/">official docker compose tutorial</a> as a starting point. The steps here will stand alone but it&#39;s definitely beneficial to get familiar with the docker-compose fundamentals at some point.</p>
 
-<h2>Installing Docker</h2>
+<h2 id="installing-docker">Installing Docker</h2>
 
 <p>We&#39;ll need to have Docker installed locally <a href="https://docs.docker.com/install/">https://docs.docker.com/install/</a>. We&#39;ll also need <code>docker-compose</code> installed, for OSX then this is included when installing Docker, for Linux, it must be installed separately and instructions are here; <a href="https://docs.docker.com/compose/install/#install-compose">https://docs.docker.com/compose/install/#install-compose</a>.</p>
 
-<h2>Dockerising a Rails Application</h2>
+<h2 id="dockerising-a-rails-application">Dockerising a Rails Application</h2>
 
 <p>For an existing Rails application the files below should be added to the root of the project. If generating a new project we should create an empty directory with the name matching the desired name of the Rails project and create the files here. We&#39;ll cover generating the Rails application itself using Docker below.</p>
 
@@ -129,7 +129,7 @@ volumes:
   postgresdata:
   redisdata:
 </code></pre></div>
-<h2>The compose file</h2>
+<h2 id="the-compose-file">The compose file</h2>
 
 <p>A few elements of this compose file are worth noting as they differ from the many other Rails compose files out there:</p>
 
@@ -138,7 +138,7 @@ volumes:
 <li>The <code>:delegated</code> option on the volume mount for our app directory. This is specific to Docker for Mac, although won&#39;t cause problems on other platforms. Details of what this does are <a href="https://docs.docker.com/compose/compose-file/#caching-options-for-volume-mounts-docker-for-mac">available here</a> but it provides a substantial improvement in filesystem performance on OSX, without which day to day development of Rails applications can be painful. If file performance is still not sufficient for your application, it&#39;s worth considering <a href="http://docker-sync.io/">Docker Sync</a> although the 60x slowdown references on that site is substantially reduced by the sue of <code>delegated</code> on OSX</li>
 </ul>
 
-<h2>Generating a new application</h2>
+<h2 id="generating-a-new-application">Generating a new application</h2>
 
 <p>When working with an existing Rails application, we can skip this section. Using Docker to generate the entire application is especially useful when trying to maintain no local development environment at all, so we can develop Rails applications without ever needing a local Ruby install.</p>
 
@@ -163,7 +163,7 @@ docker run --rm -v $(pwd):/app my_name/my_rails_image rails new my_app --databas
 <p>Once we have this image built locally, we can re-use it in future with:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>docker run --rm -v $(pwd):/app my_name/my_rails_image rails new my_app --database postgresql
 </code></pre></div>
-<h2>Dockerising the application</h2>
+<h2 id="dockerising-the-application">Dockerising the application</h2>
 
 <p>Our <code>docker-compose.yml</code> file will bring up not only our rails application, but supporting Postgres and Redis instances.</p>
 
@@ -196,7 +196,7 @@ host: &lt;%= ENV.fetch(&quot;DB_HOST&quot;) %&gt;
 
 <p>We can apply the same approach to the <code>config/secrets.yml</code> file if needed as well as anywhere else in the application we want to pass in configuration dynamically. If something like <a href="https://github.com/bkeepers/dotenv">dotenv</a> is in use then we can simply update our local <code>.env</code> file with the above environment variables, rather than defining them in the compose file.</p>
 
-<h2>Starting the rails application</h2>
+<h2 id="starting-the-rails-application">Starting the rails application</h2>
 
 <p>We can now build the docker image based on our <code>Dockerfile</code> by executing:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>docker-compose build
@@ -206,12 +206,12 @@ host: &lt;%= ENV.fetch(&quot;DB_HOST&quot;) %&gt;
 </code></pre></div>
 <p>This will start postgres, redis and our rails application, exposing the rails application on port 3000 so that we can access it by visiting <a href="http://localhost:3000">http://localhost:3000</a> as usual.</p>
 
-<h2>Using with pry</h2>
+<h2 id="using-with-pry">Using with pry</h2>
 
 <p>If we want to use something like <code>pry-rails</code> to debug our rails application, instead of executing <code>docker-compose up</code>, we should use:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>docker-compose run --service-ports app
 </code></pre></div>
-<h2>Running one off commands</h2>
+<h2 id="running-one-off-commands">Running one off commands</h2>
 
 <p>Usually when setting up a rails application we would run <code>rake db:create</code> and <code>rake db:migrate</code>. If dockerising an existing application, we&#39;re likely to find that we&#39;re greeted with an error page that the database does not exist.</p>
 
@@ -227,7 +227,7 @@ host: &lt;%= ENV.fetch(&quot;DB_HOST&quot;) %&gt;
 <p>We could run <code>rspec</code> tests with:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>docker-compose run app rspec spec
 </code></pre></div>
-<h2>Adding Gems</h2>
+<h2 id="adding-gems">Adding Gems</h2>
 
 <p>When adding new gems, we first update the Gemfile, then execute:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>docker-compose run app bundle
@@ -237,7 +237,7 @@ host: &lt;%= ENV.fetch(&quot;DB_HOST&quot;) %&gt;
 </code></pre></div>
 <p>To cache the gems in the image.</p>
 
-<h2>Bash</h2>
+<h2 id="bash">Bash</h2>
 
 <p>We can launch a bash shell in our app container using:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>docker-compose run app bash
@@ -258,7 +258,7 @@ host: &lt;%= ENV.fetch(&quot;DB_HOST&quot;) %&gt;
 
 <p>This can be slow and painful if a separate <code>docker-compose run app ...</code> is required every time. Instead we can use <code>docker-compose run app bash</code> once and then iterate within that container as many times as we want. Once it works we simply jump out of the container and execute <code>docker-compose build</code> to persist the new gems to the image.</p>
 
-<h2>Deploying to production</h2>
+<h2 id="deploying-to-production">Deploying to production</h2>
 
 <p>Part two covers how to deploy this application to a Kubernetes Cluster on any VPS or Bare Metal provider without having to learn several thousand previously unheard of pieces of terminology.</p>
 

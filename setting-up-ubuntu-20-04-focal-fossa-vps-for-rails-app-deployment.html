@@ -60,7 +60,7 @@
 
 <p>Note that this post is intended to be a tutorial rather than a reference, so the focus will be on the steps that need to be completed rather than exploring the why.</p>
 
-<h2>The Stack</h2>
+<h2 id="the-stack">The Stack</h2>
 
 <ul>
 <li>Ubuntu 20.04 Focal Fossa (Current <a href="https://ubuntu.com/about/release-cycle">LTS</a>)</li>
@@ -69,11 +69,11 @@
 <li>Redis, Memcached (optional)</li>
 </ul>
 
-<h2>Chef</h2>
+<h2 id="chef">Chef</h2>
 
 <p>Rather than executing lots of commands by hand, we&#39;ll use Chef to automate the setup of the server. This means that when we need to provision another, identical server, we need just one command rather than having to try and remember all the shell commands. Chef is similar to tools such as Puppet or Ansible with the advantage for our use case that it&#39;s both written in and leverages for configuration, Ruby.</p>
 
-<h2>Installing Chef</h2>
+<h2 id="installing-chef">Installing Chef</h2>
 
 <p>On OSX we can Install Chef by executing the following in a terminal:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>curl https://packages.chef.io/files/stable/chef-workstation/21.2.303/mac_os_x/11.0/chef-workstation-21.2.303-1.x86_64.dmg --output /tmp/chef-workstation.dmg
@@ -89,14 +89,14 @@ sudo dpkg -i /tmp/chef-workstation.deb
 
 <p>Once this step is complete, executing <code>chef</code> in a local terminal should give help output from Chef, rather than a command not found error.</p>
 
-<h2> Installing Knife</h2>
+<h2 id="installing-knife"> Installing Knife</h2>
 
 <p>Knife is the CLI tool that we will use to interact with Chef, we can install it by executing:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>chef gem install knife-zero
 </code></pre></div>
 <p>Note this command should not be executed from within a folder with a <code>Gemfile</code> as this may lead to hard to debug <code>bundler not found</code> errors.</p>
 
-<h2>Creating a VPS</h2>
+<h2 id="creating-a-vps">Creating a VPS</h2>
 
 <p>We should now head to our favourite VPS provider. My current preference is Hetzner Cloud with Digital Ocean and Linode in close second. </p>
 
@@ -104,7 +104,7 @@ sudo dpkg -i /tmp/chef-workstation.deb
 
 <p>We can now choose Ubuntu 20.04 as the system image, boot it up and make a note of the IP address.</p>
 
-<h2>Setup key based SSH</h2>
+<h2 id="setup-key-based-ssh">Setup key based SSH</h2>
 
 <p>If we configured key based authentication as part of the VPS creation process, this step can be skipped.</p>
 
@@ -119,14 +119,14 @@ sudo dpkg -i /tmp/chef-workstation.deb
 
 <p>We should then be able to execute <code>ssh USERNAME@SERVER_IP</code> to login to our remote server without being required to enter a password. Note if we&#39;re still being required to enter the passphrase for our local SSH key, we can avoid this by executing <code>ssh-add</code> to temporarily store credentials in the local ssh agent.</p>
 
-<h2>Getting the sample code</h2>
+<h2 id="getting-the-sample-code">Getting the sample code</h2>
 
 <p>Next we need to clone the sample Chef <a href="https://github.com/TalkingQuickly/rails-server-template">repository</a>:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>git clone git@github.com:TalkingQuickly/rails-server-template.git
 </code></pre></div>
 <p>And then enter the sample code folder with <code>cd rails-server-template</code></p>
 
-<h2>Preparing the node</h2>
+<h2 id="preparing-the-node">Preparing the node</h2>
 
 <p>We can now prepare the server (node in Chef terminology) for provisioning with the following command:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>knife zero bootstrap SERVER_IP --connection-user SSH_USER --node-name NODE_NAME
@@ -137,7 +137,7 @@ sudo dpkg -i /tmp/chef-workstation.deb
 
 <p>If we&#39;ve never connected to the node via SSH before, we may be asked to confirm the servers fingerprint by entering <code>Y</code> and pressing enter.</p>
 
-<h2>Configuring the Node</h2>
+<h2 id="configuring-the-node">Configuring the Node</h2>
 
 <p>The above step created a JSON file which stores information about the node in <code>nodes/NODE_NAME.json</code> but we should not edit that file directly.</p>
 
@@ -201,7 +201,7 @@ sudo dpkg -i /tmp/chef-workstation.deb
 
 <p>We can then save and close the node definition.</p>
 
-<h2>Setting up users</h2>
+<h2 id="setting-up-users">Setting up users</h2>
 
 <p>Our final step is to create a non-root user which will later be used by Capistrano to deploy our application.</p>
 
@@ -228,7 +228,7 @@ sudo dpkg -i /tmp/chef-workstation.deb
 </code></pre></div>
 <p>Replacing <code>ENCRYPTED_PASSWORD</code> with the output of the <code>openssl</code> command above and <code>PUBLIC_KEY</code> with your public key, generally the contents of your local <code>~/.ssh/id_rsa.pub</code>.</p>
 
-<h2>Applying configuration to the node</h2>
+<h2 id="applying-configuration-to-the-node">Applying configuration to the node</h2>
 
 <p>We&#39;re now ready to apply our configuration to the node with the following command:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>knife zero converge &quot;name:NODE_NAME&quot; --ssh-user `SSH_USER`.
@@ -239,7 +239,7 @@ sudo dpkg -i /tmp/chef-workstation.deb
 
 <p>If we make changes to our configuration, for example by editing the node definition and overriding more values from roles, we simply run the above command again to have the changes applied.</p>
 
-<h2>What we&#39;ve set up</h2>
+<h2 id="what-weve-set-up">What we&#39;ve set up</h2>
 
 <p>We now have a hardened server, ready to deploy a Rails application for. We can create an unlimited number of identical servers simply by following the above process.</p>
 
@@ -252,7 +252,7 @@ sudo dpkg -i /tmp/chef-workstation.deb
 <li>Installed Nginx, Postgres, Redis and Memcached</li>
 </ul>
 
-<h2>Next</h2>
+<h2 id="next">Next</h2>
 
 <p>Assuming everything has gone well, we can now continue to <a href="deploying-rails-to-a-vps-with-capistrano-and-systemd">deploying our Rails application with Capistrano</a></p>
 
