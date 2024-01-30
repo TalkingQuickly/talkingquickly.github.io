@@ -3,13 +3,114 @@
 <generator uri="http://jekyllrb.com" version="3.9.3">Jekyll</generator>
 <link href="https://www.talkingquickly.co.uk/rss.xml" rel="self" type="application/atom+xml" />
 <link href="https://www.talkingquickly.co.uk/" rel="alternate" type="text/html" />
-<updated>2023-04-11T16:36:09+00:00</updated>
+<updated>2024-01-30T14:20:12+00:00</updated>
 <id>https://www.talkingquickly.co.uk/</id>
 <title>talkingquickly</title>
 <subtitle>kubernetes, rails, stress free deployment and small steps taken quickly</subtitle>
 <author>
 <name>Ben Dixon</name>
 </author>
+<entry>
+<title>Information Density and why you should always show your working</title>
+<link href="https://www.talkingquickly.co.uk/information-density-show-your-working" rel="alternate" type="text/html" title="Information Density and why you should always show your working" />
+<published>2024-01-30T00:00:00+00:00</published>
+<updated>2024-01-30T00:00:00+00:00</updated>
+<id>https://www.talkingquickly.co.uk/information-density</id>
+<content type="html" xml:base="https://www.talkingquickly.co.uk/information-density-show-your-working">&lt;p&gt;A fun thing about being alive now is how much knowledge and information is available in the form of books, blog posts, audio books, social media posts and YouTube videos to name just a few. But now more than ever there&amp;#39;s no way we can consume all of it and so on which content we choose to focus our time and attention has the potential to drive wildly different outcomes.&lt;/p&gt;
+
+&lt;p&gt;In particular I believe an organisation that is driven heavily by short-form content loses it&amp;#39;s ability both to reason about novel situations and discuss decisions constructively, leading to a lower likelihood of success for that organisation.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;The crude heuristics that have consistently proved true with respect to non-fiction for me have been:&lt;/p&gt;
+
+&lt;p&gt;Valuable from highest to least information dense:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Books, with the value in popular business books being disproportionately in the first 1/3rd&lt;/li&gt;
+&lt;li&gt;Podcasts of over 1 hour with ~2 hours being the sweet spot (On 1.5x that&amp;#39;s ~1.3 hours listening time)&lt;/li&gt;
+&lt;li&gt;High quality summaries of books (with a reading time of 15-45 minutes)&lt;/li&gt;
+&lt;li&gt;Blog posts with a reading time of &amp;gt; 5 minutes&lt;/li&gt;
+&lt;li&gt;Current affairs magazines published weekly or monthly (with an average article reading time of &amp;gt;n5 minutes per article)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Close to zero information density e.g. rarely valuable if my objective is learning:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Any social media post (especially if it takes less than 5 minutes to read)&lt;/li&gt;
+&lt;li&gt;All daily news (newspapers, websites, TV, daily newsletters etc)&lt;/li&gt;
+&lt;li&gt;Most podcasts of less than 30 minutes&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Reading times are my own so YYMV&lt;/p&gt;
+
+&lt;p&gt;These are crude heuristics. I&amp;#39;ve read some terrible books, come across some podcasts that pack an incredible amount into twenty minutes and read some truly insightful twitter threads.&lt;/p&gt;
+
+&lt;p&gt;But on average, the vast majority of useful information I&amp;#39;ve learned in the last 15 years was from books, longer podcasts and longer blog posts. From the perspective purely of learning, I don&amp;#39;t think daily news or social media has ever - for me - created anything I would count as genuine knowledge.&lt;/p&gt;
+
+&lt;p&gt;I think the common factor which drives the above categorisation may be the ability to convey &amp;quot;why&amp;quot; rather than &amp;quot;what&amp;quot;.&lt;/p&gt;
+
+&lt;p&gt;The shorter the content, the less space is available for explaining why the author reached that conclusion rather than simply the conclusion they reached.&lt;/p&gt;
+
+&lt;p&gt;Genuine knowledge allows us to take a novel situation and reason about it to reach a decision on how to act. To do this, at a minimum, we need to be able to compare the specifics of our situation to other situations we have learned about to see to what extent we believe they are similar.&lt;/p&gt;
+
+&lt;p&gt;If we only learn the conclusion, we cannot effectively do that.&lt;/p&gt;
+
+&lt;p&gt;This is why maths exams require you to show your working and attribute more marks to the working than the answer; most of the value lies in how you got to the answer, not in the answer itself.&lt;/p&gt;
+
+&lt;p&gt;There are very few universal laws. Conservation of energy seems close and the speed of light also looks like a tough nut to crack.&lt;/p&gt;
+
+&lt;p&gt;But outside of that, things are broadly complicated. And so saying &amp;quot;Always do X&amp;quot; is default unhelpful. You have to get to &amp;quot;In situation Y, you may want to do X if you objectives are A,B,C, this seems to be the case because...&amp;quot;.&lt;/p&gt;
+
+&lt;p&gt;Short form content doesn&amp;#39;t lend itself to achieving this. Imagine two social media posts:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;A trait of high performing organisations is that they always pay back their technical debt immediately&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;and &lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Technical debt is an important lever but like all debt it must be managed carefully. There will be times when the right decision is to incur more technical debt and times where it should be paid back. One of the key drivers of this decision will be the extent to which technical debt is creating drag on engineering velocity. There will be some technical debt which it never makes sense to pay back and some which has to be paid back almost immediately.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Neither are long form and neither does a particular good job of giving the reader a clear framework for evaluating technical debt and when to pay it back.&lt;/p&gt;
+
+&lt;p&gt;The second post starts to hint at some of the factors that might make up a framework but is far less compelling to read.&lt;/p&gt;
+
+&lt;p&gt;If I was going to screenshot a Linkedin post and share it, honestly I&amp;#39;d be tempted to choose the first one (despite not agreeing with it!). It feels sort of compelling to read despite being almost entirely devoid of useful information and probably wrong.&lt;/p&gt;
+
+&lt;p&gt;As humans we like things that state simple conclusions without ambiguity because they give us a brief sensation that a complicated world is simple. That a single rule will absolve us of having to spend a lot of time understanding and making non-obvious decisions about something hard.&lt;/p&gt;
+
+&lt;p&gt;The lure of making that 49%/51% decision that&amp;#39;s hanging over us a 99%/1% decision is powerful.&lt;/p&gt;
+
+&lt;p&gt;The dark side of this when building a startup technology business is that the more &amp;quot;rules&amp;quot; are taken from low information density sources - e.g. the sources that don&amp;#39;t provide a framework for the why - the lower your organisations ability to reason about about novel situations from first principles becomes.&lt;/p&gt;
+
+&lt;p&gt;This means increasingly a business can become made up of people who feel very strongly &amp;quot;always do X&amp;quot; and &amp;quot;never do Y&amp;quot; but cannot explain why or when these - often contradictory rules - may or may not apply.&lt;/p&gt;
+
+&lt;p&gt;On top of this they may &amp;quot;believe&amp;quot; multiple things which in reality are applicable to different situations but because they lack the why they simply &amp;quot;believe&amp;quot; - without realising it - things which directly contradict each other, usually in proportion to how recently they were exposed to the rule or conclusion in question.&lt;/p&gt;
+
+&lt;p&gt;One of the easiest ways to take a conversation into defensive territory is to ask sometime &amp;quot;why&amp;quot; or generally challenge them on a conclusion that they&amp;#39;ve stated publicly but sub consciously know they cannot explain the reasoning behind.&lt;/p&gt;
+
+&lt;p&gt;So the more of a company&amp;#39;s operating principles end up being derived from short-form content, the less that organisation will be able to reason about novel situations it encounters and the more it&amp;#39;s ability to discuss decisions objectively and constructively without regressing to defensiveness will decay.&lt;/p&gt;
+
+&lt;p&gt;This doesn&amp;#39;t mean organisations should discourage or become hostile to short form content. Just that they should encourage people to think of it as a jumping off point to learn more. They should also encourage respectful but firm ways of challenging anything that is presented as a rule but doesn&amp;#39;t show the working.&lt;/p&gt;
+
+&lt;p&gt;To quote Richard Feynman:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&amp;quot;Hell, if I could explain it to the average person, it wouldn&amp;#39;t have been worth the Nobel prize.&amp;quot;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Further reading:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;/writing-is-thinking&quot;&gt;Writing is thinking&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.amazon.co.uk/Digital-Minimalism-Living-Better-Technology-ebook/dp/B07D1G6DTF/ref=tmm_kin_swatch_0&quot;&gt;Digital Minimalism&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+<summary>A fun thing about being alive now is how much knowledge and information is available in the form of books, blog posts, audio books, social media posts and YouTube videos to name just a few. But now more than ever there&amp;#39;s no way we can consume all of it and so on which content we choose to focus our time and attention has the potential to drive wildly different outcomes.In particular I believe an organisation that is driven heavily by short-form content loses it&amp;#39;s ability both to reason about novel situations and discuss decisions constructively, leading to a lower likelihood of success for that organisation.</summary>
+</entry>
 <entry>
 <title>Writing is thinking</title>
 <link href="https://www.talkingquickly.co.uk/writing-is-thinking" rel="alternate" type="text/html" title="Writing is thinking" />
@@ -892,216 +993,5 @@ WantedBy=&amp;lt;%=(fetch(:puma_systemctl_user) == :system) ? &amp;quot;multi-us
 &lt;p&gt;Finally there were a lot of excellent resources I leant on when creating this series, there&amp;#39;s a summary of the key ones &lt;a href=&quot;/kubernetes-sso-links&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 </content>
 <summary>In this series of posts we cover how to setup a comprehensive group based single sign on system for Kubernetes including the kubectl cli, any web application with ingress, a docker registry and gitea. We&amp;#39;ll cover most of the common SSO models so adapting what&amp;#39;s here to other applications such as Gitlab, Kibana, Grafana etc is simple.The full solution uses Keycloak backed by OpenLDAP. OpenLDAP is required for the Gitea component, but can be skipped for the other components, including OIDC based SSO for kubectl.Some of the highlights this series covers are:Login to the kubectl cli using SSO credentials via the browserReplace basic auth ingress annotations with equally simple but much more secure SSO annotationsPush and pull to a secure private docker registry with full ACL        Contents and overview          Installing OpenLDAP          Installing Keycloak          Linking Keycloak and OpenLDAP          OIDC Kubectl Login with Keycloak          Authenticate any web app using ingress annotations          Gitea (requires LDAP)          Simple Docker Registry          Harbor Docker Registry with ACL  Finally there were a lot of excellent resources I leant on when creating this series, there&amp;#39;s a summary of the key ones here.</summary>
-</entry>
-<entry>
-<title>OIDC Login to Kubernetes and Kubectl with Keycloak</title>
-<link href="https://www.talkingquickly.co.uk/setting-up-oidc-login-kubernetes-kubectl-with-keycloak" rel="alternate" type="text/html" title="OIDC Login to Kubernetes and Kubectl with Keycloak" />
-<published>2021-02-23T15:40:00+00:00</published>
-<updated>2021-02-23T15:40:00+00:00</updated>
-<id>https://www.talkingquickly.co.uk/oidc-login-to-kubernetes-and-kubectl-with-keycloak</id>
-<content type="html" xml:base="https://www.talkingquickly.co.uk/setting-up-oidc-login-kubernetes-kubectl-with-keycloak">&lt;p&gt;A commonly cited pain point for teams working with Kubernetes clusters is managing the configuration to connect to the cluster. All to often this ends up being either sending KUBECONFIG files with hardcoded credentials back and forth or fragile custom shell scripts wrapping the AWS or GCP cli&amp;#39;s.&lt;/p&gt;
-
-&lt;p&gt;In this post we&amp;#39;ll integrate Kubernetes with Keycloak so that when we execute a &lt;code&gt;kubectl&lt;/code&gt; or &lt;code&gt;helm&lt;/code&gt; command, if the user is not already authenticated, they&amp;#39;ll be presented with a keycloak browser login where they can enter their credentials. No more sharing KUBECONFIG files and forgetting to export different KUBECONFIG paths!&lt;/p&gt;
-
-&lt;p&gt;We&amp;#39;ll also configure group based access control, so we can, for example create a &lt;code&gt;KubernetesAdminstrators&lt;/code&gt; group, and have all users in that group given &lt;code&gt;cluster-admin&lt;/code&gt; access automatically.&lt;/p&gt;
-
-&lt;p&gt;When we remove a user from Keycloak (or remove them from the relevant groups within Keycloak) they will then lose access to the cluster (subject to token expiry).&lt;/p&gt;
-
-&lt;p&gt;For this we&amp;#39;ll be using OpenID Connect, more &lt;a href=&quot;https://kubernetes.io/docs/reference/access-authn-authz/authentication/#openid-connect-tokens&quot;&gt;here&lt;/a&gt; on how this works.&lt;/p&gt;
-
-&lt;p&gt;By default, configuring Kubernetes to support OIDC auth requires passing flags to the kubelet API server. The challenge with this approach is that only one such provider can be configured and managed Kubernetes offerings - e.g. GCP or AWS - use this for their proprietary IAM systems.&lt;/p&gt;
-
-&lt;p&gt;To address this we will use &lt;a href=&quot;https://github.com/jetstack/kube-oidc-proxy&quot;&gt;kube-oidc-proxy&lt;/a&gt;, a tool from Jetstack which allows us to connect to a proxy server which will manage OIDC authentication and use impersonation to give the authenticating user the required permissions. This approach has the benefit of being universal across clusters, so we don&amp;#39;t have to follow different approaches for our managed vs unmanaged clusters.&lt;/p&gt;
-
-&lt;p&gt;This post is part of a series on single sign on for Kubernetes.&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;p&gt;{% include kubernetes-sso/contents.html active=&amp;quot;kubernetesoidc&amp;quot; %}&lt;/p&gt;
-
-&lt;p&gt;{% include kubernetes-sso/pre-reqs.html %}&lt;/p&gt;
-
-&lt;p&gt;This also assumes you&amp;#39;ve already followed the Installing Keycloak section and have a functioning Keycloak instance you can login to with administrator rights.&lt;/p&gt;
-
-&lt;h2 id=&quot;setting-up-keycloak&quot;&gt;Setting up Keycloak&lt;/h2&gt;
-
-&lt;p&gt;First we&amp;#39;ll create a new client in Keycloak with Client ID: &lt;code&gt;kube-oidc-proxy&lt;/code&gt; and client protocol: &lt;code&gt;openid-connect&lt;/code&gt;. We&amp;#39;ll then configure the following parameters for this client:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Access Type&lt;/strong&gt;: &lt;code&gt;confidential&lt;/code&gt;, this is required for a client secret to be generated&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Valid Redirect URLs&lt;/strong&gt;: &lt;code&gt;http://localhost:8000&lt;/code&gt; and &lt;code&gt;http://localhost:18000&lt;/code&gt;. This is used by &lt;a href=&quot;https://github.com/int128/kubelogin&quot;&gt;kubelogin&lt;/a&gt; as a callback when we login with &lt;code&gt;kubectl&lt;/code&gt; so a browser window can be opened for us to authenticate with keycloak.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;We can then save this new client and a new &amp;quot;Credentials&amp;quot; tab will appear. We&amp;#39;ll need the generated client secret along with our client id (&lt;code&gt;kube-oidc-proxy&lt;/code&gt;) for later steps.&lt;/p&gt;
-
-&lt;h2 id=&quot;setting-up-kube-oidc-proxy&quot;&gt;Setting up Kube OIDC Proxy&lt;/h2&gt;
-
-&lt;p&gt;Having created the client, we can now create our configuration for &lt;code&gt;kube-oidc-proxy&lt;/code&gt;. A sample configuration can be found in &lt;code&gt;kube-oidc-proxy/values-kube-oidc.yml&lt;/code&gt; and looks like this:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;oidc&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;clientId&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;kube-oidc-proxy&lt;/span&gt;
-  &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;issuerUrl&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;https://sso.ssotest.staging.talkingquickly.co.uk/auth/realms/master&lt;/span&gt;
-  &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;usernameClaim&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;sub&lt;/span&gt;
-
-&lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;extraArgs&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;10&lt;/span&gt;
-
-&lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;ingress&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;enabled&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;true&lt;/span&gt;
-  &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;annotations&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;cert-manager.io/cluster-issuer&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;letsencrypt-production&lt;/span&gt;
-    &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;nginx.ingress.kubernetes.io/backend-protocol&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;HTTPS&lt;/span&gt;
-  &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;hosts&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;p p-Indicator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;kube.ssotest.staging.talkingquickly.co.uk&lt;/span&gt;
-      &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;paths&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;p p-Indicator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;/&lt;/span&gt;
-  &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;tls&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;p p-Indicator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;secretName&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;oidc-proxy-tls&lt;/span&gt;
-      &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;hosts&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;p p-Indicator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;kube.ssotest.staging.talkingquickly.co.uk&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The important things to customise here are:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;The &lt;code&gt;issuerUrl&lt;/code&gt;, this is the URL of our keycloak instance, including the realm (in this case we&amp;#39;re using the default master realm)&lt;/li&gt;
-&lt;li&gt;The hostnames within the ingress definition. This URL will be a second Kubernetes API URL, so once our SSO login is setup, our kubeconfig files will point at this URL instead of the default cluster endpoint&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The &lt;code&gt;extraArgs&lt;/code&gt; &lt;code&gt;v: 10&lt;/code&gt; sets &lt;code&gt;kube-oidc-proxy&lt;/code&gt; to output verbose logging methods which is useful for debugging issues. In production this line can be removed.&lt;/p&gt;
-
-&lt;p&gt;We can then install &lt;code&gt;kube-oidc-proxy&lt;/code&gt; with:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;helm upgrade --install kube-oidc-proxy ./charts/kube-oidc-proxy --values kube-oidc-proxy/values-kube-oidc.yml
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;With &lt;code&gt;kube-oidc-proxy&lt;/code&gt; up and running, we can now configure &lt;code&gt;kubectl&lt;/code&gt; to use it. The simplest way to do this is with a &lt;code&gt;kubectl&lt;/code&gt; plugin called &lt;a href=&quot;https://github.com/int128/kubelogin&quot;&gt;kubelogin&lt;/a&gt;. With this plugin installed, when you execute a &lt;code&gt;kubectl&lt;/code&gt; command, it will open a browser window for the user to login via Keycloak. It will then handle refreshing tokens and subsequently re-authorising if the session expires.&lt;/p&gt;
-
-&lt;p&gt;Installation instructions for &lt;code&gt;kubelogin&lt;/code&gt; are &lt;a href=&quot;https://github.com/int128/kubelogin&quot;&gt;here&lt;/a&gt;, if you use homebrew, it&amp;#39;s as simple as &lt;code&gt;brew install int128/kubelogin/kubelogin&lt;/code&gt;, otherwise I recommend &lt;a href=&quot;https://krew.sigs.k8s.io/docs/user-guide/setup/install/&quot;&gt;installing krew&lt;/a&gt; to manage &lt;code&gt;kubectl&lt;/code&gt; plugins which will then allow you to install the plugin with &lt;code&gt;kubectl krew install oidc-login&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;We&amp;#39;ll then want to create a &lt;code&gt;kubeconfig.yml&lt;/code&gt; file with the following contents (there&amp;#39;s an example in &lt;code&gt;kubelogin/kuebconfig.yml&lt;/code&gt;):&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;v1&lt;/span&gt;
-&lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;clusters&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt;
-&lt;span class=&quot;p p-Indicator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;cluster&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;server&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;https://kube.ssotest.staging.talkingquickly.co.uk&lt;/span&gt;
-  &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;default&lt;/span&gt;
-&lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;contexts&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt;
-&lt;span class=&quot;p p-Indicator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;cluster&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;default&lt;/span&gt;
-    &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;namespace&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;identity&lt;/span&gt;
-    &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;oidc&lt;/span&gt;
-  &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;default&lt;/span&gt;
-&lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;current-context&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;default&lt;/span&gt;
-&lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;Config&lt;/span&gt;
-&lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;preferences&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p p-Indicator&quot;&gt;{}&lt;/span&gt;
-&lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;users&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt;
-&lt;span class=&quot;p p-Indicator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;oidc&lt;/span&gt;
-  &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;exec&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt;
-      &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;client.authentication.k8s.io/v1beta1&lt;/span&gt;
-      &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt;
-      &lt;span class=&quot;p p-Indicator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;oidc-login&lt;/span&gt;
-      &lt;span class=&quot;p p-Indicator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;get-token&lt;/span&gt;
-      &lt;span class=&quot;c1&quot;&gt;# - -v1&lt;/span&gt;
-      &lt;span class=&quot;p p-Indicator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;--oidc-issuer-url=https://sso.ssotest.staging.talkingquickly.co.uk/auth/realms/master&lt;/span&gt;
-      &lt;span class=&quot;p p-Indicator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;--oidc-client-id=kube-oidc-proxy&lt;/span&gt;
-      &lt;span class=&quot;p p-Indicator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;--oidc-client-secret=a32807bc-4b5d-40b7-8391-91bb2b80fd30&lt;/span&gt;
-      &lt;span class=&quot;p p-Indicator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;--oidc-extra-scope=email&lt;/span&gt;
-      &lt;span class=&quot;p p-Indicator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;--grant-type=authcode&lt;/span&gt;
-      &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;kubectl&lt;/span&gt;
-      &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;null&lt;/span&gt;
-      &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;provideClusterInfo&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;false&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Replacing:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;The &lt;code&gt;server&lt;/code&gt; url the ingress url we chose for &lt;code&gt;kube-oidc-proxy&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;The &lt;code&gt;oidc-issuer-url&lt;/code&gt; with the same keycloak url we used in the &lt;code&gt;kube-oidc-proxy&lt;/code&gt; configuration&lt;/li&gt;
-&lt;li&gt;The value of &lt;code&gt;oidc-client-secret&lt;/code&gt; with the secret key we extracted from the credentials tab of the client in Keycloak&lt;/li&gt;
-&lt;li&gt;Optionally uncommenting the &lt;code&gt;-v1&lt;/code&gt; line if you want to see verbose logging output&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;We can then execute &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;export KUBECONFIG=./kubelogin/kubeconfig.yml
-kubectl get pods  
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Managing your kubeconfig files is beyond the scope of this tutorial but if you aren&amp;#39;t already I strongly recommend some combination of &lt;a href=&quot;https://direnv.net&quot;&gt;direnv&lt;/a&gt; and &lt;a href=&quot;https://github.com/ahmetb/kubectx&quot;&gt;kubectx&lt;/a&gt;. Both my &lt;a href=&quot;/2021/01/debian-dev-environment-for-remote-vscode/&quot;&gt;Debian Remote Dev Env Environment&lt;/a&gt; and &lt;a href=&quot;/2021/01/macos-setup-with-ansible/&quot;&gt;OSX Setup&lt;/a&gt; provide these tools out of the box.&lt;/p&gt;
-
-&lt;p&gt;It&amp;#39;s important to note that the &lt;code&gt;export KUBECONFIG=./kubelogin/kubeconfig.yml&lt;/code&gt; is local to an individual terminal session, so if you switch to a new terminal tab or close and re-open your terminal, it will be gone and you&amp;#39;ll fallback to using whichever &lt;code&gt;KUBECONFIG&lt;/code&gt; envrironment variable your shell is set to use by default.&lt;/p&gt;
-
-&lt;p&gt;When we execute the above we&amp;#39;ll be sent out to a browser to login via Keycloak and once completed we&amp;#39;ll be logged in.&lt;/p&gt;
-
-&lt;p&gt;We will however see an error along the lines of:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;Error from server (Forbidden): pods is forbidden: User &amp;quot;oidcuser:7d7c2183-3d96-496a-9516-dda7538854c9&amp;quot; cannot list resource &amp;quot;pods&amp;quot; in API group &amp;quot;&amp;quot; in the namespace &amp;quot;identity&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Although our user is authenticated, e.g. Kubernetes knows that the current user is &lt;code&gt;oidcuser:7d7c2183-3d96-496a-9516-dda7538854c9&lt;/code&gt;, this user is currently not authorised to do anything.&lt;/p&gt;
-
-&lt;p&gt;We can fix this by creating a cluster role binding which binds our user to the &lt;code&gt;cluster-admin&lt;/code&gt; role which is the &amp;quot;superuser&amp;quot; role on Kubernetes.&lt;/p&gt;
-
-&lt;p&gt;We&amp;#39;ll need to execute this in a separate temrinal, e.g. one in which we have not run &lt;code&gt;export KUBECONFIG=./kubelogin/kubeconfig.yml&lt;/code&gt; and so &lt;code&gt;KUBECONFIG&lt;/code&gt; is still pointing at a kubeconfig file which gives us &lt;code&gt;cluster-admin&lt;/code&gt; access to the cluster.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;kubectl create clusterrolebinding oidc-cluster-admin --clusterrole=cluster-admin --user=&amp;#39;oidcuser:OUR_USER_ID&amp;#39;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Replacing OUR&lt;em&gt;USER&lt;/em&gt;ID with our login users id from Keycloak (or from the error message above).&lt;/p&gt;
-
-&lt;p&gt;Note the &lt;code&gt;oidcuser:&lt;/code&gt; prefix which is added due to the &lt;code&gt;usernamePrefix: &amp;quot;oidcuser:&amp;quot;&lt;/code&gt; prefix configuration line in our Kube OIDC Proxy values file. This prevents users defined in Keycloak from conflicting with any kubernetes internal users.&lt;/p&gt;
-
-&lt;h2 id=&quot;keycloak-login-to-kubernetes-with-groups&quot;&gt;Keycloak login to kubernetes with groups&lt;/h2&gt;
-
-&lt;p&gt;The above setup allows us to use &lt;code&gt;kubectl&lt;/code&gt; while authenticating with our keycloak user. However for each user we have to create an individual cluster role binding assigning them permissions. This is manual and becomes painful for anything beyond a small handful of users.&lt;/p&gt;
-
-&lt;p&gt;The solution to this lies in groups, we&amp;#39;ll configure our kubernetes oidc implementation to be aware of Keycloak groups. We can then create a &lt;code&gt;KubernetesAdmin&lt;/code&gt; group in Keycloak and have all users in this group given &lt;code&gt;cluster-admin&lt;/code&gt; permissions automatically using a single ClusterRoleBinding.&lt;/p&gt;
-
-&lt;p&gt;Begin by creating a &lt;code&gt;KubernetesAdmins&lt;/code&gt; group in Keycloak and then creating a new user and adding them to this group. &lt;/p&gt;
-
-&lt;p&gt;We then need to update our Keycloak client to include the groups the user is a member of as part of the JWT.&lt;/p&gt;
-
-&lt;p&gt;We do this by going back to our &lt;code&gt;kube-oidc-client&lt;/code&gt; entry under Keycloak clients and choosing the mappers tab then &amp;quot;Create&amp;quot;.&lt;/p&gt;
-
-&lt;p&gt;We then enter the following:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Name&lt;/strong&gt;: &lt;code&gt;Groups&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Mapper Type&lt;/strong&gt;: &lt;code&gt;Group Membership&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Full Group Path&lt;/strong&gt;: &lt;code&gt;Off&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;And then choosing save.&lt;/p&gt;
-
-&lt;p&gt;If we uncomment the &lt;code&gt;# - -v1&lt;/code&gt; line in our &lt;code&gt;kubelogin/kubeconfig.yml&lt;/code&gt; file, remove the contents of &lt;code&gt;~/.kube/cache/oidc-login/&lt;/code&gt; and then execute a &lt;code&gt;kubectl&lt;/code&gt; command e.g. &lt;code&gt;kubectl get pods&lt;/code&gt; then we&amp;#39;ll be asked to login and again and then we&amp;#39;ll see that the decoded JWT now contains our groups, e.g:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;err&quot;&gt;...&lt;/span&gt;                                         
-  &lt;span class=&quot;nt&quot;&gt;&amp;quot;groups&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;                                                       
-    &lt;span class=&quot;s2&quot;&gt;&amp;quot;DockerRegistry&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;                                             
-    &lt;span class=&quot;s2&quot;&gt;&amp;quot;Administrators&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;s2&quot;&gt;&amp;quot;KubernetesAdmins&amp;quot;&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;             
-  &lt;span class=&quot;err&quot;&gt;...&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;We can then create cluster role binding to give anyone with the &lt;code&gt;KubernetesAdmin&lt;/code&gt; group, &lt;code&gt;cluster-admin&lt;/code&gt; access. Our cluster role binding looks like this:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;rbac.authorization.k8s.io/v1&lt;/span&gt;
-&lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;ClusterRoleBinding&lt;/span&gt;
-&lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;oidc-admin-group&lt;/span&gt;
-&lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;roleRef&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;apiGroup&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;rbac.authorization.k8s.io&lt;/span&gt;
-  &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;ClusterRole&lt;/span&gt;
-  &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;cluster-admin&lt;/span&gt;
-&lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;subjects&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt;
-&lt;span class=&quot;p p-Indicator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;apiGroup&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;rbac.authorization.k8s.io&lt;/span&gt;
-  &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;Group&lt;/span&gt;
-  &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l l-Scalar l-Scalar-Plain&quot;&gt;oidcgroup:KubernetesAdmins&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Note that &lt;code&gt;oidcgroup&lt;/code&gt; which is added due to the &lt;code&gt;groupsPrefix: &amp;quot;oidcgroup:&amp;quot;&lt;/code&gt; in our Kube OIDC Proxy values configuration. This prevents keycloak groups from colliding with in-built kubernetes groups.&lt;/p&gt;
-
-&lt;p&gt;We can apply the above with:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;kubectl apply -f ./group-auth/cluster-role-binding.yml
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;And then delete our user specific cluster role binding with:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;kubectl delete clusterrolebinding oidc-cluster-admin
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;We can confirm that our groups login works with a simple &lt;code&gt;kubectl get pods&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;We can take this further by creating more restrictive cluster roles (or using more of the in-built ones) to do things like creating users that only have access to certain namespaces within our cluster.&lt;/p&gt;
-
-&lt;p&gt;{% include kubernetes-sso/contents.html active=&amp;quot;kubernetesoidc&amp;quot; %}&lt;/p&gt;
-</content>
-<summary>A commonly cited pain point for teams working with Kubernetes clusters is managing the configuration to connect to the cluster. All to often this ends up being either sending KUBECONFIG files with hardcoded credentials back and forth or fragile custom shell scripts wrapping the AWS or GCP cli&amp;#39;s.In this post we&amp;#39;ll integrate Kubernetes with Keycloak so that when we execute a kubectl or helm command, if the user is not already authenticated, they&amp;#39;ll be presented with a keycloak browser login where they can enter their credentials. No more sharing KUBECONFIG files and forgetting to export different KUBECONFIG paths!We&amp;#39;ll also configure group based access control, so we can, for example create a KubernetesAdminstrators group, and have all users in that group given cluster-admin access automatically.When we remove a user from Keycloak (or remove them from the relevant groups within Keycloak) they will then lose access to the cluster (subject to token expiry).For this we&amp;#39;ll be using OpenID Connect, more here on how this works.By default, configuring Kubernetes to support OIDC auth requires passing flags to the kubelet API server. The challenge with this approach is that only one such provider can be configured and managed Kubernetes offerings - e.g. GCP or AWS - use this for their proprietary IAM systems.To address this we will use kube-oidc-proxy, a tool from Jetstack which allows us to connect to a proxy server which will manage OIDC authentication and use impersonation to give the authenticating user the required permissions. This approach has the benefit of being universal across clusters, so we don&amp;#39;t have to follow different approaches for our managed vs unmanaged clusters.This post is part of a series on single sign on for Kubernetes.</summary>
 </entry>
 </feed>
