@@ -81,6 +81,10 @@ So the more of a company's operating principles end up being derived from short-
 
 This doesn't mean organisations should discourage or become hostile to short form content. Just that they should encourage people to think of it as a jumping off point to learn more. They should also encourage respectful but firm ways of challenging anything that is presented as a rule but doesn't show the working.
 
+To quote Richard Feynman:
+
+| "Hell, if I could explain it to the average person, it wouldn't have been worth the Nobel prize."
+
 Further reading:
 
 1. Cargo Culting
