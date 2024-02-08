@@ -13,6 +13,8 @@ After 15 years of building technology businesses, I've changed my views on a lot
 
 A small subset of things have remained consistently true.
 
+<!--more-->
+
 All of these are "true" for me, as always when I write "you" I really mean me. Writing is hard.
 
 Here they are:
@@ -33,6 +35,7 @@ Here they are:
 15. Compounding and compound effects are by far the hardest to internalise. This applies to money, technical architecture, team culture and numerous other things. It's a great example of where it's worth writing out longform and drawing systems diagrams can help you to identify huge blindspots
 16. Delegation is incredibly hard to get right and probably the highest leverage skill that exists when building a business. It's better to fail by over-delegating and pulling back than by under-delegating.
 17. It's incredibly easy to criticise other people's ideas and to come up with reasons why somebody might be wrong, why a business idea might not work and how things could go awry. It's far more interesting and valuable to be able to sit with those points while thinking through how it _could_ work out and where there _might_ be value. Almost all interesting step changes came from things which sounded unlikely or far fetched at the time. So the ability to sit with the challenges and explore the opportunity space is incredibly important. You'll still generally conclude against an idea, but you'll also get most of your returns for the ones which turn out to be important.
+18. Negative comments on the internet invariably tell you more about the commentor than the subject they are commenting on
 15. If in doubt, put on a podcast, go for a run and then think about it again.
 16. If that doesn't work go to bed, get a full nights sleep, and it will be better in the morning
 
