@@ -3,13 +3,250 @@
 <generator uri="http://jekyllrb.com" version="3.9.3">Jekyll</generator>
 <link href="https://www.talkingquickly.co.uk/rss.xml" rel="self" type="application/atom+xml" />
 <link href="https://www.talkingquickly.co.uk/" rel="alternate" type="text/html" />
-<updated>2024-01-30T14:48:22+00:00</updated>
+<updated>2024-02-08T09:20:16+00:00</updated>
 <id>https://www.talkingquickly.co.uk/</id>
 <title>talkingquickly</title>
 <subtitle>kubernetes, rails, stress free deployment and small steps taken quickly</subtitle>
 <author>
 <name>Ben Dixon</name>
 </author>
+<entry>
+<title>Integrations</title>
+<link href="https://www.talkingquickly.co.uk/integrations" rel="alternate" type="text/html" title="Integrations" />
+<published>2024-02-07T15:40:00+00:00</published>
+<updated>2024-02-07T15:40:00+00:00</updated>
+<id>https://www.talkingquickly.co.uk/integrations</id>
+<content type="html" xml:base="https://www.talkingquickly.co.uk/integrations">&lt;p&gt;Best in breed procurement, where many systems - the best in class for each system - are procured independently then integrated with one another has had a tricky decade.&lt;/p&gt;
+
+&lt;p&gt;The underlying principle was good. Take lots of vendors who do just one thing really well and connect them to one another to form one fully integrated super system. &lt;/p&gt;
+
+&lt;p&gt;But multiple studies suggest that 70-85% of the integration projects which are essential to make these systems work together fail to achieve their objectives.&lt;/p&gt;
+
+&lt;p&gt;This post looks at what it’s necessary to consider to avoid these failures, especially in the workforce management space and breaks out specific things to explore when considering an integration project.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;h2 id=&quot;which-system-owns-which-data-source-of-truth&quot;&gt;Which system owns which data (“source of truth”)?&lt;/h2&gt;
+
+&lt;p&gt;If you’ve ever been part of a project where there was no central project tracking, instead everyone kept their own todo lists and then met periodically to talk about what had been done and what needed to be done then you’re probably experienced the source of truth problem.&lt;/p&gt;
+
+&lt;p&gt;Different people have different ideas about the state of individual tasks, in-between alignment sessions several people may try and work on the same task or change the same document and it becomes incredibly difficult to work out what the true state of the project is at any given time.&lt;/p&gt;
+
+&lt;p&gt;Integrations can suffer from the same problem. If there are two places where someone can book holiday and they have different data about one persons holiday bookings, which one is true?&lt;/p&gt;
+
+&lt;p&gt;So one of the most fundamentals requirements for a successful integration strategy is being completely clear on which systems are the “source of truth” or owners of each piece or category of data.&lt;/p&gt;
+
+&lt;p&gt;Only the source of truth system generally stores this data and is responsible for defining the interface by which other systems can alter and perform workflows against it.&lt;/p&gt;
+
+&lt;h2 id=&quot;which-system-owns-which-workflows&quot;&gt;Which system owns which workflows?&lt;/h2&gt;
+
+&lt;p&gt;In the same way data being in multiple places can cause problems, workflows spanning multiple systems or worse being duplicated across system can cause substantial problems.&lt;/p&gt;
+
+&lt;p&gt;Imagine a system where people are asked to go to one place to build their roster and another to approve timesheets. To approve timesheets they need to open the roster in another system and manually compare timesheets to the roster.&lt;/p&gt;
+
+&lt;p&gt;In this example it’s not impossible, but it is painful. If your goal is to get company wide engagement with a technology programme, it’s friction like this that will stop it from happening.&lt;/p&gt;
+
+&lt;p&gt;If you take it one step further you can imagine a system where people are asked to put availability into one system, holiday into another and sickness into another.&lt;/p&gt;
+
+&lt;p&gt;People being people, they will forget which system they need to go to for what, especially for workflows they don’t have to do very often. &lt;/p&gt;
+
+&lt;p&gt;In the best case scenario here this drives up queries to internal support desks. In the worst case scenario it will drive down compliance and usage of the newly rolled out technology, directly preventing the technology programme from reaching and demonstrating it’s goals.&lt;/p&gt;
+
+&lt;p&gt;A good rule of thumb is that somebody shouldn’t need to change systems part way through a workflow and generally shouldn’t need to overtly access multiple systems to complete a single task. &lt;/p&gt;
+
+&lt;h2 id=&quot;big-pieces-vs-small-pieces&quot;&gt;Big pieces vs small pieces&lt;/h2&gt;
+
+&lt;p&gt;It can be tempting to read the above and think “great, so we’ll just create a 1000 line spreadsheet of all our data and all our workflows and decide on the owner, job done”. I’ve seen this approach multiple times at an impressive level of detail!&lt;/p&gt;
+
+&lt;p&gt;The problem with this is that data has dependencies. Yes it’s theoretically possible to store a users national insurance number and address in two separate systems. But in practice the unit of data you’ll most often want to work with is “user data”, not “national insurance numbers”. And changing address or national insurance number may mutually have implications for the payroll system.&lt;/p&gt;
+
+&lt;p&gt;In general when defining sources for truth for both data and workflows, try and work with big pieces not small pieces.&lt;/p&gt;
+
+&lt;p&gt;Another example is holiday &amp;amp; sickness. It’s tempting to think of these as separate things which could sit in different systems. In practice sickness can impact holiday and vice versa so splitting them is generally a challenging process. It’s far better to think in terms of “absence” as an overall concept.&lt;/p&gt;
+
+&lt;h2 id=&quot;user-interface-vs-data-integrations&quot;&gt;User Interface vs Data Integrations&lt;/h2&gt;
+
+&lt;p&gt;So far we’ve primarily talked about data. About which systems own data and perform workflows against that data. &lt;/p&gt;
+
+&lt;p&gt;Another type of integration is a user interface integration. Where you want to take an existing system and include the user interface of another system in it so that the user feels like they’re doing everything in one piece of software.&lt;/p&gt;
+
+&lt;p&gt;An important thing to be aware of is that this is very hard to do at the level of “parts” of a screen. &lt;/p&gt;
+
+&lt;p&gt;There are no standard or easy ways of modifying the user interface of a piece of software to include the user interface of another alongside it.&lt;/p&gt;
+
+&lt;p&gt;If a piece of software already has a box where some information is displayed and you want the information in that box to come from another system, that’s fine, that’s a data integration, the box is already there. &lt;/p&gt;
+
+&lt;p&gt;If you want to take the box from another piece of software, maybe including some buttons and “embed” it in the interface of another piece of software alongside their existing interface, expect this to be hard and expensive and for the results to feel somewhat clunky.&lt;/p&gt;
+
+&lt;p&gt;The main exception to this is where vendors have a deep partnership with one another and so typically one vendor has actually replicated the UI of the other product in their own. This is expensive for the vendor to do and so is rarely done for any one customer, instead it is done when those vendors have some form of ongoing strategic partnership.&lt;/p&gt;
+
+&lt;p&gt;There are two intermediate steps which are possible:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;“Iframing”  Is a way to define a rectangular area of a webpage or web app and have another webpage or web app appear in that rectangular box. This can work as an approach where your goal is “I want someone to access a different system from within the first system without needing to change pages”. There’s no deep UI integration here, it just saves people going to a different page or screen.&lt;/li&gt;
+&lt;li&gt;Single Sign On allows you to have users click on a link to another piece of software and be automatically signed in rather than having to login manually. This can have an extremely positive impact on engagement as people drop off surprisingly heavily when asked to login. If all systems are white labelled this can lead to a near seamless experience if the goal is simply to make moving between systems easier.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Importantly both iframeing and SSO can be good solutions, it’s just important to be clear what you’re getting when discussing a UI integration because there’s far more variability in what this could mean than there is for data integrations.&lt;/p&gt;
+
+&lt;p&gt;It’s an unfortunate truth that deep UI integration between multiple systems remains a largely unsolved problem in software. It’s a technically hard problem and it’s not for lack of trying that it hasn’t been solved in the industry.&lt;/p&gt;
+
+&lt;h2 id=&quot;read-vs-write-one-way-vs-two-way&quot;&gt;Read vs write, one way vs two way&lt;/h2&gt;
+
+&lt;p&gt;A simple but important distinction is read vs write integrations.&lt;/p&gt;
+
+&lt;p&gt;In a read integration, one system needs to get data from another system for storage or display. It has no need to ever change this data and push those changes back into the original system. &lt;/p&gt;
+
+&lt;p&gt;It either needs to do this once (e.g. an Applicant Tracking  System integration) or repeatedly (e.g. when pulling daily forecasts in).&lt;/p&gt;
+
+&lt;p&gt;This is typically simpler and less error prone than an integration that needs to pull data in, manipulate it and then push data back out again (write / two way).&lt;/p&gt;
+
+&lt;h2 id=&quot;data-warehouse-integrations&quot;&gt;Data Warehouse Integrations&lt;/h2&gt;
+
+&lt;p&gt;An important sub-category of integration are data warehouse integrations.&lt;/p&gt;
+
+&lt;p&gt;A data warehouse is when an organisation has a single central location they collate all of their data, typically for the purposes of reporting and analytics.&lt;/p&gt;
+
+&lt;p&gt;If an organisation has a data warehouse initiative, it’s common for it to be a requirement that all vendors can provide a way to get raw data out of the vendors system and into the &lt;/p&gt;
+
+&lt;p&gt;Generally the onus is on the vendor to provide a standard method for accessing this data, typically via either direct access to a database or API. &lt;/p&gt;
+
+&lt;p&gt;How this gets from this standard interface to the customer data warehouse generally sits with the customer.&lt;/p&gt;
+
+&lt;p&gt;Typical options for this include:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Many vendors will build a further bridge between their standard interface and the customer data warehouse for a fee&lt;/li&gt;
+&lt;li&gt;Many data warehouse vendors offer some form of integration service&lt;/li&gt;
+&lt;li&gt;There are third parties which specialise entirely in building data warehouse connectors&lt;/li&gt;
+&lt;li&gt;There are third parties who maintain huge libraries of data warehouse connectors for common vendors&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;It is a huge red flag if a vendor refuses to provide data warehouse access to customers. &lt;/p&gt;
+
+&lt;h2 id=&quot;push-vs-pull&quot;&gt;Push vs Pull&lt;/h2&gt;
+
+&lt;p&gt;Push vs pull is terminology that gets used to describe whether one vendor “pushes” data in or the other vendor “pulls” it out. It’s helpful as a short-hand when combined with read vs write above but it tends to mix a few different concepts:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Who builds &amp;amp; owns the integration&lt;/li&gt;
+&lt;li&gt;Which company’s interfaces are used to build the integration&lt;/li&gt;
+&lt;li&gt;How is the data transfer actually triggered&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;We’ll look at each of these individually.&lt;/p&gt;
+
+&lt;h2 id=&quot;who-builds-and-owns-the-integration&quot;&gt;Who builds and owns the integration?&lt;/h2&gt;
+
+&lt;p&gt;A typical integration will involve somebody writing some “glue” code to link the two systems together, the options for this are typically:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;The vendors already have a “deep” integration which they commit to supporting. It’s worth asking more about this relationship as generally one vendor will have assumed responsibility for the technical work of maintaining the integration and so be your point of contact if something goes wrong&lt;/li&gt;
+&lt;li&gt;The integration is being built by one of the vendors specifically for this client. In this case it’s worth drilling into whether the other vendor has committed to providing the resources and technical functionality and being looped into this process as most integrations require mutual co-operation and commitment of resource.&lt;/li&gt;
+&lt;li&gt;The integration is being build by a third party company commissioned by the client. This gives the client more control but it’s essential to ensure costs and resource commitments from the vendors are agreed upfront because a third party building the integration does not mean no costs or resource requirements from the vendors.&lt;/li&gt;
+&lt;li&gt;The integration is being built in-house. If an organisation has the capability to do this, this is extremely powerful subject to the maintenance point below. &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;In all of these situations it’s essential to be clear on where the responsibility for maintaining the integration over-time sits.&lt;/p&gt;
+
+&lt;p&gt;As with any software initiative, more of the lifetime cost will sit in maintenance rather than implementation so understanding how this will work is as important as understanding how it will get built to begin with.&lt;/p&gt;
+
+&lt;h2 id=&quot;which-company-s-interfaces-are-used-to-build-the-integration&quot;&gt;Which company’s interfaces are used to build the integration?&lt;/h2&gt;
+
+&lt;p&gt;Companies generally talk about having API’s - Application Programming Interfaces - which are tools for software systems to communicate with each other. There are broadly two core models for an integration:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;One vendor uses the others API &lt;/li&gt;
+&lt;li&gt;The two vendors API’s are linked together with “glue” code&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Both are valid approaches, increasingly (2) is preferred because of the standardisation which this enables. &lt;/p&gt;
+
+&lt;p&gt;It’s important before commencing a project to understand if the vendors have the required interfaces for the integration request and where they don’t, to have commitments to build these.&lt;/p&gt;
+
+&lt;h2 id=&quot;what-about-csv-s&quot;&gt;What about CSV’s&lt;/h2&gt;
+
+&lt;p&gt;CSV’s are one of the oldest data transfer methods still in-use. A CSV is essentially a human readable text file of data. There can be some snobbery about CSV’s along the lines of “but it’s not an API”.&lt;/p&gt;
+
+&lt;p&gt;CSV’s are incredibly powerful, it’s an integration method that is disproportionately well supported across many systems and fairly easy to automate and debug.&lt;/p&gt;
+
+&lt;p&gt;So especially for simple one way integrations, CSV’s should not be overlooked or excluded on the basis that API’s are in some way “better”.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-is-the-data-transfer-actually-triggered-technical&quot;&gt;How is the data transfer actually triggered (technical)&lt;/h2&gt;
+
+&lt;p&gt;There are three technical concepts which come up and cause confusion. &lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;API&lt;/strong&gt;: This is the grouping for the endpoints and webhooks which make up a vendors interface for building integrations&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Endpoints&lt;/strong&gt;: API Endpoints are web addresses that a third party can request data from or send data to&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Webhooks&lt;/strong&gt;: These allow one system to “notify” another system when something happens instead of that system having to “ask”. Put the other way, this allows one system to “subscribe” to be told about changes from the other.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;A typical integration will use both endpoints and webhooks and a Webhook from Vendor 1 may be configured to “call” an “Endpoint” from Vendor 2. The distinction is not important from the perspective of agreeing an integration and this is only covered here because mis-use of this terminology drives a surprising amount of confusion. &lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;In the end it’s up to software vendors to be both flexible and honest to facilitate successful integration programmes. &lt;/p&gt;
+
+&lt;p&gt;Deep cross vendor UI integration is still a largely unsolved problem and so we should exercise skepticism when anyone claims to have solved it.&lt;/p&gt;
+
+&lt;p&gt;Best of breed is by no means dead, but the pieces are going to be bigger and so the number of vendors smaller as we learn more and more about where it’s practical to draw integration boundaries and where it isn’t. &lt;/p&gt;
+</content>
+<summary>Best in breed procurement, where many systems - the best in class for each system - are procured independently then integrated with one another has had a tricky decade.The underlying principle was good. Take lots of vendors who do just one thing really well and connect them to one another to form one fully integrated super system. But multiple studies suggest that 70-85% of the integration projects which are essential to make these systems work together fail to achieve their objectives.This post looks at what it’s necessary to consider to avoid these failures, especially in the workforce management space and breaks out specific things to explore when considering an integration project.</summary>
+</entry>
+<entry>
+<title>Things which have been consistently true</title>
+<link href="https://www.talkingquickly.co.uk/things-which-have-been-consistently-true" rel="alternate" type="text/html" title="Things which have been consistently true" />
+<published>2024-02-04T15:40:00+00:00</published>
+<updated>2024-02-04T15:40:00+00:00</updated>
+<id>https://www.talkingquickly.co.uk/things-that-have-been-consistently-true</id>
+<content type="html" xml:base="https://www.talkingquickly.co.uk/things-which-have-been-consistently-true">&lt;p&gt;After 15 years of building technology businesses, I&amp;#39;ve changed my views on a lot of things from how to build software to what a good culture looks like.&lt;/p&gt;
+
+&lt;p&gt;A small subset of things have remained consistently true.&lt;/p&gt;
+
+&lt;p&gt;All of these are &amp;quot;true&amp;quot; for me, as always when I write &amp;quot;you&amp;quot; I really mean me. Writing is hard.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;Here they are:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Sleep, Exercise and Diet pretty much trump everything else. For me I&amp;#39;d estimate the ratio is something like 50% sleep, 30% exercise, 20% diet but I&amp;#39;ve no reason to think that generalises. I firmly believe that when looking to improve output, culture, any number of things, ensuring a workforce is getting enough sleep would probably out-perform almost any other initiative&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;/writing-is-thinking&quot;&gt;Writing really is thinking&lt;/a&gt;. I have close to zero examples of situations where someone taking their idea and then spending several hours writing it out in a structured long form way didn&amp;#39;t make it at least one order of magnitude better&lt;/li&gt;
+&lt;li&gt;Writing is thinking but talking is communicating. Humans were designed to talk to other humans face to face. Writing and talking serve different purposes and you can&amp;#39;t substitute one for the other. It&amp;#39;s frightening how quickly human relationships decay without some form of direct human to human communication with all the body language and tone of voice that goes with it. This is the main factor to manage when building remote&lt;/li&gt;
+&lt;li&gt;Generally &lt;a href=&quot;/information-density-show-your-working&quot;&gt;the return on consuming long form non-fiction content vastly outweighs short form non-fiction content&lt;/a&gt; if your goal is to acquire knowledge or understanding&lt;/li&gt;
+&lt;li&gt;It&amp;#39;s possible to do vastly less than I estimate in 1 week and vastly more in 6 months. So planning the 6 month horizon is far higher leverage than doing another crazy 1 week sprint. This has been true across work, exercise, nutrition, relationships, learning and pretty much any other domain I can think of. Unfortunately the 1 week sprint feels much more exciting and resisting this pull is hard&lt;/li&gt;
+&lt;li&gt;All of the worst conversations I&amp;#39;ve had started with me going in with a strong opinion and telling everyone else about it. All of the best ones started with me asking other people lots of questions and follow up questions. 9 times our of 10 I&amp;#39;ll learn something that causes me to meaningfully re-evaluate the opinion I would have started with&lt;/li&gt;
+&lt;li&gt;Prioritising X over the people I love and care about is essentially always the wrong choice. In retrospect &amp;quot;the other thing&amp;quot; always turned out not to matter very much and I wished I&amp;#39;d prioritised the people I love. I don&amp;#39;t have a single example of this where on reflection I couldn&amp;#39;t have far better prioritised the people I love while still delivering fully on &amp;quot;the other thing&amp;quot; whether that was work, exercise, hobbies etc&lt;/li&gt;
+&lt;li&gt;People are basically good and well-intentioned. If I look back at nearly every situation where I attributed motivation to malice or some negative personality trait, I was pretty much always wrong. The negative thought processes that went with this not only added no value to the situation, they actively reduced my effectiveness and happiness&lt;/li&gt;
+&lt;li&gt;To paraphrase Sam Altman, it would have been worth being taking advantage of a few times while assuming the best in everyone just for the additional positivity and opportunity exposed by this mindset&lt;/li&gt;
+&lt;li&gt;A very useful heuristic when interpreting people&amp;#39;s opinions is to watch how certain they are. The more certain someone is, particularly in complex domains, the more suspicious you should be of their conclusions. People who are consistently extremely high certainty on a large range of topics are generally the least informed and least likely to be right. This is a great heuristic when evaluating investors.&lt;/li&gt;
+&lt;li&gt;Most of the biggest positive impact events in my life were the result of putting myself in situations where I&amp;#39;m exposed to a high degree of serendipity, generally either by meeting people or creating content, especially content which then goes out onto the internet&lt;/li&gt;
+&lt;li&gt;It&amp;#39;s amazing how many problems both in business and life in general could be avoided simply by giving and learning to receive feedback. It&amp;#39;s frightening how often I realise I&amp;#39;m unhappy with how someone has done something, I&amp;#39;d like them to do it differently and for some reason I haven&amp;#39;t explicitly told them that. Thanks for the Feedback and Radical Candor helped me a lot and I thoroughly recommend them. Once you start seeing this in yourself and others it&amp;#39;s hard to stop seeing it! I keep &amp;quot;turning up the dial&amp;quot; on how much feedback I give and finding it&amp;#39;s still possible and constructive to go further&lt;/li&gt;
+&lt;li&gt;The things and mistakes you&amp;#39;re most frustrated about in others are probably the things you&amp;#39;re most uncomfortable with about yourself. Be careful of this because it can skew decision making and communication across all parts of life&lt;/li&gt;
+&lt;li&gt;Compounding and compound effects are by far the hardest to internalise. This applies to money, technical architecture, team culture and numerous other things. It&amp;#39;s a great example of where it&amp;#39;s worth writing out longform and drawing systems diagrams can help you to identify huge blindspots&lt;/li&gt;
+&lt;li&gt;Delegation is incredibly hard to get right and probably the highest leverage skill that exists when building a business. It&amp;#39;s better to fail by over-delegating and pulling back than by under-delegating.&lt;/li&gt;
+&lt;li&gt;It&amp;#39;s incredibly easy to criticise other people&amp;#39;s ideas and to come up with reasons why somebody might be wrong, why a business idea might not work and how things could go awry. It&amp;#39;s far more interesting and valuable to be able to sit with those points while thinking through how it &lt;em&gt;could&lt;/em&gt; work out and where there &lt;em&gt;might&lt;/em&gt; be value. Almost all interesting step changes came from things which sounded unlikely or far fetched at the time. So the ability to sit with the challenges and explore the opportunity space is incredibly important. You&amp;#39;ll still generally conclude against an idea, but you&amp;#39;ll also get most of your returns for the ones which turn out to be important.&lt;/li&gt;
+&lt;li&gt;Negative comments on the internet invariably tell you more about the commentor than the subject they are commenting on&lt;/li&gt;
+&lt;li&gt;If in doubt, put on a podcast, go for a run and then think about it again.&lt;/li&gt;
+&lt;li&gt;If that doesn&amp;#39;t work go to bed, get a full nights sleep, and it will be better in the morning&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Further reading:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;What I&amp;#39;d tell myself about startups if I could go back in-time&lt;/li&gt;
+&lt;li&gt;Short form vs Long Form Content&lt;/li&gt;
+&lt;li&gt;Writing is thinking&lt;/li&gt;
+&lt;li&gt;Thanks for the feedback&lt;/li&gt;
+&lt;li&gt;Radical Candor&lt;/li&gt;
+&lt;li&gt;Outlive &amp;amp; Lifespan&lt;/li&gt;
+&lt;li&gt;Why we sleep&lt;/li&gt;
+&lt;li&gt;The hard thing about hard things&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+<summary>After 15 years of building technology businesses, I&amp;#39;ve changed my views on a lot of things from how to build software to what a good culture looks like.A small subset of things have remained consistently true.All of these are &amp;quot;true&amp;quot; for me, as always when I write &amp;quot;you&amp;quot; I really mean me. Writing is hard.</summary>
+</entry>
 <entry>
 <title>Information Density and why you should always show your working</title>
 <link href="https://www.talkingquickly.co.uk/information-density-show-your-working" rel="alternate" type="text/html" title="Information Density and why you should always show your working" />
@@ -918,80 +1155,5 @@ WantedBy=default.target
 &lt;p&gt;The use of the above task also allows for zero downtime deploys when used with the relevant puma configuration and systemd unit file. See &lt;a href=&quot;/capistrano-puma-neither-valid-executable-nor-absolute-path&quot;&gt;this post&lt;/a&gt; for more on the systemd unit file and &lt;a href=&quot;https://github.com/TalkingQuickly/rdra_rails6_example&quot;&gt;this repository&lt;/a&gt; for a working example.&lt;/p&gt;
 </content>
 <summary>When trying to use the Capistrano Puma gem to restart Puma via systemd, we may run into an error along the lines of:puma_APP_NAME.service is not active, cannot reloadThis typically happens either because the service was never enabled or because in the time which elapsed between it being enabled and the first deploy taking place, it has crashed a sufficient number of times that it is no longer active.The behaviour we want in this scenario is to reload the service if it is active, otherwise to restart it.Happily systemctl [supports this out of the box]https://www.freedesktop.org/software/systemd/man/systemctl.html with systemctl reload-or-restart.We can add the following to lib/capistrano/tasks to add a task which uses this to the puma namespace provided by the capistrano puma gem:namespace :puma do  namespace :systemd do    desc &amp;#39;Reload the puma service via systemd by sending USR1 (e.g. trigger a zero downtime deploy)&amp;#39;    task :reload do      on roles(fetch(:puma_role)) do        if fetch(:puma_systemctl_user) == :system          sudo &amp;quot;#{fetch(:puma_systemctl_bin)} reload-or-restart #{fetch(:puma_service_unit_name)}&amp;quot;        else          execute &amp;quot;#{fetch(:puma_systemctl_bin)}&amp;quot;, &amp;quot;--user&amp;quot;, &amp;quot;reload&amp;quot;, fetch(:puma_service_unit_name)          execute :loginctl, &amp;quot;enable-linger&amp;quot;, fetch(:puma_lingering_user) if fetch(:puma_enable_lingering)        end      end    end  endendafter &amp;#39;deploy:finished&amp;#39;, &amp;#39;puma:systemd:reload&amp;#39;This should be used in conjunction with including the puma systemd tasks in our Capfile using the load_hooks: false option which prevents the default restart task from being called.install_plugin Capistrano::Puma::Systemd, load_hooks: falseThe use of the above task also allows for zero downtime deploys when used with the relevant puma configuration and systemd unit file. See this post for more on the systemd unit file and this repository for a working example.</summary>
-</entry>
-<entry>
-<title>Capistrano &amp;amp; Puma; neither a valid executable name nor an absolute path</title>
-<link href="https://www.talkingquickly.co.uk/capistrano-puma-neither-valid-executable-nor-absolute-path" rel="alternate" type="text/html" title="Capistrano &amp; Puma; neither a valid executable name nor an absolute path" />
-<published>2021-03-14T15:40:00+00:00</published>
-<updated>2021-03-14T15:40:00+00:00</updated>
-<id>https://www.talkingquickly.co.uk/capistrano-puma-neither-a-valid-executable-name-nor-an-absolute-path</id>
-<content type="html" xml:base="https://www.talkingquickly.co.uk/capistrano-puma-neither-valid-executable-nor-absolute-path">&lt;p&gt;When attempting to deploy a Rails application using the puma web sever using the systemd functionality in the capistrano puma gem, we may receive the error message:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;Neither a valid executable name nor an absolute path
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;When attempting to start the systemd service. This most often occurs when using the capistrano rbenv plugin. This is because the Capistrano rbenv plugin modifies the &lt;code&gt;SSHKit.config.command_map[:bundle]&lt;/code&gt; path to include the &lt;code&gt;RBENV_ROOT&lt;/code&gt; and &lt;code&gt;RBENV_VERSION&lt;/code&gt; environment variables at the start of the &lt;code&gt;bundle&lt;/code&gt; path. Systemd doesn&amp;#39;t support &lt;code&gt;Exec&lt;/code&gt; command starting with environment variables, instead requiring them to be in separate &lt;code&gt;Environment&lt;/code&gt; lines.&lt;/p&gt;
-
-&lt;p&gt;We can fix this by overriding the &lt;code&gt;puma.server.erb&lt;/code&gt; template with a new systemd unit file as follows:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;[Unit]
-Description=Puma HTTP Server for &amp;lt;%= &amp;quot;#{fetch(:application)} (#{fetch(:stage)})&amp;quot; %&amp;gt;
-After=network.target
-
-[Service]
-Type=simple
-&amp;lt;%=&amp;quot;User=#{puma_user(@role)}&amp;quot; if fetch(:puma_systemctl_user) == :system %&amp;gt;
-WorkingDirectory=&amp;lt;%= current_path %&amp;gt;
-ExecStart=/usr/local/rbenv/bin/rbenv exec bundle exec puma -C &amp;lt;%= fetch(:puma_conf) %&amp;gt;
-ExecReload=/bin/kill -USR1 $MAINPID
-ExecStop=/bin/kill -TSTP $MAINPID
-StandardOutput=append:&amp;lt;%= fetch(:puma_access_log) %&amp;gt;
-StandardError=append:&amp;lt;%= fetch(:puma_error_log) %&amp;gt;
-&amp;lt;%=&amp;quot;EnvironmentFile=#{fetch(:puma_service_unit_env_file)}&amp;quot; if fetch(:puma_service_unit_env_file) %&amp;gt;
-&amp;lt;% fetch(:puma_service_unit_env_vars, []).each do |environment_variable| %&amp;gt;
-&amp;lt;%=&amp;quot;Environment=#{environment_variable}&amp;quot; %&amp;gt;
-&amp;lt;% end %&amp;gt;
-
-Environment=RBENV_VERSION=&amp;lt;%= fetch(:rbenv_ruby) %&amp;gt;
-Environment=RBENV_ROOT=/usr/local/rbenv
-
-Restart=always
-RestartSec=1
-
-SyslogIdentifier=puma_&amp;lt;%= fetch(:application) %&amp;gt;_&amp;lt;%= fetch(:stage) %&amp;gt;
-
-[Install]
-WantedBy=&amp;lt;%=(fetch(:puma_systemctl_user) == :system) ? &amp;quot;multi-user.target&amp;quot; : &amp;quot;default.target&amp;quot;%&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Note that this hardcodes the path to rbenv so if the path is different, for example because it&amp;#39;s a user install not a system install, this will need updating.&lt;/p&gt;
-
-&lt;p&gt;This unit file also adds an &lt;code&gt;ExecReload&lt;/code&gt; option to allow us to use systemd for zero downtime deploys.&lt;/p&gt;
-
-&lt;p&gt;For a fully working example see &lt;a href=&quot;https://github.com/TalkingQuickly/rdra_rails6_example/&quot;&gt;this repository&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;There&amp;#39;s more information in &lt;a href=&quot;https://github.com/seuros/capistrano-puma/issues/313&quot;&gt;this github issue&lt;/a&gt;.&lt;/p&gt;
-</content>
-<summary>When attempting to deploy a Rails application using the puma web sever using the systemd functionality in the capistrano puma gem, we may receive the error message:Neither a valid executable name nor an absolute pathWhen attempting to start the systemd service. This most often occurs when using the capistrano rbenv plugin. This is because the Capistrano rbenv plugin modifies the SSHKit.config.command_map[:bundle] path to include the RBENV_ROOT and RBENV_VERSION environment variables at the start of the bundle path. Systemd doesn&amp;#39;t support Exec command starting with environment variables, instead requiring them to be in separate Environment lines.We can fix this by overriding the puma.server.erb template with a new systemd unit file as follows:[Unit]Description=Puma HTTP Server for &amp;lt;%= &amp;quot;#{fetch(:application)} (#{fetch(:stage)})&amp;quot; %&amp;gt;After=network.target[Service]Type=simple&amp;lt;%=&amp;quot;User=#{puma_user(@role)}&amp;quot; if fetch(:puma_systemctl_user) == :system %&amp;gt;WorkingDirectory=&amp;lt;%= current_path %&amp;gt;ExecStart=/usr/local/rbenv/bin/rbenv exec bundle exec puma -C &amp;lt;%= fetch(:puma_conf) %&amp;gt;ExecReload=/bin/kill -USR1 $MAINPIDExecStop=/bin/kill -TSTP $MAINPIDStandardOutput=append:&amp;lt;%= fetch(:puma_access_log) %&amp;gt;StandardError=append:&amp;lt;%= fetch(:puma_error_log) %&amp;gt;&amp;lt;%=&amp;quot;EnvironmentFile=#{fetch(:puma_service_unit_env_file)}&amp;quot; if fetch(:puma_service_unit_env_file) %&amp;gt;&amp;lt;% fetch(:puma_service_unit_env_vars, []).each do |environment_variable| %&amp;gt;&amp;lt;%=&amp;quot;Environment=#{environment_variable}&amp;quot; %&amp;gt;&amp;lt;% end %&amp;gt;Environment=RBENV_VERSION=&amp;lt;%= fetch(:rbenv_ruby) %&amp;gt;Environment=RBENV_ROOT=/usr/local/rbenvRestart=alwaysRestartSec=1SyslogIdentifier=puma_&amp;lt;%= fetch(:application) %&amp;gt;_&amp;lt;%= fetch(:stage) %&amp;gt;[Install]WantedBy=&amp;lt;%=(fetch(:puma_systemctl_user) == :system) ? &amp;quot;multi-user.target&amp;quot; : &amp;quot;default.target&amp;quot;%&amp;gt;Note that this hardcodes the path to rbenv so if the path is different, for example because it&amp;#39;s a user install not a system install, this will need updating.This unit file also adds an ExecReload option to allow us to use systemd for zero downtime deploys.For a fully working example see this repository.There&amp;#39;s more information in this github issue.</summary>
-</entry>
-<entry>
-<title>Kubernetes Single Sign On - A detailed guide</title>
-<link href="https://www.talkingquickly.co.uk/kubernetes-sso-a-detailed-guide" rel="alternate" type="text/html" title="Kubernetes Single Sign On - A detailed guide" />
-<published>2021-02-25T15:40:00+00:00</published>
-<updated>2021-02-25T15:40:00+00:00</updated>
-<id>https://www.talkingquickly.co.uk/kubernetes-sso-a-comprehensive-guide</id>
-<content type="html" xml:base="https://www.talkingquickly.co.uk/kubernetes-sso-a-detailed-guide">&lt;p&gt;In this series of posts we cover how to setup a comprehensive group based single sign on system for Kubernetes including the &lt;code&gt;kubectl&lt;/code&gt; cli, any web application with ingress, a docker registry and gitea. We&amp;#39;ll cover most of the common SSO models so adapting what&amp;#39;s here to other applications such as Gitlab, Kibana, Grafana etc is simple.&lt;/p&gt;
-
-&lt;p&gt;The full solution uses Keycloak backed by OpenLDAP. OpenLDAP is required for the Gitea component, but can be skipped for the other components, including OIDC based SSO for &lt;code&gt;kubectl&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Some of the highlights this series covers are:&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Login to the &lt;code&gt;kubectl&lt;/code&gt; cli using SSO credentials via the browser&lt;/li&gt;
-&lt;li&gt;Replace basic auth ingress annotations with equally simple but much more secure SSO annotations&lt;/li&gt;
-&lt;li&gt;Push and pull to a secure private docker registry with full ACL&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;{% include kubernetes-sso/contents.html active=&amp;quot;contents&amp;quot; %}&lt;/p&gt;
-
-&lt;p&gt;Finally there were a lot of excellent resources I leant on when creating this series, there&amp;#39;s a summary of the key ones &lt;a href=&quot;/kubernetes-sso-links&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
-</content>
-<summary>In this series of posts we cover how to setup a comprehensive group based single sign on system for Kubernetes including the kubectl cli, any web application with ingress, a docker registry and gitea. We&amp;#39;ll cover most of the common SSO models so adapting what&amp;#39;s here to other applications such as Gitlab, Kibana, Grafana etc is simple.The full solution uses Keycloak backed by OpenLDAP. OpenLDAP is required for the Gitea component, but can be skipped for the other components, including OIDC based SSO for kubectl.Some of the highlights this series covers are:Login to the kubectl cli using SSO credentials via the browserReplace basic auth ingress annotations with equally simple but much more secure SSO annotationsPush and pull to a secure private docker registry with full ACL        Contents and overview          Installing OpenLDAP          Installing Keycloak          Linking Keycloak and OpenLDAP          OIDC Kubectl Login with Keycloak          Authenticate any web app using ingress annotations          Gitea (requires LDAP)          Simple Docker Registry          Harbor Docker Registry with ACL  Finally there were a lot of excellent resources I leant on when creating this series, there&amp;#39;s a summary of the key ones here.</summary>
 </entry>
 </feed>

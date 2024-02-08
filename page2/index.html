@@ -61,6 +61,42 @@
 
     <article class="post">
         <header class="post-header">
+            <span class="post-meta"><time datetime="18 Feb 2021">18 Feb 2021</time></span>
+            <h2 class="post-title"><a href="/docker-registry-authentication-with-keycloak">Docker Registry Authentication on Kubernetes with Keycloak</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            <p><p>In this post we&#39;ll cover how to use Keycloak to provide a simple authentication layer for a Docker registry. Simple meaning that in order to push and pull images to the registry, the user will first need to <code>docker login</code> as any valid user in the provided Keycloak realm. Note that there is no additional access control, so all Keycloak users have the ability to perform any action on any image once authenticated. For more fine grained controls, see the section on <a href="/harbor-docker-registry-on-kubernetes-authentication-with-keycloak">using Harbour</a>.</p>
+
+<p>This post is part of a series on single sign on for Kubernetes.</p>
+</p>
+        </section>
+    </article>
+
+    
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta"><time datetime="16 Feb 2021">16 Feb 2021</time></span>
+            <h2 class="post-title"><a href="/gitea-sso-with-keycloak-openldap-openid-connect">Gitea SSO with Keycloak, OpenLDAP and OpenID Connect</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            <p><p>Gitea is a lightweight open source git service. As an aside, Gitea - especially when combined with Drone CI - is one of my favourite pieces of open source software!</p>
+
+<p>It&#39;s minimal footprint and easy to use interface make it perfect for running on clusters to facilitate git push deploys and CI.</p>
+
+<p>Here we&#39;ll configure OpenLDAP for centralised user management and single sign on. We&#39;ll optionally configure OpenID Connect but with several caveats on its usage.</p>
+
+<p>This post is part of a series on single sign on for Kubernetes.</p>
+</p>
+        </section>
+    </article>
+
+    
+
+    <article class="post">
+        <header class="post-header">
             <span class="post-meta"><time datetime="05 Feb 2021">05 Feb 2021</time></span>
             <h2 class="post-title"><a href="/keycloak-and-openldap-on-kubernetes">Keycloak and OpenLDAP on Kubernetes</a></h2>
 
@@ -255,34 +291,6 @@
         </header>
         <section class="post-excerpt">
             <p><p>Something most of the startup and product people I look up to have in common is that they read, a lot. They also challenge what they read. Rather than reading a chapter, then immediately trying to implement what they&#39;ve read, their books are full of post-it notes and scribbles, dinners and emails are full of debates on one methodology or idea v another.</p>
-</p>
-        </section>
-    </article>
-
-    
-
-    <article class="post">
-        <header class="post-header">
-            <span class="post-meta"><time datetime="06 May 2016">06 May 2016</time></span>
-            <h2 class="post-title"><a href="/2016/05/2015-in-review/">2015 In Review</a></h2>
-
-        </header>
-        <section class="post-excerpt">
-            <p><p>May 2016 seems like a reasonable interval to have given 2015 to sink in. 2015 was expected to begin at a Full Moon Party on one or other island off the coast of Thailand. Instead it began with a hastily booked flight back to London and a week or so recovering from three days of hallucinations and dehydration on Aonang - they really do food poisoning properly there. Can&#39;t say I&#39;m proud for bailing due to food poisoning; live and learn.</p>
-</p>
-        </section>
-    </article>
-
-    
-
-    <article class="post">
-        <header class="post-header">
-            <span class="post-meta"><time datetime="02 Apr 2015">02 Apr 2015</time></span>
-            <h2 class="post-title"><a href="/2015/04/what-id-tell-myself-about-startups/">What I'd tell myself about startups if I could go back 5 years.</a></h2>
-
-        </header>
-        <section class="post-excerpt">
-            <p><p>This is, in no particular order, what I&#39;d tell myself about startups if I could go back in time to when I first got involved. Which is probably the same as what I&#39;ve learned. This is most definitely not advice, the &quot;you&quot; here is directed at me. So is &quot;I&quot;. Grammar is hard.</p>
 </p>
         </section>
     </article>

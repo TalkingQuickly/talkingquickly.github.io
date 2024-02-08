@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Integrations</title>
+    
+        <meta name="description" content="Blog by Ben Dixon, Ruby on Rails Developer, about rails, kubernetes, docker, climbing and startups" />
+    
+
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="iwXSC2H2VSO9iPyrWjNj3Prlx4zJY-l0EJRGVkFuUHk" />
+
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml"/>
+    <link rel="canonical" href="https://www.talkingquickly.co.uk/integrations">
+
+</head>
+<body class="home-template">
+
+
+    <main class="content" role="main">
+
+  <article class="post">
+    <header class="post-header">
+      <a id="blog-logo" href="/"><span class="blog-title">Home</span></a>
+      |
+      <a target="_blank" href="/about.html">About Me</a>
+    </header>
+
+    <span class="post-meta">
+      
+    </span>
+
+    <h1 class="post-title">Integrations</h1>
+
+    <section class="post-content">
+      <p>Best in breed procurement, where many systems - the best in class for each system - are procured independently then integrated with one another has had a tricky decade.</p>
+
+<p>The underlying principle was good. Take lots of vendors who do just one thing really well and connect them to one another to form one fully integrated super system. </p>
+
+<p>But multiple studies suggest that 70-85% of the integration projects which are essential to make these systems work together fail to achieve their objectives.</p>
+
+<p>This post looks at what it’s necessary to consider to avoid these failures, especially in the workforce management space and breaks out specific things to explore when considering an integration project.</p>
+
+<!--more-->
+
+<h2 id="which-system-owns-which-data-source-of-truth">Which system owns which data (“source of truth”)?</h2>
+
+<p>If you’ve ever been part of a project where there was no central project tracking, instead everyone kept their own todo lists and then met periodically to talk about what had been done and what needed to be done then you’re probably experienced the source of truth problem.</p>
+
+<p>Different people have different ideas about the state of individual tasks, in-between alignment sessions several people may try and work on the same task or change the same document and it becomes incredibly difficult to work out what the true state of the project is at any given time.</p>
+
+<p>Integrations can suffer from the same problem. If there are two places where someone can book holiday and they have different data about one persons holiday bookings, which one is true?</p>
+
+<p>So one of the most fundamentals requirements for a successful integration strategy is being completely clear on which systems are the “source of truth” or owners of each piece or category of data.</p>
+
+<p>Only the source of truth system generally stores this data and is responsible for defining the interface by which other systems can alter and perform workflows against it.</p>
+
+<h2 id="which-system-owns-which-workflows">Which system owns which workflows?</h2>
+
+<p>In the same way data being in multiple places can cause problems, workflows spanning multiple systems or worse being duplicated across system can cause substantial problems.</p>
+
+<p>Imagine a system where people are asked to go to one place to build their roster and another to approve timesheets. To approve timesheets they need to open the roster in another system and manually compare timesheets to the roster.</p>
+
+<p>In this example it’s not impossible, but it is painful. If your goal is to get company wide engagement with a technology programme, it’s friction like this that will stop it from happening.</p>
+
+<p>If you take it one step further you can imagine a system where people are asked to put availability into one system, holiday into another and sickness into another.</p>
+
+<p>People being people, they will forget which system they need to go to for what, especially for workflows they don’t have to do very often. </p>
+
+<p>In the best case scenario here this drives up queries to internal support desks. In the worst case scenario it will drive down compliance and usage of the newly rolled out technology, directly preventing the technology programme from reaching and demonstrating it’s goals.</p>
+
+<p>A good rule of thumb is that somebody shouldn’t need to change systems part way through a workflow and generally shouldn’t need to overtly access multiple systems to complete a single task. </p>
+
+<h2 id="big-pieces-vs-small-pieces">Big pieces vs small pieces</h2>
+
+<p>It can be tempting to read the above and think “great, so we’ll just create a 1000 line spreadsheet of all our data and all our workflows and decide on the owner, job done”. I’ve seen this approach multiple times at an impressive level of detail!</p>
+
+<p>The problem with this is that data has dependencies. Yes it’s theoretically possible to store a users national insurance number and address in two separate systems. But in practice the unit of data you’ll most often want to work with is “user data”, not “national insurance numbers”. And changing address or national insurance number may mutually have implications for the payroll system.</p>
+
+<p>In general when defining sources for truth for both data and workflows, try and work with big pieces not small pieces.</p>
+
+<p>Another example is holiday &amp; sickness. It’s tempting to think of these as separate things which could sit in different systems. In practice sickness can impact holiday and vice versa so splitting them is generally a challenging process. It’s far better to think in terms of “absence” as an overall concept.</p>
+
+<h2 id="user-interface-vs-data-integrations">User Interface vs Data Integrations</h2>
+
+<p>So far we’ve primarily talked about data. About which systems own data and perform workflows against that data. </p>
+
+<p>Another type of integration is a user interface integration. Where you want to take an existing system and include the user interface of another system in it so that the user feels like they’re doing everything in one piece of software.</p>
+
+<p>An important thing to be aware of is that this is very hard to do at the level of “parts” of a screen. </p>
+
+<p>There are no standard or easy ways of modifying the user interface of a piece of software to include the user interface of another alongside it.</p>
+
+<p>If a piece of software already has a box where some information is displayed and you want the information in that box to come from another system, that’s fine, that’s a data integration, the box is already there. </p>
+
+<p>If you want to take the box from another piece of software, maybe including some buttons and “embed” it in the interface of another piece of software alongside their existing interface, expect this to be hard and expensive and for the results to feel somewhat clunky.</p>
+
+<p>The main exception to this is where vendors have a deep partnership with one another and so typically one vendor has actually replicated the UI of the other product in their own. This is expensive for the vendor to do and so is rarely done for any one customer, instead it is done when those vendors have some form of ongoing strategic partnership.</p>
+
+<p>There are two intermediate steps which are possible:</p>
+
+<ol>
+<li>“Iframing”  Is a way to define a rectangular area of a webpage or web app and have another webpage or web app appear in that rectangular box. This can work as an approach where your goal is “I want someone to access a different system from within the first system without needing to change pages”. There’s no deep UI integration here, it just saves people going to a different page or screen.</li>
+<li>Single Sign On allows you to have users click on a link to another piece of software and be automatically signed in rather than having to login manually. This can have an extremely positive impact on engagement as people drop off surprisingly heavily when asked to login. If all systems are white labelled this can lead to a near seamless experience if the goal is simply to make moving between systems easier.</li>
+</ol>
+
+<p>Importantly both iframeing and SSO can be good solutions, it’s just important to be clear what you’re getting when discussing a UI integration because there’s far more variability in what this could mean than there is for data integrations.</p>
+
+<p>It’s an unfortunate truth that deep UI integration between multiple systems remains a largely unsolved problem in software. It’s a technically hard problem and it’s not for lack of trying that it hasn’t been solved in the industry.</p>
+
+<h2 id="read-vs-write-one-way-vs-two-way">Read vs write, one way vs two way</h2>
+
+<p>A simple but important distinction is read vs write integrations.</p>
+
+<p>In a read integration, one system needs to get data from another system for storage or display. It has no need to ever change this data and push those changes back into the original system. </p>
+
+<p>It either needs to do this once (e.g. an Applicant Tracking  System integration) or repeatedly (e.g. when pulling daily forecasts in).</p>
+
+<p>This is typically simpler and less error prone than an integration that needs to pull data in, manipulate it and then push data back out again (write / two way).</p>
+
+<h2 id="data-warehouse-integrations">Data Warehouse Integrations</h2>
+
+<p>An important sub-category of integration are data warehouse integrations.</p>
+
+<p>A data warehouse is when an organisation has a single central location they collate all of their data, typically for the purposes of reporting and analytics.</p>
+
+<p>If an organisation has a data warehouse initiative, it’s common for it to be a requirement that all vendors can provide a way to get raw data out of the vendors system and into the </p>
+
+<p>Generally the onus is on the vendor to provide a standard method for accessing this data, typically via either direct access to a database or API. </p>
+
+<p>How this gets from this standard interface to the customer data warehouse generally sits with the customer.</p>
+
+<p>Typical options for this include:</p>
+
+<ol>
+<li>Many vendors will build a further bridge between their standard interface and the customer data warehouse for a fee</li>
+<li>Many data warehouse vendors offer some form of integration service</li>
+<li>There are third parties which specialise entirely in building data warehouse connectors</li>
+<li>There are third parties who maintain huge libraries of data warehouse connectors for common vendors</li>
+</ol>
+
+<p>It is a huge red flag if a vendor refuses to provide data warehouse access to customers. </p>
+
+<h2 id="push-vs-pull">Push vs Pull</h2>
+
+<p>Push vs pull is terminology that gets used to describe whether one vendor “pushes” data in or the other vendor “pulls” it out. It’s helpful as a short-hand when combined with read vs write above but it tends to mix a few different concepts:</p>
+
+<ol>
+<li>Who builds &amp; owns the integration</li>
+<li>Which company’s interfaces are used to build the integration</li>
+<li>How is the data transfer actually triggered</li>
+</ol>
+
+<p>We’ll look at each of these individually.</p>
+
+<h2 id="who-builds-and-owns-the-integration">Who builds and owns the integration?</h2>
+
+<p>A typical integration will involve somebody writing some “glue” code to link the two systems together, the options for this are typically:</p>
+
+<ol>
+<li>The vendors already have a “deep” integration which they commit to supporting. It’s worth asking more about this relationship as generally one vendor will have assumed responsibility for the technical work of maintaining the integration and so be your point of contact if something goes wrong</li>
+<li>The integration is being built by one of the vendors specifically for this client. In this case it’s worth drilling into whether the other vendor has committed to providing the resources and technical functionality and being looped into this process as most integrations require mutual co-operation and commitment of resource.</li>
+<li>The integration is being build by a third party company commissioned by the client. This gives the client more control but it’s essential to ensure costs and resource commitments from the vendors are agreed upfront because a third party building the integration does not mean no costs or resource requirements from the vendors.</li>
+<li>The integration is being built in-house. If an organisation has the capability to do this, this is extremely powerful subject to the maintenance point below. </li>
+</ol>
+
+<p>In all of these situations it’s essential to be clear on where the responsibility for maintaining the integration over-time sits.</p>
+
+<p>As with any software initiative, more of the lifetime cost will sit in maintenance rather than implementation so understanding how this will work is as important as understanding how it will get built to begin with.</p>
+
+<h2 id="which-company-s-interfaces-are-used-to-build-the-integration">Which company’s interfaces are used to build the integration?</h2>
+
+<p>Companies generally talk about having API’s - Application Programming Interfaces - which are tools for software systems to communicate with each other. There are broadly two core models for an integration:</p>
+
+<ol>
+<li>One vendor uses the others API </li>
+<li>The two vendors API’s are linked together with “glue” code</li>
+</ol>
+
+<p>Both are valid approaches, increasingly (2) is preferred because of the standardisation which this enables. </p>
+
+<p>It’s important before commencing a project to understand if the vendors have the required interfaces for the integration request and where they don’t, to have commitments to build these.</p>
+
+<h2 id="what-about-csv-s">What about CSV’s</h2>
+
+<p>CSV’s are one of the oldest data transfer methods still in-use. A CSV is essentially a human readable text file of data. There can be some snobbery about CSV’s along the lines of “but it’s not an API”.</p>
+
+<p>CSV’s are incredibly powerful, it’s an integration method that is disproportionately well supported across many systems and fairly easy to automate and debug.</p>
+
+<p>So especially for simple one way integrations, CSV’s should not be overlooked or excluded on the basis that API’s are in some way “better”.</p>
+
+<h2 id="how-is-the-data-transfer-actually-triggered-technical">How is the data transfer actually triggered (technical)</h2>
+
+<p>There are three technical concepts which come up and cause confusion. </p>
+
+<ol>
+<li><strong>API</strong>: This is the grouping for the endpoints and webhooks which make up a vendors interface for building integrations</li>
+<li><strong>Endpoints</strong>: API Endpoints are web addresses that a third party can request data from or send data to</li>
+<li><strong>Webhooks</strong>: These allow one system to “notify” another system when something happens instead of that system having to “ask”. Put the other way, this allows one system to “subscribe” to be told about changes from the other.</li>
+</ol>
+
+<p>A typical integration will use both endpoints and webhooks and a Webhook from Vendor 1 may be configured to “call” an “Endpoint” from Vendor 2. The distinction is not important from the perspective of agreeing an integration and this is only covered here because mis-use of this terminology drives a surprising amount of confusion. </p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>In the end it’s up to software vendors to be both flexible and honest to facilitate successful integration programmes. </p>
+
+<p>Deep cross vendor UI integration is still a largely unsolved problem and so we should exercise skepticism when anyone claims to have solved it.</p>
+
+<p>Best of breed is by no means dead, but the pieces are going to be bigger and so the number of vendors smaller as we learn more and more about where it’s practical to draw integration boundaries and where it isn’t. </p>
+
+    </section>
+
+    
+
+    <footer class="post-footer">
+      
+      <!-- If we want to display author's name and bio -->
+
+<section class="author">
+  <header> <a href="/about.html"> <img class="profile" src="/assets/images/profile4.jpg" alt="Ben Dixon. Without
+      Aviators."></a></header>
+  <article>
+    <!-- Author Name -->
+    <h4> Ben Dixon </h4>
+    <!-- Author Bio -->
+    <p>
+      I'm a CTO, developer (Elixir, Ruby, Typescript), lover of good coffee and above all, making things. Huge devops &
+      LLM
+      geek, especially Kubernetes and anything to do with realtime use of massive datasets. Railsconf speaker and travel
+      addict. Co-founder of <a href="https://www.getsona.com?utm_source=benblogbio" target="_blank">Sona</a> and author
+      of Reliably Deploying Rails
+      Applications. Chat to me on twitter <a href="http://www.twitter.com/talkingquickly"
+        target="_blank">@talkingquickly</a>
+    </p>
+  </article>
+</section>
+
+      
+      
+      
+
+
+      
+
+    </footer>
+
+  </article>
+
+</main>
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="/rss.xml"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+          <section class="copyright">All content copyright <a href="/about.html">Ben Dixon</a> &copy; &bull; All rights reserved. Twitter: <a href="http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a></section>
+             <section class="poweredby">Made with Jekyll and based on the <a href="http://github.com/rosario/kasper" target="_blank">Kasper theme</a></section>
+        </div>
+    </footer>
+
+
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-7333902-35']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</body>
+</html>

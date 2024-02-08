@@ -61,6 +61,44 @@
 
     <article class="post">
         <header class="post-header">
+            <span class="post-meta"><time datetime="07 Feb 2024">07 Feb 2024</time></span>
+            <h2 class="post-title"><a href="/integrations">Integrations</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            <p><p>Best in breed procurement, where many systems - the best in class for each system - are procured independently then integrated with one another has had a tricky decade.</p>
+
+<p>The underlying principle was good. Take lots of vendors who do just one thing really well and connect them to one another to form one fully integrated super system. </p>
+
+<p>But multiple studies suggest that 70-85% of the integration projects which are essential to make these systems work together fail to achieve their objectives.</p>
+
+<p>This post looks at what it’s necessary to consider to avoid these failures, especially in the workforce management space and breaks out specific things to explore when considering an integration project.</p>
+</p>
+        </section>
+    </article>
+
+    
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta"><time datetime="04 Feb 2024">04 Feb 2024</time></span>
+            <h2 class="post-title"><a href="/things-which-have-been-consistently-true">Things which have been consistently true</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            <p><p>After 15 years of building technology businesses, I&#39;ve changed my views on a lot of things from how to build software to what a good culture looks like.</p>
+
+<p>A small subset of things have remained consistently true.</p>
+
+<p>All of these are &quot;true&quot; for me, as always when I write &quot;you&quot; I really mean me. Writing is hard.</p>
+</p>
+        </section>
+    </article>
+
+    
+
+    <article class="post">
+        <header class="post-header">
             <span class="post-meta"><time datetime="30 Jan 2024">30 Jan 2024</time></span>
             <h2 class="post-title"><a href="/information-density-show-your-working">Information Density and why you should always show your working</a></h2>
 
@@ -432,42 +470,6 @@ WantedBy=&lt;%=(fetch(:puma_systemctl_user) == :system) ? &quot;multi-user.targe
             <p><p>In this post we&#39;ll install a feature rich but lightweight docker registry and integrate login and authorization with Keycloak users and groups. </p>
 
 <p><a href="https://goharbor.io">Harbor</a> is an open source registry which can serve multiple types of cloud artifacts and secure them using fine grained access control. In this case we&#39;ll be focussed on using harbor as a docker image registry and linking it&#39;s authentication with Keycloak but it is also capable of serving multiple other types of artifact, including helm charts.</p>
-
-<p>This post is part of a series on single sign on for Kubernetes.</p>
-</p>
-        </section>
-    </article>
-
-    
-
-    <article class="post">
-        <header class="post-header">
-            <span class="post-meta"><time datetime="18 Feb 2021">18 Feb 2021</time></span>
-            <h2 class="post-title"><a href="/docker-registry-authentication-with-keycloak">Docker Registry Authentication on Kubernetes with Keycloak</a></h2>
-
-        </header>
-        <section class="post-excerpt">
-            <p><p>In this post we&#39;ll cover how to use Keycloak to provide a simple authentication layer for a Docker registry. Simple meaning that in order to push and pull images to the registry, the user will first need to <code>docker login</code> as any valid user in the provided Keycloak realm. Note that there is no additional access control, so all Keycloak users have the ability to perform any action on any image once authenticated. For more fine grained controls, see the section on <a href="/harbor-docker-registry-on-kubernetes-authentication-with-keycloak">using Harbour</a>.</p>
-
-<p>This post is part of a series on single sign on for Kubernetes.</p>
-</p>
-        </section>
-    </article>
-
-    
-
-    <article class="post">
-        <header class="post-header">
-            <span class="post-meta"><time datetime="16 Feb 2021">16 Feb 2021</time></span>
-            <h2 class="post-title"><a href="/gitea-sso-with-keycloak-openldap-openid-connect">Gitea SSO with Keycloak, OpenLDAP and OpenID Connect</a></h2>
-
-        </header>
-        <section class="post-excerpt">
-            <p><p>Gitea is a lightweight open source git service. As an aside, Gitea - especially when combined with Drone CI - is one of my favourite pieces of open source software!</p>
-
-<p>It&#39;s minimal footprint and easy to use interface make it perfect for running on clusters to facilitate git push deploys and CI.</p>
-
-<p>Here we&#39;ll configure OpenLDAP for centralised user management and single sign on. We&#39;ll optionally configure OpenID Connect but with several caveats on its usage.</p>
 
 <p>This post is part of a series on single sign on for Kubernetes.</p>
 </p>
