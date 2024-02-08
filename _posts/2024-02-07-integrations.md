@@ -28,7 +28,7 @@ Integrations can suffer from the same problem. If there are two places where som
 
 So one of the most fundamentals requirements for a successful integration strategy is being completely clear on which systems are the “source of truth” or owners of each piece or category of data.
 
-Only the source of truth system is generally stores this data and is responsible for defining the interface by which other systems can alter and perform workflows against it.
+Only the source of truth system generally stores this data and is responsible for defining the interface by which other systems can alter and perform workflows against it.
 
 ## Which system owns which workflows?
 In the same way data being in multiple places can cause problems, workflows spanning multiple systems or worse being duplicated across system can cause substantial problems.
@@ -74,7 +74,7 @@ There are two intermediate steps which are possible:
 1. “Iframing”  Is a way to define a rectangular area of a webpage or web app and have another webpage or web app appear in that rectangular box. This can work as an approach where your goal is “I want someone to access a different system from within the first system without needing to change pages”. There’s no deep UI integration here, it just saves people going to a different page or screen.
 2. Single Sign On allows you to have users click on a link to another piece of software and be automatically signed in rather than having to login manually. This can have an extremely positive impact on engagement as people drop off surprisingly heavily when asked to login. If all systems are white labelled this can lead to a near seamless experience if the goal is simply to make moving between systems easier.
 
-Importantly neither white labelling nor SSO are bad solutions, it’s just important to be very clear what you’re getting when discussing a UI integration because there’s far more variability in what this could mean than there is for data integrations.
+Importantly both iframeing and SSO can be good solutions, it’s just important to be clear what you’re getting when discussing a UI integration because there’s far more variability in what this could mean than there is for data integrations.
 
 It’s an unfortunate truth that deep UI integration between multiple systems remains a largely unsolved problem in software. It’s a technically hard problem and it’s not for lack of trying that it hasn’t been solved in the industry.
 
@@ -88,13 +88,13 @@ It either needs to do this once (e.g. an Applicant Tracking  System integration)
 This is typically simpler and less error prone than an integration that needs to pull data in, manipulate it and then push data back out again (write / two way).
 
 ## Data Warehouse Integrations
-An important sub-category of integration is data warehouse integration.
+An important sub-category of integration are data warehouse integrations.
 
 A data warehouse is when an organisation has a single central location they collate all of their data, typically for the purposes of reporting and analytics.
 
 If an organisation has a data warehouse initiative, it’s common for it to be a requirement that all vendors can provide a way to get raw data out of the vendors system and into the 
 
-Generally the onus is on the vendor to provide a standard method for accessing this data, generally via either direct access to a database or API. 
+Generally the onus is on the vendor to provide a standard method for accessing this data, typically via either direct access to a database or API. 
 
 How this gets from this standard interface to the customer data warehouse generally sits with the customer.
 
@@ -158,16 +158,3 @@ In the end it’s up to software vendors to be both flexible and honest to facil
 Deep cross vendor UI integration is still a largely unsolved problem and so we should exercise skepticism when anyone claims to have solved it.
 
 Best of breed is by no means dead, but the pieces are going to be bigger and so the number of vendors smaller as we learn more and more about where it’s practical to draw integration boundaries and where it isn’t. 
-
-## Examples in WFM
-
-No-brainers:
-1. Single Sign On. Every system should support this
-2. ATS to HR. There’s a clear boundary and the core data transfer is primarily one-way
-3. WFM to Care Management, eMar, Stock Management etc. Again a clear boundary and primarily one-way data transfers
-
-Generally work, but some gotcha’s
-1. T&A / Labour Time Engine to Payroll. A completely standard integration is passing gross pay to a payroll software for gross to net and disbursement. but worth understanding in depth how things like post-payroll-close amendments will work and exactly where gross calculations sit for things like complex overtime
-
-Needs very careful planning:
-1. HR to Scheduling, splitting out things like holiday & absence from scheduling reliably is very hard. Splitting absence into multiple components is extremely hard.

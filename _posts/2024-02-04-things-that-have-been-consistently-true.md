@@ -13,9 +13,9 @@ After 15 years of building technology businesses, I've changed my views on a lot
 
 A small subset of things have remained consistently true.
 
-<!--more-->
-
 All of these are "true" for me, as always when I write "you" I really mean me. Writing is hard.
+
+<!--more-->
 
 Here they are:
 
