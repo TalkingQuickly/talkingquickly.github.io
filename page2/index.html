@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Talking Quickly - Rails, Devops & Startups</title>
+    
+        <meta name="description" content="Blog by Ben Dixon, Co-founder of Sona, about startups, elixir, AI, climbing and photography" />
+    
+
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="iwXSC2H2VSO9iPyrWjNj3Prlx4zJY-l0EJRGVkFuUHk" />
+
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml"/>
+    <link rel="canonical" href="https://www.talkingquickly.co.uk/page2/">
+
+</head>
+<body class="home-template">
+
+
+    <header class="site-head" >
+    <div class="vertical">
+        <div class="site-head-content" class="inner">
+            
+            <h1 class="blog-title">talkingquickly</h1>
+            <h2 class="blog-description">
+                Ben Dixon, Co-founder of Sona. Writing about AI, Startups, Elixir and Small Steps Taken Quickly.
+            </h2>
+            <h2 class="blog-description">
+                 <a href='about.html'> About me</a> 
+            </h2>
+
+            <h3 class="best-of-header">best of</h3>
+            <ul class="best-of-list">
+                <li><a href="/2015/04/what-id-tell-myself-about-startups/">What I'd tell myself about startups</a></li>
+                <li><a href="/kubernetes-sso-a-detailed-guide">Kubernetes SSO</a></li>
+                <li><a href="/getting-things-done-while-staying-sane">Getting things done while staying sane</a></li>
+                <li><a href="/2017/11/startup-reading-list/">Startup Reading List</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<main class="content" role="main">
+
+    
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta"><time datetime="18 Feb 2021">18 Feb 2021</time></span>
+            <h2 class="post-title"><a href="/docker-registry-authentication-with-keycloak">Docker Registry Authentication on Kubernetes with Keycloak</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            <p><p>In this post we&#39;ll cover how to use Keycloak to provide a simple authentication layer for a Docker registry. Simple meaning that in order to push and pull images to the registry, the user will first need to <code>docker login</code> as any valid user in the provided Keycloak realm. Note that there is no additional access control, so all Keycloak users have the ability to perform any action on any image once authenticated. For more fine grained controls, see the section on <a href="/harbor-docker-registry-on-kubernetes-authentication-with-keycloak">using Harbour</a>.</p>
+
+<p>This post is part of a series on single sign on for Kubernetes.</p>
+</p>
+        </section>
+    </article>
+
+    
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta"><time datetime="16 Feb 2021">16 Feb 2021</time></span>
+            <h2 class="post-title"><a href="/gitea-sso-with-keycloak-openldap-openid-connect">Gitea SSO with Keycloak, OpenLDAP and OpenID Connect</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            <p><p>Gitea is a lightweight open source git service. As an aside, Gitea - especially when combined with Drone CI - is one of my favourite pieces of open source software!</p>
+
+<p>It&#39;s minimal footprint and easy to use interface make it perfect for running on clusters to facilitate git push deploys and CI.</p>
+
+<p>Here we&#39;ll configure OpenLDAP for centralised user management and single sign on. We&#39;ll optionally configure OpenID Connect but with several caveats on its usage.</p>
+
+<p>This post is part of a series on single sign on for Kubernetes.</p>
+</p>
+        </section>
+    </article>
+
+    
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta"><time datetime="05 Feb 2021">05 Feb 2021</time></span>
+            <h2 class="post-title"><a href="/keycloak-and-openldap-on-kubernetes">Keycloak and OpenLDAP on Kubernetes</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            <p><p>In this post we&#39;ll cover how - having installed Keycloak and OpenLDAP separately on Kubernetes - to link the two together so that Keycloak uses OpenLDAP as it&#39;s primary store for user data.</p>
+
+<p>This post is part of a series on single sign on for Kubernetes.</p>
+</p>
+        </section>
+    </article>
+
+    
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta"><time datetime="01 Feb 2021">01 Feb 2021</time></span>
+            <h2 class="post-title"><a href="/installing-openldap-kubernetes-helm">Installing OpenLDAP on Kubernetes with Helm</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            <p><p>In this post we cover how to install OpenLDAP on Kubernetes and how to test that it is working using the command line.</p>
+
+<p>LDAP while an older - and in some ways more challenging to work with - approach to SSO than something like OIDC, is still the de-facto standard.</p>
+
+<p>There are many popular applications which don&#39;t support OIDC but do support LDAP. This is likely to be the case for many years to come so for now, any robust SSO solution is likely to need to support LDAP.</p>
+
+<p>This post is part of a series on single sign on for Kubernetes</p>
+</p>
+        </section>
+    </article>
+
+    
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta"><time datetime="27 Jan 2021">27 Jan 2021</time></span>
+            <h2 class="post-title"><a href="/installing-keycloak-kubernetes-helm">Installing Keycloak on Kubernetes</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            <p><p>Keycloak is a widely used open source identity and access management system. Think Okta but open source. This is where users will actually enter their username and password for services and where we&#39;ll configure which users can login to which applications. It will also provide users with a single directory of applications they can login to.</p>
+
+<p>In this post - as part of the larger series on Kubernetes SSO - we cover how to install Keycloak on Kubernetes.</p>
+</p>
+        </section>
+    </article>
+
+    
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta"><time datetime="15 Jan 2021">15 Jan 2021</time></span>
+            <h2 class="post-title"><a href="/kubernetes-sso-links">Useful Links when Setting up SSO on Kubernetes</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            <p><p>While creating the comprehensive guide to Kubernetes SSO, I leant heavily on many great pieces of existing content, a lot of them are included here.</p>
+</p>
+        </section>
+    </article>
+
+    
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta"><time datetime="08 Jan 2021">08 Jan 2021</time></span>
+            <h2 class="post-title"><a href="/2021/01/debian-dev-environment-for-remote-vscode/">Automated remote Debian development environment for VSCode with Ansible</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            <p><p>One of the things VSCode has done extremely well is creating a seamless remote development experience. Using the remote extension pack, specifically the SSH development extension, it&#39;s possible to run VSCode locally, while performing all actions on a remote server completely seamlessly. This allows us to use a local VM for much faster docker development on macOS. It also means we are free to spin up powerful Cloud VM&#39;s with many cores and plenty of RAM when we&#39;re working on more intensive tasks.</p>
+
+<p>With this setup I seamlessly switch between fully local development using a Virtualbox VM and a 16 core cloud VM with 64GB of RAM when I need more horsepower. In both environments this provides the level of Docker performance I associate with developing directly on Linux machines.</p>
+
+<p>This is streamlined using an Ansible playbook which automatically sets up Debian VM&#39;s with sensible defaults for development, including a beautiful default ZSH configuration (inc auto-completions) and easy language version management with asdf. This post starts with the practical steps required for this setup, and then goes on to explain what&#39;s being installed and how it works.</p>
+</p>
+        </section>
+    </article>
+
+    
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta"><time datetime="04 Jan 2021">04 Jan 2021</time></span>
+            <h2 class="post-title"><a href="/2021/01/tmux-ssh-agent-forwarding-vs-code/">tmux, docker and SSH agent forwarding when developing remotely with VSCode</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            <p><p>SSH agent forwarding is kind of like magic. Say you&#39;re using VSCode remote development to develop on a remote VM and you want to pull from a private repository. By default you might either generate a new keypair on the remote machine and add them to Github. Or you might copy your existing private key to the remote development machine. The former is fiddly and the latter raises some security concerns. With SSH Agent Forwarding you can allow the remote machine to authenticate requests using the keys on your local machine, without the keys ever leaving your local machine.</p>
+
+<p>One hiccup with this is that if you&#39;re a tmux user, you&#39;ll find that this works initially but then stops working in subsequent sessions. This post offers a simple solution to this.</p>
+</p>
+        </section>
+    </article>
+
+    
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta"><time datetime="01 Jan 2021">01 Jan 2021</time></span>
+            <h2 class="post-title"><a href="/2021/01/macos-setup-with-ansible/">Automating MacOS Development setup with Ansible</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            <p><p>Manual repetitive tasks are my nemesis and setting up a new Macbook from scratch is a prime example of this. Using Ansible we can completely automate this process. This is valuable both for individual efficiency and for facilitating standardised &quot;team setups&quot; so that new joiners avoid spending their first days googling obscure node version errors.</p>
+
+<p><a href="https://www.ansible.com">Ansible</a> is a tool most commonly associated with the setup of servers and infrastructure. But more broadly it&#39;s an excellent tool for automating the setup of any computer, including laptops and workstations. Of all the configuration management tools out there it&#39;s by far the easiest one to use - requiring no devops background at all - and has an amazing community supporting it.</p>
+
+<p>This posts outlines the setup I&#39;ve evolved over the previous few years which means setting up a new Macbook pro for fairly broad development (Rails, Javascript, Elixir, Python, Android &amp; iOS) now takes just a couple of commands. This includes loading all my shell customisations and GUI apps like Chrome, Office, Virtualbox etc.</p>
+</p>
+        </section>
+    </article>
+
+    
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta"><time datetime="28 Apr 2020">28 Apr 2020</time></span>
+            <h2 class="post-title"><a href="/2020/04/nodegroup-failed-to-stabilize-internal-failure/">Cloudformation - NodeGroup failed to stabilize: Internal Failure</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            <p><p>A recent change to AWS NodeGroup behaviour means that some CloudFormation stacks which create EKS NodeGroups may start to fail with the error <code>Nodegroup the-nodegroup-name failed to stabilize: Internal Failure</code>. Googling currently doesn&#39;t return much. The problem is related to <a href="https://aws.amazon.com/blogs/containers/upcoming-changes-to-ip-assignment-for-eks-managed-node-groups/">this change</a> relating to whether or not public IP&#39;s are assigned to nodes.</p>
+</p>
+        </section>
+    </article>
+
+    
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta"><time datetime="01 Sep 2019">01 Sep 2019</time></span>
+            <h2 class="post-title"><a href="/ninety-days-of-learning">90 Days of Learning</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            <p><p>An area I’m keen to experiment with batching strategies for is learning. Specifically getting “over the hump” with things that require a substantial upfront commitment before a return is delivered. Today I&#39;m kicking off a 90 day experiment of <a href="/habits-and-batching">batching</a> together learning three such things.</p>
+</p>
+        </section>
+    </article>
+
+    
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta"><time datetime="21 Aug 2019">21 Aug 2019</time></span>
+            <h2 class="post-title"><a href="/habits-and-batching">Habits and Batching</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            <p><p>One of the most high leverage tools available to us is habit. We are the sum of the things we do, our habits tend to be the things we do most and therefore we tend towards being the sum of our habits. Charles Duhigg&#39;s <a href="https://www.amazon.co.uk/Power-Habit-Why-What-Change/dp/1847946240">The Power of Habit</a> is a great primer on this. An interplay I&#39;m increasingly interested in is the one between habits and batching (or habits of batching).</p>
+</p>
+        </section>
+    </article>
+
+    
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta"><time datetime="29 Apr 2018">29 Apr 2018</time></span>
+            <h2 class="post-title"><a href="/getting-things-done-while-staying-sane">Getting things done while staying sane</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            <p><p>These are the guidelines I aim to follow with the goal of maintaining a high output while still enjoying life and avoiding burnout. I can&#39;t claim to be exceptionally good at sticking to them. As per usual, the &quot;you&quot; here is me, this isn&#39;t advice, it&#39;s just what&#39;s worked for me whenever I&#39;ve managed to stick to it. It&#39;s definitely highly influenced by the dynamics of building technology companies and is very tailored to the quirks of my psyche, ymmv.</p>
+</p>
+        </section>
+    </article>
+
+    
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta"><time datetime="04 Mar 2018">04 Mar 2018</time></span>
+            <h2 class="post-title"><a href="/2018/03/rails-development-environment-with-docker-compose/">A Rails development environment with Docker</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            <p><p>Docker and Docker Compose reduces bringing up a development environment on any system which supports Docker to a single command. For me this means the time to a working development environment, even on a fresh machine for a project I haven&#39;t worked on for months or years, is just a few seconds.</p>
+</p>
+        </section>
+    </article>
+
+    
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta"><time datetime="28 Nov 2017">28 Nov 2017</time></span>
+            <h2 class="post-title"><a href="/2017/11/startup-reading-list/">Startup Reading List (2018 Edition)</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            <p><p>Something most of the startup and product people I look up to have in common is that they read, a lot. They also challenge what they read. Rather than reading a chapter, then immediately trying to implement what they&#39;ve read, their books are full of post-it notes and scribbles, dinners and emails are full of debates on one methodology or idea v another.</p>
+</p>
+        </section>
+    </article>
+
+    
+
+    <nav class="pagination" role="pagination">
+
+        
+        
+        <a class="newer-posts" href="/" title="Previous Page">&laquo; Newer Posts</a>
+        
+        
+
+        <span class="page-number"> Page 2 of 4 </span>
+
+        
+        <a class="older-posts" href="/page3/" title="Next Page">Older Posts &raquo;</a>
+        
+    </nav>
+
+
+</main>
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="/rss.xml"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+          <section class="copyright">All content copyright <a href="/about.html">Ben Dixon</a> &copy; &bull; All rights reserved. Twitter: <a href="http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a></section>
+             <section class="poweredby">Made with Jekyll and based on the <a href="http://github.com/rosario/kasper" target="_blank">Kasper theme</a></section>
+        </div>
+    </footer>
+
+
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-7333902-35']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</body>
+</html>

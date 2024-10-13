@@ -1,0 +1,1159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+<generator uri="http://jekyllrb.com" version="3.9.3">Jekyll</generator>
+<link href="https://www.talkingquickly.co.uk/rss.xml" rel="self" type="application/atom+xml" />
+<link href="https://www.talkingquickly.co.uk/" rel="alternate" type="text/html" />
+<updated>2024-10-13T14:33:36+00:00</updated>
+<id>https://www.talkingquickly.co.uk/</id>
+<title>talkingquickly</title>
+<subtitle>Ben Dixon, Co-founder of Sona. Writing about AI, Startups, Elixir and Small Steps Taken Quickly.</subtitle>
+<author>
+<name>Ben Dixon</name>
+</author>
+<entry>
+<title>Integrations</title>
+<link href="https://www.talkingquickly.co.uk/integrations" rel="alternate" type="text/html" title="Integrations" />
+<published>2024-02-07T15:40:00+00:00</published>
+<updated>2024-02-07T15:40:00+00:00</updated>
+<id>https://www.talkingquickly.co.uk/integrations</id>
+<content type="html" xml:base="https://www.talkingquickly.co.uk/integrations">&lt;p&gt;Best in breed procurement, where many systems - the best in class for each system - are procured independently then integrated with one another has had a tricky decade.&lt;/p&gt;
+
+&lt;p&gt;The underlying principle was good. Take lots of vendors who do just one thing really well and connect them to one another to form one fully integrated super system. &lt;/p&gt;
+
+&lt;p&gt;But multiple studies suggest that 70-85% of the integration projects which are essential to make these systems work together fail to achieve their objectives.&lt;/p&gt;
+
+&lt;p&gt;This post looks at what it’s necessary to consider to avoid these failures, especially in the workforce management space and breaks out specific things to explore when considering an integration project.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;h2 id=&quot;which-system-owns-which-data-source-of-truth&quot;&gt;Which system owns which data (“source of truth”)?&lt;/h2&gt;
+
+&lt;p&gt;If you’ve ever been part of a project where there was no central project tracking, instead everyone kept their own todo lists and then met periodically to talk about what had been done and what needed to be done then you’re probably experienced the source of truth problem.&lt;/p&gt;
+
+&lt;p&gt;Different people have different ideas about the state of individual tasks, in-between alignment sessions several people may try and work on the same task or change the same document and it becomes incredibly difficult to work out what the true state of the project is at any given time.&lt;/p&gt;
+
+&lt;p&gt;Integrations can suffer from the same problem. If there are two places where someone can book holiday and they have different data about one persons holiday bookings, which one is true?&lt;/p&gt;
+
+&lt;p&gt;So one of the most fundamentals requirements for a successful integration strategy is being completely clear on which systems are the “source of truth” or owners of each piece or category of data.&lt;/p&gt;
+
+&lt;p&gt;Only the source of truth system generally stores this data and is responsible for defining the interface by which other systems can alter and perform workflows against it.&lt;/p&gt;
+
+&lt;h2 id=&quot;which-system-owns-which-workflows&quot;&gt;Which system owns which workflows?&lt;/h2&gt;
+
+&lt;p&gt;In the same way data being in multiple places can cause problems, workflows spanning multiple systems or worse being duplicated across system can cause substantial problems.&lt;/p&gt;
+
+&lt;p&gt;Imagine a system where people are asked to go to one place to build their roster and another to approve timesheets. To approve timesheets they need to open the roster in another system and manually compare timesheets to the roster.&lt;/p&gt;
+
+&lt;p&gt;In this example it’s not impossible, but it is painful. If your goal is to get company wide engagement with a technology programme, it’s friction like this that will stop it from happening.&lt;/p&gt;
+
+&lt;p&gt;If you take it one step further you can imagine a system where people are asked to put availability into one system, holiday into another and sickness into another.&lt;/p&gt;
+
+&lt;p&gt;People being people, they will forget which system they need to go to for what, especially for workflows they don’t have to do very often. &lt;/p&gt;
+
+&lt;p&gt;In the best case scenario here this drives up queries to internal support desks. In the worst case scenario it will drive down compliance and usage of the newly rolled out technology, directly preventing the technology programme from reaching and demonstrating it’s goals.&lt;/p&gt;
+
+&lt;p&gt;A good rule of thumb is that somebody shouldn’t need to change systems part way through a workflow and generally shouldn’t need to overtly access multiple systems to complete a single task. &lt;/p&gt;
+
+&lt;h2 id=&quot;big-pieces-vs-small-pieces&quot;&gt;Big pieces vs small pieces&lt;/h2&gt;
+
+&lt;p&gt;It can be tempting to read the above and think “great, so we’ll just create a 1000 line spreadsheet of all our data and all our workflows and decide on the owner, job done”. I’ve seen this approach multiple times at an impressive level of detail!&lt;/p&gt;
+
+&lt;p&gt;The problem with this is that data has dependencies. Yes it’s theoretically possible to store a users national insurance number and address in two separate systems. But in practice the unit of data you’ll most often want to work with is “user data”, not “national insurance numbers”. And changing address or national insurance number may mutually have implications for the payroll system.&lt;/p&gt;
+
+&lt;p&gt;In general when defining sources for truth for both data and workflows, try and work with big pieces not small pieces.&lt;/p&gt;
+
+&lt;p&gt;Another example is holiday &amp;amp; sickness. It’s tempting to think of these as separate things which could sit in different systems. In practice sickness can impact holiday and vice versa so splitting them is generally a challenging process. It’s far better to think in terms of “absence” as an overall concept.&lt;/p&gt;
+
+&lt;h2 id=&quot;user-interface-vs-data-integrations&quot;&gt;User Interface vs Data Integrations&lt;/h2&gt;
+
+&lt;p&gt;So far we’ve primarily talked about data. About which systems own data and perform workflows against that data. &lt;/p&gt;
+
+&lt;p&gt;Another type of integration is a user interface integration. Where you want to take an existing system and include the user interface of another system in it so that the user feels like they’re doing everything in one piece of software.&lt;/p&gt;
+
+&lt;p&gt;An important thing to be aware of is that this is very hard to do at the level of “parts” of a screen. &lt;/p&gt;
+
+&lt;p&gt;There are no standard or easy ways of modifying the user interface of a piece of software to include the user interface of another alongside it.&lt;/p&gt;
+
+&lt;p&gt;If a piece of software already has a box where some information is displayed and you want the information in that box to come from another system, that’s fine, that’s a data integration, the box is already there. &lt;/p&gt;
+
+&lt;p&gt;If you want to take the box from another piece of software, maybe including some buttons and “embed” it in the interface of another piece of software alongside their existing interface, expect this to be hard and expensive and for the results to feel somewhat clunky.&lt;/p&gt;
+
+&lt;p&gt;The main exception to this is where vendors have a deep partnership with one another and so typically one vendor has actually replicated the UI of the other product in their own. This is expensive for the vendor to do and so is rarely done for any one customer, instead it is done when those vendors have some form of ongoing strategic partnership.&lt;/p&gt;
+
+&lt;p&gt;There are two intermediate steps which are possible:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;“Iframing”  Is a way to define a rectangular area of a webpage or web app and have another webpage or web app appear in that rectangular box. This can work as an approach where your goal is “I want someone to access a different system from within the first system without needing to change pages”. There’s no deep UI integration here, it just saves people going to a different page or screen.&lt;/li&gt;
+&lt;li&gt;Single Sign On allows you to have users click on a link to another piece of software and be automatically signed in rather than having to login manually. This can have an extremely positive impact on engagement as people drop off surprisingly heavily when asked to login. If all systems are white labelled this can lead to a near seamless experience if the goal is simply to make moving between systems easier.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Importantly both iframeing and SSO can be good solutions, it’s just important to be clear what you’re getting when discussing a UI integration because there’s far more variability in what this could mean than there is for data integrations.&lt;/p&gt;
+
+&lt;p&gt;It’s an unfortunate truth that deep UI integration between multiple systems remains a largely unsolved problem in software. It’s a technically hard problem and it’s not for lack of trying that it hasn’t been solved in the industry.&lt;/p&gt;
+
+&lt;h2 id=&quot;read-vs-write-one-way-vs-two-way&quot;&gt;Read vs write, one way vs two way&lt;/h2&gt;
+
+&lt;p&gt;A simple but important distinction is read vs write integrations.&lt;/p&gt;
+
+&lt;p&gt;In a read integration, one system needs to get data from another system for storage or display. It has no need to ever change this data and push those changes back into the original system. &lt;/p&gt;
+
+&lt;p&gt;It either needs to do this once (e.g. an Applicant Tracking  System integration) or repeatedly (e.g. when pulling daily forecasts in).&lt;/p&gt;
+
+&lt;p&gt;This is typically simpler and less error prone than an integration that needs to pull data in, manipulate it and then push data back out again (write / two way).&lt;/p&gt;
+
+&lt;h2 id=&quot;data-warehouse-integrations&quot;&gt;Data Warehouse Integrations&lt;/h2&gt;
+
+&lt;p&gt;An important sub-category of integration are data warehouse integrations.&lt;/p&gt;
+
+&lt;p&gt;A data warehouse is when an organisation has a single central location they collate all of their data, typically for the purposes of reporting and analytics.&lt;/p&gt;
+
+&lt;p&gt;If an organisation has a data warehouse initiative, it’s common for it to be a requirement that all vendors can provide a way to get raw data out of the vendors system and into the &lt;/p&gt;
+
+&lt;p&gt;Generally the onus is on the vendor to provide a standard method for accessing this data, typically via either direct access to a database or API. &lt;/p&gt;
+
+&lt;p&gt;How this gets from this standard interface to the customer data warehouse generally sits with the customer.&lt;/p&gt;
+
+&lt;p&gt;Typical options for this include:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Many vendors will build a further bridge between their standard interface and the customer data warehouse for a fee&lt;/li&gt;
+&lt;li&gt;Many data warehouse vendors offer some form of integration service&lt;/li&gt;
+&lt;li&gt;There are third parties which specialise entirely in building data warehouse connectors&lt;/li&gt;
+&lt;li&gt;There are third parties who maintain huge libraries of data warehouse connectors for common vendors&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;It is a huge red flag if a vendor refuses to provide data warehouse access to customers. &lt;/p&gt;
+
+&lt;h2 id=&quot;push-vs-pull&quot;&gt;Push vs Pull&lt;/h2&gt;
+
+&lt;p&gt;Push vs pull is terminology that gets used to describe whether one vendor “pushes” data in or the other vendor “pulls” it out. It’s helpful as a short-hand when combined with read vs write above but it tends to mix a few different concepts:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Who builds &amp;amp; owns the integration&lt;/li&gt;
+&lt;li&gt;Which company’s interfaces are used to build the integration&lt;/li&gt;
+&lt;li&gt;How is the data transfer actually triggered&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;We’ll look at each of these individually.&lt;/p&gt;
+
+&lt;h2 id=&quot;who-builds-and-owns-the-integration&quot;&gt;Who builds and owns the integration?&lt;/h2&gt;
+
+&lt;p&gt;A typical integration will involve somebody writing some “glue” code to link the two systems together, the options for this are typically:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;The vendors already have a “deep” integration which they commit to supporting. It’s worth asking more about this relationship as generally one vendor will have assumed responsibility for the technical work of maintaining the integration and so be your point of contact if something goes wrong&lt;/li&gt;
+&lt;li&gt;The integration is being built by one of the vendors specifically for this client. In this case it’s worth drilling into whether the other vendor has committed to providing the resources and technical functionality and being looped into this process as most integrations require mutual co-operation and commitment of resource.&lt;/li&gt;
+&lt;li&gt;The integration is being build by a third party company commissioned by the client. This gives the client more control but it’s essential to ensure costs and resource commitments from the vendors are agreed upfront because a third party building the integration does not mean no costs or resource requirements from the vendors.&lt;/li&gt;
+&lt;li&gt;The integration is being built in-house. If an organisation has the capability to do this, this is extremely powerful subject to the maintenance point below. &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;In all of these situations it’s essential to be clear on where the responsibility for maintaining the integration over-time sits.&lt;/p&gt;
+
+&lt;p&gt;As with any software initiative, more of the lifetime cost will sit in maintenance rather than implementation so understanding how this will work is as important as understanding how it will get built to begin with.&lt;/p&gt;
+
+&lt;h2 id=&quot;which-company-s-interfaces-are-used-to-build-the-integration&quot;&gt;Which company’s interfaces are used to build the integration?&lt;/h2&gt;
+
+&lt;p&gt;Companies generally talk about having API’s - Application Programming Interfaces - which are tools for software systems to communicate with each other. There are broadly two core models for an integration:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;One vendor uses the others API &lt;/li&gt;
+&lt;li&gt;The two vendors API’s are linked together with “glue” code&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Both are valid approaches, increasingly (2) is preferred because of the standardisation which this enables. &lt;/p&gt;
+
+&lt;p&gt;It’s important before commencing a project to understand if the vendors have the required interfaces for the integration request and where they don’t, to have commitments to build these.&lt;/p&gt;
+
+&lt;h2 id=&quot;what-about-csv-s&quot;&gt;What about CSV’s&lt;/h2&gt;
+
+&lt;p&gt;CSV’s are one of the oldest data transfer methods still in-use. A CSV is essentially a human readable text file of data. There can be some snobbery about CSV’s along the lines of “but it’s not an API”.&lt;/p&gt;
+
+&lt;p&gt;CSV’s are incredibly powerful, it’s an integration method that is disproportionately well supported across many systems and fairly easy to automate and debug.&lt;/p&gt;
+
+&lt;p&gt;So especially for simple one way integrations, CSV’s should not be overlooked or excluded on the basis that API’s are in some way “better”.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-is-the-data-transfer-actually-triggered-technical&quot;&gt;How is the data transfer actually triggered (technical)&lt;/h2&gt;
+
+&lt;p&gt;There are three technical concepts which come up and cause confusion. &lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;API&lt;/strong&gt;: This is the grouping for the endpoints and webhooks which make up a vendors interface for building integrations&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Endpoints&lt;/strong&gt;: API Endpoints are web addresses that a third party can request data from or send data to&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Webhooks&lt;/strong&gt;: These allow one system to “notify” another system when something happens instead of that system having to “ask”. Put the other way, this allows one system to “subscribe” to be told about changes from the other.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;A typical integration will use both endpoints and webhooks and a Webhook from Vendor 1 may be configured to “call” an “Endpoint” from Vendor 2. The distinction is not important from the perspective of agreeing an integration and this is only covered here because mis-use of this terminology drives a surprising amount of confusion. &lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;In the end it’s up to software vendors to be both flexible and honest to facilitate successful integration programmes. &lt;/p&gt;
+
+&lt;p&gt;Deep cross vendor UI integration is still a largely unsolved problem and so we should exercise skepticism when anyone claims to have solved it.&lt;/p&gt;
+
+&lt;p&gt;Best of breed is by no means dead, but the pieces are going to be bigger and so the number of vendors smaller as we learn more and more about where it’s practical to draw integration boundaries and where it isn’t. &lt;/p&gt;
+</content>
+<summary>Best in breed procurement, where many systems - the best in class for each system - are procured independently then integrated with one another has had a tricky decade.The underlying principle was good. Take lots of vendors who do just one thing really well and connect them to one another to form one fully integrated super system. But multiple studies suggest that 70-85% of the integration projects which are essential to make these systems work together fail to achieve their objectives.This post looks at what it’s necessary to consider to avoid these failures, especially in the workforce management space and breaks out specific things to explore when considering an integration project.</summary>
+</entry>
+<entry>
+<title>Things which have been consistently true</title>
+<link href="https://www.talkingquickly.co.uk/things-which-have-been-consistently-true" rel="alternate" type="text/html" title="Things which have been consistently true" />
+<published>2024-02-04T15:40:00+00:00</published>
+<updated>2024-02-04T15:40:00+00:00</updated>
+<id>https://www.talkingquickly.co.uk/things-that-have-been-consistently-true</id>
+<content type="html" xml:base="https://www.talkingquickly.co.uk/things-which-have-been-consistently-true">&lt;p&gt;After 15 years of building technology businesses, I&amp;#39;ve changed my views on a lot of things from how to build software to what a good culture looks like.&lt;/p&gt;
+
+&lt;p&gt;A small subset of things have remained consistently true.&lt;/p&gt;
+
+&lt;p&gt;All of these are &amp;quot;true&amp;quot; for me, as always when I write &amp;quot;you&amp;quot; I really mean me. Writing is hard.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;Here they are:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Sleep, Exercise and Diet pretty much trump everything else. For me I&amp;#39;d estimate the ratio is something like 50% sleep, 30% exercise, 20% diet but I&amp;#39;ve no reason to think that generalises. I firmly believe that when looking to improve output, culture, any number of things, ensuring a workforce is getting enough sleep would probably out-perform almost any other initiative&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;/writing-is-thinking&quot;&gt;Writing really is thinking&lt;/a&gt;. I have close to zero examples of situations where someone taking their idea and then spending several hours writing it out in a structured long form way didn&amp;#39;t make it at least one order of magnitude better&lt;/li&gt;
+&lt;li&gt;Writing is thinking but talking is communicating. Humans were designed to talk to other humans face to face. Writing and talking serve different purposes and you can&amp;#39;t substitute one for the other. It&amp;#39;s frightening how quickly human relationships decay without some form of direct human to human communication with all the body language and tone of voice that goes with it. This is the main factor to manage when building remote&lt;/li&gt;
+&lt;li&gt;Generally &lt;a href=&quot;/information-density-show-your-working&quot;&gt;the return on consuming long form non-fiction content vastly outweighs short form non-fiction content&lt;/a&gt; if your goal is to acquire knowledge or understanding&lt;/li&gt;
+&lt;li&gt;It&amp;#39;s possible to do vastly less than I estimate in 1 week and vastly more in 6 months. So planning the 6 month horizon is far higher leverage than doing another crazy 1 week sprint. This has been true across work, exercise, nutrition, relationships, learning and pretty much any other domain I can think of. Unfortunately the 1 week sprint feels much more exciting and resisting this pull is hard&lt;/li&gt;
+&lt;li&gt;All of the worst conversations I&amp;#39;ve had started with me going in with a strong opinion and telling everyone else about it. All of the best ones started with me asking other people lots of questions and follow up questions. 9 times our of 10 I&amp;#39;ll learn something that causes me to meaningfully re-evaluate the opinion I would have started with&lt;/li&gt;
+&lt;li&gt;Prioritising X over the people I love and care about is essentially always the wrong choice. In retrospect &amp;quot;the other thing&amp;quot; always turned out not to matter very much and I wished I&amp;#39;d prioritised the people I love. I don&amp;#39;t have a single example of this where on reflection I couldn&amp;#39;t have far better prioritised the people I love while still delivering fully on &amp;quot;the other thing&amp;quot; whether that was work, exercise, hobbies etc&lt;/li&gt;
+&lt;li&gt;People are basically good and well-intentioned. If I look back at nearly every situation where I attributed motivation to malice or some negative personality trait, I was pretty much always wrong. The negative thought processes that went with this not only added no value to the situation, they actively reduced my effectiveness and happiness&lt;/li&gt;
+&lt;li&gt;To paraphrase Sam Altman, it would have been worth being taking advantage of a few times while assuming the best in everyone just for the additional positivity and opportunity exposed by this mindset&lt;/li&gt;
+&lt;li&gt;A very useful heuristic when interpreting people&amp;#39;s opinions is to watch how certain they are. The more certain someone is, particularly in complex domains, the more suspicious you should be of their conclusions. People who are consistently extremely high certainty on a large range of topics are generally the least informed and least likely to be right. This is a great heuristic when evaluating investors.&lt;/li&gt;
+&lt;li&gt;Most of the biggest positive impact events in my life were the result of putting myself in situations where I&amp;#39;m exposed to a high degree of serendipity, generally either by meeting people or creating content, especially content which then goes out onto the internet&lt;/li&gt;
+&lt;li&gt;It&amp;#39;s amazing how many problems both in business and life in general could be avoided simply by giving and learning to receive feedback. It&amp;#39;s frightening how often I realise I&amp;#39;m unhappy with how someone has done something, I&amp;#39;d like them to do it differently and for some reason I haven&amp;#39;t explicitly told them that. Thanks for the Feedback and Radical Candor helped me a lot and I thoroughly recommend them. Once you start seeing this in yourself and others it&amp;#39;s hard to stop seeing it! I keep &amp;quot;turning up the dial&amp;quot; on how much feedback I give and finding it&amp;#39;s still possible and constructive to go further&lt;/li&gt;
+&lt;li&gt;The things and mistakes you&amp;#39;re most frustrated about in others are probably the things you&amp;#39;re most uncomfortable with about yourself. Be careful of this because it can skew decision making and communication across all parts of life&lt;/li&gt;
+&lt;li&gt;Compounding and compound effects are by far the hardest to internalise. This applies to money, technical architecture, team culture and numerous other things. It&amp;#39;s a great example of where it&amp;#39;s worth writing out longform and drawing systems diagrams can help you to identify huge blindspots&lt;/li&gt;
+&lt;li&gt;Delegation is incredibly hard to get right and probably the highest leverage skill that exists when building a business. It&amp;#39;s better to fail by over-delegating and pulling back than by under-delegating.&lt;/li&gt;
+&lt;li&gt;It&amp;#39;s incredibly easy to criticise other people&amp;#39;s ideas and to come up with reasons why somebody might be wrong, why a business idea might not work and how things could go awry. It&amp;#39;s far more interesting and valuable to be able to sit with those points while thinking through how it &lt;em&gt;could&lt;/em&gt; work out and where there &lt;em&gt;might&lt;/em&gt; be value. Almost all interesting step changes came from things which sounded unlikely or far fetched at the time. So the ability to sit with the challenges and explore the opportunity space is incredibly important. You&amp;#39;ll still generally conclude against an idea, but you&amp;#39;ll also get most of your returns for the ones which turn out to be important.&lt;/li&gt;
+&lt;li&gt;Negative comments on the internet invariably tell you more about the commentor than the subject they are commenting on&lt;/li&gt;
+&lt;li&gt;If in doubt, put on a podcast, go for a run and then think about it again.&lt;/li&gt;
+&lt;li&gt;If that doesn&amp;#39;t work go to bed, get a full nights sleep, and it will be better in the morning&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Further reading:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;What I&amp;#39;d tell myself about startups if I could go back in-time&lt;/li&gt;
+&lt;li&gt;Short form vs Long Form Content&lt;/li&gt;
+&lt;li&gt;Writing is thinking&lt;/li&gt;
+&lt;li&gt;Thanks for the feedback&lt;/li&gt;
+&lt;li&gt;Radical Candor&lt;/li&gt;
+&lt;li&gt;Outlive &amp;amp; Lifespan&lt;/li&gt;
+&lt;li&gt;Why we sleep&lt;/li&gt;
+&lt;li&gt;The hard thing about hard things&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+<summary>After 15 years of building technology businesses, I&amp;#39;ve changed my views on a lot of things from how to build software to what a good culture looks like.A small subset of things have remained consistently true.All of these are &amp;quot;true&amp;quot; for me, as always when I write &amp;quot;you&amp;quot; I really mean me. Writing is hard.</summary>
+</entry>
+<entry>
+<title>Information Density and why you should always show your working</title>
+<link href="https://www.talkingquickly.co.uk/information-density-show-your-working" rel="alternate" type="text/html" title="Information Density and why you should always show your working" />
+<published>2024-01-30T00:00:00+00:00</published>
+<updated>2024-01-30T00:00:00+00:00</updated>
+<id>https://www.talkingquickly.co.uk/information-density</id>
+<content type="html" xml:base="https://www.talkingquickly.co.uk/information-density-show-your-working">&lt;p&gt;A fun thing about being alive now is how much knowledge and information is available in the form of books, blog posts, audio books, social media posts and YouTube videos to name just a few. But now more than ever there&amp;#39;s no way we can consume all of it and so on which content we choose to focus our time and attention has the potential to drive wildly different outcomes.&lt;/p&gt;
+
+&lt;p&gt;In particular I believe an organisation that is driven heavily by short-form content loses it&amp;#39;s ability both to reason about novel situations and discuss decisions constructively, leading to a lower likelihood of success for that organisation.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;The crude heuristics that have consistently proved true with respect to non-fiction for me have been:&lt;/p&gt;
+
+&lt;p&gt;Valuable from highest to least information dense:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Books, with the value in popular business books being disproportionately in the first 1/3rd&lt;/li&gt;
+&lt;li&gt;Podcasts of over 1 hour with ~2 hours being the sweet spot (On 1.5x that&amp;#39;s ~1.3 hours listening time)&lt;/li&gt;
+&lt;li&gt;High quality summaries of books (with a reading time of 15-45 minutes)&lt;/li&gt;
+&lt;li&gt;Blog posts with a reading time of &amp;gt; 5 minutes&lt;/li&gt;
+&lt;li&gt;Current affairs magazines published weekly or monthly (with an average article reading time of &amp;gt; 5 minutes per article)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Close to zero information density e.g. rarely valuable if my objective is learning:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Any social media post (especially if it takes less than 5 minutes to read)&lt;/li&gt;
+&lt;li&gt;All daily news (newspapers, websites, TV, daily newsletters etc)&lt;/li&gt;
+&lt;li&gt;Most podcasts of less than 30 minutes&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Reading times are my own so YYMV&lt;/p&gt;
+
+&lt;p&gt;These are crude heuristics. I&amp;#39;ve read some terrible books, come across some podcasts that pack an incredible amount into twenty minutes and read some truly insightful twitter threads.&lt;/p&gt;
+
+&lt;p&gt;But on average, the vast majority of useful information I&amp;#39;ve learned in the last 15 years was from books, longer podcasts and longer blog posts. From the perspective purely of learning, I don&amp;#39;t think daily news or social media has ever - for me - created anything I would count as genuine knowledge.&lt;/p&gt;
+
+&lt;p&gt;I think the common factor which drives the above categorisation may be the ability to convey &amp;quot;why&amp;quot; rather than &amp;quot;what&amp;quot;.&lt;/p&gt;
+
+&lt;p&gt;The shorter the content, the less space is available for explaining why the author reached that conclusion rather than simply the conclusion they reached.&lt;/p&gt;
+
+&lt;p&gt;Genuine knowledge allows us to take a novel situation and reason about it to reach a decision on how to act. To do this, at a minimum, we need to be able to compare the specifics of our situation to other situations we have learned about to see to what extent we believe they are similar.&lt;/p&gt;
+
+&lt;p&gt;If we only learn the conclusion, we cannot effectively do that.&lt;/p&gt;
+
+&lt;p&gt;This is why maths exams require you to show your working and attribute more marks to the working than the answer; most of the value lies in how you got to the answer, not in the answer itself.&lt;/p&gt;
+
+&lt;p&gt;There are very few universal laws. Conservation of energy seems close and the speed of light also looks like a tough nut to crack.&lt;/p&gt;
+
+&lt;p&gt;But outside of that, things are broadly complicated. And so saying &amp;quot;Always do X&amp;quot; is default unhelpful. You have to get to &amp;quot;In situation Y, you may want to do X if you objectives are A,B,C, this seems to be the case because...&amp;quot;.&lt;/p&gt;
+
+&lt;p&gt;Short form content doesn&amp;#39;t lend itself to achieving this. Imagine two social media posts:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;A trait of high performing organisations is that they always pay back their technical debt immediately&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;and &lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Technical debt is an important lever but like all debt it must be managed carefully. There will be times when the right decision is to incur more technical debt and times where it should be paid back. One of the key drivers of this decision will be the extent to which technical debt is creating drag on engineering velocity. There will be some technical debt which it never makes sense to pay back and some which has to be paid back almost immediately.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Neither are long form and neither does a particular good job of giving the reader a clear framework for evaluating technical debt and when to pay it back.&lt;/p&gt;
+
+&lt;p&gt;The second post starts to hint at some of the factors that might make up a framework but is far less compelling to read.&lt;/p&gt;
+
+&lt;p&gt;If I was going to screenshot a Linkedin post and share it, honestly I&amp;#39;d be tempted to choose the first one (despite not agreeing with it!). It feels sort of compelling to read despite being almost entirely devoid of useful information and probably wrong.&lt;/p&gt;
+
+&lt;p&gt;As humans we like things that state simple conclusions without ambiguity because they give us a brief sensation that a complicated world is simple. That a single rule will absolve us of having to spend a lot of time understanding and making non-obvious decisions about something hard.&lt;/p&gt;
+
+&lt;p&gt;The lure of making that 49%/51% decision that&amp;#39;s hanging over us a 99%/1% decision is powerful.&lt;/p&gt;
+
+&lt;p&gt;The dark side of this when building a startup technology business is that the more &amp;quot;rules&amp;quot; are taken from low information density sources - e.g. the sources that don&amp;#39;t provide a framework for the why - the lower your organisations ability to reason about about novel situations from first principles becomes.&lt;/p&gt;
+
+&lt;p&gt;This means increasingly a business can become made up of people who feel very strongly &amp;quot;always do X&amp;quot; and &amp;quot;never do Y&amp;quot; but cannot explain why or when these - often contradictory rules - may or may not apply.&lt;/p&gt;
+
+&lt;p&gt;On top of this they may &amp;quot;believe&amp;quot; multiple things which in reality are applicable to different situations but because they lack the why they simply &amp;quot;believe&amp;quot; - without realising it - things which directly contradict each other, usually in proportion to how recently they were exposed to the rule or conclusion in question.&lt;/p&gt;
+
+&lt;p&gt;One of the easiest ways to take a conversation into defensive territory is to ask sometime &amp;quot;why&amp;quot; or generally challenge them on a conclusion that they&amp;#39;ve stated publicly but sub consciously know they cannot explain the reasoning behind.&lt;/p&gt;
+
+&lt;p&gt;So the more of a company&amp;#39;s operating principles end up being derived from short-form content, the less that organisation will be able to reason about novel situations it encounters and the more it&amp;#39;s ability to discuss decisions objectively and constructively without regressing to defensiveness will decay.&lt;/p&gt;
+
+&lt;p&gt;This doesn&amp;#39;t mean organisations should discourage or become hostile to short form content. Just that they should encourage people to think of it as a jumping off point to learn more. They should also encourage respectful but firm ways of challenging anything that is presented as a rule but doesn&amp;#39;t show the working.&lt;/p&gt;
+
+&lt;p&gt;To quote Richard Feynman:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&amp;quot;Hell, if I could explain it to the average person, it wouldn&amp;#39;t have been worth the Nobel prize.&amp;quot;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Further reading:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;/writing-is-thinking&quot;&gt;Writing is thinking&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.amazon.co.uk/Digital-Minimalism-Living-Better-Technology-ebook/dp/B07D1G6DTF/ref=tmm_kin_swatch_0&quot;&gt;Digital Minimalism&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+<summary>A fun thing about being alive now is how much knowledge and information is available in the form of books, blog posts, audio books, social media posts and YouTube videos to name just a few. But now more than ever there&amp;#39;s no way we can consume all of it and so on which content we choose to focus our time and attention has the potential to drive wildly different outcomes.In particular I believe an organisation that is driven heavily by short-form content loses it&amp;#39;s ability both to reason about novel situations and discuss decisions constructively, leading to a lower likelihood of success for that organisation.</summary>
+</entry>
+<entry>
+<title>Writing is thinking</title>
+<link href="https://www.talkingquickly.co.uk/writing-is-thinking" rel="alternate" type="text/html" title="Writing is thinking" />
+<published>2023-04-11T15:40:00+00:00</published>
+<updated>2023-04-11T15:40:00+00:00</updated>
+<id>https://www.talkingquickly.co.uk/writing-is-thinking</id>
+<content type="html" xml:base="https://www.talkingquickly.co.uk/writing-is-thinking">&lt;p&gt;In the book &amp;quot;&lt;a href=&quot;https://amzn.to/3MzNIgQ&quot;&gt;High Output Management&lt;/a&gt;,&amp;quot; author Andrew Grove writes:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;“Reports are more a medium of self-discipline than a way to communicate information. Writing the report is important; reading it often is not.”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Over the last ten years of building startups, this concept that the purpose of writing is often more to help the writer develop their thinking than it is to help others understand them has become increasingly central to the culture I aim to drive in an organisation.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;Andy Grove suggests that the process of writing forces us to clarify our thoughts and ideas, making them more concrete and actionable. This is because writing requires a level of specificity and organization that thinking or talking alone may not achieve.&lt;/p&gt;
+
+&lt;p&gt;When we write, we are forced to articulate our ideas in a clear and logical way. We need to choose our words carefully and structure our sentences in a way that conveys our message effectively.&lt;/p&gt;
+
+&lt;p&gt;In my experience the initial process of writing is often a fairly small proportion of the time invested. By my crude estimations, sub twenty five precent of the total time.&lt;/p&gt;
+
+&lt;p&gt;Far more important and time consuming is the process of editing. &lt;/p&gt;
+
+&lt;p&gt;Often the narrative or concept which seemed so clear when we sat down to write now has clear gaps, inconsistencies and new assumptions which require validation or explanation. Multiple passes through document resolve these as well as allowing us time to re-consider things like structure and order. It forces us to think through things like &amp;quot;what things will my audience need to believe and in what order&amp;quot;.&lt;/p&gt;
+
+&lt;p&gt;By extension combining written documents with an &amp;quot;FAQ&amp;quot; type approach, where you spend time putting yourself in the shoes of your audience and thinking &amp;quot;what will they ask me&amp;quot; after reading this drive a much more rounded consideration of a problem space or idea.&lt;/p&gt;
+
+&lt;p&gt;This highlights one of the benefits of building an organisational culture which leverages written documents more than it does meetings. Or at least which leverages written documents &lt;em&gt;before&lt;/em&gt; it leverages meetings.&lt;/p&gt;
+
+&lt;p&gt;In an organisation which starts with meetings, the raw material people have to work with is the unrefined narrative. Multiple peoples time will be spent just drawing out the gaps, inconsistencies and assumptions the majority of which would have been caught in a writing and editing process.&lt;/p&gt;
+
+&lt;p&gt;Worse due to the natural ceiling on how long a productive meeting can be, in many scenarios once this initial work is completed, the meeting will be close to finishing, depriving the group the opportunity to discuss the &amp;quot;core&amp;quot; of the issue, or at least requiring another expensive meeting.&lt;/p&gt;
+
+&lt;p&gt;This isn&amp;#39;t to de-value meetings, instead to highlight one of the reasons why a meeting will generally be far more valuable if someone has first spent substantial time writing and editing their thoughts.&lt;/p&gt;
+</content>
+<summary>In the book &amp;quot;High Output Management,&amp;quot; author Andrew Grove writes:“Reports are more a medium of self-discipline than a way to communicate information. Writing the report is important; reading it often is not.”Over the last ten years of building startups, this concept that the purpose of writing is often more to help the writer develop their thinking than it is to help others understand them has become increasingly central to the culture I aim to drive in an organisation.</summary>
+</entry>
+<entry>
+<title>Meetings vs Documents</title>
+<link href="https://www.talkingquickly.co.uk/meetings-v-documents" rel="alternate" type="text/html" title="Meetings vs Documents" />
+<published>2023-01-12T15:40:00+00:00</published>
+<updated>2023-01-12T15:40:00+00:00</updated>
+<id>https://www.talkingquickly.co.uk/meetings-v-documents</id>
+<content type="html" xml:base="https://www.talkingquickly.co.uk/meetings-v-documents">&lt;p&gt;A common topic of discussion is whether meetings should be used for information distribution or only discussion.&lt;/p&gt;
+
+&lt;p&gt;Probably the most famous example of a conclusion on this is the Amazon approach (documented in &lt;a href=&quot;https://amzn.to/43pemPl&quot;&gt;working backwards&lt;/a&gt;) where all meetings begin with some form of document and 15 minutes silence for people to read followed by discussion.&lt;/p&gt;
+
+&lt;p&gt;I&amp;#39;m a strong advocate of this approach but wanted to be better able to explain why I believe it&amp;#39;s applicable to most situations and what&amp;#39;s different about the small subset of exceptions.&lt;/p&gt;
+
+&lt;p&gt;So I attempted to break down the factors which play into it and what I believe is different between the possible approaches.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;table&gt;&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;Document&lt;/th&gt;
+&lt;th&gt;Meeting&lt;/th&gt;
+&lt;th&gt;Document + Meeting&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Organiser Prep Time&lt;/td&gt;
+&lt;td&gt;2 hours&lt;/td&gt;
+&lt;td&gt;15 mins&lt;/td&gt;
+&lt;td&gt;2 hours&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Collaboration Time / person&lt;/td&gt;
+&lt;td&gt;15mins&lt;/td&gt;
+&lt;td&gt;45mins&lt;/td&gt;
+&lt;td&gt;1 hour&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Comprehension&lt;/td&gt;
+&lt;td&gt;50%&lt;/td&gt;
+&lt;td&gt;20%&lt;/td&gt;
+&lt;td&gt;75%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Re usability&lt;/td&gt;
+&lt;td&gt;100%&lt;/td&gt;
+&lt;td&gt;0%&lt;/td&gt;
+&lt;td&gt;75%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Alignment + 1 hour&lt;/td&gt;
+&lt;td&gt;50%&lt;/td&gt;
+&lt;td&gt;75%&lt;/td&gt;
+&lt;td&gt;95%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Alignment + 1 day&lt;/td&gt;
+&lt;td&gt;50%&lt;/td&gt;
+&lt;td&gt;30%&lt;/td&gt;
+&lt;td&gt;95%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Alignment + 7 days&lt;/td&gt;
+&lt;td&gt;40%&lt;/td&gt;
+&lt;td&gt;20%&lt;/td&gt;
+&lt;td&gt;85%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Alignment + 1 Month&lt;/td&gt;
+&lt;td&gt;30%&lt;/td&gt;
+&lt;td&gt;5%&lt;/td&gt;
+&lt;td&gt;75%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+
+&lt;p&gt;In this model I&amp;#39;ve suggested there are 3 main results we&amp;#39;re likely to be looking for:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Comprehension, e.g. at time of processing, how much of what was being communicated are participants likely to understand&lt;/li&gt;
+&lt;li&gt;Re-usability, e.g. to what extent are others able to re-use the effort expended to understand the same topic &lt;/li&gt;
+&lt;li&gt;Alignment, e.g. to what extent do the participants come away with the same understanding. This is separate to comprehension in that it includes clarifications and requests for additional information the organiser may not have immediately provided&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;I&amp;#39;ve then suggested that alignment shouldn&amp;#39;t be thought of as binary and measured at the end of the meeting, it should be thought about as a curve which changes (decays) over time. &lt;/p&gt;
+
+&lt;p&gt;So we&amp;#39;re not just asking &amp;quot;how well does this initially align people&amp;quot; we&amp;#39;re asking &amp;quot;to what extent is this a good way to achieve alignment over a given time period.&amp;quot;&lt;/p&gt;
+
+&lt;p&gt;My observations if you believe in this model were:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;If your only goal is comprehension, e.g. pure information sharing, meetings  on there own will always perform less well than either a document or a document + a discussion meeting&lt;/li&gt;
+&lt;li&gt;If alignment needs to persist over any period of time of more than a day, then a document or a document + discussion meeting will always tend to perform better&lt;/li&gt;
+&lt;li&gt;If alignment purely relates to actions being taken immediately, e.g. over a period of less than 1 day, then a meeting on its own will tend to perform better than a document on its own. A document + meeting will probably still outperform both but given the short time horizon it may make sense to avoid the preparation overhead&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;So examples of where a meeting alone may be preferable to a document driven approach are things like stand ups, plan for the day and incident response type meetings where alignment is only need to persist at a high level for &amp;lt; 24 hours. &lt;/p&gt;
+
+&lt;p&gt;For anything other than this a document or a document + discussion meeting will probably perform better.&lt;/p&gt;
+
+&lt;p&gt;This does not take into account the standalone benefits of &amp;quot;&lt;a href=&quot;/writing-is-thinking&quot;&gt;writing is thinking&lt;/a&gt;&amp;quot; if you subscribe to that view (I do).&lt;/p&gt;
+</content>
+<summary>A common topic of discussion is whether meetings should be used for information distribution or only discussion.Probably the most famous example of a conclusion on this is the Amazon approach (documented in working backwards) where all meetings begin with some form of document and 15 minutes silence for people to read followed by discussion.I&amp;#39;m a strong advocate of this approach but wanted to be better able to explain why I believe it&amp;#39;s applicable to most situations and what&amp;#39;s different about the small subset of exceptions.So I attempted to break down the factors which play into it and what I believe is different between the possible approaches.</summary>
+</entry>
+<entry>
+<title>Deploying Rails to a VPS with Capistrano V3</title>
+<link href="https://www.talkingquickly.co.uk/deploying-rails-to-a-vps-with-capistrano-v3-and-systemd" rel="alternate" type="text/html" title="Deploying Rails to a VPS with Capistrano V3" />
+<published>2021-04-04T15:40:00+00:00</published>
+<updated>2021-04-04T15:40:00+00:00</updated>
+<id>https://www.talkingquickly.co.uk/deploying-rails-vps-capistrano</id>
+<content type="html" xml:base="https://www.talkingquickly.co.uk/deploying-rails-to-a-vps-with-capistrano-v3-and-systemd">&lt;p&gt;Deploying Rails to a VPS with Capistrano remains one of the simplest and most reliable methods for getting a Rails app up-and running. With the likes of Hetzner Cloud, Digital Ocean and Linode providing inexpensive, reliable virtual machines, Rails app serving substantial amounts of traffic can be hosted with minimal cost and complexity.&lt;/p&gt;
+
+&lt;p&gt;In the previous post we used Chef to prepare an Ubuntu 20.04 server for deployment of our Rails application. This included installing Nginx, PostgreSQL, Redis and our Ruby version of choice. We used Chef for this rather than entering command manually so that we can trivially create additional identical servers in future without needing to remember lots of terminal commands and config file edits.&lt;/p&gt;
+
+&lt;p&gt;In this tutorial we&amp;#39;ll use Capistrano to automate deployment of our application, including generating all required config files, obtaining a free SSL certificate with Lets Encrypt and enabling zero downtime deployment.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;This tutorial is in two parts:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;/setting-up-ubuntu-20-04-focal-fossa-vps-for-rails-app-deployment&quot;&gt;Setting up a VPS for Rails app Deployment&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&quot;/deploying-rails-to-a-vps-with-capistrano-v3-and-systemd&quot;&gt;Deploying Rails to Ubuntu 20.04 with Capistrano&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Note that this post is intended to be a tutorial rather than a reference, so the focus will be on the steps that need to be completed rather than exploring the why.&lt;/p&gt;
+
+&lt;h2 id=&quot;setting-up-dns&quot;&gt;Setting up DNS&lt;/h2&gt;
+
+&lt;p&gt;In order to obtain an SSL certificate for our application, we will need to have public DNS setup.&lt;/p&gt;
+
+&lt;p&gt;So if we want our application to be available on &lt;code&gt;https://myapp.example.com&lt;/code&gt; then we would need to own the domain &lt;code&gt;example.com&lt;/code&gt; and be able to create DNS records for it.&lt;/p&gt;
+
+&lt;p&gt;Assuming our server had the IP address &lt;code&gt;203.0.113.1&lt;/code&gt; we should now create an &amp;quot;A&amp;quot; record for &lt;code&gt;myapp.example.com&lt;/code&gt; with content &lt;code&gt;203.0.113.1&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;We can check that our DNS entry has been created correctly using &lt;code&gt;dig myapp.example.com&lt;/code&gt;. Replacing &lt;code&gt;myapp.example.com&lt;/code&gt; with your domain.&lt;/p&gt;
+
+&lt;p&gt;If you don&amp;#39;t have a domain yet, you can still follow this tutorial, but it won&amp;#39;t be possible to obtain an SSL certificate. In this scenario simply add the following line to your local hosts file &lt;code&gt;/etc/hosts&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;SERVER_IP LOCALHOSTNAME
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;So, for example:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;203.0.113.1 myapp.local
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This will allow you to access the app over http (but not https) on &lt;code&gt;myapp.local&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;adding-gems&quot;&gt;Adding Gems&lt;/h2&gt;
+
+&lt;p&gt;We then add the following to our Gemfile:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;# The puma application server, we probably already have this
+gem &amp;#39;puma&amp;#39;, &amp;#39;~&amp;gt; 5.0&amp;#39;
+
+group :development do
+  # Including capistrano cookbook will automatically includes
+  # the correct version of capistrano and other plugins
+  gem &amp;#39;capistrano-cookbook&amp;#39;, require: false
+end
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;and run &lt;code&gt;bundle install&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;generating-local-configuration&quot;&gt;Generating Local Configuration&lt;/h2&gt;
+
+&lt;p&gt;Capistrano Cookbook is a convenience gem that provides some helper tasks and a Rails Generator for bootstrapping the typical configuration used when deploying a Rails application both with or without Sidekiq.&lt;/p&gt;
+
+&lt;p&gt;To generate configuration execute the following:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;bundle exec rails g capistrano:reliably_deploying_rails:bootstrap --sidekiq --production_hostname=&amp;#39;YOUR_HOSTNAME&amp;#39; --production_server_address=&amp;#39;SERVER_IP&amp;#39; --certbot_enable --certbot_email=&amp;#39;YOUR_EMAIL&amp;#39;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Replacing:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;YOUR_HOSTNAME&lt;/code&gt; with the address our application will be accessible on. Note that if we are not creating a DNS entry and instead are creating an entry in our local hosts file then we &lt;strong&gt;must&lt;/strong&gt; remove the &lt;code&gt;--certbot_*&lt;/code&gt; flags&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SERVER_IP&lt;/code&gt; with the IP address of the VPS you are deploying to. In single server configurations this could also be the same as &lt;code&gt;YOUR_PRODUCTION_HOSTNAME&lt;/code&gt; but that approach adds some fragility if, in the future, you decide to add additional frontend servers behind a load balancer to handle additional load.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;YOUR_EMAIL&lt;/code&gt; with the email email address LetsEncrypt can send certificate expiry notifications to. These notifications are generally for information only as our configuration automatically renews certificates when the expire so you may want to add a suffix, e.g. &amp;quot;youremail+letsencrypt&amp;quot; to make it easy to filter these emails with automated rules.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;And optionally keeping or removing this flags:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;--sidekiq&lt;/code&gt; removing this flag if we are not using Sidekiq for background jobs. If this flag is present the generator will include the required logic and templates to have Sidekiq automatically deployed and restarted alongside the core Rails application&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;--certbot_enable&lt;/code&gt; and &lt;code&gt;--certbot_email&lt;/code&gt; we should remove these flags if we do not want to have a free SSL certificate for &lt;code&gt;YOUR_HOSTNAME&lt;/code&gt; generated. we&amp;#39;ll definitely want to remove these flags if we&amp;#39;re testing locally with something like vagrant or if you don&amp;#39;t yet have a domain with DNS setup, e.g. when using local hosts file to map domains to IP&amp;#39;s.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This will generate the following files and folders:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;Capfile
+config
+  ├── deploy.rb
+  └── deploy
+      ├── production.rb
+      ├── staging.rb
+      └── templates
+          ├── nginx_conf.erb
+          ├── puma_monit.conf.erb
+          ├── puma.rb.erb
+          ├── puma.service.erb
+          ├── sidekiq_monit.erb
+          └── sidekiq.service.capistrano.erb
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The files in &lt;code&gt;templates&lt;/code&gt; are primarily overrides for the default configuration files created by the excellent &lt;code&gt;capistrano-puma&lt;/code&gt; and &lt;code&gt;capistrano-sidekiq&lt;/code&gt; gems which addresses some &lt;a href=&quot;/capistrano-puma-neither-valid-executable-nor-absolute-path&quot;&gt;issues that can arise&lt;/a&gt; when using systemd and &lt;code&gt;capistrano-rbenv&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;It also generates Monit definitions which are compatible with systemd. While in some respects systemd and Monit serve similar functions - both can ensure that our application and background workers are always running and started at boot - Monit can provide a layer of additional verification, for example checking ports are accessible and HTTP response codes and taking actions if this changes, so we&amp;#39;ll generally require both for a robust configuration. &lt;/p&gt;
+
+&lt;h2 id=&quot;configuring-stages&quot;&gt;Configuring Stages&lt;/h2&gt;
+
+&lt;p&gt;The file &lt;code&gt;deploy.rb&lt;/code&gt; contains our general deployment configuration, and looks something like this:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# config valid for current version and patch releases of Capistrano&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;lock&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;~&amp;gt; 3.16.0&amp;quot;&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:application&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;rdra_rails6_example&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:deploy_user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;deploy&amp;#39;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# setup repo details&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:repo_url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;git@github.com:TalkingQuickly/rdra_rails6_example.git&amp;#39;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# setup rbenv.&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:rbenv_type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:system&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:rbenv_ruby&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;3.0.0&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:rbenv_prefix&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;RBENV_ROOT=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fetch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:rbenv_path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; RBENV_VERSION=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fetch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:rbenv_ruby&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fetch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:rbenv_path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/bin/rbenv exec&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:rbenv_map_bins&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;%w{rake gem bundle ruby rails}&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# setup certbot for SSL via letsencrypt&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:certbot_enable_ssl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:certbot_redirect_to_https&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:certbot_email&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;ben@talkingquickly.co.uk&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:certbot_use_acme_staging&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;false&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# setup puma to operate in clustered mode, required for zero downtime deploys&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:puma_preload_app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;false&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:puma_init_active_record&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:puma_workers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:puma_systemctl_user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fetch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:deploy_user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:puma_enable_lingering&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;
+
+
+&lt;span class=&quot;n&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:sidekiq_systemctl_user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fetch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:deploy_user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:sidekiq_enable_lingering&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;
+
+
+&lt;span class=&quot;c1&quot;&gt;# how many old releases do we want to keep&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:keep_releases&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Directories that should be linked to the shared folder&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:linked_dirs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;log&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;tmp/pids&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;tmp/cache&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;tmp/sockets&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;vendor/bundle&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;.bundle&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;public/system&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;public/uploads&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:linked_files&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;config/database.yml&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;config/master.key&amp;#39;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# this:&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# http://www.capistranorb.com/documentation/getting-started/flow/&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# is worth reading for a quick overview of what tasks are called&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# and when for `cap stage deploy`&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:deploy&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This is where we set configuration that is the same no matter whether we&amp;#39;re deploying to production, staging or any other environment.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;capistrano-cookbook&lt;/code&gt; will have attempted to infer the following values:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;application&lt;/code&gt; from the name of the Rails application&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;repo_url&lt;/code&gt; from the current folders git &lt;code&gt;origin&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;And the following values should be manually set according to our apps requirements:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;rbenv_ruby&lt;/code&gt; to the Ruby version the app requires&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The two other files which contain deployment configuration are &lt;code&gt;production.rb&lt;/code&gt; and &lt;code&gt;staging.rb&lt;/code&gt;. These are known as stages in Capistrano.&lt;/p&gt;
+
+&lt;p&gt;When we run Capistrano commands we will do so in the form &lt;code&gt;cap STAGE_NAME COMMAND&lt;/code&gt;. So if we were to run &lt;code&gt;cap production COMMAND&lt;/code&gt; then the contents of &lt;code&gt;config/deploy/production.rb&lt;/code&gt; would be evaluated before executing &lt;code&gt;COMMAND&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Our &lt;code&gt;production.rb&lt;/code&gt; by default looks something like this:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:stage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:production&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:branch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;master&amp;quot;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# This is used in the Nginx VirtualHost to specify which domains&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# the app should appear on. If you don&amp;#39;t yet have DNS setup, you&amp;#39;ll&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# need to create entries in your local Hosts file for testing.&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:nginx_server_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;rdr-rails6-example.staging.talkingquickly.co.uk&amp;#39;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# used in case we&amp;#39;re deploying multiple versions of the same&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# app side by side. Also provides quick sanity checks when looking&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# at filepaths&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:full_app_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fetch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:application&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fetch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:stage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;
+
+
+&lt;span class=&quot;c1&quot;&gt;# Name sidekiq systemd service after the app and stage name so that&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# multiple apps and stages can co-exist on the same machine if needed&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:sidekiq_service_unit_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;sidekiq_&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fetch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:full_app_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;
+
+
+&lt;span class=&quot;n&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;65.21.54.211&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;deploy&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;roles&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;%w{web app db}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;primary&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:deploy_to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;/home/&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fetch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:deploy_user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/apps/&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fetch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:full_app_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# dont try and infer something as important as environment from&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# stage name.&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:rails_env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:production&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Where &lt;code&gt;nginx_server_name&lt;/code&gt; is set to our production server and the first argument being passed to &lt;code&gt;server&lt;/code&gt; is our production servers IP address.&lt;/p&gt;
+
+&lt;p&gt;The only value we may want to tweak is &lt;code&gt;:branch&lt;/code&gt; which defines which branch should be used to deploy to this server. So if we were following a &amp;quot;git flow&amp;quot; type model, we might set this to &lt;code&gt;master&lt;/code&gt; in &lt;code&gt;production.rb&lt;/code&gt; and &lt;code&gt;develop&lt;/code&gt; in &lt;code&gt;staging.rb&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;generating-remote-configuration&quot;&gt;Generating Remote Configuration&lt;/h2&gt;
+
+&lt;p&gt;Now that we&amp;#39;ve confirmed all of our local configuration is correct, we can upload all of our one time configuration to the remote server.&lt;/p&gt;
+
+&lt;p&gt;This is accomplished with the &lt;a href=&quot;https://github.com/TalkingQuickly/capistrano-cookbook/blob/master/lib/capistrano/cookbook/tasks/setup_config.cap&quot;&gt;task&lt;/a&gt; &lt;code&gt;deploy:setup_config&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;This task is responsible for copying one time configuration to the remote server, specifically:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Systemd unit files&lt;/li&gt;
+&lt;li&gt;Monit definitions &lt;/li&gt;
+&lt;li&gt;The Rails master key&lt;/li&gt;
+&lt;li&gt;Log rotation definitions&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;As well as enabling the relevant systemd services, requesting the SSL certificate and having certbot update our nginx configuration file to reference it.&lt;/p&gt;
+
+&lt;p&gt;We can execute this task with:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;bundle exec cap production deploy:setup_config
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&quot;setting-up-our-database&quot;&gt;Setting up our database&lt;/h2&gt;
+
+&lt;p&gt;The final step required before deploying our application for the first time is setting up our database.&lt;/p&gt;
+
+&lt;p&gt;If we are using Postgres, &lt;code&gt;capistrano-cookbook&lt;/code&gt; includes the &lt;a href=&quot;https://github.com/TalkingQuickly/capistrano-cookbook/blob/master/lib/capistrano/cookbook/tasks/create_database.cap&quot;&gt;task&lt;/a&gt; &lt;code&gt;database:create&lt;/code&gt; which will:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Create a &lt;code&gt;database.yml&lt;/code&gt; with a random password&lt;/li&gt;
+&lt;li&gt;Create the database using the master Postgres user&lt;/li&gt;
+&lt;li&gt;Create the user specified in &lt;code&gt;database.yml&lt;/code&gt; and grants them access to the database&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;So we can simply execute:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;bundle exec cap production database:create
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;And our database will be ready for use.&lt;/p&gt;
+
+&lt;p&gt;If we wish to setup our database manually, we will need to create the appropriate database and user, then create a suitable &lt;code&gt;database.yml&lt;/code&gt; file on our remote server in &lt;code&gt;/home/deploy/apps/FULL_APP_NAME/shared/config&lt;/code&gt; replacing &lt;code&gt;FULL_APP_NAME&lt;/code&gt; with the value that will be generated for &lt;code&gt;:full_app_name&lt;/code&gt; in our &lt;code&gt;production.rb&lt;/code&gt;. This is typically &lt;code&gt;APP_NAME_STAGE&lt;/code&gt; e.g. &lt;code&gt;my_rails_app_production&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;disabling-passwordless-sudo-optional&quot;&gt;Disabling Passwordless Sudo (optional)&lt;/h2&gt;
+
+&lt;p&gt;Our configuration commands require the ability for our deploy user to execute sudo commands without being prompted for a password.&lt;/p&gt;
+
+&lt;p&gt;Now that we have finished the initial configuration, this is not required as our deploy tasks are carefully designed to not require any root access (see &lt;a href=&quot;/managing-puma-with-systemd-user-instance-and-monit&quot;&gt;this post&lt;/a&gt; for more on working with userspace systemd).&lt;/p&gt;
+
+&lt;p&gt;We can therefore optionally return to our Chef repository from the &lt;a href=&quot;/setting-up-ubuntu-20-04-focal-fossa-vps-for-rails-app-deployment&quot;&gt;previous&lt;/a&gt; tutorial and use &lt;code&gt;knife node edit NODE_NAME&lt;/code&gt; to add the following under the &lt;code&gt;normal&lt;/code&gt; key:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;authorization&amp;quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;quot;sudo&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;quot;passwordless&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;and then run:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;knife zero converge &amp;quot;NODE_NAME&amp;quot; --ssh-user PROVISIONING_USER
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;To update the node to not allow passwordless sudo.&lt;/p&gt;
+
+&lt;p&gt;This provides us with some level of additional security because if - through some exploit - an attacker gained the ability to execute arbitrary shell commands as our app user, they would not automatically be able to execute commands as root.&lt;/p&gt;
+
+&lt;h2 id=&quot;deploying-our-application&quot;&gt;Deploying our application&lt;/h2&gt;
+
+&lt;p&gt;We&amp;#39;re now ready to deploy our application. It&amp;#39;s important to note here that Capistrano uses SSH Keychain Forwarding to clone the repository specified in &lt;code&gt;config/deploy.rb&lt;/code&gt; at the branch specified in &lt;code&gt;config/deploy/STAGE_NAME.rb&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;This means that if we have local changes which we have not yet pushed to the repository we are deploying from, these changes will not be deployed.&lt;/p&gt;
+
+&lt;p&gt;Once we&amp;#39;ve ensured everything has been pushed, we can deploy with:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;bundle exec cap production deploy
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Our configuration is setup to allow zero downtime deploys, so when we deploy future versions, our newly deployed code will be loaded in the background and then traffic seamlessly transferred over to this new version.&lt;/p&gt;
+
+&lt;h2 id=&quot;next&quot;&gt;Next&lt;/h2&gt;
+
+&lt;p&gt;If you&amp;#39;ve run into any issues, please feel free to ping me on Twitter where I&amp;#39;m &lt;a href=&quot;https://www.twitter.com/talkingquickly&quot;&gt;@talkingquickly&lt;/a&gt; or open an issue on the &lt;a href=&quot;https://github.com/TalkingQuickly/capistrano-cookbook&quot;&gt;capistrano cookbook repository&lt;/a&gt; and I&amp;#39;ll do my best to help.&lt;/p&gt;
+
+&lt;p&gt;There&amp;#39;s also an example Rails app available &lt;a href=&quot;https://github.com/TalkingQuickly/rdra_rails6_example&quot;&gt;here&lt;/a&gt; which shows this configuration in action.&lt;/p&gt;
+</content>
+<summary>Deploying Rails to a VPS with Capistrano remains one of the simplest and most reliable methods for getting a Rails app up-and running. With the likes of Hetzner Cloud, Digital Ocean and Linode providing inexpensive, reliable virtual machines, Rails app serving substantial amounts of traffic can be hosted with minimal cost and complexity.In the previous post we used Chef to prepare an Ubuntu 20.04 server for deployment of our Rails application. This included installing Nginx, PostgreSQL, Redis and our Ruby version of choice. We used Chef for this rather than entering command manually so that we can trivially create additional identical servers in future without needing to remember lots of terminal commands and config file edits.In this tutorial we&amp;#39;ll use Capistrano to automate deployment of our application, including generating all required config files, obtaining a free SSL certificate with Lets Encrypt and enabling zero downtime deployment.</summary>
+</entry>
+<entry>
+<title>Setting up Ubuntu 20.04 for Rails app Deployment</title>
+<link href="https://www.talkingquickly.co.uk/setting-up-ubuntu-20-04-focal-fossa-vps-for-rails-app-deployment" rel="alternate" type="text/html" title="Setting up Ubuntu 20.04 for Rails app Deployment" />
+<published>2021-04-04T15:40:00+00:00</published>
+<updated>2021-04-04T15:40:00+00:00</updated>
+<id>https://www.talkingquickly.co.uk/deploying-rails-vps-capistrano-systemd</id>
+<content type="html" xml:base="https://www.talkingquickly.co.uk/setting-up-ubuntu-20-04-focal-fossa-vps-for-rails-app-deployment">&lt;p&gt;Deploying Rails to a VPS with Capistrano remains one of the simplest and most reliable methods for getting a Rails app up-and running. With the likes of Hetzner Cloud, Digital Ocean and Linode providing inexpensive, reliable virtual machines, Rails app serving substantial amounts of traffic can be hosted with minimal cost and complexity.&lt;/p&gt;
+
+&lt;p&gt;We&amp;#39;ll first use Chef to provision a VPS including securing and hardening the server, installing the correct Ruby version(s) and setting up Postgres and Redis. We&amp;#39;ll then use Capistrano to deploy our Rails app, including appropriate systemd units to ensure our services are started automatically on boot .&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;This tutorial is in two parts:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&quot;/setting-up-ubuntu-20-04-focal-fossa-vps-for-rails-app-deployment&quot;&gt;Setting up a VPS for Rails app Deployment&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;/deploying-rails-to-a-vps-with-capistrano-v3-and-systemd&quot;&gt;Deploying Rails to Ubuntu 20.04 with Capistrano&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Note that this post is intended to be a tutorial rather than a reference, so the focus will be on the steps that need to be completed rather than exploring the why.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-stack&quot;&gt;The Stack&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Ubuntu 20.04 Focal Fossa (Current &lt;a href=&quot;https://ubuntu.com/about/release-cycle&quot;&gt;LTS&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;PostgreSQL 13 (Other versions selectable)&lt;/li&gt;
+&lt;li&gt;Ruby 3.0 (Other versions selectable)&lt;/li&gt;
+&lt;li&gt;Redis, Memcached (optional)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;chef&quot;&gt;Chef&lt;/h2&gt;
+
+&lt;p&gt;Rather than executing lots of commands by hand, we&amp;#39;ll use Chef to automate the setup of the server. This means that when we need to provision another, identical server, we need just one command rather than having to try and remember all the shell commands. Chef is similar to tools such as Puppet or Ansible with the advantage for our use case that it&amp;#39;s both written in and leverages for configuration, Ruby.&lt;/p&gt;
+
+&lt;h2 id=&quot;installing-chef&quot;&gt;Installing Chef&lt;/h2&gt;
+
+&lt;p&gt;On OSX we can Install Chef by executing the following in a terminal:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;curl https://packages.chef.io/files/stable/chef-workstation/21.2.303/mac_os_x/11.0/chef-workstation-21.2.303-1.x86_64.dmg --output /tmp/chef-workstation.dmg
+hdiutil attach /tmp/chef-workstation.dmg
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Then visiting the newly mounted &amp;quot;Chef Workstation&amp;quot; volume in finder, double clicking on the &lt;code&gt;.pkg&lt;/code&gt; and following the installation prompts.&lt;/p&gt;
+
+&lt;p&gt;On Ubuntu / Debian based systems, Chef Workstation can be installed with:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;curl https://packages.chef.io/files/stable/chef-workstation/21.2.303/debian/10/chef-workstation_21.2.303-1_amd64.deb --output /tmp/chef-workstation.deb
+sudo dpkg -i /tmp/chef-workstation.deb
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Alternatively the latest version can be downloaded from &lt;code&gt;https://downloads.chef.io/products/workstation&lt;/code&gt;, this tutorial has been tested with version &lt;code&gt;21.2.303&lt;/code&gt; but should be broadly compatible with &lt;code&gt;21.x&lt;/code&gt; releases.&lt;/p&gt;
+
+&lt;p&gt;Once this step is complete, executing &lt;code&gt;chef&lt;/code&gt; in a local terminal should give help output from Chef, rather than a command not found error.&lt;/p&gt;
+
+&lt;h2 id=&quot;installing-knife&quot;&gt; Installing Knife&lt;/h2&gt;
+
+&lt;p&gt;Knife is the CLI tool that we will use to interact with Chef, we can install it by executing:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;chef gem install knife-zero
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Note this command should not be executed from within a folder with a &lt;code&gt;Gemfile&lt;/code&gt; as this may lead to hard to debug &lt;code&gt;bundler not found&lt;/code&gt; errors.&lt;/p&gt;
+
+&lt;h2 id=&quot;creating-a-vps&quot;&gt;Creating a VPS&lt;/h2&gt;
+
+&lt;p&gt;We should now head to our favourite VPS provider. My current preference is Hetzner Cloud with Digital Ocean and Linode in close second. &lt;/p&gt;
+
+&lt;p&gt;For a non-trivial Rails application we probably don&amp;#39;t want to go below 1GB of RAM, likewise since we&amp;#39;re going to be running both our application and database servers on a single machine, we probably want at least 2 cores. 3 Cores and 4GB RAM is generally a comfortable starting point which is equivalent to Hetzners CPX21.&lt;/p&gt;
+
+&lt;p&gt;We can now choose Ubuntu 20.04 as the system image, boot it up and make a note of the IP address.&lt;/p&gt;
+
+&lt;h2 id=&quot;setup-key-based-ssh&quot;&gt;Setup key based SSH&lt;/h2&gt;
+
+&lt;p&gt;If we configured key based authentication as part of the VPS creation process, this step can be skipped.&lt;/p&gt;
+
+&lt;p&gt;If however when we execute &lt;code&gt;ssh USERNAME@SERVER_IP&lt;/code&gt; (where &lt;code&gt;USERNAME&lt;/code&gt; is the username our VPS provider gave us to use and &lt;code&gt;SERVER_IP&lt;/code&gt; is our servers IP address) we are required to enter a password then we need to setup key based auth.&lt;/p&gt;
+
+&lt;p&gt;Key based authentication allows us to authenticate using our local public / private key pair rather than a password. This is important because as part of the server hardening process, we will later disable password based authentication completely.&lt;/p&gt;
+
+&lt;p&gt;We can copy our public key to the server with:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;ssh-copy-id USERNAME@SERVER_IP
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This will prompt us for our password one more time and then add our public key to the list of allowed keys in the remote servers &lt;code&gt;~/.ssh/authorized_keys&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;We should then be able to execute &lt;code&gt;ssh USERNAME@SERVER_IP&lt;/code&gt; to login to our remote server without being required to enter a password. Note if we&amp;#39;re still being required to enter the passphrase for our local SSH key, we can avoid this by executing &lt;code&gt;ssh-add&lt;/code&gt; to temporarily store credentials in the local ssh agent.&lt;/p&gt;
+
+&lt;h2 id=&quot;getting-the-sample-code&quot;&gt;Getting the sample code&lt;/h2&gt;
+
+&lt;p&gt;Next we need to clone the sample Chef &lt;a href=&quot;https://github.com/TalkingQuickly/rails-server-template&quot;&gt;repository&lt;/a&gt;:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;git clone git@github.com:TalkingQuickly/rails-server-template.git
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;And then enter the sample code folder with &lt;code&gt;cd rails-server-template&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;preparing-the-node&quot;&gt;Preparing the node&lt;/h2&gt;
+
+&lt;p&gt;We can now prepare the server (node in Chef terminology) for provisioning with the following command:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;knife zero bootstrap SERVER_IP --connection-user SSH_USER --node-name NODE_NAME
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;replacing &lt;code&gt;SERVER_IP&lt;/code&gt; with our servers IP address, &lt;code&gt;SSH_USER&lt;/code&gt; with the same username we used when setting up key based login above and &lt;code&gt;NODE_NAME&lt;/code&gt; with a friendly name for the node, e.g. &lt;code&gt;rails_app_server&lt;/code&gt;. &lt;/p&gt;
+
+&lt;p&gt;This will connect to the remote server, install Chef and generate the local file &lt;code&gt;nodes/NODE_NAME.json&lt;/code&gt;. This is the file where all details about the node and what should be installed on it will be stored.&lt;/p&gt;
+
+&lt;p&gt;If we&amp;#39;ve never connected to the node via SSH before, we may be asked to confirm the servers fingerprint by entering &lt;code&gt;Y&lt;/code&gt; and pressing enter.&lt;/p&gt;
+
+&lt;h2 id=&quot;configuring-the-node&quot;&gt;Configuring the Node&lt;/h2&gt;
+
+&lt;p&gt;The above step created a JSON file which stores information about the node in &lt;code&gt;nodes/NODE_NAME.json&lt;/code&gt; but we should not edit that file directly.&lt;/p&gt;
+
+&lt;p&gt;Instead we can use the following command to edit the node definition:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;knife node edit NODE_NAME
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Replacing &lt;code&gt;NODE_NAME&lt;/code&gt; with the name used above. This will open a JSON file in the editor defined in &lt;code&gt;knife.rb&lt;/code&gt;, by default this will be &lt;code&gt;vim&lt;/code&gt;, but we can change it to any editor we want by updating the &lt;code&gt;knife[:editor]&lt;/code&gt; variable in &lt;code&gt;knife.rb&lt;/code&gt;, e.g. &lt;code&gt;code --wait&lt;/code&gt; for VSCode or &lt;code&gt;subl -n -w&lt;/code&gt; for sublime text.&lt;/p&gt;
+
+&lt;p&gt;We can then update our configuration &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;quot;name&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;NODE_NAME&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;quot;chef_environment&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;_default&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;quot;normal&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;quot;postgresql&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;quot;version&amp;quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;POSTGRES_VERSION&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;quot;password&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;quot;postgres&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;SOME_RANDOM_PASSSWORD&amp;quot;&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;quot;rbenv&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;quot;rubies&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+        &lt;span class=&quot;s2&quot;&gt;&amp;quot;RUBY_VERSION&amp;quot;&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;quot;global&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;RUBY_VERSION&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;quot;gems&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;quot;RUBY_VERSION&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;quot;name&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;bundler&amp;quot;&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;quot;knife_zero&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;quot;host&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;SERVER_IP&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;quot;tags&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+
+    &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;quot;policy_name&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;quot;policy_group&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;quot;run_list&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&amp;quot;role[server]&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&amp;quot;role[nginx-server]&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&amp;quot;role[postgres-server]&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&amp;quot;role[rails-app]&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&amp;quot;role[redis-server]&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&amp;quot;role[memcached-server]&amp;quot;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Replacing:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;NODE_NAME&lt;/code&gt; with the node name we&amp;#39;ve been using&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SERVER_IP&lt;/code&gt; with the server ip address &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SOME_RANDOM_PASSWORD&lt;/code&gt; with the password we want to be set for the postgres master user&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;RUBY_VERSION&lt;/code&gt; in three places with the Ruby version we need for our Rails application&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;POSTGRES_VERSION&lt;/code&gt; with the Postgres version we want, if in doubt 13 is the current stable release and should work for most setups&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We can then save and close the node definition.&lt;/p&gt;
+
+&lt;h2 id=&quot;setting-up-users&quot;&gt;Setting up users&lt;/h2&gt;
+
+&lt;p&gt;Our final step is to create a non-root user which will later be used by Capistrano to deploy our application.&lt;/p&gt;
+
+&lt;p&gt;To do this we first generate a password for the user by executing the following locally:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;openssl passwd -1 &amp;quot;SOME_RANDOM_PASSWORD&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;And making a note of the output.&lt;/p&gt;
+
+&lt;p&gt;We then create a Chef data bag called &lt;code&gt;users&lt;/code&gt; with an entry &lt;code&gt;deploy&lt;/code&gt; using the following command:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;knife data_bag create users deploy
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This will create the file &lt;code&gt;data_bags/users/deploy.json&lt;/code&gt; which we should then open and replace the contents with:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;quot;id&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;deploy&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;quot;password&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;ENCRYPTED_PASSWORD&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;quot;ssh_keys&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&amp;quot;PUBLIC_KEY&amp;quot;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;quot;groups&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&amp;quot;sysadmin&amp;quot;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;quot;shell&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;/bin/bash&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Replacing &lt;code&gt;ENCRYPTED_PASSWORD&lt;/code&gt; with the output of the &lt;code&gt;openssl&lt;/code&gt; command above and &lt;code&gt;PUBLIC_KEY&lt;/code&gt; with your public key, generally the contents of your local &lt;code&gt;~/.ssh/id_rsa.pub&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;applying-configuration-to-the-node&quot;&gt;Applying configuration to the node&lt;/h2&gt;
+
+&lt;p&gt;We&amp;#39;re now ready to apply our configuration to the node with the following command:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;knife zero converge &amp;quot;name:NODE_NAME&amp;quot; --ssh-user `SSH_USER`.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Replacing &lt;code&gt;NODE_NAME&lt;/code&gt; with the name we used above and &lt;code&gt;SSH_USER&lt;/code&gt; with the user we setup key based authentication for (often &lt;code&gt;root&lt;/code&gt;).&lt;/p&gt;
+
+&lt;p&gt;The first time we run this, it will take a while as it has to install all of the servers components including compiling our Ruby version.&lt;/p&gt;
+
+&lt;p&gt;If we make changes to our configuration, for example by editing the node definition and overriding more values from roles, we simply run the above command again to have the changes applied.&lt;/p&gt;
+
+&lt;h2 id=&quot;what-weve-set-up&quot;&gt;What we&amp;#39;ve set up&lt;/h2&gt;
+
+&lt;p&gt;We now have a hardened server, ready to deploy a Rails application for. We can create an unlimited number of identical servers simply by following the above process.&lt;/p&gt;
+
+&lt;p&gt;The &lt;a href=&quot;https://leanpub.com/deploying_rails_applications&quot;&gt;book&lt;/a&gt; provides more detail on exactly what&amp;#39;s going on behind the scenes and how to customise it but at a high level we have:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Installed a firewall which limits access to ports 22 (SSH), 80 (HTTP) and 443 (HTTPS)&lt;/li&gt;
+&lt;li&gt;Disabled password based SSH login and installed fail2ban to block suspicious logins&lt;/li&gt;
+&lt;li&gt;Enabled automatic OS and core package updates &lt;/li&gt;
+&lt;li&gt;Installed Nginx, Postgres, Redis and Memcached&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;next&quot;&gt;Next&lt;/h2&gt;
+
+&lt;p&gt;Assuming everything has gone well, we can now continue to &lt;a href=&quot;deploying-rails-to-a-vps-with-capistrano-and-systemd&quot;&gt;deploying our Rails application with Capistrano&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;If you&amp;#39;ve run into any issues, please feel free to ping me on Twitter where I&amp;#39;m &lt;a href=&quot;https://www.twitter.com/talkingquickly&quot;&gt;@talkingquickly&lt;/a&gt; or open an issue on the &lt;a href=&quot;https://github.com/TalkingQuickly/rails-server-template&quot;&gt;sample code repository&lt;/a&gt; and I&amp;#39;ll do my best to help.&lt;/p&gt;
+</content>
+<summary>Deploying Rails to a VPS with Capistrano remains one of the simplest and most reliable methods for getting a Rails app up-and running. With the likes of Hetzner Cloud, Digital Ocean and Linode providing inexpensive, reliable virtual machines, Rails app serving substantial amounts of traffic can be hosted with minimal cost and complexity.We&amp;#39;ll first use Chef to provision a VPS including securing and hardening the server, installing the correct Ruby version(s) and setting up Postgres and Redis. We&amp;#39;ll then use Capistrano to deploy our Rails app, including appropriate systemd units to ensure our services are started automatically on boot .</summary>
+</entry>
+<entry>
+<title>Managing puma with the systemd user instance and monit</title>
+<link href="https://www.talkingquickly.co.uk/managing-puma-with-systemd-user-instance-and-monit" rel="alternate" type="text/html" title="Managing puma with the systemd user instance and monit" />
+<published>2021-03-23T15:40:00+00:00</published>
+<updated>2021-03-23T15:40:00+00:00</updated>
+<id>https://www.talkingquickly.co.uk/controlling-puma-with-systemd-userspace-and-monit</id>
+<content type="html" xml:base="https://www.talkingquickly.co.uk/managing-puma-with-systemd-user-instance-and-monit">&lt;p&gt;Many guides to deploying Rails with Capistrano will use systemd to have it auto-started when the system boots. This is often done using the system instance of systemd which by default can only be controlled by root.&lt;/p&gt;
+
+&lt;p&gt;The typical workaround for this is either to grant our Capistrano deployment user passwordless sudo access or to grant them passwordless sudo access to just the commands required to restart the rails (and potentially sidekiq) systemd services.&lt;/p&gt;
+
+&lt;p&gt;This can be avoided by using the systemd user instance, which allows persistent services to be managed as a non-root user. This is compatible with the default systemd configuration in Ubuntu 20.04.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;There are multiple locations systemd user instance units can be located, there&amp;#39;s more &lt;a href=&quot;https://wiki.archlinux.org/index.php/systemd/User&quot;&gt;here&lt;/a&gt;, in this case we&amp;#39;ll be using: &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;~/.config/systemd/user/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;In here we&amp;#39;ll put a systemd unit file similar to the following:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;[Unit]
+Description=Puma HTTP Server for RAILS APP NAME (ENVIRONMENT)
+After=network.target
+
+[Service]
+Type=simple
+
+WorkingDirectory=/home/deploy/apps/APP_NAME/current
+ExecStart=/usr/local/rbenv/bin/rbenv exec bundle exec puma -C /home/deploy/apps/APP_NAME/shared/puma.rb
+ExecReload=/bin/kill -USR1 $MAINPID
+ExecStop=/bin/kill -TSTP $MAINPID
+StandardOutput=append:/home/deploy/apps/APP_NAME/shared/log/puma_access.log
+StandardError=append:/home/deploy/apps/APP_NAME/shared/log/puma_error.log
+
+Environment=RBENV_VERSION=3.0.0
+Environment=RBENV_ROOT=/usr/local/rbenv
+
+Restart=always
+RestartSec=1
+
+SyslogIdentifier=APP_NAME
+
+[Install]
+WantedBy=default.target
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The &lt;code&gt;capistrano-puma&lt;/code&gt; Gem can auto-generate this file and the &lt;code&gt;capistrano-cookbook&lt;/code&gt; gem provides and overridden version of the template which fixes some rbenv compatibility issues and allows for zero downtime deploys (as well as also generating all other capistrano configuration automatically).&lt;/p&gt;
+
+&lt;p&gt;You can see the most recent Capistrano Cookbooks unit file template - which may be useful as a reference - &lt;a href=&quot;https://github.com/TalkingQuickly/capistrano-cookbook/blob/master/lib/generators/capistrano/reliably_deploying_rails/templates/puma.service.erb&quot;&gt;here&lt;/a&gt; which is a tweaked version of the version in &lt;code&gt;capistrano-puma&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Note a few things about this unit file:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;There is no &lt;code&gt;User&lt;/code&gt; directive, user services will run as the user in question, including a &lt;code&gt;User&lt;/code&gt; directive may lead to non-descriptive &lt;code&gt;service start request repeated too quickly, refusing to start&lt;/code&gt; type errors&lt;/li&gt;
+&lt;li&gt;Our Environment variables are not included in the &lt;code&gt;ExecStart&lt;/code&gt; command, they&amp;#39;re in separate &lt;code&gt;Environment&lt;/code&gt; lines, &lt;a href=&quot;http://www.talkingquickly.co.uk/capistrano-puma-neither-valid-executable-nor-absolute-path&quot;&gt;this is explained here&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;WantedBy&lt;/code&gt; is set to &lt;code&gt;default.target&lt;/code&gt; which is the correct value for user services if we want them to be started at boot&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In order for our service to be started at boot, we then need to enable this service with:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;systemctl --user enable UNIT_FILE_NAME
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Note that this is different to starting the unit. We can start a unit immediately with &lt;code&gt;systemctl --user start UNIT_FILE_NAME&lt;/code&gt; but this does not set the unit to be started on boot, so we must enable it as well. This is taken care of automatically if you&amp;#39;re using the &lt;code&gt;deploy:setup_config&lt;/code&gt; task from &lt;code&gt;capistrano-cookbook&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Our next challenge is that by default, user instance systemd services are only started when the user starts a session and will continue to run only while the user in question has an active session.&lt;/p&gt;
+
+&lt;p&gt;To resolve this we must enable &lt;a href=&quot;http://manpages.ubuntu.com/manpages/xenial/man1/loginctl.1.html&quot;&gt;lingering&lt;/a&gt;, lingering ensures that a manager for the user in question in spawned on boot so that the user can manage long run services.&lt;/p&gt;
+
+&lt;p&gt;We can enable lingering with:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;loginctl enable-linger USERNAME
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Where USERNAME is the capistrano deployment user. This is taken care of automatically if you&amp;#39;re using the &lt;code&gt;deploy:setup_config&lt;/code&gt; task from &lt;code&gt;capistrano-cookbook&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Finally we may want to monitor our systemd service with Monit. While there is crossover between systemd and monit, both will monitor that a process is running and start it if not.&lt;/p&gt;
+
+&lt;p&gt;Monit however adds some additional capabilities on top of systemd, it can allow for significantly more complex checks such as making sure that our service is responding on a given port and even check the contents of certain healthcheck responses and issuing restarts if these aren&amp;#39;t matched.&lt;/p&gt;
+
+&lt;p&gt;Monit however runs as root and we need it to control a systemd user service.&lt;/p&gt;
+
+&lt;p&gt;We may initially think we can use something like:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;start program = &amp;quot;/usr/bin/systemctl --user start SYSTEMD_SERVICE_UNIT_FILE&amp;quot; as uid &amp;quot;deploy&amp;quot; and gid &amp;quot;deploy&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;As our start program where &lt;code&gt;deploy&lt;/code&gt; is our Capistrano user. We might expect this to be equivalent to running &lt;code&gt;systemctl --user start&lt;/code&gt; as the deploy user in a shell. While the command will be run as that user, due to some missing environment variables, we&amp;#39;re likely to get an error along the lines of:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;Failed to get D-bus connection: no such file or directory
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This is due to &lt;code&gt;XDG_RUNTIME_DIR&lt;/code&gt; &lt;a href=&quot;https://serverfault.com/questions/936985/cannot-use-systemctl-user-due-to-failed-to-get-d-bus-connection-permission&quot;&gt;not being set correctly&lt;/a&gt; when users are switched in this way. The same issue can happen if we try and use &lt;code&gt;su&lt;/code&gt; in Capistrano to change users before executing a &lt;code&gt;systemctl --user&lt;/code&gt; command.&lt;/p&gt;
+
+&lt;p&gt;We can resolve is by modifying our start command to set this environment variable manually. So a simple monit definition might look like this:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;check process APP_NAME
+  with pidfile &amp;quot;/home/deploy/apps/APP_NAME/shared/tmp/pids/puma.pid&amp;quot;
+  start program = &amp;quot;/bin/bash -c &amp;#39;XDG_RUNTIME_DIR=/run/user/$(id -u) /usr/bin/systemctl start --user SYSTEMD_SERVICE_UNIT_FILE&amp;#39;&amp;quot; as uid &amp;quot;deploy&amp;quot; and gid &amp;quot;deploy&amp;quot;
+  stop program = &amp;quot;/bin/bash -c &amp;#39;XDG_RUNTIME_DIR=/run/user/$(id -u) /usr/bin/systemctl stop --user SYSTEMD_SERVICE_UNIT_FILE&amp;#39;&amp;quot; as uid &amp;quot;deploy&amp;quot; and gid &amp;quot;deploy&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;You can see the most recent version of &lt;code&gt;capistrano cookbooks&lt;/code&gt; monit definition &lt;a href=&quot;https://github.com/TalkingQuickly/capistrano-cookbook/blob/master/lib/generators/capistrano/reliably_deploying_rails/templates/puma_monit.conf.erb&quot;&gt;here&lt;/a&gt; which may be useful as a reference.&lt;/p&gt;
+
+&lt;p&gt;With all of this completed, we should now have puma being managed by a systemd service, which will auto start at boot, and is monitored with monit.&lt;/p&gt;
+</content>
+<summary>Many guides to deploying Rails with Capistrano will use systemd to have it auto-started when the system boots. This is often done using the system instance of systemd which by default can only be controlled by root.The typical workaround for this is either to grant our Capistrano deployment user passwordless sudo access or to grant them passwordless sudo access to just the commands required to restart the rails (and potentially sidekiq) systemd services.This can be avoided by using the systemd user instance, which allows persistent services to be managed as a non-root user. This is compatible with the default systemd configuration in Ubuntu 20.04.</summary>
+</entry>
+<entry>
+<title>Capistrano &amp;amp; Puma with Systemd; Permission denied @ rbioreopen</title>
+<link href="https://www.talkingquickly.co.uk/capistrano-puma-systemd-permission-denied-@rb_io_repopen" rel="alternate" type="text/html" title="Capistrano &amp; Puma with Systemd; Permission denied @ rb_io_reopen" />
+<published>2021-03-16T15:40:00+00:00</published>
+<updated>2021-03-16T15:40:00+00:00</updated>
+<id>https://www.talkingquickly.co.uk/capistrano-puma-permission-denied-rb_io_reopen</id>
+<content type="html" xml:base="https://www.talkingquickly.co.uk/capistrano-puma-systemd-permission-denied-@rb_io_repopen">&lt;p&gt;When using the capistrano puma gem with systemd, we may get the error:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;Permission denied @ rb_io_reopen - /home/deploy/LOG_FILE_PATH/shared/log/puma_access.log (Errno::EACCES)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This may be caused by doubling up on the puma app servers logging.&lt;/p&gt;
+
+&lt;p&gt;Typically our systemd unit will contain something like:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;StandardOutput=append:/home/deploy/LOG_FILE_PATH/shared/log/puma_access.log
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Which means that any data written to standard output will be appended to the log file specified by systemd.&lt;/p&gt;
+
+&lt;p&gt;If we&amp;#39;re getting the above error, it&amp;#39;s also likely that our &lt;code&gt;puma.rb&lt;/code&gt; configuration file contains something like:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;stdout_redirect &amp;#39;/home/deploy/LOG_FILE_PATH/shared/log/puma_access.log&amp;#39;, true
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Which tells puma itself to write to a log file instead of to stdout.&lt;/p&gt;
+
+&lt;p&gt;This doubling up leads to the following:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;systemd creates the log file as the root user&lt;/li&gt;
+&lt;li&gt;puma which we will generally have running as a different user then tries to write to this same file, but it doesn&amp;#39;t have permission because it was created by root&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The solution to this is simple, we can complete remove this line from &lt;code&gt;puma.rb&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;stdout_redirect &amp;#39;/home/deploy/LOG_FILE_PATH/shared/log/puma_access.log&amp;#39;, true
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Since the redirection of stdout is already being handled by systemd.&lt;/p&gt;
+</content>
+<summary>When using the capistrano puma gem with systemd, we may get the error:Permission denied @ rb_io_reopen - /home/deploy/LOG_FILE_PATH/shared/log/puma_access.log (Errno::EACCES)This may be caused by doubling up on the puma app servers logging.Typically our systemd unit will contain something like:StandardOutput=append:/home/deploy/LOG_FILE_PATH/shared/log/puma_access.logWhich means that any data written to standard output will be appended to the log file specified by systemd.If we&amp;#39;re getting the above error, it&amp;#39;s also likely that our puma.rb configuration file contains something like:stdout_redirect &amp;#39;/home/deploy/LOG_FILE_PATH/shared/log/puma_access.log&amp;#39;, trueWhich tells puma itself to write to a log file instead of to stdout.This doubling up leads to the following:systemd creates the log file as the root userpuma which we will generally have running as a different user then tries to write to this same file, but it doesn&amp;#39;t have permission because it was created by rootThe solution to this is simple, we can complete remove this line from puma.rb:stdout_redirect &amp;#39;/home/deploy/LOG_FILE_PATH/shared/log/puma_access.log&amp;#39;, trueSince the redirection of stdout is already being handled by systemd.</summary>
+</entry>
+<entry>
+<title>Capistrano &amp;amp; Puma; service puma is not active, cannot reload</title>
+<link href="https://www.talkingquickly.co.uk/capistrano-puma-is-not-active-cannot-reload" rel="alternate" type="text/html" title="Capistrano &amp; Puma; service puma is not active, cannot reload" />
+<published>2021-03-14T15:40:00+00:00</published>
+<updated>2021-03-14T15:40:00+00:00</updated>
+<id>https://www.talkingquickly.co.uk/capistrano-puma-service-not-active-cannot-reload</id>
+<content type="html" xml:base="https://www.talkingquickly.co.uk/capistrano-puma-is-not-active-cannot-reload">&lt;p&gt;When trying to use the Capistrano Puma gem to restart Puma via systemd, we may run into an error along the lines of:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;puma_APP_NAME.service is not active, cannot reload
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This typically happens either because the service was never enabled or because in the time which elapsed between it being enabled and the first deploy taking place, it has crashed a sufficient number of times that it is no longer active.&lt;/p&gt;
+
+&lt;p&gt;The behaviour we want in this scenario is to reload the service if it is active, otherwise to restart it.&lt;/p&gt;
+
+&lt;p&gt;Happily systemctl [supports this out of the box]&lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemctl.html&quot;&gt;https://www.freedesktop.org/software/systemd/man/systemctl.html&lt;/a&gt; with &lt;code&gt;systemctl reload-or-restart&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;We can add the following to &lt;code&gt;lib/capistrano/tasks&lt;/code&gt; to add a task which uses this to the puma namespace provided by the capistrano puma gem:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:puma&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:systemd&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;desc&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Reload the puma service via systemd by sending USR1 (e.g. trigger a zero downtime deploy)&amp;#39;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:reload&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;on&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;roles&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fetch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:puma_role&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fetch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:puma_systemctl_user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:system&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fetch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:puma_systemctl_bin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; reload-or-restart &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fetch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:puma_service_unit_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;execute&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fetch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:puma_systemctl_bin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;--user&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;reload&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fetch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:puma_service_unit_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;execute&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:loginctl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;enable-linger&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fetch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:puma_lingering_user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fetch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:puma_enable_lingering&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;after&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;deploy:finished&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;puma:systemd:reload&amp;#39;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This should be used in conjunction with including the puma systemd tasks in our &lt;code&gt;Capfile&lt;/code&gt; using the &lt;code&gt;load_hooks: false&lt;/code&gt; option which prevents the default restart task from being called.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;install_plugin&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Capistrano&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Puma&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Systemd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;load_hooks&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;false&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The use of the above task also allows for zero downtime deploys when used with the relevant puma configuration and systemd unit file. See &lt;a href=&quot;/capistrano-puma-neither-valid-executable-nor-absolute-path&quot;&gt;this post&lt;/a&gt; for more on the systemd unit file and &lt;a href=&quot;https://github.com/TalkingQuickly/rdra_rails6_example&quot;&gt;this repository&lt;/a&gt; for a working example.&lt;/p&gt;
+</content>
+<summary>When trying to use the Capistrano Puma gem to restart Puma via systemd, we may run into an error along the lines of:puma_APP_NAME.service is not active, cannot reloadThis typically happens either because the service was never enabled or because in the time which elapsed between it being enabled and the first deploy taking place, it has crashed a sufficient number of times that it is no longer active.The behaviour we want in this scenario is to reload the service if it is active, otherwise to restart it.Happily systemctl [supports this out of the box]https://www.freedesktop.org/software/systemd/man/systemctl.html with systemctl reload-or-restart.We can add the following to lib/capistrano/tasks to add a task which uses this to the puma namespace provided by the capistrano puma gem:namespace :puma do  namespace :systemd do    desc &amp;#39;Reload the puma service via systemd by sending USR1 (e.g. trigger a zero downtime deploy)&amp;#39;    task :reload do      on roles(fetch(:puma_role)) do        if fetch(:puma_systemctl_user) == :system          sudo &amp;quot;#{fetch(:puma_systemctl_bin)} reload-or-restart #{fetch(:puma_service_unit_name)}&amp;quot;        else          execute &amp;quot;#{fetch(:puma_systemctl_bin)}&amp;quot;, &amp;quot;--user&amp;quot;, &amp;quot;reload&amp;quot;, fetch(:puma_service_unit_name)          execute :loginctl, &amp;quot;enable-linger&amp;quot;, fetch(:puma_lingering_user) if fetch(:puma_enable_lingering)        end      end    end  endendafter &amp;#39;deploy:finished&amp;#39;, &amp;#39;puma:systemd:reload&amp;#39;This should be used in conjunction with including the puma systemd tasks in our Capfile using the load_hooks: false option which prevents the default restart task from being called.install_plugin Capistrano::Puma::Systemd, load_hooks: falseThe use of the above task also allows for zero downtime deploys when used with the relevant puma configuration and systemd unit file. See this post for more on the systemd unit file and this repository for a working example.</summary>
+</entry>
+</feed>

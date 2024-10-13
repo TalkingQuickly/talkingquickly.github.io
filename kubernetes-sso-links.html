@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Useful Links when Setting up SSO on Kubernetes</title>
+    
+        <meta name="description" content="Blog by Ben Dixon, Co-founder of Sona, about startups, elixir, AI, climbing and photography" />
+    
+
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="iwXSC2H2VSO9iPyrWjNj3Prlx4zJY-l0EJRGVkFuUHk" />
+
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml"/>
+    <link rel="canonical" href="https://www.talkingquickly.co.uk/kubernetes-sso-links">
+
+</head>
+<body class="home-template">
+
+
+    <main class="content" role="main">
+
+  <article class="post">
+    <header class="post-header">
+      <a id="blog-logo" href="/"><span class="blog-title">Home</span></a>
+      |
+      <a target="_blank" href="/about.html">About Me</a>
+    </header>
+
+    <span class="post-meta">
+      
+    </span>
+
+    <h1 class="post-title">Useful Links when Setting up SSO on Kubernetes</h1>
+
+    <section class="post-content">
+      <p>While creating the comprehensive guide to Kubernetes SSO, I leant heavily on many great pieces of existing content, a lot of them are included here.</p>
+
+<!--more-->
+
+<p>LDAP section of the Keycloak manual: <a href="https://www.keycloak.org/docs/6.0/server_admin/#_ldap">https://www.keycloak.org/docs/6.0/server_admin/#_ldap</a></p>
+
+<p>Tutorial on Keycloak + OpenLDAP: <a href="https://geek-cookbook.funkypenguin.co.nz/recipes/keycloak/authenticate-against-openldap/">https://geek-cookbook.funkypenguin.co.nz/recipes/keycloak/authenticate-against-openldap/</a></p>
+
+<p>Using Keycloak to authenticate general web applications (sidecar approach): <a href="https://www.openshift.com/blog/adding-authentication-to-your-kubernetes-web-applications-with-keycloak">https://www.openshift.com/blog/adding-authentication-to-your-kubernetes-web-applications-with-keycloak</a></p>
+
+<p>Gatekeeper (by Keycloak) <a href="https://www.keycloak.org/docs/latest/securing_apps/index.html#_keycloak_generic_adapter">https://www.keycloak.org/docs/latest/securing_apps/index.html#_keycloak_generic_adapter</a></p>
+
+<p>Gatekeeper (by Keycloak) on docker hub: <a href="https://hub.docker.com/r/keycloak/keycloak-gatekeeper/">https://hub.docker.com/r/keycloak/keycloak-gatekeeper/</a></p>
+
+<p>Replacement for Gatekeeper (which is now EOL) <a href="https://github.com/oauth2-proxy/oauth2-proxy">https://github.com/oauth2-proxy/oauth2-proxy</a></p>
+
+<p>Docker registry authentication with Keycloak: <a href="https://developers.redhat.com/blog/2017/10/31/docker-authentication-keycloak/">https://developers.redhat.com/blog/2017/10/31/docker-authentication-keycloak/</a></p>
+
+<p>Gitea authentication documentation: <a href="https://docs.gitea.io/en-us/authentication/">https://docs.gitea.io/en-us/authentication/</a></p>
+
+<p>oAuth 2 with Nginx Ingress; <a href="https://kubernetes.github.io/ingress-nginx/examples/auth/oauth-external-auth/">https://kubernetes.github.io/ingress-nginx/examples/auth/oauth-external-auth/</a></p>
+
+<p>oAuth2Proxy which supports keycloak as a provider: <a href="https://github.com/oauth2-proxy/oauth2-proxy">https://github.com/oauth2-proxy/oauth2-proxy</a></p>
+
+<p>Another tutorial on using oauth-proxy with nginx auth: <a href="https://www.digitalocean.com/community/tutorials/how-to-protect-private-kubernetes-services-behind-a-github-login-with-oauth2_proxy">https://www.digitalocean.com/community/tutorials/how-to-protect-private-kubernetes-services-behind-a-github-login-with-oauth2_proxy</a></p>
+
+<p>Introduction to the ldapsearch cli utility: <a href="https://www.splunk.com/en_us/blog/tips-and-tricks/ldapsearch-is-your-friend.html">https://www.splunk.com/en_us/blog/tips-and-tricks/ldapsearch-is-your-friend.html</a></p>
+
+<p>Deep dive into LDAP password encryption: <a href="https://www.redpill-linpro.com/techblog/2016/08/16/ldap-password-hash.html">https://www.redpill-linpro.com/techblog/2016/08/16/ldap-password-hash.html</a></p>
+
+<p>Introduction to &quot;OUs&#39; (organisational units) in LDAP: <a href="https://www.theurbanpenguin.com/openldap-ous/">https://www.theurbanpenguin.com/openldap-ous/</a></p>
+
+<p>Article on synchronising groups between LDAP and Keycloak: <a href="https://www.janua.fr/mapping-ldap-group-and-roles-to-redhat-sso-keycloak/">https://www.janua.fr/mapping-ldap-group-and-roles-to-redhat-sso-keycloak/</a></p>
+
+<p>Selection of examples of <code>ldapsearch</code> usage: <a href="https://docs.oracle.com/cd/E19450-01/820-6169/ldapsearch-examples.html">https://docs.oracle.com/cd/E19450-01/820-6169/ldapsearch-examples.html</a></p>
+
+<p>Thread on How Gitea treats Oauth2 and LDAP etc logins differently: <a href="https://github.com/go-gitea/gitea/issues/1124?_pjax=%23js-repo-pjax-container#issuecomment-284911694">https://github.com/go-gitea/gitea/issues/1124?_pjax=%23js-repo-pjax-container#issuecomment-284911694</a></p>
+
+<p>Gitea LDAP documentation: <a href="https://docs.gitea.io/en-us/authentication/">https://docs.gitea.io/en-us/authentication/</a></p>
+
+<p>Some examples of LDAP search filters: <a href="https://confluence.atlassian.com/kb/how-to-write-ldap-search-filters-792496933.html">https://confluence.atlassian.com/kb/how-to-write-ldap-search-filters-792496933.html</a></p>
+
+<p>How to enable the <code>memberOf</code> feature in OpenLDAP: <a href="https://technicalnotes.wordpress.com/2014/04/19/openldap-setup-with-memberof-overlay/">https://technicalnotes.wordpress.com/2014/04/19/openldap-setup-with-memberof-overlay/</a></p>
+
+<p>LDIF files for enabling the <code>memberOf</code> feature in OpenLDAP: <a href="https://www.adimian.com/blog/2014/10/how-to-enable-memberof-using-openldap/">https://www.adimian.com/blog/2014/10/how-to-enable-memberof-using-openldap/</a></p>
+
+<p>Detailed Github issue on getting <code>memberOf</code> to work with the docker openldap image: <a href="https://github.com/osixia/docker-openldap/issues/304">https://github.com/osixia/docker-openldap/issues/304</a></p>
+
+<p>Kubernetes Day 2 operations inc OIDC (this article is fantastic) <a href="https://medium.com/@mrbobbytables/kubernetes-day-2-operations-authn-authz-with-oidc-and-a-little-help-from-keycloak-de4ea1bdbbe">https://medium.com/@mrbobbytables/kubernetes-day-2-operations-authn-authz-with-oidc-and-a-little-help-from-keycloak-de4ea1bdbbe</a></p>
+
+<p>Kubernetes docs on configuring OIDC <a href="https://kubernetes.io/docs/reference/access-authn-authz/authentication/#configuring-the-api-server">https://kubernetes.io/docs/reference/access-authn-authz/authentication/#configuring-the-api-server</a></p>
+
+<p>Kube OIDC Proxy, tool for allowing OIDC configuration on managed clusters that don&#39;t allow it by default, e.g. EKS, AWS etc; <a href="https://github.com/jetstack/kube-oidc-proxy">https://github.com/jetstack/kube-oidc-proxy</a></p>
+
+<p>Loads of great content about keycloak <a href="https://github.com/thomasdarimont/awesome-keycloak">https://github.com/thomasdarimont/awesome-keycloak</a></p>
+
+<p>Web application for generating kubeconfig files when working with OIDC <a href="https://github.com/heptiolabs/gangway">https://github.com/heptiolabs/gangway</a></p>
+
+<p>AWS article on the use of <code>kube-oidc-proxy</code> <a href="https://aws.amazon.com/blogs/opensource/consistent-oidc-authentication-across-multiple-eks-clusters-using-kube-oidc-proxy/">https://aws.amazon.com/blogs/opensource/consistent-oidc-authentication-across-multiple-eks-clusters-using-kube-oidc-proxy/</a></p>
+
+<p>Tool for logging into kubectl via OIDC; <a href="https://github.com/int128/kubelogin/blob/master/docs/setup.md">https://github.com/int128/kubelogin/blob/master/docs/setup.md</a></p>
+
+<p>More on debugging OIDC login; <a href="https://github.com/int128/kubelogin/issues/156">https://github.com/int128/kubelogin/issues/156</a></p>
+
+<p>More on different kubelogin flows, e.g. browser vs password <a href="https://github.com/int128/kubelogin/blob/master/docs/usage.md">https://github.com/int128/kubelogin/blob/master/docs/usage.md</a></p>
+
+<p>Grafana OIDC info: <a href="https://grafana.com/docs/grafana/latest/auth/generic-oauth/">https://grafana.com/docs/grafana/latest/auth/generic-oauth/</a></p>
+
+<p>The series:</p>
+
+<ol>
+  <li>
+    <a href="/kubernetes-sso-a-comprehensive-guide">
+  Contents and overview
+</a>
+  </li>
+  <li>
+    <a href="/installing-openldap-kubernetes-helm">
+  Installing OpenLDAP
+</a>
+  </li>
+  <li>
+    <a href="/installing-keycloak-kubernetes-helm">
+  Installing Keycloak
+</a>
+  </li>
+  <li>
+    <a href="/keycloak-and-openldap-on-kubernetes">
+  Linking Keycloak and OpenLDAP
+</a>
+  </li>
+  <li>
+    <a href="/setting-up-oidc-login-kubernetes-kubectl-with-keycloak">
+  OIDC Kubectl Login with Keycloak
+</a>
+  </li>
+  <li>
+    <a href="/webapp-authentication-keycloak-OAuth2-proxy-nginx-ingress-kubernetes">
+  Authenticate any web app using ingress annotations
+</a>
+  </li>
+  <li>
+    <a href="/gitea-sso-with-keycloak-openldap-openid-connect">
+  Gitea (requires LDAP)
+</a>
+  </li>
+  <li>
+    <a href="/docker-registry-authentication-with-keycloak">
+  Simple Docker Registry
+</a>
+  </li>
+  <li>
+    <a href="/harbor-docker-registry-on-kubernetes-authentication-with-keycloak">
+  Harbor Docker Registry with ACL
+</a>
+  </li>
+</ol>
+
+    </section>
+
+    
+
+    <footer class="post-footer">
+      
+      <!-- If we want to display author's name and bio -->
+
+<section class="author">
+  <header> <a href="/about.html"> <img class="profile" src="/assets/images/profile4.jpg" alt="Ben Dixon. Without
+      Aviators."></a></header>
+  <article>
+    <!-- Author Name -->
+    <h4> Ben Dixon </h4>
+    <!-- Author Bio -->
+    <p>
+      My name's Ben Dixon, I'm the co-founder of <a target="_blank"
+        href="https://www.getsona.com?utm_source=benblogabout">Sona</a> where we're building the operating system for
+      the worlds deskless workforce.
+      I'm an experienced CTO, LLM geek, lover of good coffee and above all, making things.
+      Also a regular conference speaker, author and travel
+      addict. Chat to me on twitter <a href="http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a>
+    </p>
+  </article>
+</section>
+
+      
+      
+      
+
+
+      
+
+    </footer>
+
+  </article>
+
+</main>
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="/rss.xml"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+          <section class="copyright">All content copyright <a href="/about.html">Ben Dixon</a> &copy; &bull; All rights reserved. Twitter: <a href="http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a></section>
+             <section class="poweredby">Made with Jekyll and based on the <a href="http://github.com/rosario/kasper" target="_blank">Kasper theme</a></section>
+        </div>
+    </footer>
+
+
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-7333902-35']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</body>
+</html>

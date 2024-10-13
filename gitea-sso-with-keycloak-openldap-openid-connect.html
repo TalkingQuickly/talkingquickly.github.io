@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Gitea SSO with Keycloak, OpenLDAP and OpenID Connect</title>
+    
+        <meta name="description" content="Blog by Ben Dixon, Co-founder of Sona, about startups, elixir, AI, climbing and photography" />
+    
+
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="iwXSC2H2VSO9iPyrWjNj3Prlx4zJY-l0EJRGVkFuUHk" />
+
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml"/>
+    <link rel="canonical" href="https://www.talkingquickly.co.uk/gitea-sso-with-keycloak-openldap-openid-connect">
+
+</head>
+<body class="home-template">
+
+
+    <main class="content" role="main">
+
+  <article class="post">
+    <header class="post-header">
+      <a id="blog-logo" href="/"><span class="blog-title">Home</span></a>
+      |
+      <a target="_blank" href="/about.html">About Me</a>
+    </header>
+
+    <span class="post-meta">
+      
+    </span>
+
+    <h1 class="post-title">Gitea SSO with Keycloak, OpenLDAP and OpenID Connect</h1>
+
+    <section class="post-content">
+      <p>Gitea is a lightweight open source git service. As an aside, Gitea - especially when combined with Drone CI - is one of my favourite pieces of open source software!</p>
+
+<p>It&#39;s minimal footprint and easy to use interface make it perfect for running on clusters to facilitate git push deploys and CI.</p>
+
+<p>Here we&#39;ll configure OpenLDAP for centralised user management and single sign on. We&#39;ll optionally configure OpenID Connect but with several caveats on its usage.</p>
+
+<p>This post is part of a series on single sign on for Kubernetes.</p>
+
+<!--more-->
+
+<ol>
+  <li>
+    <a href="/kubernetes-sso-a-comprehensive-guide">
+  Contents and overview
+</a>
+  </li>
+  <li>
+    <a href="/installing-openldap-kubernetes-helm">
+  Installing OpenLDAP
+</a>
+  </li>
+  <li>
+    <a href="/installing-keycloak-kubernetes-helm">
+  Installing Keycloak
+</a>
+  </li>
+  <li>
+    <a href="/keycloak-and-openldap-on-kubernetes">
+  Linking Keycloak and OpenLDAP
+</a>
+  </li>
+  <li>
+    <a href="/setting-up-oidc-login-kubernetes-kubectl-with-keycloak">
+  OIDC Kubectl Login with Keycloak
+</a>
+  </li>
+  <li>
+    <a href="/webapp-authentication-keycloak-OAuth2-proxy-nginx-ingress-kubernetes">
+  Authenticate any web app using ingress annotations
+</a>
+  </li>
+  <li>
+    <a href="/gitea-sso-with-keycloak-openldap-openid-connect">
+  <strong>Gitea (requires LDAP)</strong>
+</a>
+  </li>
+  <li>
+    <a href="/docker-registry-authentication-with-keycloak">
+  Simple Docker Registry
+</a>
+  </li>
+  <li>
+    <a href="/harbor-docker-registry-on-kubernetes-authentication-with-keycloak">
+  Harbor Docker Registry with ACL
+</a>
+  </li>
+</ol>
+
+<h2>Pre-requisites</h2>
+
+<p>This assumes you have CLI access to a Kubernetes cluster, will be working in a namespace called <code>identity</code> and have both Helm 3 and Kubectl installed and working locally. Finally it assumes that you're using <a href="https://kubernetes.github.io/ingress-nginx/">NGINX for Ingress</a> along with cert manager for SSL certificates with a Cluster Issuer called <code>letsencrypt-production</code>.</p>
+
+<p>If your configuration is different, the majority of the steps will be the same, but you'll need to change the ingress annotations accordingly.</p>
+
+<p>The source for this series of tutorials can be found here: <a href="https://github.com/TalkingQuickly/kubernetes-sso-guide">https://github.com/TalkingQuickly/kubernetes-sso-guide</a> and cloned with:</p>
+
+<div class="highlight">
+  <pre><code class="language-bash" data-lang="bash"><span></span>git clone git@github.com:TalkingQuickly/kubernetes-sso-guide.git</code></pre>
+</div>
+
+<p>All commands in the tutorial assume that they&#39;re being executed from the root of this cloned repository.</p>
+
+<p>This post assumes you&#39;ve completed the &quot;Installing OpenLDAP&quot;, &quot;Installing Keycloak&quot; and &quot;Linking Keycloak and OpenLDAP&quot; sections.</p>
+
+<h2 id="installing-gitea">Installing Gitea</h2>
+
+<p>Since we&#39;re primarily concerned with configuring Gitea to use LDAP for authentication, we&#39;ll only cover setting up the web UI here.</p>
+
+<p>Depending on your cluster configuration, you&#39;ll want to customise <code>gitea/values-gitea.yml</code> with an ingress address and whether or not SSL should be enabled:</p>
+<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span></span><span class="l l-Scalar l-Scalar-Plain">gitea</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">domain</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">gitea-keycloak.ssotest.staging.talkingquickly.co.uk</span> 
+  <span class="l l-Scalar l-Scalar-Plain">protocol</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">http</span>
+  <span class="l l-Scalar l-Scalar-Plain">installLock</span><span class="p p-Indicator">:</span> <span class="s">&quot;false&quot;</span>
+
+<span class="l l-Scalar l-Scalar-Plain">ingress</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">enabled</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+  <span class="l l-Scalar l-Scalar-Plain">annotations</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">cert-manager.io/cluster-issuer</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">letsencrypt-staging</span>
+  <span class="l l-Scalar l-Scalar-Plain">hosts</span><span class="p p-Indicator">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">host</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">gitea-keycloak.ssotest.staging.talkingquickly.co.uk</span>
+      <span class="l l-Scalar l-Scalar-Plain">paths</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="s">&#39;/&#39;</span><span class="p p-Indicator">]</span>
+  <span class="l l-Scalar l-Scalar-Plain">tls</span><span class="p p-Indicator">:</span>
+   <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">secretName</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">gitea-keycloak-https-secret</span>
+     <span class="l l-Scalar l-Scalar-Plain">hosts</span><span class="p p-Indicator">:</span>
+       <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">gitea-keycloak.ssotest.staging.talkingquickly.co.uk</span>
+</code></pre></div>
+<p>We can then install Gitea with:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>helm3 upgrade --install gitea-keycloak ./charts/gitea --values ./gitea/values-gitea.yml
+</code></pre></div>
+<p>Gitea should now be available on the chosen Ingress URL, in the example configuration above; <code>gitea-keycloak.ssotest.staging.talkingquickly.co.uk</code>.</p>
+
+<p>We can then use this command to create an initial user with the username <code>administrator</code>, by executing the gitea CLI inside its pod. Remember to change <code>YOUR_PASSWORD</code> and <code>YOUR_EMAIL</code> to something:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>kubectl exec -it --namespace identity \
+      $(kubectl get pods -n identity --selector=&#39;app.kubernetes.io/instance=gitea&#39; -o jsonpath=&#39;{.items[0].metadata.name}&#39;) \
+      -- gitea admin user create --username YOUR_EMAIL --password YOUR_PASSWORD --email YOUR_EMAIL --admin --access-token --must-change-password=false
+</code></pre></div>
+<p>We should then be able to login to our Gitea instance.</p>
+
+<h2 id="configuring-gitea-to-use-ldap">Configuring Gitea to use LDAP</h2>
+
+<p>While Gitea does support OIDC login, this is only for existing accounts, so it&#39;s not suitable for centralised user management. So here we&#39;ll be using LDAP.</p>
+
+<p><a href="https://github.com/go-gitea/gitea/issues/1124?_pjax=%23js-repo-pjax-container#issuecomment-284911694">This Github Issue</a> on the Gitea repository explains the difference in behaviour between OIDC and LDAP.</p>
+
+<p>Begin by logging into Gitea as the <code>administrator</code> user and going to &quot;Site Administration&quot; and then then &quot;Authentication Sources&quot; tab. Choose &quot;Add Authentication Source&quot; and then select &quot;LDAP (via BindDN)&quot; as the source, select the following values:</p>
+
+<ul>
+<li><strong>Authentication Name</strong>: <code>OpenLDAP</code></li>
+<li><strong>Security Protocol</strong>: <code>Unencrypted</code></li>
+<li><strong>Host</strong>: <code>openldap.identity.svc.cluster.local</code></li>
+<li><strong>Port</strong>: <code>389</code></li>
+<li><strong>Bind DN</strong>: <code>cn=readonly,dc=k4stest4,dc=talkingquickly,dc=co,dc=uk</code></li>
+<li><strong>Bind Password</strong>: This should be the password you selected for the read only user in the <code>values-openldap.yml</code> file</li>
+<li><strong>User Search Base</strong>: <code>ou=People,dc=k4stest4,dc=talkingquickly,dc=co,dc=uk</code> remembering to replace the <code>dc</code> components with your own</li>
+<li><strong>User Filter</strong>: <code>(&amp;(objectClass=inetOrgPerson)(uid=%s))</code> This will allow all users to log into Gitea, you could create a more complex filter that would only let users in certain groups (e.g. &quot;Engineers&quot;) <a href="https://confluence.atlassian.com/kb/how-to-write-ldap-search-filters-792496933.html">this article on search filters</a> has some inspiration on how write these. <code>uid=%s</code> matches on uid, so people will be able to login with their username, you could modify this filter to match on both email and username.</li>
+<li><strong>Username Attribute</strong>: <code>uid</code></li>
+<li><strong>First Name Attribute</strong>: <code>cn</code></li>
+<li><strong>Surname attribute</strong>: <code>sn</code></li>
+<li><strong>Email Attribute</strong>: <code>mail</code></li>
+</ul>
+
+<p>The <a href="https://docs.gitea.io/en-us/authentication/">Gitea LDAP documentation</a> provides more detail on what each of these fields does.</p>
+
+<p>Note that if we&#39;re looking to configure gitea using a configuration management tool, we can use the same approach we used to create the admin user above, to create the LDAP configuration using the CLI as <a href="https://docs.gitea.io/en-us/command-line/">documented here</a></p>
+
+<p>If we now go back to the Gitea sign in page, we&#39;ll find that we can login directly with the credentials for the user we created in Keycloak. Importantly this should be a user we created in the master realm, not our administrative user.</p>
+
+<p>There&#39;s no re-direction, password authentication is performed behind the scenes. If we go to the security settings for the account, we&#39;ll see that because this user is managed externally, the password cannot be changed from with Gitea, only from within Keycloak.</p>
+
+<h2 id="configuring-gitea-to-use-openid-connect">Configuring Gitea to use OpenID Connect</h2>
+
+<p>While OpenID connect cannot be used for &quot;full&quot; SSO in Gitea, e.g. the underlying users must already exist, it&#39;s possible for users who have already logged in, to configure Keycloak OIDC as an additional login, so that they can go through the Keycloak flow rather than entering their keycloak username and password in Gitea.</p>
+
+<p>The only real benefit of this approach is that where Keycloak is used extensively, the user may have an ongoing session there, so using that flow to login may be marginally more convenient than entering a username and password. So this option is included for completeness rather than as a typical user case. </p>
+
+<p>In the Keycloak admin interface, go to &quot;Clients&quot; in the side menu and choose &quot;Create&quot;. Enter gitea for the <code>Client ID</code> and choose <code>openid-connect</code> for the &quot;Client Protocol&quot;. Then enter:</p>
+
+<ul>
+<li><strong>Name</strong>: Gitea</li>
+<li><strong>Access Type</strong>: <code>confidential</code> (this is required to generate the client secret)</li>
+<li><strong>Valid Redirect URI&#39;s</strong>: <code>https://GITEA_INGRESS_URL/*</code> (so in the case of my example above, this would be <code>https://gitea-keycloak.k4stest4.talkingquickly.co.uk/*</code>)</li>
+</ul>
+
+<p>Once we&#39;ve saved, we can then find the client secret by going back to the &quot;Credentials&quot; tab.</p>
+
+<p>In gitea go to &quot;Site Administration&quot; and choose &quot;Authentication Sources&quot;. Then choose &quot;Add Authentication Source&quot; and choose the following options:</p>
+
+<ul>
+<li><strong>Authentication Type</strong>: <code>OAuth2</code></li>
+<li><strong>Authentication Name</strong>: <code>Keycloak</code></li>
+<li><strong>OAuth2 Provider</strong>: <code>OpenID Connect</code></li>
+<li><strong>Client ID</strong>: <code>gitea</code> (the value entered for id when creating the client)</li>
+<li><strong>Client Secret</strong>: <code>YOUR_SECRET</code> the secret displayed on the credentials tab of the Keycloak Client page for the <code>gitea</code> client we created</li>
+<li><strong>OpenID Connect Auto Discovery URL</strong>: <code>https://YOUR_KEYCLOAK_INGRESS_URL/auth/realms/master/.well-known/openid-configuration</code> replacing <code>YOUR_KEYCLOAK_INGRESS_URL</code> with the Ingress domain chosen for keycloak. </li>
+</ul>
+
+<p>It&#39;s important to note that Gitea will validate the certificate on creation of the provider and will not work without a valid SSL cert.</p>
+
+<p>Before we try and login, we&#39;ll need to set a password for the user we created in KeyCloak. We can do this by going to the User in Keycloak, choosing the &quot;Credentials&quot; tab and setting a password, if we leave the &quot;Temporary&quot; switch on that page set to 1, then when the user signs in, they&#39;ll be asked to set a new password.</p>
+
+<p>We can then go to the sign in page in Gitea and click on the &quot;Sign in with OpenID Connect&quot; option (we&#39;ll need to sign out if we&#39;re currently signed in as the administrator user). This will re-direct us the Keycloak login page where we can login with the user we created earlier in Keycloak. </p>
+
+<p>Once we&#39;ve signed in with our Keycloak credentials, we&#39;ll be re-directed back to Gitea.</p>
+
+<p>Here we&#39;re asked to enter credentials for an existing user and can enter our keycloak users username and password so that in future we can login using the Keycloak auth flow.</p>
+
+<ol>
+  <li>
+    <a href="/kubernetes-sso-a-comprehensive-guide">
+  Contents and overview
+</a>
+  </li>
+  <li>
+    <a href="/installing-openldap-kubernetes-helm">
+  Installing OpenLDAP
+</a>
+  </li>
+  <li>
+    <a href="/installing-keycloak-kubernetes-helm">
+  Installing Keycloak
+</a>
+  </li>
+  <li>
+    <a href="/keycloak-and-openldap-on-kubernetes">
+  Linking Keycloak and OpenLDAP
+</a>
+  </li>
+  <li>
+    <a href="/setting-up-oidc-login-kubernetes-kubectl-with-keycloak">
+  OIDC Kubectl Login with Keycloak
+</a>
+  </li>
+  <li>
+    <a href="/webapp-authentication-keycloak-OAuth2-proxy-nginx-ingress-kubernetes">
+  Authenticate any web app using ingress annotations
+</a>
+  </li>
+  <li>
+    <a href="/gitea-sso-with-keycloak-openldap-openid-connect">
+  <strong>Gitea (requires LDAP)</strong>
+</a>
+  </li>
+  <li>
+    <a href="/docker-registry-authentication-with-keycloak">
+  Simple Docker Registry
+</a>
+  </li>
+  <li>
+    <a href="/harbor-docker-registry-on-kubernetes-authentication-with-keycloak">
+  Harbor Docker Registry with ACL
+</a>
+  </li>
+</ol>
+
+    </section>
+
+    
+
+    <footer class="post-footer">
+      
+      <!-- If we want to display author's name and bio -->
+
+<section class="author">
+  <header> <a href="/about.html"> <img class="profile" src="/assets/images/profile4.jpg" alt="Ben Dixon. Without
+      Aviators."></a></header>
+  <article>
+    <!-- Author Name -->
+    <h4> Ben Dixon </h4>
+    <!-- Author Bio -->
+    <p>
+      My name's Ben Dixon, I'm the co-founder of <a target="_blank"
+        href="https://www.getsona.com?utm_source=benblogabout">Sona</a> where we're building the operating system for
+      the worlds deskless workforce.
+      I'm an experienced CTO, LLM geek, lover of good coffee and above all, making things.
+      Also a regular conference speaker, author and travel
+      addict. Chat to me on twitter <a href="http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a>
+    </p>
+  </article>
+</section>
+
+      
+      
+      
+
+
+      
+
+    </footer>
+
+  </article>
+
+</main>
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="/rss.xml"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+          <section class="copyright">All content copyright <a href="/about.html">Ben Dixon</a> &copy; &bull; All rights reserved. Twitter: <a href="http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a></section>
+             <section class="poweredby">Made with Jekyll and based on the <a href="http://github.com/rosario/kasper" target="_blank">Kasper theme</a></section>
+        </div>
+    </footer>
+
+
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-7333902-35']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</body>
+</html>

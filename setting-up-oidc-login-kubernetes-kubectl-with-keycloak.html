@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>OIDC Login to Kubernetes and Kubectl with Keycloak</title>
+    
+        <meta name="description" content="Blog by Ben Dixon, Co-founder of Sona, about startups, elixir, AI, climbing and photography" />
+    
+
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="iwXSC2H2VSO9iPyrWjNj3Prlx4zJY-l0EJRGVkFuUHk" />
+
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml"/>
+    <link rel="canonical" href="https://www.talkingquickly.co.uk/setting-up-oidc-login-kubernetes-kubectl-with-keycloak">
+
+</head>
+<body class="home-template">
+
+
+    <main class="content" role="main">
+
+  <article class="post">
+    <header class="post-header">
+      <a id="blog-logo" href="/"><span class="blog-title">Home</span></a>
+      |
+      <a target="_blank" href="/about.html">About Me</a>
+    </header>
+
+    <span class="post-meta">
+      
+    </span>
+
+    <h1 class="post-title">OIDC Login to Kubernetes and Kubectl with Keycloak</h1>
+
+    <section class="post-content">
+      <p>A commonly cited pain point for teams working with Kubernetes clusters is managing the configuration to connect to the cluster. All to often this ends up being either sending KUBECONFIG files with hardcoded credentials back and forth or fragile custom shell scripts wrapping the AWS or GCP cli&#39;s.</p>
+
+<p>In this post we&#39;ll integrate Kubernetes with Keycloak so that when we execute a <code>kubectl</code> or <code>helm</code> command, if the user is not already authenticated, they&#39;ll be presented with a keycloak browser login where they can enter their credentials. No more sharing KUBECONFIG files and forgetting to export different KUBECONFIG paths!</p>
+
+<p>We&#39;ll also configure group based access control, so we can, for example create a <code>KubernetesAdminstrators</code> group, and have all users in that group given <code>cluster-admin</code> access automatically.</p>
+
+<p>When we remove a user from Keycloak (or remove them from the relevant groups within Keycloak) they will then lose access to the cluster (subject to token expiry).</p>
+
+<p>For this we&#39;ll be using OpenID Connect, more <a href="https://kubernetes.io/docs/reference/access-authn-authz/authentication/#openid-connect-tokens">here</a> on how this works.</p>
+
+<p>By default, configuring Kubernetes to support OIDC auth requires passing flags to the kubelet API server. The challenge with this approach is that only one such provider can be configured and managed Kubernetes offerings - e.g. GCP or AWS - use this for their proprietary IAM systems.</p>
+
+<p>To address this we will use <a href="https://github.com/jetstack/kube-oidc-proxy">kube-oidc-proxy</a>, a tool from Jetstack which allows us to connect to a proxy server which will manage OIDC authentication and use impersonation to give the authenticating user the required permissions. This approach has the benefit of being universal across clusters, so we don&#39;t have to follow different approaches for our managed vs unmanaged clusters.</p>
+
+<p>This post is part of a series on single sign on for Kubernetes.</p>
+
+<!--more-->
+
+<ol>
+  <li>
+    <a href="/kubernetes-sso-a-comprehensive-guide">
+  Contents and overview
+</a>
+  </li>
+  <li>
+    <a href="/installing-openldap-kubernetes-helm">
+  Installing OpenLDAP
+</a>
+  </li>
+  <li>
+    <a href="/installing-keycloak-kubernetes-helm">
+  Installing Keycloak
+</a>
+  </li>
+  <li>
+    <a href="/keycloak-and-openldap-on-kubernetes">
+  Linking Keycloak and OpenLDAP
+</a>
+  </li>
+  <li>
+    <a href="/setting-up-oidc-login-kubernetes-kubectl-with-keycloak">
+  <strong>OIDC Kubectl Login with Keycloak</strong>
+</a>
+  </li>
+  <li>
+    <a href="/webapp-authentication-keycloak-OAuth2-proxy-nginx-ingress-kubernetes">
+  Authenticate any web app using ingress annotations
+</a>
+  </li>
+  <li>
+    <a href="/gitea-sso-with-keycloak-openldap-openid-connect">
+  Gitea (requires LDAP)
+</a>
+  </li>
+  <li>
+    <a href="/docker-registry-authentication-with-keycloak">
+  Simple Docker Registry
+</a>
+  </li>
+  <li>
+    <a href="/harbor-docker-registry-on-kubernetes-authentication-with-keycloak">
+  Harbor Docker Registry with ACL
+</a>
+  </li>
+</ol>
+
+<h2>Pre-requisites</h2>
+
+<p>This assumes you have CLI access to a Kubernetes cluster, will be working in a namespace called <code>identity</code> and have both Helm 3 and Kubectl installed and working locally. Finally it assumes that you're using <a href="https://kubernetes.github.io/ingress-nginx/">NGINX for Ingress</a> along with cert manager for SSL certificates with a Cluster Issuer called <code>letsencrypt-production</code>.</p>
+
+<p>If your configuration is different, the majority of the steps will be the same, but you'll need to change the ingress annotations accordingly.</p>
+
+<p>The source for this series of tutorials can be found here: <a href="https://github.com/TalkingQuickly/kubernetes-sso-guide">https://github.com/TalkingQuickly/kubernetes-sso-guide</a> and cloned with:</p>
+
+<div class="highlight">
+  <pre><code class="language-bash" data-lang="bash"><span></span>git clone git@github.com:TalkingQuickly/kubernetes-sso-guide.git</code></pre>
+</div>
+
+<p>All commands in the tutorial assume that they&#39;re being executed from the root of this cloned repository.</p>
+
+<p>This also assumes you&#39;ve already followed the Installing Keycloak section and have a functioning Keycloak instance you can login to with administrator rights.</p>
+
+<h2 id="setting-up-keycloak">Setting up Keycloak</h2>
+
+<p>First we&#39;ll create a new client in Keycloak with Client ID: <code>kube-oidc-proxy</code> and client protocol: <code>openid-connect</code>. We&#39;ll then configure the following parameters for this client:</p>
+
+<ul>
+<li><strong>Access Type</strong>: <code>confidential</code>, this is required for a client secret to be generated</li>
+<li><strong>Valid Redirect URLs</strong>: <code>http://localhost:8000</code> and <code>http://localhost:18000</code>. This is used by <a href="https://github.com/int128/kubelogin">kubelogin</a> as a callback when we login with <code>kubectl</code> so a browser window can be opened for us to authenticate with keycloak.</li>
+</ul>
+
+<p>We can then save this new client and a new &quot;Credentials&quot; tab will appear. We&#39;ll need the generated client secret along with our client id (<code>kube-oidc-proxy</code>) for later steps.</p>
+
+<h2 id="setting-up-kube-oidc-proxy">Setting up Kube OIDC Proxy</h2>
+
+<p>Having created the client, we can now create our configuration for <code>kube-oidc-proxy</code>. A sample configuration can be found in <code>kube-oidc-proxy/values-kube-oidc.yml</code> and looks like this:</p>
+<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span></span><span class="l l-Scalar l-Scalar-Plain">oidc</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">clientId</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">kube-oidc-proxy</span>
+  <span class="l l-Scalar l-Scalar-Plain">issuerUrl</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">https://sso.ssotest.staging.talkingquickly.co.uk/auth/realms/master</span>
+  <span class="l l-Scalar l-Scalar-Plain">usernameClaim</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">sub</span>
+
+<span class="l l-Scalar l-Scalar-Plain">extraArgs</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">v</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">10</span>
+
+<span class="l l-Scalar l-Scalar-Plain">ingress</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">enabled</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+  <span class="l l-Scalar l-Scalar-Plain">annotations</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">cert-manager.io/cluster-issuer</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">letsencrypt-production</span>
+    <span class="l l-Scalar l-Scalar-Plain">nginx.ingress.kubernetes.io/backend-protocol</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">HTTPS</span>
+  <span class="l l-Scalar l-Scalar-Plain">hosts</span><span class="p p-Indicator">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">host</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">kube.ssotest.staging.talkingquickly.co.uk</span>
+      <span class="l l-Scalar l-Scalar-Plain">paths</span><span class="p p-Indicator">:</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+  <span class="l l-Scalar l-Scalar-Plain">tls</span><span class="p p-Indicator">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">secretName</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">oidc-proxy-tls</span>
+      <span class="l l-Scalar l-Scalar-Plain">hosts</span><span class="p p-Indicator">:</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">kube.ssotest.staging.talkingquickly.co.uk</span>
+</code></pre></div>
+<p>The important things to customise here are:</p>
+
+<ul>
+<li>The <code>issuerUrl</code>, this is the URL of our keycloak instance, including the realm (in this case we&#39;re using the default master realm)</li>
+<li>The hostnames within the ingress definition. This URL will be a second Kubernetes API URL, so once our SSO login is setup, our kubeconfig files will point at this URL instead of the default cluster endpoint</li>
+</ul>
+
+<p>The <code>extraArgs</code> <code>v: 10</code> sets <code>kube-oidc-proxy</code> to output verbose logging methods which is useful for debugging issues. In production this line can be removed.</p>
+
+<p>We can then install <code>kube-oidc-proxy</code> with:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>helm upgrade --install kube-oidc-proxy ./charts/kube-oidc-proxy --values kube-oidc-proxy/values-kube-oidc.yml
+</code></pre></div>
+<p>With <code>kube-oidc-proxy</code> up and running, we can now configure <code>kubectl</code> to use it. The simplest way to do this is with a <code>kubectl</code> plugin called <a href="https://github.com/int128/kubelogin">kubelogin</a>. With this plugin installed, when you execute a <code>kubectl</code> command, it will open a browser window for the user to login via Keycloak. It will then handle refreshing tokens and subsequently re-authorising if the session expires.</p>
+
+<p>Installation instructions for <code>kubelogin</code> are <a href="https://github.com/int128/kubelogin">here</a>, if you use homebrew, it&#39;s as simple as <code>brew install int128/kubelogin/kubelogin</code>, otherwise I recommend <a href="https://krew.sigs.k8s.io/docs/user-guide/setup/install/">installing krew</a> to manage <code>kubectl</code> plugins which will then allow you to install the plugin with <code>kubectl krew install oidc-login</code>.</p>
+
+<p>We&#39;ll then want to create a <code>kubeconfig.yml</code> file with the following contents (there&#39;s an example in <code>kubelogin/kuebconfig.yml</code>):</p>
+<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span></span><span class="l l-Scalar l-Scalar-Plain">apiVersion</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="l l-Scalar l-Scalar-Plain">clusters</span><span class="p p-Indicator">:</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">cluster</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">server</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">https://kube.ssotest.staging.talkingquickly.co.uk</span>
+  <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
+<span class="l l-Scalar l-Scalar-Plain">contexts</span><span class="p p-Indicator">:</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">context</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">cluster</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
+    <span class="l l-Scalar l-Scalar-Plain">namespace</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">identity</span>
+    <span class="l l-Scalar l-Scalar-Plain">user</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">oidc</span>
+  <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
+<span class="l l-Scalar l-Scalar-Plain">current-context</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
+<span class="l l-Scalar l-Scalar-Plain">kind</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Config</span>
+<span class="l l-Scalar l-Scalar-Plain">preferences</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">{}</span>
+<span class="l l-Scalar l-Scalar-Plain">users</span><span class="p p-Indicator">:</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">oidc</span>
+  <span class="l l-Scalar l-Scalar-Plain">user</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">exec</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">apiVersion</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">client.authentication.k8s.io/v1beta1</span>
+      <span class="l l-Scalar l-Scalar-Plain">args</span><span class="p p-Indicator">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">oidc-login</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">get-token</span>
+      <span class="c1"># - -v1</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">--oidc-issuer-url=https://sso.ssotest.staging.talkingquickly.co.uk/auth/realms/master</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">--oidc-client-id=kube-oidc-proxy</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">--oidc-client-secret=a32807bc-4b5d-40b7-8391-91bb2b80fd30</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">--oidc-extra-scope=email</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">--grant-type=authcode</span>
+      <span class="l l-Scalar l-Scalar-Plain">command</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">kubectl</span>
+      <span class="l l-Scalar l-Scalar-Plain">env</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
+      <span class="l l-Scalar l-Scalar-Plain">provideClusterInfo</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+</code></pre></div>
+<p>Replacing:</p>
+
+<ul>
+<li>The <code>server</code> url the ingress url we chose for <code>kube-oidc-proxy</code></li>
+<li>The <code>oidc-issuer-url</code> with the same keycloak url we used in the <code>kube-oidc-proxy</code> configuration</li>
+<li>The value of <code>oidc-client-secret</code> with the secret key we extracted from the credentials tab of the client in Keycloak</li>
+<li>Optionally uncommenting the <code>-v1</code> line if you want to see verbose logging output</li>
+</ul>
+
+<p>We can then execute </p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>export KUBECONFIG=./kubelogin/kubeconfig.yml
+kubectl get pods  
+</code></pre></div>
+<p>Managing your kubeconfig files is beyond the scope of this tutorial but if you aren&#39;t already I strongly recommend some combination of <a href="https://direnv.net">direnv</a> and <a href="https://github.com/ahmetb/kubectx">kubectx</a>. Both my <a href="/2021/01/debian-dev-environment-for-remote-vscode/">Debian Remote Dev Env Environment</a> and <a href="/2021/01/macos-setup-with-ansible/">OSX Setup</a> provide these tools out of the box.</p>
+
+<p>It&#39;s important to note that the <code>export KUBECONFIG=./kubelogin/kubeconfig.yml</code> is local to an individual terminal session, so if you switch to a new terminal tab or close and re-open your terminal, it will be gone and you&#39;ll fallback to using whichever <code>KUBECONFIG</code> envrironment variable your shell is set to use by default.</p>
+
+<p>When we execute the above we&#39;ll be sent out to a browser to login via Keycloak and once completed we&#39;ll be logged in.</p>
+
+<p>We will however see an error along the lines of:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>Error from server (Forbidden): pods is forbidden: User &quot;oidcuser:7d7c2183-3d96-496a-9516-dda7538854c9&quot; cannot list resource &quot;pods&quot; in API group &quot;&quot; in the namespace &quot;identity&quot;
+</code></pre></div>
+<p>Although our user is authenticated, e.g. Kubernetes knows that the current user is <code>oidcuser:7d7c2183-3d96-496a-9516-dda7538854c9</code>, this user is currently not authorised to do anything.</p>
+
+<p>We can fix this by creating a cluster role binding which binds our user to the <code>cluster-admin</code> role which is the &quot;superuser&quot; role on Kubernetes.</p>
+
+<p>We&#39;ll need to execute this in a separate temrinal, e.g. one in which we have not run <code>export KUBECONFIG=./kubelogin/kubeconfig.yml</code> and so <code>KUBECONFIG</code> is still pointing at a kubeconfig file which gives us <code>cluster-admin</code> access to the cluster.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>kubectl create clusterrolebinding oidc-cluster-admin --clusterrole=cluster-admin --user=&#39;oidcuser:OUR_USER_ID&#39;
+</code></pre></div>
+<p>Replacing OUR<em>USER</em>ID with our login users id from Keycloak (or from the error message above).</p>
+
+<p>Note the <code>oidcuser:</code> prefix which is added due to the <code>usernamePrefix: &quot;oidcuser:&quot;</code> prefix configuration line in our Kube OIDC Proxy values file. This prevents users defined in Keycloak from conflicting with any kubernetes internal users.</p>
+
+<h2 id="keycloak-login-to-kubernetes-with-groups">Keycloak login to kubernetes with groups</h2>
+
+<p>The above setup allows us to use <code>kubectl</code> while authenticating with our keycloak user. However for each user we have to create an individual cluster role binding assigning them permissions. This is manual and becomes painful for anything beyond a small handful of users.</p>
+
+<p>The solution to this lies in groups, we&#39;ll configure our kubernetes oidc implementation to be aware of Keycloak groups. We can then create a <code>KubernetesAdmin</code> group in Keycloak and have all users in this group given <code>cluster-admin</code> permissions automatically using a single ClusterRoleBinding.</p>
+
+<p>Begin by creating a <code>KubernetesAdmins</code> group in Keycloak and then creating a new user and adding them to this group. </p>
+
+<p>We then need to update our Keycloak client to include the groups the user is a member of as part of the JWT.</p>
+
+<p>We do this by going back to our <code>kube-oidc-client</code> entry under Keycloak clients and choosing the mappers tab then &quot;Create&quot;.</p>
+
+<p>We then enter the following:</p>
+
+<ul>
+<li><strong>Name</strong>: <code>Groups</code></li>
+<li><strong>Mapper Type</strong>: <code>Group Membership</code></li>
+<li><strong>Full Group Path</strong>: <code>Off</code></li>
+</ul>
+
+<p>And then choosing save.</p>
+
+<p>If we uncomment the <code># - -v1</code> line in our <code>kubelogin/kubeconfig.yml</code> file, remove the contents of <code>~/.kube/cache/oidc-login/</code> and then execute a <code>kubectl</code> command e.g. <code>kubectl get pods</code> then we&#39;ll be asked to login and again and then we&#39;ll see that the decoded JWT now contains our groups, e.g:</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span></span><span class="p">{</span>
+  <span class="err">...</span>                                         
+  <span class="nt">&quot;groups&quot;</span><span class="p">:</span> <span class="p">[</span>                                                       
+    <span class="s2">&quot;DockerRegistry&quot;</span><span class="p">,</span>                                             
+    <span class="s2">&quot;Administrators&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;KubernetesAdmins&quot;</span>
+  <span class="p">],</span>             
+  <span class="err">...</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>We can then create cluster role binding to give anyone with the <code>KubernetesAdmin</code> group, <code>cluster-admin</code> access. Our cluster role binding looks like this:</p>
+<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span></span><span class="l l-Scalar l-Scalar-Plain">apiVersion</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
+<span class="l l-Scalar l-Scalar-Plain">kind</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">ClusterRoleBinding</span>
+<span class="l l-Scalar l-Scalar-Plain">metadata</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">oidc-admin-group</span>
+<span class="l l-Scalar l-Scalar-Plain">roleRef</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">apiGroup</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io</span>
+  <span class="l l-Scalar l-Scalar-Plain">kind</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">ClusterRole</span>
+  <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">cluster-admin</span>
+<span class="l l-Scalar l-Scalar-Plain">subjects</span><span class="p p-Indicator">:</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">apiGroup</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io</span>
+  <span class="l l-Scalar l-Scalar-Plain">kind</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Group</span>
+  <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">oidcgroup:KubernetesAdmins</span>
+</code></pre></div>
+<p>Note that <code>oidcgroup</code> which is added due to the <code>groupsPrefix: &quot;oidcgroup:&quot;</code> in our Kube OIDC Proxy values configuration. This prevents keycloak groups from colliding with in-built kubernetes groups.</p>
+
+<p>We can apply the above with:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>kubectl apply -f ./group-auth/cluster-role-binding.yml
+</code></pre></div>
+<p>And then delete our user specific cluster role binding with:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>kubectl delete clusterrolebinding oidc-cluster-admin
+</code></pre></div>
+<p>We can confirm that our groups login works with a simple <code>kubectl get pods</code>.</p>
+
+<p>We can take this further by creating more restrictive cluster roles (or using more of the in-built ones) to do things like creating users that only have access to certain namespaces within our cluster.</p>
+
+<ol>
+  <li>
+    <a href="/kubernetes-sso-a-comprehensive-guide">
+  Contents and overview
+</a>
+  </li>
+  <li>
+    <a href="/installing-openldap-kubernetes-helm">
+  Installing OpenLDAP
+</a>
+  </li>
+  <li>
+    <a href="/installing-keycloak-kubernetes-helm">
+  Installing Keycloak
+</a>
+  </li>
+  <li>
+    <a href="/keycloak-and-openldap-on-kubernetes">
+  Linking Keycloak and OpenLDAP
+</a>
+  </li>
+  <li>
+    <a href="/setting-up-oidc-login-kubernetes-kubectl-with-keycloak">
+  <strong>OIDC Kubectl Login with Keycloak</strong>
+</a>
+  </li>
+  <li>
+    <a href="/webapp-authentication-keycloak-OAuth2-proxy-nginx-ingress-kubernetes">
+  Authenticate any web app using ingress annotations
+</a>
+  </li>
+  <li>
+    <a href="/gitea-sso-with-keycloak-openldap-openid-connect">
+  Gitea (requires LDAP)
+</a>
+  </li>
+  <li>
+    <a href="/docker-registry-authentication-with-keycloak">
+  Simple Docker Registry
+</a>
+  </li>
+  <li>
+    <a href="/harbor-docker-registry-on-kubernetes-authentication-with-keycloak">
+  Harbor Docker Registry with ACL
+</a>
+  </li>
+</ol>
+
+    </section>
+
+    
+
+    <footer class="post-footer">
+      
+      <!-- If we want to display author's name and bio -->
+
+<section class="author">
+  <header> <a href="/about.html"> <img class="profile" src="/assets/images/profile4.jpg" alt="Ben Dixon. Without
+      Aviators."></a></header>
+  <article>
+    <!-- Author Name -->
+    <h4> Ben Dixon </h4>
+    <!-- Author Bio -->
+    <p>
+      My name's Ben Dixon, I'm the co-founder of <a target="_blank"
+        href="https://www.getsona.com?utm_source=benblogabout">Sona</a> where we're building the operating system for
+      the worlds deskless workforce.
+      I'm an experienced CTO, LLM geek, lover of good coffee and above all, making things.
+      Also a regular conference speaker, author and travel
+      addict. Chat to me on twitter <a href="http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a>
+    </p>
+  </article>
+</section>
+
+      
+      
+      
+
+
+      
+
+    </footer>
+
+  </article>
+
+</main>
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="/rss.xml"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+          <section class="copyright">All content copyright <a href="/about.html">Ben Dixon</a> &copy; &bull; All rights reserved. Twitter: <a href="http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a></section>
+             <section class="poweredby">Made with Jekyll and based on the <a href="http://github.com/rosario/kasper" target="_blank">Kasper theme</a></section>
+        </div>
+    </footer>
+
+
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-7333902-35']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</body>
+</html>

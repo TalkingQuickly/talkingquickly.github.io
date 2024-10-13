@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Comprehensive docker registry on Kubernetes with Harbor and Keycloak for single sign on</title>
+    
+        <meta name="description" content="Blog by Ben Dixon, Co-founder of Sona, about startups, elixir, AI, climbing and photography" />
+    
+
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="iwXSC2H2VSO9iPyrWjNj3Prlx4zJY-l0EJRGVkFuUHk" />
+
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml"/>
+    <link rel="canonical" href="https://www.talkingquickly.co.uk/harbor-docker-registry-on-kubernetes-authentication-with-keycloak">
+
+</head>
+<body class="home-template">
+
+
+    <main class="content" role="main">
+
+  <article class="post">
+    <header class="post-header">
+      <a id="blog-logo" href="/"><span class="blog-title">Home</span></a>
+      |
+      <a target="_blank" href="/about.html">About Me</a>
+    </header>
+
+    <span class="post-meta">
+      
+    </span>
+
+    <h1 class="post-title">Comprehensive docker registry on Kubernetes with Harbor and Keycloak for single sign on</h1>
+
+    <section class="post-content">
+      <p>In this post we&#39;ll install a feature rich but lightweight docker registry and integrate login and authorization with Keycloak users and groups. </p>
+
+<p><a href="https://goharbor.io">Harbor</a> is an open source registry which can serve multiple types of cloud artifacts and secure them using fine grained access control. In this case we&#39;ll be focussed on using harbor as a docker image registry and linking it&#39;s authentication with Keycloak but it is also capable of serving multiple other types of artifact, including helm charts.</p>
+
+<p>This post is part of a series on single sign on for Kubernetes.</p>
+
+<!--more-->
+
+<ol>
+  <li>
+    <a href="/kubernetes-sso-a-comprehensive-guide">
+  Contents and overview
+</a>
+  </li>
+  <li>
+    <a href="/installing-openldap-kubernetes-helm">
+  Installing OpenLDAP
+</a>
+  </li>
+  <li>
+    <a href="/installing-keycloak-kubernetes-helm">
+  Installing Keycloak
+</a>
+  </li>
+  <li>
+    <a href="/keycloak-and-openldap-on-kubernetes">
+  Linking Keycloak and OpenLDAP
+</a>
+  </li>
+  <li>
+    <a href="/setting-up-oidc-login-kubernetes-kubectl-with-keycloak">
+  OIDC Kubectl Login with Keycloak
+</a>
+  </li>
+  <li>
+    <a href="/webapp-authentication-keycloak-OAuth2-proxy-nginx-ingress-kubernetes">
+  Authenticate any web app using ingress annotations
+</a>
+  </li>
+  <li>
+    <a href="/gitea-sso-with-keycloak-openldap-openid-connect">
+  Gitea (requires LDAP)
+</a>
+  </li>
+  <li>
+    <a href="/docker-registry-authentication-with-keycloak">
+  Simple Docker Registry
+</a>
+  </li>
+  <li>
+    <a href="/harbor-docker-registry-on-kubernetes-authentication-with-keycloak">
+  <strong>Harbor Docker Registry with ACL</strong>
+</a>
+  </li>
+</ol>
+
+<h2>Pre-requisites</h2>
+
+<p>This assumes you have CLI access to a Kubernetes cluster, will be working in a namespace called <code>identity</code> and have both Helm 3 and Kubectl installed and working locally. Finally it assumes that you're using <a href="https://kubernetes.github.io/ingress-nginx/">NGINX for Ingress</a> along with cert manager for SSL certificates with a Cluster Issuer called <code>letsencrypt-production</code>.</p>
+
+<p>If your configuration is different, the majority of the steps will be the same, but you'll need to change the ingress annotations accordingly.</p>
+
+<p>The source for this series of tutorials can be found here: <a href="https://github.com/TalkingQuickly/kubernetes-sso-guide">https://github.com/TalkingQuickly/kubernetes-sso-guide</a> and cloned with:</p>
+
+<div class="highlight">
+  <pre><code class="language-bash" data-lang="bash"><span></span>git clone git@github.com:TalkingQuickly/kubernetes-sso-guide.git</code></pre>
+</div>
+
+<p>All commands in the tutorial assume that they&#39;re being executed from the root of this cloned repository.</p>
+
+<p>This post assumes you&#39;ve already completed the &quot;Installing Keycloak&quot; section.</p>
+
+<h2 id="installing-harbor">Installing harbor</h2>
+
+<p>The official helm chart for installing harbor can be found here: <a href="https://github.com/goharbor/harbor-helm">https://github.com/goharbor/harbor-helm</a>.</p>
+
+<p>As with most helm charts, we learn a lot by inspecting the <a href="https://github.com/goharbor/harbor-helm/blob/master/values.yaml">values file which can be found here</a>.</p>
+
+<p>In this tutorial we&#39;re going to customise the sections which define ingress and TLS certificate generation. OIDC configuration has to be done post installation and can either be done using the HTTP API or the web UI.</p>
+
+<p>Our initial values file will look something like this:</p>
+<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span></span><span class="l l-Scalar l-Scalar-Plain">expose</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">ingress</span>
+  <span class="l l-Scalar l-Scalar-Plain">tls</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">certSource</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">secret</span>
+    <span class="l l-Scalar l-Scalar-Plain">secret</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">secretName</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">harbor-ingress-tls</span>
+  <span class="l l-Scalar l-Scalar-Plain">ingress</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">annotations</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">cert-manager.io/cluster-issuer</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">letsencrypt-production</span>
+
+    <span class="l l-Scalar l-Scalar-Plain">hosts</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">core</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">core.harbor.ssotest.staging.talkingquickly.co.uk</span>
+
+<span class="l l-Scalar l-Scalar-Plain">harborAdminPassword</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">85nsafg87ehfgk0fgsgfg6u</span>
+<span class="l l-Scalar l-Scalar-Plain">externalURL</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">https://core.harbor.ssotest.staging.talkingquickly.co.uk</span>
+<span class="l l-Scalar l-Scalar-Plain">secretKey</span><span class="p p-Indicator">:</span> <span class="s">&quot;8d10dlskeit8fhtg&quot;</span>
+
+<span class="l l-Scalar l-Scalar-Plain">notary</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">enabled</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+
+<span class="l l-Scalar l-Scalar-Plain">metrics</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">enabled</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+<p>Important things to note here:</p>
+
+<ul>
+<li><code>certSource: secret</code> combined with <code>secretName: harbor-ingress-tls</code> mean that harbor will use the certificate generated for the ingress (by cert manager) rather than generating it&#39;s own certificates. This avoids errors such as <code>x509: certificate signed by unknown authority</code> when running <code>docker login</code></li>
+<li>The <code>core:</code> ingress url should be replaced with the URL you wish Harbour to run on, which should have appropriate DNS records to point it to your NGINX ingress</li>
+<li><code>harbourAdminPassword</code>, <code>externalURL</code> and <code>secretKey</code> should all be customised with your own values, <code>secretKey</code> should be a random 16 character value</li>
+</ul>
+
+<p>We can then add the helm repository and install harbor with:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>helm repo add harbor https://helm.goharbor.io
+helm upgrade --install harbor-registry harbor/harbor --values=./harbor/values-harbor.yml
+</code></pre></div>
+<p>Once this command completes, we&#39;ll be able to access the Harbor UI using the ingress URL we selected for <code>core</code> with the username <code>admin</code> and the password we specified in <code>harborAdminPassword</code>. It takes a while for the various components to start and it&#39;s not unusual to see a few pods in <code>CrashLoopBackoff</code> temporarily while this is happening.</p>
+
+<p>Note that we cannot <code>docker login</code> with our Harbor admin user and we don&#39;t currently have any regular harbor users. We should not create any regular users because we can only switch to OIDC based login if no users other than <code>admin</code> have been created.</p>
+
+<p>If we create a test user now and then subsequently delete it, we still won&#39;t be able to switch to OIDC based login. Instead we&#39;ll configure Keycloak login.</p>
+
+<h2 id="creating-a-client-in-keycloak">Creating a client in Keycloak</h2>
+
+<p>In the KeyCloak clients UI create a new client with Client ID <code>harbor</code> and Client Protocol &quot;openid-connect&quot; with the following configuration:</p>
+
+<ul>
+<li><strong>Access Type</strong>: <code>confidential</code></li>
+<li><strong>Valid Redirect URIs</strong>: <code>https://YOUR_HARBOR_CORE_INGRESS_DOMAIN/c/oidc/callback</code></li>
+</ul>
+
+<p>Then save the client and make a note of the &quot;Client Secret&quot; in the newly available credentials tab.</p>
+
+<p>Finally head to the &quot;Mappers&quot; tab for the client and create the following Protocol Mapper:</p>
+
+<ul>
+<li><strong>Name</strong>: Groups</li>
+<li><strong>Mapper Type</strong>: Group Membership</li>
+<li><strong>Token Claim Name</strong>: <code>groups</code></li>
+<li><strong>All Other Options</strong>: On</li>
+</ul>
+
+<h2 id="configuring-harbor-oidc-via-the-admin-ui">Configuring Harbor OIDC via the admin UI</h2>
+
+<p>Login to the Harbour web UI available at the ingress URL you selected using the username <code>admin</code> and the password you specified in <code>harborAdminPassword</code>.</p>
+
+<p>Head to <code>Administration</code> and then <code>Configuration</code> and choose the <code>Authentication</code> tab. Change the <code>Auth Mode</code> to <code>OIDC</code> and then enter the following configuration:</p>
+
+<ul>
+<li><strong>OIDC Provider Name</strong>: Keycloak</li>
+<li><strong>OIDC Endpoint</strong>: <code>https://YOUR_KEYCLOAK_BASE_URL/auth/realms/YOURREALM</code></li>
+<li><strong>OIDC Client ID</strong>: <code>harbor</code></li>
+<li><strong>OIDC Client Secret</strong>: The secret from keycloak clients credentials tab</li>
+<li><strong>Group Claim Name</strong>: <code>groups</code></li>
+<li><strong>OIDC Scope</strong>: <code>openid,profile,email,offline_access</code></li>
+<li><strong>Verify Certificate</strong>: checked if you&#39;re using a valid SSL cert</li>
+<li><strong>Automatic Onboarding</strong>: checked</li>
+<li><strong>Username Claim</strong>: <code>preferred_username</code></li>
+</ul>
+
+<p>We can then use the &quot;Test OIDC Server&quot; button to make sure everything is working and once it is, choose &quot;Save&quot;.</p>
+
+<h2 id="testing-that-it-works">Testing that it works</h2>
+
+<p>If we now logout from our admin user (or use a private browsing tab), and return to our Harbor core ingress URL, we now have the option to &quot;Login with OIDC Provider&quot;. If we select this we&#39;ll be redirected to Keycloak to login. Here we should login with a regular Keycloak user from the realm we&#39;re using (by default master), <strong>NOT</strong> our keycloak admin user.</p>
+
+<p>We&#39;ll then be logged into Harbor and an account automatically created for us based on our Keycloak preferred username.</p>
+
+<p>If we now log back in as our admin user and go to &quot;Administration&quot; and &quot;Groups&quot; we&#39;ll see that any Keycloak groups the user was a member of have now been replicated into Harbor. This means we can link certain groups to certain projects to automatically give users access to the correct projects.</p>
+
+<p>Note that by default, all users can create projects. Since all Keycloak users can login to Harbor by default, it may be preferred to limit project creation to admins which can be done by choosing Administration/ Configuration/ System Settings and setting &quot;Project Creation&quot; to Admin Only.</p>
+
+<p>As an example we can then as an admin user, create a private project called &quot;test1&quot;, then head to the &quot;Members&quot; tab of this project and choose &quot;+ Group&quot;. We can then enter <code>/Administrators</code> as the Group Name and choose &quot;Project Admin&quot; as the role. Any users in the <code>Administrators</code> Keycloak group will then automatically be given the <code>Project Admin</code> role for this project.</p>
+
+<h2 id="use-with-docker">Use with Docker</h2>
+
+<p>Assuming we have created the <code>test1</code> private project above and given our Keycloak master realm user access to it, we can login to the docker registry from our local CLI with the following command:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>docker login YOUR_HARBOR_CORE_INGRESS_URL
+</code></pre></div>
+<p>So in my example case this would be:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>docker login core.harbor.ssotest.staging.talkingquickly.co.uk
+</code></pre></div>
+<p>We can then use our keycloak master realm user username. For a password, we should not use our Keycloak password (this won&#39;t work) we should instead obtain our CLI Secret from Harbor by clicking on our username in the top right hand corner, choosing &quot;User Profile&quot; and copying the CLI secret.</p>
+
+<p>We can then tag an image to be pushed to this repository with:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>docker tag SOURCE_IMAGE[:TAG] core.harbor.ssotest.staging.talkingquickly.co.uk/test1/REPOSITORY[:TAG]
+</code></pre></div>
+<p>and push it with:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>docker push core.harbor.ssotest.staging.talkingquickly.co.uk/test1/REPOSITORY[:TAG]
+</code></pre></div>
+<p>When we need to give things like CI servers or Kubernetes access to the repository, we can head to the &quot;Robot Accounts&quot; tab in Harbor to generate limited access tokens for exactly this.</p>
+
+<h2 id="configuring-harbor-oidc-from-the-command-line">Configuring Harbor OIDC from the command line</h2>
+
+<p>In any sort of automated environment (e.g. Ansible, Chef etc) it&#39;s desirable to be able to configure everything without touching the UI. For this Harbor offers a comprehensive API. To view the API documentation login as the admin user and click on the &quot;Habor API V2.0&quot; option at the bottom which will take you to the swagger documentation.</p>
+
+<p>By default the API will be available on </p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>YOUR_INGRESS_URL/api/v2.0/
+</code></pre></div>
+<p>So for example to view the current configuration we can use:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>curl -u &quot;admin:HARBOR_ADMIN_PASSWORD&quot; -H &quot;Content-Type: application/json&quot; -ki YOUR_INGRESS_URL/api/v2.0/configurations
+</code></pre></div>
+<p>Note that at time of writing, the docs at <a href="https://goharbor.io/docs/1.10/install-config/configure-user-settings-cli/">https://goharbor.io/docs/1.10/install-config/configure-user-settings-cli/</a> were slightly behind the current version and while this is the case, getting the existing configuration object provides a better overview of the configuration options available.</p>
+
+<p>So to set up OIDC auth via CLI we can use:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>curl -X PUT -u &quot;admin:YOUR_ADMIN_PASSWORD&quot; -H &quot;Content-Type: application/json&quot; -ki YOUR_HARBOR_CORE_INGRESS_URL/api/v2.0/configurations -d&#39;{&quot;auth_mode&quot;:&quot;oidc_auth&quot;, &quot;oidc_name&quot;:&quot;Keycloak Auth&quot;, &quot;oidc_endpoint&quot;:&quot;YOUR_KEYCLOAK_REALM_INGRESS&quot;, &quot;oidc_client_id&quot;:&quot;harbor&quot;, &quot;oidc_client_secret&quot;:&quot;YOUR_KEYCLOAK_CLIENT_SECRET&quot;, &quot;oidc_scope&quot;:&quot;openid,profile,email,offline_access&quot;, &quot;oidc_groups_claim&quot;:&quot;groups&quot;, &quot;oidc_auto_onboard&quot;:&quot;true&quot;, &quot;oidc_user_claim&quot;:&quot;preferred_username&quot;}&#39;
+</code></pre></div>
+<p>A 200 response indicates that we have Succesfully setup Keycloak auth.</p>
+
+<p>We could then restrict project creation to admins only with:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>curl -X PUT -u &quot;admin:YOUR_ADMIN_PASSWORD&quot; -H &quot;Content-Type: application/json&quot; -ki YOUR_HARBOR_CORE_INGRESS_URL/api/v2.0/configurations -d &#39;{&quot;project_creation_restriction&quot;:&quot;adminonly&quot;}&#39;
+</code></pre></div>
+<p>The Habor API is comprehensive e.g. we can also create projects and give groups permission to access these projects entirely via the API so it&#39;s well worth spending time with the Swagger documentation.</p>
+
+<h2 id="use-with-kubernetes">Use with Kubernetes</h2>
+
+<p>In order to access images in the registry we&#39;ll need to create appropriate image pull secrets as described <a href="https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/">here in the kubernetes documentation</a> for this we should use project &quot;Robot Tokens&quot;. </p>
+
+<h2 id="summary">Summary</h2>
+
+<p>We now have a self hosted registry for docker images which is fully integrated with Keycloak for authentication. We can also configure this via the command line if we want to automate setup with a configuration management tool such as Chef or Ansible.</p>
+
+<ol>
+  <li>
+    <a href="/kubernetes-sso-a-comprehensive-guide">
+  Contents and overview
+</a>
+  </li>
+  <li>
+    <a href="/installing-openldap-kubernetes-helm">
+  Installing OpenLDAP
+</a>
+  </li>
+  <li>
+    <a href="/installing-keycloak-kubernetes-helm">
+  Installing Keycloak
+</a>
+  </li>
+  <li>
+    <a href="/keycloak-and-openldap-on-kubernetes">
+  Linking Keycloak and OpenLDAP
+</a>
+  </li>
+  <li>
+    <a href="/setting-up-oidc-login-kubernetes-kubectl-with-keycloak">
+  OIDC Kubectl Login with Keycloak
+</a>
+  </li>
+  <li>
+    <a href="/webapp-authentication-keycloak-OAuth2-proxy-nginx-ingress-kubernetes">
+  Authenticate any web app using ingress annotations
+</a>
+  </li>
+  <li>
+    <a href="/gitea-sso-with-keycloak-openldap-openid-connect">
+  Gitea (requires LDAP)
+</a>
+  </li>
+  <li>
+    <a href="/docker-registry-authentication-with-keycloak">
+  Simple Docker Registry
+</a>
+  </li>
+  <li>
+    <a href="/harbor-docker-registry-on-kubernetes-authentication-with-keycloak">
+  <strong>Harbor Docker Registry with ACL</strong>
+</a>
+  </li>
+</ol>
+
+    </section>
+
+    
+
+    <footer class="post-footer">
+      
+      <!-- If we want to display author's name and bio -->
+
+<section class="author">
+  <header> <a href="/about.html"> <img class="profile" src="/assets/images/profile4.jpg" alt="Ben Dixon. Without
+      Aviators."></a></header>
+  <article>
+    <!-- Author Name -->
+    <h4> Ben Dixon </h4>
+    <!-- Author Bio -->
+    <p>
+      My name's Ben Dixon, I'm the co-founder of <a target="_blank"
+        href="https://www.getsona.com?utm_source=benblogabout">Sona</a> where we're building the operating system for
+      the worlds deskless workforce.
+      I'm an experienced CTO, LLM geek, lover of good coffee and above all, making things.
+      Also a regular conference speaker, author and travel
+      addict. Chat to me on twitter <a href="http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a>
+    </p>
+  </article>
+</section>
+
+      
+      
+      
+
+
+      
+
+    </footer>
+
+  </article>
+
+</main>
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="/rss.xml"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+          <section class="copyright">All content copyright <a href="/about.html">Ben Dixon</a> &copy; &bull; All rights reserved. Twitter: <a href="http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a></section>
+             <section class="poweredby">Made with Jekyll and based on the <a href="http://github.com/rosario/kasper" target="_blank">Kasper theme</a></section>
+        </div>
+    </footer>
+
+
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-7333902-35']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</body>
+</html>

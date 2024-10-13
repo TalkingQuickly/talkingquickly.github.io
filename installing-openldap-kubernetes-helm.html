@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Installing OpenLDAP on Kubernetes with Helm</title>
+    
+        <meta name="description" content="Blog by Ben Dixon, Co-founder of Sona, about startups, elixir, AI, climbing and photography" />
+    
+
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="iwXSC2H2VSO9iPyrWjNj3Prlx4zJY-l0EJRGVkFuUHk" />
+
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml"/>
+    <link rel="canonical" href="https://www.talkingquickly.co.uk/installing-openldap-kubernetes-helm">
+
+</head>
+<body class="home-template">
+
+
+    <main class="content" role="main">
+
+  <article class="post">
+    <header class="post-header">
+      <a id="blog-logo" href="/"><span class="blog-title">Home</span></a>
+      |
+      <a target="_blank" href="/about.html">About Me</a>
+    </header>
+
+    <span class="post-meta">
+      
+    </span>
+
+    <h1 class="post-title">Installing OpenLDAP on Kubernetes with Helm</h1>
+
+    <section class="post-content">
+      <p>In this post we cover how to install OpenLDAP on Kubernetes and how to test that it is working using the command line.</p>
+
+<p>LDAP while an older - and in some ways more challenging to work with - approach to SSO than something like OIDC, is still the de-facto standard.</p>
+
+<p>There are many popular applications which don&#39;t support OIDC but do support LDAP. This is likely to be the case for many years to come so for now, any robust SSO solution is likely to need to support LDAP.</p>
+
+<p>This post is part of a series on single sign on for Kubernetes</p>
+
+<!--more-->
+
+<ol>
+  <li>
+    <a href="/kubernetes-sso-a-comprehensive-guide">
+  Contents and overview
+</a>
+  </li>
+  <li>
+    <a href="/installing-openldap-kubernetes-helm">
+  <strong>Installing OpenLDAP</strong>
+</a>
+  </li>
+  <li>
+    <a href="/installing-keycloak-kubernetes-helm">
+  Installing Keycloak
+</a>
+  </li>
+  <li>
+    <a href="/keycloak-and-openldap-on-kubernetes">
+  Linking Keycloak and OpenLDAP
+</a>
+  </li>
+  <li>
+    <a href="/setting-up-oidc-login-kubernetes-kubectl-with-keycloak">
+  OIDC Kubectl Login with Keycloak
+</a>
+  </li>
+  <li>
+    <a href="/webapp-authentication-keycloak-OAuth2-proxy-nginx-ingress-kubernetes">
+  Authenticate any web app using ingress annotations
+</a>
+  </li>
+  <li>
+    <a href="/gitea-sso-with-keycloak-openldap-openid-connect">
+  Gitea (requires LDAP)
+</a>
+  </li>
+  <li>
+    <a href="/docker-registry-authentication-with-keycloak">
+  Simple Docker Registry
+</a>
+  </li>
+  <li>
+    <a href="/harbor-docker-registry-on-kubernetes-authentication-with-keycloak">
+  Harbor Docker Registry with ACL
+</a>
+  </li>
+</ol>
+
+<h2>Pre-requisites</h2>
+
+<p>This assumes you have CLI access to a Kubernetes cluster, will be working in a namespace called <code>identity</code> and have both Helm 3 and Kubectl installed and working locally. Finally it assumes that you're using <a href="https://kubernetes.github.io/ingress-nginx/">NGINX for Ingress</a> along with cert manager for SSL certificates with a Cluster Issuer called <code>letsencrypt-production</code>.</p>
+
+<p>If your configuration is different, the majority of the steps will be the same, but you'll need to change the ingress annotations accordingly.</p>
+
+<p>The source for this series of tutorials can be found here: <a href="https://github.com/TalkingQuickly/kubernetes-sso-guide">https://github.com/TalkingQuickly/kubernetes-sso-guide</a> and cloned with:</p>
+
+<div class="highlight">
+  <pre><code class="language-bash" data-lang="bash"><span></span>git clone git@github.com:TalkingQuickly/kubernetes-sso-guide.git</code></pre>
+</div>
+
+<p>All commands in the tutorial assume that they&#39;re being executed from the root of this cloned repository.</p>
+
+<h2 id="installing-openldap">Installing OpenLDAP</h2>
+
+<p>The Helm chart for OpenLDAP was deprecated as part of the deprecation of the <code>stable</code> chart repository. So while we await a replacement to appear, the most recent version is mirrored in the repo for this tutorial.</p>
+
+<p>An example helm values file is abailable in <code>openldap/values-openldap.yml</code> and we&#39;ll want to customise the following sections:</p>
+<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span></span><span class="c1"># Default configuration for openldap as environment variables. These get injected directly in the container.</span>
+<span class="c1"># Use the env variables from https://github.com/osixia/docker-openldap#beginner-guide</span>
+<span class="l l-Scalar l-Scalar-Plain">env</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">LDAP_ORGANISATION</span><span class="p p-Indicator">:</span> <span class="s">&quot;Talking</span><span class="nv"> </span><span class="s">Quickly</span><span class="nv"> </span><span class="s">Demo&quot;</span>
+  <span class="l l-Scalar l-Scalar-Plain">LDAP_DOMAIN</span><span class="p p-Indicator">:</span> <span class="s">&quot;ssotest.staging.talkingquickly.co.uk&quot;</span>
+  <span class="l l-Scalar l-Scalar-Plain">LDAP_BACKEND</span><span class="p p-Indicator">:</span> <span class="s">&quot;hdb&quot;</span>
+  <span class="l l-Scalar l-Scalar-Plain">LDAP_TLS</span><span class="p p-Indicator">:</span> <span class="s">&quot;true&quot;</span>
+  <span class="l l-Scalar l-Scalar-Plain">LDAP_TLS_ENFORCE</span><span class="p p-Indicator">:</span> <span class="s">&quot;false&quot;</span>
+  <span class="l l-Scalar l-Scalar-Plain">LDAP_REMOVE_CONFIG_AFTER_SETUP</span><span class="p p-Indicator">:</span> <span class="s">&quot;true&quot;</span>
+  <span class="l l-Scalar l-Scalar-Plain">LDAP_READONLY_USER</span><span class="p p-Indicator">:</span> <span class="s">&quot;true&quot;</span>
+  <span class="l l-Scalar l-Scalar-Plain">LDAP_READONLY_USER_USERNAME</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">readonly</span>
+  <span class="l l-Scalar l-Scalar-Plain">LDAP_READONLY_USER_MASSWORD</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">password</span>
+
+<span class="c1"># Default Passwords to use, stored as a secret. If unset, passwords are auto-generated.</span>
+<span class="c1"># You can override these at install time with</span>
+<span class="c1"># helm install openldap --set openldap.adminPassword=&lt;passwd&gt;,openldap.configPassword=&lt;passwd&gt;</span>
+<span class="l l-Scalar l-Scalar-Plain">adminPassword</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">admin</span>
+<span class="l l-Scalar l-Scalar-Plain">configPassword</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">9h8sdfg9sdgfjsdfg8sdgsdfjgklsdfg8sdgfhj</span>
+
+<span class="l l-Scalar l-Scalar-Plain">customLdifFiles</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">initial-ous.ldif</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">|-</span>
+    <span class="no">dn: ou=People,dc=ssotest,dc=staging,dc=talkingquickly,dc=co,dc=uk</span>
+    <span class="no">objectClass: organizationalUnit</span>
+    <span class="no">ou: People</span>
+
+    <span class="no">dn: ou=Group,dc=ssotest,dc=staging,dc=talkingquickly,dc=co,dc=uk</span>
+    <span class="no">objectClass: organizationalUnit</span>
+    <span class="no">ou: Group</span>
+</code></pre></div>
+<p>In this case <code>dc=ssotest,dc=staging,dc=talkingquickly,dc=co,dc=uk</code> is the base domain I&#39;m using for my test Kubernetes cluster. For the purposes of setting up our LDAP server, this is just an internal identifier, so does not need to map to any sort of DNS.</p>
+
+<p>The <code>customLdifFiles</code> section is being used to pre-seed the LDAP database. In this case with two <code>organizationalUnit</code>&#39;s, one of type <code>People</code> which will be used to store individual users and another with type <code>Group</code> will be used to store Groups. <code>OU</code>s can be though of simplistically as analogous to folders in a traditional file system, <a href="ttps://www.theurbanpenguin.com/openldap-ous/">this article on ous</a> is well worth a read to get a better understanding for how they fit together.</p>
+
+<p>We can now install OpenLDAP with the following command:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>helm upgrade --install openldap ./charts/openldap --values openldap/values-openldap.yml
+</code></pre></div>
+<p>Once it installs, you should see some output confirming success and some examples of how to access the server.</p>
+
+<p>Importantly this will include the commands for retrieving the config and administration passwords, e.g:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>kubectl get secret --namespace identity openldap -o jsonpath=&quot;{.data.LDAP_ADMIN_PASSWORD}&quot; | base64 --decode; echo
+kubectl get secret --namespace identity openldap -o jsonpath=&quot;{.data.LDAP_CONFIG_PASSWORD}&quot; | base64 --decode; echo
+</code></pre></div>
+<h2 id="using-the-openldap-cli">Using The OpenLDAP CLI</h2>
+
+<p>Although we&#39;ll primarily manage our LDAP directory through KeyCloak, it&#39;s useful to have a basic familiarity with the CLI for testing purposes. <a href="https://www.splunk.com/en_us/blog/tips-and-tricks/ldapsearch-is-your-friend.html">Splunk has a great introduction to the CLI here</a>.</p>
+
+<p>We&#39;ll start by using <code>kubectl proxy</code> to expose our LDAP server locally:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>kubectl port-forward --namespace identity <span class="se">\</span>
+      <span class="k">$(</span>kubectl get pods -n identity --selector<span class="o">=</span><span class="s1">&#39;release=openldap&#39;</span> -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.items[0].metadata.name}&#39;</span><span class="k">)</span> <span class="se">\</span>
+      <span class="m">3890</span>:389
+</code></pre></div>
+<p>In a separate terminal execute (most unix systems, inc OSX, come with ldapsearch installed, if yours does not, you&#39;ll need to download it, for debian based distributions you&#39;ll need <code>ldap-utils</code>):</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>ldapsearch -x -H ldap://localhost:3890 -b <span class="nv">dc</span><span class="o">=</span>ssotest,dc<span class="o">=</span>staging,dc<span class="o">=</span>talkingquickly,dc<span class="o">=</span>co,dc<span class="o">=</span>uk -D <span class="s2">&quot;cn=admin,dc=ssotest,dc=staging,dc=talkingquickly,dc=co,dc=uk&quot;</span> -w password
+</code></pre></div>
+<p>This return something along the lines of:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>objectClass: organization
+o: Talking Quickly&#39;s Demo
+dc: k4stest4
+
+# admin, k4stest4.talkingquickly.co.uk
+dn: cn=admin,dc=k4stest4,dc=talkingquickly,dc=co,dc=uk
+objectClass: simpleSecurityObject
+objectClass: organizationalRole
+cn: admin
+description: LDAP administrator
+userPassword:: e1NTSEF9YjM1a0hLYXVwcDlvcGU5R1N2UE5qcFBLd3FxdUorWFk=
+
+# People, k4stest4.talkingquickly.co.uk
+dn: ou=People,dc=k4stest4,dc=talkingquickly,dc=co,dc=uk
+objectClass: organizationalUnit
+ou: People
+
+# Group, k4stest4.talkingquickly.co.uk
+dn: ou=Group,dc=k4stest4,dc=talkingquickly,dc=co,dc=uk
+objectClass: organizationalUnit
+ou: Group
+
+# search result
+search: 2
+result: 0 Success
+
+# numResponses: 6
+# numEntries: 4
+</code></pre></div>
+<p>It&#39;s worth perusing <a href="https://stackoverflow.com/questions/18756688/what-are-cn-ou-dc-in-an-ldap-search">this Stack Overflow post</a> to understand a little more about the <code>dn</code>, <code>dc</code> terminology.</p>
+
+<p>Note that my test domain <code>ssotest.staging.talkingquickly.co.uk</code> results in a <code>dn</code> (Distinguished Name) made up of a comma separated list of <code>dc</code> (Domain Components)  <code>dc=ssotest,dc=staging,dc=talkingquickly,dc=co,dc=uk</code>. We can also see that our <code>ou</code>s from the <code>customLdiffFiles</code> have been created.</p>
+
+<p>So now we have an LDAP server and have a simple way of checking what&#39;s stored in it. We can now move onto installing Keycloak.</p>
+
+<ol>
+  <li>
+    <a href="/kubernetes-sso-a-comprehensive-guide">
+  Contents and overview
+</a>
+  </li>
+  <li>
+    <a href="/installing-openldap-kubernetes-helm">
+  <strong>Installing OpenLDAP</strong>
+</a>
+  </li>
+  <li>
+    <a href="/installing-keycloak-kubernetes-helm">
+  Installing Keycloak
+</a>
+  </li>
+  <li>
+    <a href="/keycloak-and-openldap-on-kubernetes">
+  Linking Keycloak and OpenLDAP
+</a>
+  </li>
+  <li>
+    <a href="/setting-up-oidc-login-kubernetes-kubectl-with-keycloak">
+  OIDC Kubectl Login with Keycloak
+</a>
+  </li>
+  <li>
+    <a href="/webapp-authentication-keycloak-OAuth2-proxy-nginx-ingress-kubernetes">
+  Authenticate any web app using ingress annotations
+</a>
+  </li>
+  <li>
+    <a href="/gitea-sso-with-keycloak-openldap-openid-connect">
+  Gitea (requires LDAP)
+</a>
+  </li>
+  <li>
+    <a href="/docker-registry-authentication-with-keycloak">
+  Simple Docker Registry
+</a>
+  </li>
+  <li>
+    <a href="/harbor-docker-registry-on-kubernetes-authentication-with-keycloak">
+  Harbor Docker Registry with ACL
+</a>
+  </li>
+</ol>
+
+    </section>
+
+    
+
+    <footer class="post-footer">
+      
+      <!-- If we want to display author's name and bio -->
+
+<section class="author">
+  <header> <a href="/about.html"> <img class="profile" src="/assets/images/profile4.jpg" alt="Ben Dixon. Without
+      Aviators."></a></header>
+  <article>
+    <!-- Author Name -->
+    <h4> Ben Dixon </h4>
+    <!-- Author Bio -->
+    <p>
+      My name's Ben Dixon, I'm the co-founder of <a target="_blank"
+        href="https://www.getsona.com?utm_source=benblogabout">Sona</a> where we're building the operating system for
+      the worlds deskless workforce.
+      I'm an experienced CTO, LLM geek, lover of good coffee and above all, making things.
+      Also a regular conference speaker, author and travel
+      addict. Chat to me on twitter <a href="http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a>
+    </p>
+  </article>
+</section>
+
+      
+      
+      
+
+
+      
+
+    </footer>
+
+  </article>
+
+</main>
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="/rss.xml"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+          <section class="copyright">All content copyright <a href="/about.html">Ben Dixon</a> &copy; &bull; All rights reserved. Twitter: <a href="http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a></section>
+             <section class="poweredby">Made with Jekyll and based on the <a href="http://github.com/rosario/kasper" target="_blank">Kasper theme</a></section>
+        </div>
+    </footer>
+
+
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-7333902-35']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</body>
+</html>

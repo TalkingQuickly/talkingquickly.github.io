@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>tmux, docker and SSH agent forwarding when developing remotely with VSCode</title>
+    
+        <meta name="description" content="Blog by Ben Dixon, Co-founder of Sona, about startups, elixir, AI, climbing and photography" />
+    
+
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="iwXSC2H2VSO9iPyrWjNj3Prlx4zJY-l0EJRGVkFuUHk" />
+
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml"/>
+    <link rel="canonical" href="https://www.talkingquickly.co.uk/2021/01/tmux-ssh-agent-forwarding-vs-code/">
+
+</head>
+<body class="home-template">
+
+
+    <main class="content" role="main">
+
+  <article class="post">
+    <header class="post-header">
+      <a id="blog-logo" href="/"><span class="blog-title">Home</span></a>
+      |
+      <a target="_blank" href="/about.html">About Me</a>
+    </header>
+
+    <span class="post-meta">
+      
+    </span>
+
+    <h1 class="post-title">tmux, docker and SSH agent forwarding when developing remotely with VSCode</h1>
+
+    <section class="post-content">
+      <p>SSH agent forwarding is kind of like magic. Say you&#39;re using VSCode remote development to develop on a remote VM and you want to pull from a private repository. By default you might either generate a new keypair on the remote machine and add them to Github. Or you might copy your existing private key to the remote development machine. The former is fiddly and the latter raises some security concerns. With SSH Agent Forwarding you can allow the remote machine to authenticate requests using the keys on your local machine, without the keys ever leaving your local machine.</p>
+
+<p>One hiccup with this is that if you&#39;re a tmux user, you&#39;ll find that this works initially but then stops working in subsequent sessions. This post offers a simple solution to this.</p>
+
+<!--more-->
+
+<h2 id="tldr">tldr;</h2>
+
+<p>To enable SSH forwarding for a particular remote host, add the following to the <strong>local</strong> machines <code>~/ssh/config</code>:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>Host A_FRIENDLY_NAME_FOR_THE_HOST
+  ForwardAgent yes
+  HostName ADDRESS_OR_IP_ADDRESS
+  User SSH_USERNAME
+  Port THE_SSH_PORT
+</code></pre></div>
+<p>You can then connect to this host locally with <code>ssh A_FRIENDLY_NAME_FOR_THE_HOST</code> and it will show up as <code>A_FRIENDLY_NAME_FOR_THE_HOST</code> in the VSCode remote explorer. SSH forwarding should &quot;just work&quot;.</p>
+
+<p>To make SSH Forwarding play nicely with tmux, add the following to the <strong>remote</strong> machines <code>${shell}rc</code>, I use <code>zsh</code> so for me that&#39;s <code>~/.zshrc</code>:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span><span class="c1"># Make tmux play nicely with SSH Agent forwarding</span>
+<span class="k">if</span> <span class="o">[</span> -z <span class="si">${</span><span class="nv">TMUX</span><span class="p">+x</span><span class="si">}</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+  <span class="c1"># If this is not a tmux session then symlink $SSH_AUTH_SOCK</span>
+  <span class="k">if</span> <span class="o">[</span> ! -S ~/.ssh/ssh_auth_sock <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> -S <span class="s2">&quot;</span><span class="nv">$SSH_AUTH_SOCK</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    ln -sf <span class="nv">$SSH_AUTH_SOCK</span> ~/.ssh/ssh_auth_sock
+  <span class="k">fi</span>
+<span class="k">else</span>
+  <span class="c1"># If this is a tmux session then use the symlinked SSH_AUTH_SOCK</span>
+  <span class="nb">export</span> <span class="nv">SSH_AUTH_SOCK</span><span class="o">=</span>~/.ssh/ssh_auth_sock
+<span class="k">fi</span>
+</code></pre></div>
+<p>If you&#39;re using any version of my <a href="https://github.com/TalkingQuickly/debian_dev_env">Debian development environment</a> this is done automatically, specifically in <a href="https://github.com/TalkingQuickly/debian_dev_env/blob/master/dotfiles/.zshrc.personal.after">this file</a>.</p>
+
+<h2 id="so-whats-going-on">So what&#39;s going on</h2>
+
+<p>When you connect to a remote machine with SSH Agent forwarding enabled, ssh-agent creates a temporary socket which other applications can then use, the location of which is stored in <code>SSH_AUTH_SOCK</code>.</p>
+
+<p>When you first create a new tmux session, this environment variable is copied over to the tmux session. However when you disconnect, the temporary socket is then invalidated. When you next reconnect to the remote machine, a new value for <code>SSH_AUTH_SOCK</code> is created on the host, but when you reconnect to the tmux session, the old value is still there and so SSH agent forwarding won&#39;t work inside the pre-existing session.</p>
+
+<p>The solution to this (not mine originally, see &quot;thanks to&quot; below) is to add another level of indirection. We update the remote machines shell rc file so that when we connect, it creates a symlink from the temporary socket to a known permanent location; <code>~/.ssh/ssh_auth_sock</code>. We then detect if we&#39;re in a tmux session and if we are, replace <code>SSH_AUTH_SOCK</code> with this unchanging, permanent location.</p>
+
+<h2 id="use-within-docker">Use within Docker</h2>
+
+<p>Since <code>SSH_AUTH_SOCK</code> is a unix socket it&#39;s essentially just like any other file and so can be mounted into docker containers and accessed from these. This is useful if you have CLI type docker containers. The below shows a very simple <code>docker-compose.yml</code> which assuming the above configuration, gives a bash shell with access to the docker hosts ssh agent (which can in turn be forwarded from another host).</p>
+<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="s">&quot;3&quot;</span>
+<span class="l l-Scalar l-Scalar-Plain">services</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">shell</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">image</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">ubuntu</span>
+    <span class="l l-Scalar l-Scalar-Plain">command</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">bash</span>
+    <span class="l l-Scalar l-Scalar-Plain">volumes</span><span class="p p-Indicator">:</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;${SSH_AUTH_SOCK}:/home/deploy/ssh_auth_sock&quot;</span>
+    <span class="l l-Scalar l-Scalar-Plain">environment</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">SSH_AUTH_SOCK</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/home/deploy/ssh_auth_sock</span>
+</code></pre></div>
+<h2 id="thanks-to">Thanks to</h2>
+
+<p>This is based heavily on the approach outlined <a href="https://werat.github.io/2017/02/04/tmux-ssh-agent-forwarding">here</a> which didn&#39;t quite work for me; specifically I couldn&#39;t make setting <code>SSH_AUTH_SOCK</code> in <code>.tmux.conf</code> work.</p>
+
+    </section>
+
+    
+
+    <footer class="post-footer">
+      
+      <!-- If we want to display author's name and bio -->
+
+<section class="author">
+  <header> <a href="/about.html"> <img class="profile" src="/assets/images/profile4.jpg" alt="Ben Dixon. Without
+      Aviators."></a></header>
+  <article>
+    <!-- Author Name -->
+    <h4> Ben Dixon </h4>
+    <!-- Author Bio -->
+    <p>
+      My name's Ben Dixon, I'm the co-founder of <a target="_blank"
+        href="https://www.getsona.com?utm_source=benblogabout">Sona</a> where we're building the operating system for
+      the worlds deskless workforce.
+      I'm an experienced CTO, LLM geek, lover of good coffee and above all, making things.
+      Also a regular conference speaker, author and travel
+      addict. Chat to me on twitter <a href="http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a>
+    </p>
+  </article>
+</section>
+
+      
+      
+      
+
+
+      
+
+    </footer>
+
+  </article>
+
+</main>
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="/rss.xml"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+          <section class="copyright">All content copyright <a href="/about.html">Ben Dixon</a> &copy; &bull; All rights reserved. Twitter: <a href="http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a></section>
+             <section class="poweredby">Made with Jekyll and based on the <a href="http://github.com/rosario/kasper" target="_blank">Kasper theme</a></section>
+        </div>
+    </footer>
+
+
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-7333902-35']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</body>
+</html>

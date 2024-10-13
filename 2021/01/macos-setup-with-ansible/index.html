@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Automating MacOS Development setup with Ansible</title>
+    
+        <meta name="description" content="Blog by Ben Dixon, Co-founder of Sona, about startups, elixir, AI, climbing and photography" />
+    
+
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="iwXSC2H2VSO9iPyrWjNj3Prlx4zJY-l0EJRGVkFuUHk" />
+
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml"/>
+    <link rel="canonical" href="https://www.talkingquickly.co.uk/2021/01/macos-setup-with-ansible/">
+
+</head>
+<body class="home-template">
+
+
+    <main class="content" role="main">
+
+  <article class="post">
+    <header class="post-header">
+      <a id="blog-logo" href="/"><span class="blog-title">Home</span></a>
+      |
+      <a target="_blank" href="/about.html">About Me</a>
+    </header>
+
+    <span class="post-meta">
+      
+    </span>
+
+    <h1 class="post-title">Automating MacOS Development setup with Ansible</h1>
+
+    <section class="post-content">
+      <p>Manual repetitive tasks are my nemesis and setting up a new Macbook from scratch is a prime example of this. Using Ansible we can completely automate this process. This is valuable both for individual efficiency and for facilitating standardised &quot;team setups&quot; so that new joiners avoid spending their first days googling obscure node version errors.</p>
+
+<p><a href="https://www.ansible.com">Ansible</a> is a tool most commonly associated with the setup of servers and infrastructure. But more broadly it&#39;s an excellent tool for automating the setup of any computer, including laptops and workstations. Of all the configuration management tools out there it&#39;s by far the easiest one to use - requiring no devops background at all - and has an amazing community supporting it.</p>
+
+<p>This posts outlines the setup I&#39;ve evolved over the previous few years which means setting up a new Macbook pro for fairly broad development (Rails, Javascript, Elixir, Python, Android &amp; iOS) now takes just a couple of commands. This includes loading all my shell customisations and GUI apps like Chrome, Office, Virtualbox etc.</p>
+
+<!--more-->
+
+<p>The repository for this post is here; <a href="https://github.com/TalkingQuickly/ansible-osx-setup">https://github.com/TalkingQuickly/ansible-osx-setup</a>. It&#39;s structured to be simple to understand and work with for inexperienced Ansible users.</p>
+
+<h2 id="tldr">tldr;</h2>
+
+<p>If you&#39;re a &quot;tear open the box and throw away the instructions&quot; type then I salute you, here&#39;s how to get started quickly:</p>
+
+<ol>
+<li>Clone the repo with <code>git clone https://github.com/TalkingQuickly/ansible-osx-setup</code></li>
+<li>Switch to the cloned repo <code>cd ansible-osx-setup</code></li>
+<li>Run <code>bin/bootstrap</code> </li>
+</ol>
+
+<p>When asked, provide your <code>sudo</code> password, make a cup of tea and wait for everything to install.</p>
+
+<p>If executing a random shell script from someone on the internet you&#39;ve never met then giving it your sudo password un-nerves you (it should!) then read on for what it does, how it works and how to customise it.</p>
+
+<h2 id="what-are-we-setting-up">What are we setting up</h2>
+
+<p>The core components we are setting up with this automation are:</p>
+
+<ol>
+<li>ZSH + Oh My Zsh as the primary shell</li>
+<li>Homebrew for package management</li>
+<li>ASDF for version management (along with plugins and default versions for ruby, python, javascript, elixir and erlang, this replaces using individual tools for ruby, node, python etc)</li>
+<li>Virtualbox, Vagrant and Docker</li>
+<li>VSCode + default plugins and configuration</li>
+<li>Command line tools for interacting with Kubernetes clusters (helm, kubectl, kubectx, kubens)</li>
+</ol>
+
+<h2 id="reading-the-playbook-customising">Reading the playbook &amp; Customising</h2>
+
+<p>Begin by cloning the repo;</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>git clone git@github.com:TalkingQuickly/ansible-osx-setup.git
+</code></pre></div>
+<p>The easiest way to understand what&#39;s being installed is to read <a href="https://github.com/TalkingQuickly/ansible-osx-setup/blob/master/ansible_osx.yml">https://github.com/TalkingQuickly/ansible-osx-setup/blob/master/ansible_osx.yml</a>. This is an Ansible playbook.</p>
+
+<p>A playbook is made up of a list of tasks. Here&#39;s an excerp from the above file:</p>
+<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span></span><span class="nn">---</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">hosts</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">localhost</span>
+  <span class="l l-Scalar l-Scalar-Plain">tasks</span><span class="p p-Indicator">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Install homebrew</span>
+      <span class="l l-Scalar l-Scalar-Plain">include_role</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">geerlingguy.homebrew</span>
+</code></pre></div>
+<p>Without worrying too much about the implementation details of the above, it&#39;s fairly intuitive to understand that the above task is responsible for ensuring that Homebrew - the package manager for MacOS - is installed.</p>
+
+<p>We then have:</p>
+<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span></span><span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="s">&#39;add</span><span class="nv"> </span><span class="s">custom</span><span class="nv"> </span><span class="s">homebrew</span><span class="nv"> </span><span class="s">repos&#39;</span>
+  <span class="l l-Scalar l-Scalar-Plain">community.general.homebrew_tap</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span>
+      <span class="nv">adoptopenjdk/openjdk</span><span class="p p-Indicator">,</span>
+      <span class="nv">fishtown-analytics/dbt</span><span class="p p-Indicator">,</span>
+      <span class="nv">...</span>
+</code></pre></div>
+<p>This is responsible for adding any custom homebrew taps we need, in this case for OpenJDK and the awesome DBT. Homebrew taps are third party repositories which allow us to use homebrew to manage software not available in Homebrew core.</p>
+
+<p>Customise this by adding any additional third party repositories you need for software you install. In day to day usage, I try to only add third party repositories using this Ansible playbook, rather than using the CLI directly. This keeps the playbook up to date for when I next need to configure a machine from scratch.</p>
+
+<p>We then have:</p>
+<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span></span><span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Install core packages via brew casks</span>
+  <span class="l l-Scalar l-Scalar-Plain">community.general.homebrew_cask</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">item</span><span class="nv"> </span><span class="s">}}&quot;</span>
+  <span class="l l-Scalar l-Scalar-Plain">ignore_errors</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">yes</span>
+  <span class="l l-Scalar l-Scalar-Plain">with_items</span><span class="p p-Indicator">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">1password</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">adoptopenjdk/openjdk/adoptopenjdk8</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">android-sdk</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">android-studio</span>
+    <span class="l l-Scalar l-Scalar-Plain">...</span>
+</code></pre></div>
+<p>Which is responsible for installing graphical applications using homebrew casks. A huge proportion of GUI applications for MacOS have been packaged as Homebrew casks, so this allows us to automate the installation of everything from Office to Chrome, Firefox or VSCode.</p>
+
+<p>This is using <code>community.general.homebrew_cask</code> which is the community maintained ansible module for installing homebrew casks. When we fetch this module later using <code>ansible-galaxy install -r requirements.yml</code> we&#39;ll see that it&#39;s currently set to fetch this module from Github rather than using the version on Ansible Galacy. This is because of a <a href="https://github.com/ansible-collections/community.general/issues/1524">breaking change in homebrew</a> which leads to the ansible cask module failing with the error <code>Error: Calling brew cask install is disabled! Use brew install [--cask] instead.</code> which has been fixed in Ansible but at time of writing not yet released.</p>
+
+<p>We then install ordinary homebrew packages (both from core and the taps we added earlier):</p>
+<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span></span><span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="s">&quot;Install</span><span class="nv"> </span><span class="s">homebrew</span><span class="nv"> </span><span class="s">packages&quot;</span>
+  <span class="l l-Scalar l-Scalar-Plain">community.general.homebrew</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span>
+      <span class="s">&#39;autoconf&#39;</span><span class="p p-Indicator">,</span>
+      <span class="s">&#39;automake&#39;</span><span class="p p-Indicator">,</span>
+      <span class="s">&#39;aws-iam-authenticator&#39;</span><span class="p p-Indicator">,</span>
+      <span class="s">&#39;awscli&#39;</span><span class="p p-Indicator">,</span>
+      <span class="nv">...</span>
+</code></pre></div>
+<p>Note that at time of writing, certain types of exception (e.g. <a href="https://github.com/fishtown-analytics/homebrew-dbt/issues/7">this one</a> in DBT) produce no logging output which can make failures at this step hard to debug. These types of failure are rare, but in this scenario the quickest way to find the offending package is to comment out half the list, re-run the playbook to see if the failure has gone away, and then continue to bisect the available packages. Once the offending package is found, then try to install it manually with <code>brew install PACKAGE</code> and see what the error is.</p>
+
+<p>The next section is responsible for setting up ZSH as the users default shell along with Oh My Zsh for lots of terminal goodness. If you aren&#39;t already using it, I can&#39;t recommend ZSH + <a href="https://github.com/ohmyzsh/ohmyzsh">Oh My Zsh</a> enough.</p>
+
+<p>Note that Ansible provides some useful helpers for things like <a href="https://docs.ansible.com/ansible/latest/collections/ansible/builtin/lineinfile_module.html">ensuring that a line exists in a file</a>, e.g:</p>
+<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span></span><span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="s">&quot;Ensure</span><span class="nv"> </span><span class="s">homebrew</span><span class="nv"> </span><span class="s">zsh</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">allowed</span><span class="nv"> </span><span class="s">shells&quot;</span>
+  <span class="l l-Scalar l-Scalar-Plain">lineinfile</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/etc/shells</span>
+    <span class="l l-Scalar l-Scalar-Plain">line</span><span class="p p-Indicator">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">zsh_path.stdout</span><span class="nv"> </span><span class="s">}}&quot;</span>
+  <span class="l l-Scalar l-Scalar-Plain">become</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+<p>Which is much easier to read than the <code>sed</code> magic we&#39;d end up with if we were doing this in a shell script or similar.</p>
+
+<p>Where needed however, there&#39;s nothing wrong with using Ansible to just automate the shell commands you&#39;d usually run yourself, e.g. here we install Oh My ZSH and set ZSH as the default shell:</p>
+<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span></span><span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Install Oh My ZSH</span>
+  <span class="l l-Scalar l-Scalar-Plain">shell</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">sh -c &quot;$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&quot;</span>
+  <span class="l l-Scalar l-Scalar-Plain">args</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">creates</span><span class="p p-Indicator">:</span> <span class="s">&quot;/Users/{{</span><span class="nv"> </span><span class="s">lookup(&#39;env&#39;,</span><span class="nv"> </span><span class="s">&#39;USER&#39;)</span><span class="nv"> </span><span class="s">}}/.oh-my-zsh&quot;</span>
+
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Set ZSH as the default shell</span>
+  <span class="l l-Scalar l-Scalar-Plain">shell</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">chsh -s $(which zsh) {{ lookup(&#39;env&#39;, &#39;USER&#39;) }}</span>
+  <span class="l l-Scalar l-Scalar-Plain">become</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+<p>In many situations this is a great way to get started automating something with Ansible and is already infinitely better than copying and pasting commands into a terminal manually. It&#39;s then easy to refactor later if you decide you want to use more specialised ansible modules. It effectively means &quot;anything you can do in the terminal, you can automate with Ansible&quot;. </p>
+
+<p>We then have our first example of an Ansible template:</p>
+<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span></span><span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="s">&quot;Create</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">default</span><span class="nv"> </span><span class="s">ZSH</span><span class="nv"> </span><span class="s">configuration&quot;</span>
+  <span class="l l-Scalar l-Scalar-Plain">template</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">src</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">templates/.zshrc.j2</span>
+    <span class="l l-Scalar l-Scalar-Plain">dest</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/Users/{{ lookup(&#39;env&#39;, &#39;USER&#39;) }}/.zshrc</span>
+    <span class="l l-Scalar l-Scalar-Plain">owner</span><span class="p p-Indicator">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">lookup(&#39;env&#39;,</span><span class="nv"> </span><span class="s">&#39;USER&#39;)</span><span class="nv"> </span><span class="s">}}&quot;</span>
+    <span class="l l-Scalar l-Scalar-Plain">force</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">yes</span>
+</code></pre></div>
+<p>This creates a <code>.zshrc</code> (think like a <code>bashrc</code> but for ZSH) in the users home directory. The contents of this file can be <a href="https://github.com/TalkingQuickly/ansible-osx-setup/blob/master/templates/.zshrc.j2">found here</a>, at a high level it:</p>
+
+<ul>
+<li>Configures and loads Oh My ZSH</li>
+<li>Loads the ASDF version manager</li>
+</ul>
+
+<p>Most importantly, the default configuration will automatically load any configuration defined in <code>~/.zshrc.personal.after</code>.</p>
+
+<p>So when customising, e.g. adding aliases etc, rather than modifying <code>~/.zshrc</code> directly (and then loosing these changes the next time you run Ansible), you can add them to <code>~/.zshrc.personal.after</code>. I have  <code>~/.zshrc.personal.after</code> symlinked to a file in my personal Dropbox for easy sharing.</p>
+
+<p>We then move onto configuring VSCode, first by creating a default configuration file:</p>
+<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span></span><span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Create a default VSCode configuration</span>
+  <span class="l l-Scalar l-Scalar-Plain">template</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">src</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">templates/vscode-settings.json.j2</span>
+    <span class="l l-Scalar l-Scalar-Plain">dest</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/Users/{{ lookup(&#39;env&#39;, &#39;USER&#39;) }}/Library/Application Support/Code/User/settings.json</span>
+    <span class="l l-Scalar l-Scalar-Plain">owner</span><span class="p p-Indicator">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">lookup(&#39;env&#39;,</span><span class="nv"> </span><span class="s">&#39;USER&#39;)</span><span class="nv"> </span><span class="s">}}&quot;</span>
+    <span class="l l-Scalar l-Scalar-Plain">force</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">no</span>
+</code></pre></div>
+<p>Note the <code>force: no</code> here. This means that unlike the <code>.zshrc</code> file above, if the file already exists, Ansible will not overwrite it. This is because there&#39;s no equivilent (that I know of) to <code>~/.zshrc.personal.after</code> for VSCode so I prefer to not have the risk of overwriting my updated config accidentally at the expensive of having to manually update the Ansible template when I make local changes.</p>
+
+<p>We then use a similar task to create some default keybindings.</p>
+
+<p>Finally for VSCode, we install extensions:</p>
+<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span></span><span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Install VSCode extensions</span>
+  <span class="l l-Scalar l-Scalar-Plain">shell</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">code --install-extension {{ item }}</span>
+  <span class="l l-Scalar l-Scalar-Plain">with_items</span><span class="p p-Indicator">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">apollographql.vscode-apollo</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">bradlc.vscode-tailwindcss</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">castwide.solargraph</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">clinyong.vscode-css-modules</span>
+    <span class="l l-Scalar l-Scalar-Plain">...</span>
+</code></pre></div>
+<p>To find the identifier of an extension to add here, either:</p>
+
+<ul>
+<li>Open the extensions page in VSCode, then click on the settings icon (the gear) and choose &quot;Copy Extension ID&quot;</li>
+<li>Open the extensions page in a browser, e.g. <a href="https://marketplace.visualstudio.com/items?itemName=rebornix.Ruby">https://marketplace.visualstudio.com/items?itemName=rebornix.Ruby</a> and the identifier is both in the url as <code>itemName</code> (e.g. in this case <code>rebornix.Ruby</code>) or further down the page in the right bar as &quot;Unique Identifier&quot;.</li>
+</ul>
+
+<p>We then move onto installing <code>asdf</code>. asdf is a tool for managing versions of runtimes (e.g. ruby, pythong, node etc) and allows us to replace multiple language specific tools (e.g. <code>nvm</code>, <code>brenv</code> etc) with a single consistent interface.</p>
+
+<p>The <code>.zshrc</code> which we looked at above already contains the lines to load asdf, these are:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span><span class="c1"># Load asdf</span>
+. <span class="nv">$HOME</span>/.asdf/asdf.sh
+. <span class="nv">$HOME</span>/.asdf/completions/asdf.bash
+</code></pre></div>
+<p>so we just need to clone the asdf repo which is done by this task:</p>
+<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span></span><span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">git</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">repo</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">https://github.com/asdf-vm/asdf.git</span>
+    <span class="l l-Scalar l-Scalar-Plain">dest</span><span class="p p-Indicator">:</span> <span class="s">&quot;/Users/{{</span><span class="nv"> </span><span class="s">lookup(&#39;env&#39;,</span><span class="nv"> </span><span class="s">&#39;USER&#39;)</span><span class="nv"> </span><span class="s">}}/.asdf&quot;</span>
+    <span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">v0.7.1</span>
+</code></pre></div>
+<p>asdf is plugin based, e.g. there is a plugin to allow it to manage ruby versions, another to allow it to manage node versions etc. Googling pretty much any <code>asdf LANGUAGE plugin</code> variant will yield an existing asdf plugin for managing versions of that language.</p>
+
+<p>So to begin with we install plugins for the languages we use:</p>
+<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span></span><span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="s">&quot;Install</span><span class="nv"> </span><span class="s">asdf</span><span class="nv"> </span><span class="s">plugins&quot;</span>
+  <span class="l l-Scalar l-Scalar-Plain">shell</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">|</span>
+    <span class="no">source /Users/{{ lookup(&#39;env&#39;, &#39;USER&#39;) }}/.asdf/asdf.sh</span>
+    <span class="no">asdf plugin-add {{ item }} || exit 0</span>
+  <span class="l l-Scalar l-Scalar-Plain">with_items</span><span class="p p-Indicator">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">ruby</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">elixir</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">nodejs</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">python</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">erlang</span>
+</code></pre></div>
+<p>There&#39;s a couple of things to note here. Firstly before using the <code>shell</code> module to execute <code>asdf</code> commands, we have the line <code>source /Users/{{ lookup(&#39;env&#39;, &#39;USER&#39;) }}/.asdf/asdf.sh</code>. This is usually executed when we load a shell via <code>~/.zshrc</code> but since Ansible won&#39;t be initiating a login shell for every commands, we have to run this manually.</p>
+
+<p>Secondly the use of <code>|| exit 0</code> when adding a plugin. This is because at time of writing, asdf will return a none zero error code if the plugin we add is already installed. Ansible will then interpret this as a failure and stop the play from running. We do not want this because the goal is to have a playbook we can run repeatedly to apply changes.</p>
+
+<p>So the <code>|| exit 0</code> ensures that this line always returns a success exit code. The downside of this is that it masks genuine errors, but thankfully these are rare and will show up as a &quot;plugin not installed&quot; error when we later try and use the plugin. </p>
+
+<p>Once we have plugins installed, we then need to install versions and any default libraries, to take ruby as an example;</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>- name: &quot;Install Default Ruby&quot;
+  shell: |
+    source /Users/{{ lookup(&#39;env&#39;, &#39;USER&#39;) }}/.asdf/asdf.sh
+    asdf install ruby 3.0.0
+    asdf install ruby 2.7.2
+    asdf global ruby 3.0.0
+    gem install bundler -v 2.2.4
+    gem install cocoapods
+    gem install rubocop
+    gem install solargraph
+</code></pre></div>
+<p>As before we <code>source</code> asdf before using its cli commands. We then install versions, in this case I have both ruby 3 and ruby 2 projects so I install a version of each. We then set the global version to <code>3.0.0</code> which means that when there is no <code>.tool-versions</code> file available specifying a particular ruby version, asdf will fallback to <code>3.0.0</code>. Finally we install a selection of gems (libraries) for the default ruby.</p>
+
+<p>The final section of the playbook installs a selection of android SDK&#39;s using <code>sdkmanager</code>:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>- name: Install Addroid SDKs etc
+  shell: yes | sdkmanager &quot;{{ item }}&quot; --sdk_root=/Users/{{ lookup(&#39;env&#39;, &#39;USER&#39;) }}/Library/Android/sdk
+  with_items:
+    - &quot;add-ons;addon-google_apis-google-21&quot;        
+    - &quot;add-ons;addon-google_apis-google-22&quot; 
+    - &quot;add-ons;addon-google_apis-google-23&quot;
+    ...
+</code></pre></div>
+<p>Which is only applicable if you will be using the machine for Android development.</p>
+
+<p>Something not used in this playbook but also available is installing MacOS App Store apps directly with ansible via <code>mas</code> (which we installed with homebrew earlier):</p>
+<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span></span><span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Install apps from the Mac App Store using mas (Assumes you&#39;re logged in etc)</span>
+  <span class="l l-Scalar l-Scalar-Plain">shell</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">mas install {{ item }}</span>
+  <span class="l l-Scalar l-Scalar-Plain">with_items</span><span class="p p-Indicator">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">409183694</span> <span class="c1"># Keynote</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">1295203466</span> <span class="c1"># Microsoft remote desktop</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">497799835</span> <span class="c1"># xcode</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">496437906</span> <span class="c1"># shush microphone manager</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">419330170</span> <span class="c1"># Moom window manager</span>
+</code></pre></div>
+<p>This comes with the important caveat that you must have installed the app before manually (e.g. on a different machine) for this to work. For more on how to use <code>mas</code> including how to find app identifiers see <a href="https://github.com/mas-cli/mas">the mas documentation</a></p>
+
+<h2 id="typical-workflow">Typical Workflow</h2>
+
+<p>After forking this playbook and cloning locally, before you can run it, you need to:</p>
+
+<ul>
+<li>Install XCode and Command Line Tools </li>
+<li>Install Ansible</li>
+<li>Fetch community Asnible modules defined in <code>requirements.txt</code></li>
+</ul>
+
+<p>This can be done in one step using the script in <code>bin/bootstrap</code>:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span><span class="ch">#!/bin/sh</span>
+xcode-select --install
+sudo xcodebuild -license
+sudo easy_install pip
+pip install --ignore-installed ansible
+ansible-galaxy install -r requirements.yml
+
+ansible-playbook -i <span class="s2">&quot;localhost,&quot;</span> -c <span class="nb">local</span> ansible_osx.yml --ask-become-pass
+</code></pre></div>
+<p>This will complete the required prerequisite steps and then run the playbook (asking you for your sudo password when it does so).</p>
+
+<p>Ideally whenever you need to add software to your MacOS install, rather than installing it manually, you update your Ansible playbook and re-run the Ansible command:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>ansible-playbook -i <span class="s2">&quot;localhost,&quot;</span> -c <span class="nb">local</span> ansible_osx.yml --ask-become-pass
+</code></pre></div>
+<p>If like me, Ansible commands just don&#39;t stick in your head, there&#39;s a shortcut for this in the form of <code>bin/apply</code>.</p>
+
+<p>If you follow this iterative approach of updating the playbook as you install new software, when the time comes to provision a new machine from scratch, it will be a much easier ride.</p>
+
+    </section>
+
+    
+
+    <footer class="post-footer">
+      
+      <!-- If we want to display author's name and bio -->
+
+<section class="author">
+  <header> <a href="/about.html"> <img class="profile" src="/assets/images/profile4.jpg" alt="Ben Dixon. Without
+      Aviators."></a></header>
+  <article>
+    <!-- Author Name -->
+    <h4> Ben Dixon </h4>
+    <!-- Author Bio -->
+    <p>
+      My name's Ben Dixon, I'm the co-founder of <a target="_blank"
+        href="https://www.getsona.com?utm_source=benblogabout">Sona</a> where we're building the operating system for
+      the worlds deskless workforce.
+      I'm an experienced CTO, LLM geek, lover of good coffee and above all, making things.
+      Also a regular conference speaker, author and travel
+      addict. Chat to me on twitter <a href="http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a>
+    </p>
+  </article>
+</section>
+
+      
+      
+      
+
+
+      
+
+    </footer>
+
+  </article>
+
+</main>
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="/rss.xml"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+          <section class="copyright">All content copyright <a href="/about.html">Ben Dixon</a> &copy; &bull; All rights reserved. Twitter: <a href="http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a></section>
+             <section class="poweredby">Made with Jekyll and based on the <a href="http://github.com/rosario/kasper" target="_blank">Kasper theme</a></section>
+        </div>
+    </footer>
+
+
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-7333902-35']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</body>
+</html>

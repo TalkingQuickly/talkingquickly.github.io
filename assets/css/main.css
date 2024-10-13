@@ -1,0 +1,86 @@
+/* Rosario. I've added and changed few things. Feel free to change it as you like */
+
+/* Font size of 2.0 is too big, I'll reduce it */
+body {font-size: 1.9rem;}
+
+/* Adding some text shadow*/
+/* .site-head {text-shadow: 2px 2px #234;} */
+.site-head a {color:#eee;}
+
+/* The font is too large in the post view. Revert to small size*/
+.post-header .blog-title {font-size:inherit;}
+
+/* Reduce font size and add line-height*/
+pre{
+	font-size: 0.75em;  
+	line-height: 1.4em;
+}
+
+/* Author styling */
+.author {margin-bottom:1em;}
+.author header{
+	float:left;
+	width: 80px;
+}
+.author article{
+	margin-left:80px;
+	min-height: 80px;
+	padding-left:20px;
+}
+img.profile {
+	width:80px;
+	height:auto;
+  	border-radius: 50px;
+}
+
+/* travel footer */
+
+.clear {
+  clear: both;
+}
+
+.travel_nav {
+  display: block;
+  clear: both;
+  margin-top: 50px;
+  width: 100%;
+}
+
+.previous {
+  float: left;
+}
+
+.next {
+  float:right;
+}
+
+/* end travel footer */
+
+/* Start best of section */
+
+.best-of-header {
+	font-weight: normal; 
+	margin-top: 35px;
+	margin-bottom: 0;
+	font-size: 1.2em;
+}
+
+.best-of-list {
+	margin-top: 5px;
+	list-style-type: none;
+	margin-left: 0;
+	padding-left: 0;
+}
+
+@media only screen and (max-width: 500px) {
+	.best-of-header {
+		font-size: 1.5rem;
+	}
+
+	.best-of-list {
+		font-size: 1.5rem;
+		line-height: 1.5em;
+	}
+}
+
+/* End best of section */

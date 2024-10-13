@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Installing Keycloak on Kubernetes</title>
+    
+        <meta name="description" content="Blog by Ben Dixon, Co-founder of Sona, about startups, elixir, AI, climbing and photography" />
+    
+
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="iwXSC2H2VSO9iPyrWjNj3Prlx4zJY-l0EJRGVkFuUHk" />
+
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml"/>
+    <link rel="canonical" href="https://www.talkingquickly.co.uk/installing-keycloak-kubernetes-helm">
+
+</head>
+<body class="home-template">
+
+
+    <main class="content" role="main">
+
+  <article class="post">
+    <header class="post-header">
+      <a id="blog-logo" href="/"><span class="blog-title">Home</span></a>
+      |
+      <a target="_blank" href="/about.html">About Me</a>
+    </header>
+
+    <span class="post-meta">
+      
+    </span>
+
+    <h1 class="post-title">Installing Keycloak on Kubernetes</h1>
+
+    <section class="post-content">
+      <p>Keycloak is a widely used open source identity and access management system. Think Okta but open source. This is where users will actually enter their username and password for services and where we&#39;ll configure which users can login to which applications. It will also provide users with a single directory of applications they can login to.</p>
+
+<p>In this post - as part of the larger series on Kubernetes SSO - we cover how to install Keycloak on Kubernetes.</p>
+
+<!--more-->
+
+<ol>
+  <li>
+    <a href="/kubernetes-sso-a-comprehensive-guide">
+  Contents and overview
+</a>
+  </li>
+  <li>
+    <a href="/installing-openldap-kubernetes-helm">
+  Installing OpenLDAP
+</a>
+  </li>
+  <li>
+    <a href="/installing-keycloak-kubernetes-helm">
+  <strong>Installing Keycloak</strong>
+</a>
+  </li>
+  <li>
+    <a href="/keycloak-and-openldap-on-kubernetes">
+  Linking Keycloak and OpenLDAP
+</a>
+  </li>
+  <li>
+    <a href="/setting-up-oidc-login-kubernetes-kubectl-with-keycloak">
+  OIDC Kubectl Login with Keycloak
+</a>
+  </li>
+  <li>
+    <a href="/webapp-authentication-keycloak-OAuth2-proxy-nginx-ingress-kubernetes">
+  Authenticate any web app using ingress annotations
+</a>
+  </li>
+  <li>
+    <a href="/gitea-sso-with-keycloak-openldap-openid-connect">
+  Gitea (requires LDAP)
+</a>
+  </li>
+  <li>
+    <a href="/docker-registry-authentication-with-keycloak">
+  Simple Docker Registry
+</a>
+  </li>
+  <li>
+    <a href="/harbor-docker-registry-on-kubernetes-authentication-with-keycloak">
+  Harbor Docker Registry with ACL
+</a>
+  </li>
+</ol>
+
+<h2>Pre-requisites</h2>
+
+<p>This assumes you have CLI access to a Kubernetes cluster, will be working in a namespace called <code>identity</code> and have both Helm 3 and Kubectl installed and working locally. Finally it assumes that you're using <a href="https://kubernetes.github.io/ingress-nginx/">NGINX for Ingress</a> along with cert manager for SSL certificates with a Cluster Issuer called <code>letsencrypt-production</code>.</p>
+
+<p>If your configuration is different, the majority of the steps will be the same, but you'll need to change the ingress annotations accordingly.</p>
+
+<p>The source for this series of tutorials can be found here: <a href="https://github.com/TalkingQuickly/kubernetes-sso-guide">https://github.com/TalkingQuickly/kubernetes-sso-guide</a> and cloned with:</p>
+
+<div class="highlight">
+  <pre><code class="language-bash" data-lang="bash"><span></span>git clone git@github.com:TalkingQuickly/kubernetes-sso-guide.git</code></pre>
+</div>
+
+<p>All commands in the tutorial assume that they&#39;re being executed from the root of this cloned repository.</p>
+
+<h2 id="install-keycloak">Install Keycloak</h2>
+
+<p>Helm 3 is migrating charts out of it&#39;s centrally managed repository and into decentralised ones, so to access the Keycloak Chart we&#39;ll need to add the relevant repository.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>helm repo add codecentric https://codecentric.github.io/helm-charts
+</code></pre></div>
+<p>We can see <a href="https://github.com/codecentric/helm-charts/tree/master/charts/keycloak">details of the chart itself here</a>.</p>
+
+<p>For a basic configuration, we need to configure Ingress and enable Postgres as the data store. </p>
+
+<p>This assumes you&#39;re working on a cluster with support for Ingress and Persistent Volumes. In this case I have a wildcard DNS record for <code>*.ssotest.staging.talkingquickly.co.uk</code> which points at my test cluster. So our initial values file <code>keycloak/values-keycloak</code> looks something like:</p>
+<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span></span><span class="l l-Scalar l-Scalar-Plain">extraEnv</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">|</span>
+  <span class="no">- name: KEYCLOAK_LOGLEVEL</span>
+    <span class="no">value: DEBUG</span>
+  <span class="no">- name: KEYCLOAK_USER</span>
+    <span class="no">value: admin</span>
+  <span class="no">- name: KEYCLOAK_PASSWORD</span>
+    <span class="no">value: as897gsdfs766dfsgjhsdf</span>
+  <span class="no">- name: PROXY_ADDRESS_FORWARDING</span>
+    <span class="no">value: &quot;true&quot;</span>
+
+<span class="l l-Scalar l-Scalar-Plain">ingress</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">enabled</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+  <span class="l l-Scalar l-Scalar-Plain">annotations</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">cert-manager.io/cluster-issuer</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">letsencrypt-production</span>
+  <span class="l l-Scalar l-Scalar-Plain">rules</span><span class="p p-Indicator">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">host</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">sso.ssotest.staging.talkingquickly.co.uk</span>
+      <span class="l l-Scalar l-Scalar-Plain">paths</span><span class="p p-Indicator">:</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+<span class="l l-Scalar l-Scalar-Plain">args</span><span class="p p-Indicator">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">-Dkeycloak.profile.feature.docker=enabled</span>
+
+  <span class="l l-Scalar l-Scalar-Plain">tls</span><span class="p p-Indicator">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">hosts</span><span class="p p-Indicator">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sso.ssotest.staging.talkingquickly.co.uk</span>
+    <span class="l l-Scalar l-Scalar-Plain">secretName</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">keycloak-tld-secret</span>
+
+<span class="l l-Scalar l-Scalar-Plain">postgresql</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">enabled</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+  <span class="l l-Scalar l-Scalar-Plain">postgresqlPassword</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">asdfaso97sadfjylfasdsf78</span>
+</code></pre></div>
+<p>We can then install it with:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>helm upgrade --install keycloak codecentric/keycloak --values keycloak/values-keycloak.yml
+</code></pre></div>
+<p>We&#39;ve set the initial username and password of the keycloak user in the environment variables <code>KEYCLOAK_USER</code> and <code>KEYCLOAK_PASSWORD</code> in our <code>values-keycloak.yml</code>, well need these to login to the administrative console.</p>
+
+<p>We can then go to whichever URL we&#39;ve selected for Ingress, in my case this was <code>https://sso.ssotest.staging.talkingquickly.co.uk</code>.</p>
+
+<p>And can then choose to login to the administrative console. From here we can create users and &quot;client&quot; apps that we&#39;ll use for configuring other applications with Keycloak SSO.</p>
+
+<p>Note that logging into the administrative console is separate to logging in as a Keycloak service user.</p>
+
+<p>Within Keycloak we can create multiple &quot;realms&quot; which are essentially standalone auth services. For example we might have one realm for internal systems and one real for customers. The default realm is called &quot;master&quot; and so using my ingress URL, users would login to this realm at <a href="https://sso.ssotest.staging.talkingquickly.co.uk/auth/realms/master/account">https://sso.ssotest.staging.talkingquickly.co.uk/auth/realms/master/account</a>. Visiting <a href="https://sso.ssotest.staging.talkingquickly.co.uk/auth/realms/master">https://sso.ssotest.staging.talkingquickly.co.uk/auth/realms/master</a> would give some useful information about the realm.</p>
+
+<p>A common source of confusion is attempting to test logins using administrative credentials rather than credentials from a user who has been created in a specific realm. Incognito or Sandboxed browser tabs are useful for this.</p>
+
+<ol>
+  <li>
+    <a href="/kubernetes-sso-a-comprehensive-guide">
+  Contents and overview
+</a>
+  </li>
+  <li>
+    <a href="/installing-openldap-kubernetes-helm">
+  Installing OpenLDAP
+</a>
+  </li>
+  <li>
+    <a href="/installing-keycloak-kubernetes-helm">
+  <strong>Installing Keycloak</strong>
+</a>
+  </li>
+  <li>
+    <a href="/keycloak-and-openldap-on-kubernetes">
+  Linking Keycloak and OpenLDAP
+</a>
+  </li>
+  <li>
+    <a href="/setting-up-oidc-login-kubernetes-kubectl-with-keycloak">
+  OIDC Kubectl Login with Keycloak
+</a>
+  </li>
+  <li>
+    <a href="/webapp-authentication-keycloak-OAuth2-proxy-nginx-ingress-kubernetes">
+  Authenticate any web app using ingress annotations
+</a>
+  </li>
+  <li>
+    <a href="/gitea-sso-with-keycloak-openldap-openid-connect">
+  Gitea (requires LDAP)
+</a>
+  </li>
+  <li>
+    <a href="/docker-registry-authentication-with-keycloak">
+  Simple Docker Registry
+</a>
+  </li>
+  <li>
+    <a href="/harbor-docker-registry-on-kubernetes-authentication-with-keycloak">
+  Harbor Docker Registry with ACL
+</a>
+  </li>
+</ol>
+
+    </section>
+
+    
+
+    <footer class="post-footer">
+      
+      <!-- If we want to display author's name and bio -->
+
+<section class="author">
+  <header> <a href="/about.html"> <img class="profile" src="/assets/images/profile4.jpg" alt="Ben Dixon. Without
+      Aviators."></a></header>
+  <article>
+    <!-- Author Name -->
+    <h4> Ben Dixon </h4>
+    <!-- Author Bio -->
+    <p>
+      My name's Ben Dixon, I'm the co-founder of <a target="_blank"
+        href="https://www.getsona.com?utm_source=benblogabout">Sona</a> where we're building the operating system for
+      the worlds deskless workforce.
+      I'm an experienced CTO, LLM geek, lover of good coffee and above all, making things.
+      Also a regular conference speaker, author and travel
+      addict. Chat to me on twitter <a href="http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a>
+    </p>
+  </article>
+</section>
+
+      
+      
+      
+
+
+      
+
+    </footer>
+
+  </article>
+
+</main>
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="/rss.xml"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+          <section class="copyright">All content copyright <a href="/about.html">Ben Dixon</a> &copy; &bull; All rights reserved. Twitter: <a href="http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a></section>
+             <section class="poweredby">Made with Jekyll and based on the <a href="http://github.com/rosario/kasper" target="_blank">Kasper theme</a></section>
+        </div>
+    </footer>
+
+
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-7333902-35']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</body>
+</html>

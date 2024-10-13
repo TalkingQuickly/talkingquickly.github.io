@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Keycloak and OpenLDAP on Kubernetes</title>
+    
+        <meta name="description" content="Blog by Ben Dixon, Co-founder of Sona, about startups, elixir, AI, climbing and photography" />
+    
+
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="iwXSC2H2VSO9iPyrWjNj3Prlx4zJY-l0EJRGVkFuUHk" />
+
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml"/>
+    <link rel="canonical" href="https://www.talkingquickly.co.uk/keycloak-and-openldap-on-kubernetes">
+
+</head>
+<body class="home-template">
+
+
+    <main class="content" role="main">
+
+  <article class="post">
+    <header class="post-header">
+      <a id="blog-logo" href="/"><span class="blog-title">Home</span></a>
+      |
+      <a target="_blank" href="/about.html">About Me</a>
+    </header>
+
+    <span class="post-meta">
+      
+    </span>
+
+    <h1 class="post-title">Keycloak and OpenLDAP on Kubernetes</h1>
+
+    <section class="post-content">
+      <p>In this post we&#39;ll cover how - having installed Keycloak and OpenLDAP separately on Kubernetes - to link the two together so that Keycloak uses OpenLDAP as it&#39;s primary store for user data.</p>
+
+<p>This post is part of a series on single sign on for Kubernetes.</p>
+
+<!--more-->
+
+<ol>
+  <li>
+    <a href="/kubernetes-sso-a-comprehensive-guide">
+  Contents and overview
+</a>
+  </li>
+  <li>
+    <a href="/installing-openldap-kubernetes-helm">
+  Installing OpenLDAP
+</a>
+  </li>
+  <li>
+    <a href="/installing-keycloak-kubernetes-helm">
+  Installing Keycloak
+</a>
+  </li>
+  <li>
+    <a href="/keycloak-and-openldap-on-kubernetes">
+  <strong>Linking Keycloak and OpenLDAP</strong>
+</a>
+  </li>
+  <li>
+    <a href="/setting-up-oidc-login-kubernetes-kubectl-with-keycloak">
+  OIDC Kubectl Login with Keycloak
+</a>
+  </li>
+  <li>
+    <a href="/webapp-authentication-keycloak-OAuth2-proxy-nginx-ingress-kubernetes">
+  Authenticate any web app using ingress annotations
+</a>
+  </li>
+  <li>
+    <a href="/gitea-sso-with-keycloak-openldap-openid-connect">
+  Gitea (requires LDAP)
+</a>
+  </li>
+  <li>
+    <a href="/docker-registry-authentication-with-keycloak">
+  Simple Docker Registry
+</a>
+  </li>
+  <li>
+    <a href="/harbor-docker-registry-on-kubernetes-authentication-with-keycloak">
+  Harbor Docker Registry with ACL
+</a>
+  </li>
+</ol>
+
+<h2>Pre-requisites</h2>
+
+<p>This assumes you have CLI access to a Kubernetes cluster, will be working in a namespace called <code>identity</code> and have both Helm 3 and Kubectl installed and working locally. Finally it assumes that you're using <a href="https://kubernetes.github.io/ingress-nginx/">NGINX for Ingress</a> along with cert manager for SSL certificates with a Cluster Issuer called <code>letsencrypt-production</code>.</p>
+
+<p>If your configuration is different, the majority of the steps will be the same, but you'll need to change the ingress annotations accordingly.</p>
+
+<p>The source for this series of tutorials can be found here: <a href="https://github.com/TalkingQuickly/kubernetes-sso-guide">https://github.com/TalkingQuickly/kubernetes-sso-guide</a> and cloned with:</p>
+
+<div class="highlight">
+  <pre><code class="language-bash" data-lang="bash"><span></span>git clone git@github.com:TalkingQuickly/kubernetes-sso-guide.git</code></pre>
+</div>
+
+<p>All commands in the tutorial assume that they&#39;re being executed from the root of this cloned repository.</p>
+
+<p>This post assumes you&#39;ve already completed the &quot;Intalling OpenLDAP&quot; and &quot;Installing Keycloak&quot; sections.</p>
+
+<h2 id="configuring-openldap-in-keycloak">Configuring OpenLDAP in Keycloak</h2>
+
+<p>After logging into the Keycloak administrative console with our admin user, head to User Federation and select <code>ldap</code> from the &quot;Add Provider` dropdown. Then choose the following options:</p>
+
+<ul>
+<li><strong>Edit Mode</strong>: <code>Writable</code></li>
+<li><strong>Sync Registrations</strong>: <code>On</code></li>
+<li><strong>Vendor</strong>: <code>Other</code></li>
+<li><strong>Connection URL</strong>: <code>ldap://openldap.identity.svc.cluster.local</code>; you&#39;ll need to change <code>identity</code> to match the namespace you&#39;re working in)</li>
+<li><strong>Users DN</strong>: <code>ou=People,dc=ssotest,dc=staging,dc=talkingquickly,dc=co,dc=uk</code>; you&#39;ll need to change the <code>dc</code> entries to match your base dn. Note that here we&#39;re telling Keycloak that users are stored in our <code>People</code> ou, created from the <code>customLdiffFiles</code>.</li>
+<li><strong>Authentication Type</strong>: <code>simple</code></li>
+<li><strong>Bind DN</strong>: <code>cn=admin,dc=ssotest,dc=staging,dc=talkingquickly,dc=co,dc=uk</code> again, updating the <code>dc</code> entries to match your base dn</li>
+<li><strong>Bind Credentials</strong>: Set this to the admin password we used for <code>ldapsearch</code> earlier</li>
+</ul>
+
+<p>Once we&#39;ve entered all of these details, we can use the &quot;Test connection&quot; and &quot;Test authentication&quot; buttons to make sure that everything works. Assuming it does, we can select &quot;Save&quot; to complete the addition of a User Federation provider.</p>
+
+<p>At this point we&#39;ve configured Keycloak so that it knows how to synchronise user with OpenLDAP, but currently it has no concept of groups. With more than a handful of users, we&#39;ll want to be able to allocate people to groups and determine their access to systems according to group membership. </p>
+
+<p>For this we need to go back to the &quot;User Federation&quot; entry on the left menu, choose our ldap entry and select the &quot;Mappers&quot; tab.</p>
+
+<p>We then need to select &quot;Create&quot;, enter <code>group</code> as the Name for our federation mapper and select <code>group-ldap-mapper</code> as the &quot;Mapper Type&quot;. Then select the following:</p>
+
+<ul>
+<li><strong>LDAP Groups DN</strong>: <code>ou=Group,dc=ssotest,dc=staging,dc=talkingquickly,dc=co,dc=uk</code> (updating to match your configuration)</li>
+<li><strong>Group Object Classes</strong>: <code>groupOfUniqueNames</code></li>
+<li><strong>Membership LDAP Attribute</strong>: <code>uniqueMember</code></li>
+<li><strong>User Groups Retrieve Strategy</strong>: <code>LOAD_GROUPS_BY_MEMBER_ATTRIBUTE</code></li>
+</ul>
+
+<p>And choose save. This configuration is slightly different to the default and ensures that the <code>memberOf</code> attribute works correctly. There&#39;s a long Github issue on it <a href="https://github.com/osixia/docker-openldap/issues/304">here</a>. This is required by some applications to manage access based on groups.</p>
+
+<p>Note that in order to test that <code>memberOf</code> is working correctly with <code>ldapsearch</code>, we&#39;ll need to <a href="https://docs.oracle.com/cd/E19623-01/820-6169/searching-for-special-entries-and-attributes.html">include operational attributes</a> by including &quot;+&quot; as part of our <code>ldapsearch</code> command e.g:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>ldapsearch -x -H ldap://localhost:3890 -b dc=ssotest,dc=staging,dc=talkingquickly,dc=co,dc=uk -D &quot;cn=admin,dc=ssotest,dc=staging,dc=talkingquickly,dc=co,dc=uk&quot; &quot;+&quot; -w password
+</code></pre></div>
+<p>To run the commands locally we&#39;ll need to forward the OpenLDAP port to our local machine with:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>kubectl port-forward --namespace identity <span class="se">\</span>
+      <span class="k">$(</span>kubectl get pods -n identity --selector<span class="o">=</span><span class="s1">&#39;release=openldap&#39;</span> -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.items[0].metadata.name}&#39;</span><span class="k">)</span> <span class="se">\</span>
+      <span class="m">3890</span>:389
+</code></pre></div>
+<h2 id="managing-users-and-testing-that-it-works">Managing users and testing that it works</h2>
+
+<p>We can now use Keycloak to add a user by going to the &quot;Users&quot; option in the left hand pane and choosing Add user. After populating and saving the new user form, we can use <code>ldapsearch</code> to check that the user has been created in <code>openldap</code>. To run the commands locally we&#39;ll need to forward the OpenLDAP port to our local machine with:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>kubectl port-forward --namespace identity <span class="se">\</span>
+      <span class="k">$(</span>kubectl get pods -n identity --selector<span class="o">=</span><span class="s1">&#39;release=openldap&#39;</span> -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.items[0].metadata.name}&#39;</span><span class="k">)</span> <span class="se">\</span>
+      <span class="m">3890</span>:389
+</code></pre></div>
+<p>We can then execute the <code>ldapsearch</code> command:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>ldapsearch -x -H ldap://localhost:3890 -b dc=ssotest,dc=staging,dc=talkingquickly,dc=co,dc=uk -D &quot;cn=admin,dc=ssotest,dc=staging,dc=talkingquickly,dc=co,dc=uk&quot; &quot;+&quot; -w password
+</code></pre></div>
+<p>Replacing <code>password</code> with the password we chose in <code>values-openldap.yml</code>.</p>
+
+<p>Included in the output, we should see something like this:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"><span></span># talkingquickly, People, ssotest.staging.talkingquickly.co.uk
+dn: uid=talkingquickly1,ou=People,dc=ssotest,dc=staging,dc=talkingquickly,dc=co,dc=uk
+uid: talkingquickly1
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+mail: ben+1@hillsbede.co.uk
+sn: Dixon
+cn: Ben
+</code></pre></div>
+<p>Which shows that our user has been successfully created in OpenLDAP! Now onto groups. If we head over to the &quot;Groups&quot; page in Keycloak and add an &quot;Administrators&quot; group and then re-run our <code>ldapsearch</code> search command we&#39;ll see that nothing has changed, our group won&#39;t be there.</p>
+
+<p>If however we then return to the Users page, select or newly created user and head to the Groups tab, we can then add our user to the Administrators group. Note that when viewing the &quot;Users&quot; tab, we&#39;ll sometimes see an empty list and have to click &quot;View all users&quot; to see everyone.</p>
+
+<p>Having done this, if we re-run our <code>ldapsearch</code> command, we should see something like the following included in the output:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"><span></span># Administrators, Group, k4stest4.talkingquickly.co.uk
+dn: cn=Administrators,ou=Group,dc=k4stest4,dc=talkingquickly,dc=co,dc=uk
+objectClass: groupOfNames
+cn: Administrators
+member: cn=empty-membership-placeholder
+member: uid=talkingquickly,ou=People,dc=k4stest4,dc=talkingquickly,dc=co,dc=uk
+</code></pre></div>
+<p>This shows that both our <code>Administrators</code> group has been created and that our user is a part of it.</p>
+
+<p>If we then look at the entry for our user, assuming we have used the &quot;+&quot; option to enable the display of operational fields, we&#39;ll see that it includes a line something like:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>memberOf: cn=Administrators,ou=Group,dc=ssotest,dc=staging,dc=talkingquickly,dc=co,dc=uk
+</code></pre></div>
+<p>Which means the <code>memberOf</code> functionality we configured earlier is working.</p>
+
+<p>This series of posts won&#39;t explore the use of <code>ldapsearch</code> much further, but it&#39;s a powerful tool and <a href="https://docs.oracle.com/cd/E19450-01/820-6169/ldapsearch-examples.html">this page</a> is a handy cookbook of how it can be used. </p>
+
+<ol>
+  <li>
+    <a href="/kubernetes-sso-a-comprehensive-guide">
+  Contents and overview
+</a>
+  </li>
+  <li>
+    <a href="/installing-openldap-kubernetes-helm">
+  Installing OpenLDAP
+</a>
+  </li>
+  <li>
+    <a href="/installing-keycloak-kubernetes-helm">
+  Installing Keycloak
+</a>
+  </li>
+  <li>
+    <a href="/keycloak-and-openldap-on-kubernetes">
+  <strong>Linking Keycloak and OpenLDAP</strong>
+</a>
+  </li>
+  <li>
+    <a href="/setting-up-oidc-login-kubernetes-kubectl-with-keycloak">
+  OIDC Kubectl Login with Keycloak
+</a>
+  </li>
+  <li>
+    <a href="/webapp-authentication-keycloak-OAuth2-proxy-nginx-ingress-kubernetes">
+  Authenticate any web app using ingress annotations
+</a>
+  </li>
+  <li>
+    <a href="/gitea-sso-with-keycloak-openldap-openid-connect">
+  Gitea (requires LDAP)
+</a>
+  </li>
+  <li>
+    <a href="/docker-registry-authentication-with-keycloak">
+  Simple Docker Registry
+</a>
+  </li>
+  <li>
+    <a href="/harbor-docker-registry-on-kubernetes-authentication-with-keycloak">
+  Harbor Docker Registry with ACL
+</a>
+  </li>
+</ol>
+
+    </section>
+
+    
+
+    <footer class="post-footer">
+      
+      <!-- If we want to display author's name and bio -->
+
+<section class="author">
+  <header> <a href="/about.html"> <img class="profile" src="/assets/images/profile4.jpg" alt="Ben Dixon. Without
+      Aviators."></a></header>
+  <article>
+    <!-- Author Name -->
+    <h4> Ben Dixon </h4>
+    <!-- Author Bio -->
+    <p>
+      My name's Ben Dixon, I'm the co-founder of <a target="_blank"
+        href="https://www.getsona.com?utm_source=benblogabout">Sona</a> where we're building the operating system for
+      the worlds deskless workforce.
+      I'm an experienced CTO, LLM geek, lover of good coffee and above all, making things.
+      Also a regular conference speaker, author and travel
+      addict. Chat to me on twitter <a href="http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a>
+    </p>
+  </article>
+</section>
+
+      
+      
+      
+
+
+      
+
+    </footer>
+
+  </article>
+
+</main>
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="/rss.xml"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+          <section class="copyright">All content copyright <a href="/about.html">Ben Dixon</a> &copy; &bull; All rights reserved. Twitter: <a href="http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a></section>
+             <section class="poweredby">Made with Jekyll and based on the <a href="http://github.com/rosario/kasper" target="_blank">Kasper theme</a></section>
+        </div>
+    </footer>
+
+
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-7333902-35']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</body>
+</html>

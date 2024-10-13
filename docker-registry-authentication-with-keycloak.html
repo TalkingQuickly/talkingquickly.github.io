@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Docker Registry Authentication on Kubernetes with Keycloak</title>
+    
+        <meta name="description" content="Blog by Ben Dixon, Co-founder of Sona, about startups, elixir, AI, climbing and photography" />
+    
+
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="iwXSC2H2VSO9iPyrWjNj3Prlx4zJY-l0EJRGVkFuUHk" />
+
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml"/>
+    <link rel="canonical" href="https://www.talkingquickly.co.uk/docker-registry-authentication-with-keycloak">
+
+</head>
+<body class="home-template">
+
+
+    <main class="content" role="main">
+
+  <article class="post">
+    <header class="post-header">
+      <a id="blog-logo" href="/"><span class="blog-title">Home</span></a>
+      |
+      <a target="_blank" href="/about.html">About Me</a>
+    </header>
+
+    <span class="post-meta">
+      
+    </span>
+
+    <h1 class="post-title">Docker Registry Authentication on Kubernetes with Keycloak</h1>
+
+    <section class="post-content">
+      <p>In this post we&#39;ll cover how to use Keycloak to provide a simple authentication layer for a Docker registry. Simple meaning that in order to push and pull images to the registry, the user will first need to <code>docker login</code> as any valid user in the provided Keycloak realm. Note that there is no additional access control, so all Keycloak users have the ability to perform any action on any image once authenticated. For more fine grained controls, see the section on <a href="/harbor-docker-registry-on-kubernetes-authentication-with-keycloak">using Harbour</a>.</p>
+
+<p>This post is part of a series on single sign on for Kubernetes.</p>
+
+<!--more-->
+
+<ol>
+  <li>
+    <a href="/kubernetes-sso-a-comprehensive-guide">
+  Contents and overview
+</a>
+  </li>
+  <li>
+    <a href="/installing-openldap-kubernetes-helm">
+  Installing OpenLDAP
+</a>
+  </li>
+  <li>
+    <a href="/installing-keycloak-kubernetes-helm">
+  Installing Keycloak
+</a>
+  </li>
+  <li>
+    <a href="/keycloak-and-openldap-on-kubernetes">
+  Linking Keycloak and OpenLDAP
+</a>
+  </li>
+  <li>
+    <a href="/setting-up-oidc-login-kubernetes-kubectl-with-keycloak">
+  OIDC Kubectl Login with Keycloak
+</a>
+  </li>
+  <li>
+    <a href="/webapp-authentication-keycloak-OAuth2-proxy-nginx-ingress-kubernetes">
+  Authenticate any web app using ingress annotations
+</a>
+  </li>
+  <li>
+    <a href="/gitea-sso-with-keycloak-openldap-openid-connect">
+  Gitea (requires LDAP)
+</a>
+  </li>
+  <li>
+    <a href="/docker-registry-authentication-with-keycloak">
+  <strong>Simple Docker Registry</strong>
+</a>
+  </li>
+  <li>
+    <a href="/harbor-docker-registry-on-kubernetes-authentication-with-keycloak">
+  Harbor Docker Registry with ACL
+</a>
+  </li>
+</ol>
+
+<h2>Pre-requisites</h2>
+
+<p>This assumes you have CLI access to a Kubernetes cluster, will be working in a namespace called <code>identity</code> and have both Helm 3 and Kubectl installed and working locally. Finally it assumes that you're using <a href="https://kubernetes.github.io/ingress-nginx/">NGINX for Ingress</a> along with cert manager for SSL certificates with a Cluster Issuer called <code>letsencrypt-production</code>.</p>
+
+<p>If your configuration is different, the majority of the steps will be the same, but you'll need to change the ingress annotations accordingly.</p>
+
+<p>The source for this series of tutorials can be found here: <a href="https://github.com/TalkingQuickly/kubernetes-sso-guide">https://github.com/TalkingQuickly/kubernetes-sso-guide</a> and cloned with:</p>
+
+<div class="highlight">
+  <pre><code class="language-bash" data-lang="bash"><span></span>git clone git@github.com:TalkingQuickly/kubernetes-sso-guide.git</code></pre>
+</div>
+
+<p>All commands in the tutorial assume that they&#39;re being executed from the root of this cloned repository.</p>
+
+<p>This post assumes you&#39;ve already completed the &quot;Installing Keycloak&quot; section.</p>
+
+<h2 id="configuring-keycloak">Configuring Keycloak</h2>
+
+<p>When we configured Keycloak, we included the following in the helm values file:</p>
+<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span></span><span class="l l-Scalar l-Scalar-Plain">args</span><span class="p p-Indicator">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">-Dkeycloak.profile.feature.docker=enabled</span>
+</code></pre></div>
+<p>Which enabled the optional support for the Docker registry.</p>
+
+<h2 id="setting-up-the-docker-registry-in-keycloak">Setting up the Docker Registry in Keycloak</h2>
+
+<p>Begin by creating a new client in Keycloak with client id &quot;simple-docker-registry&quot; using client protocol <code>docker-v2</code>. On the following screen go to the installation tab, choose &quot;Docker Compose YAML&quot; and select the &quot;Download&quot; option. Note that we aren&#39;t going to be using Docker Compose, but this provides a convenient method for downloading the certificate files we&#39;ll need to create as Kubernetes secrets.</p>
+
+<h2 id="creating-the-certificate-secrets">Creating the certificate secrets</h2>
+
+<p>Having downloaded the Docker Compose YAML zip file from Keycloak, extract it to a locally accessible folder and check that it contains a file <code>certs/localhost_trust_chain.pem</code>. We can then create a Kubernetes secret containing the file with the following:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>kubectl create secret generic docker-registry-auth-token-rootcertbundle --from-file YOUR_PATH_TO/certs/localhost_trust_chain.pem
+</code></pre></div>
+<p>Replacing <code>YOUR_PATH_TO/certs/localhost_trust_chain.pem</code> with the path to the downloaded file.</p>
+
+<p>This will create a secret called <code>docker-registry-auth-token-rootcertbundle</code> containing the certificate contents.</p>
+
+<h2 id="configuring-the-docker-registry">Configuring the docker registry</h2>
+
+<p>The documentation for the helm chart we&#39;ll be using to install the Docker Registry is here: <a href="https://github.com/twuni/docker-registry.helm">https://github.com/twuni/docker-registry.helm</a>. Our configuration file will look like this:</p>
+<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span></span><span class="l l-Scalar l-Scalar-Plain">configData</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">auth</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">token</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">realm</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">https://sso.ssotest.staging.talkingquickly.co.uk/auth/realms/master/protocol/docker-v2/auth</span>
+      <span class="l l-Scalar l-Scalar-Plain">service</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">simple-docker-registry</span>
+      <span class="l l-Scalar l-Scalar-Plain">issuer</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">https://sso.ssotest.staging.talkingquickly.co.uk/auth/realms/master</span>
+      <span class="l l-Scalar l-Scalar-Plain">rootcertbundle</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/root-cert-bundle/localhost_trust_chain.pem</span>
+<span class="l l-Scalar l-Scalar-Plain">ingress</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">enabled</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+  <span class="l l-Scalar l-Scalar-Plain">annotations</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">cert-manager.io/cluster-issuer</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">letsencrypt-production</span>
+  <span class="l l-Scalar l-Scalar-Plain">hosts</span><span class="p p-Indicator">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">registry-keycloak.ssotest.staging.talkingquickly.co.uk</span>
+
+  <span class="l l-Scalar l-Scalar-Plain">tls</span><span class="p p-Indicator">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">hosts</span><span class="p p-Indicator">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">registry-keycloak.ssotest.staging.talkingquickly.co.uk</span>
+    <span class="l l-Scalar l-Scalar-Plain">secretName</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">keycloak-registry-tls-secret</span>
+
+<span class="l l-Scalar l-Scalar-Plain">extraVolumes</span><span class="p p-Indicator">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">docker-registry-auth-token-rootcertbundle</span>
+    <span class="l l-Scalar l-Scalar-Plain">secret</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">secretName</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">docker-registry-auth-token-rootcertbundle</span>
+
+<span class="l l-Scalar l-Scalar-Plain">extraVolumeMounts</span><span class="p p-Indicator">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">mountPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/root-cert-bundle</span>
+    <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">docker-registry-auth-token-rootcertbundle</span>
+    <span class="l l-Scalar l-Scalar-Plain">readOnly</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+<p>The <code>configData</code> section at the top configures the Docker Registry to use token based auth from KeyCloak as per the <a href="https://www.keycloak.org/docs/4.8/securing_apps/#docker-registry-configuration">Keycloak Docs</a>.</p>
+
+<p>You&#39;ll then need to update the ingress definitions to reflect the URL you wish to make your docker registry available on, so replacing <code>registry-keycloak.ssotest.staging.talkingquickly.co.uk</code> with the subdomain you&#39;ll be using.</p>
+
+<p>Note that ingress annotation <code>nginx.ingress.kubernetes.io/proxy-body-size: &quot;0&quot;</code> removes the default limit on the maximum body size NGINX will accept and avoids <code>413 Request Entity Too Large</code> when pushing large images.</p>
+
+<p>The <code>extraVolumes</code> section creates a volume which will contain the files from the <code>docker-registry-auth-token-rootcertbundle</code> secret we created. The <code>extraVolumeMounts</code> section instructs Kubernetes to mount this volume at the <code>/root-cert-bundle</code> path within the Docker registry container which matches the <code>rootcertbundle</code> path that we specified in the <code>configData</code> map at the start.</p>
+
+<h2 id="installing-the-docker-registry">Installing the Docker Registry</h2>
+
+<p>We can then add the repository for the helm chart and install the Docker registry with:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>helm repo add twuni https://helm.twun.io
+helm upgrade --install simple-docker-registry twuni/docker-registry --values ./docker-registry/values-docker-registry.yml
+</code></pre></div>
+<h2 id="testing-the-registry">Testing the registry</h2>
+
+<p>We&#39;ll need to give certificates a small window to be generated via LetsEncrypt, we can check on the progress of the certificates with <code>kubectl get certificates</code>. Once they are ready we can login to our registry with:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>docker login registry-keycloak.ssotest.staging.talkingquickly.co.uk
+</code></pre></div>
+<p>Replacing the URL with the ingress URL we configured. We can then enter the credentials of any Keycloak user in the realm we configured and we&#39;ll see something like:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>Username: someusername
+Password:
+WARNING! Your password will be stored unencrypted in /home/ben/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+</code></pre></div>
+<p>If we want to test that pushing images works we can do something like:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>docker image tag SOME_IMAGE_REF registry-keycloak.ssotest.staging.talkingquickly.co.uk/SOME_NAME
+docker push registry-keycloak.ssotest.staging.talkingquickly.co.uk/SOME_NAME
+</code></pre></div>
+<p>And see that the image is pushed correctly.</p>
+
+<p>We can then test pulling with:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>docker pull registry-keycloak.ssotest.staging.talkingquickly.co.uk/SOME_NAME
+</code></pre></div>
+<p>We then test that authentication works by logging out with:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>docker logout registry-keycloak.ssotest.staging.talkingquickly.co.uk
+</code></pre></div>
+<p>And trying to pull the image again:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"><span></span>docker pull registry-keycloak.ssotest.staging.talkingquickly.co.uk/SOME_NAME
+</code></pre></div>
+<p>Where we&#39;ll receive a permission denied message.</p>
+
+<h2 id="use-with-kubernetes">Use with Kubernetes</h2>
+
+<p>In order to access images in the registry we&#39;ll need to create appropriate image pull secrets as described <a href="https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/">here in the kubernetes documentation</a>.</p>
+
+<h2 id="summary">Summary</h2>
+
+<p>We now have a private Docker Registry which can only be accessed by users authenticated via Keycloak. For more advanced configurations, for example where only certain users should be able to access the registry or where more granular access control is required, see <a href="/harbor-docker-registry-on-kubernetes-authentication-with-keycloak">Harbour Docker Registry with Keycloak</a>.</p>
+
+<ol>
+  <li>
+    <a href="/kubernetes-sso-a-comprehensive-guide">
+  Contents and overview
+</a>
+  </li>
+  <li>
+    <a href="/installing-openldap-kubernetes-helm">
+  Installing OpenLDAP
+</a>
+  </li>
+  <li>
+    <a href="/installing-keycloak-kubernetes-helm">
+  Installing Keycloak
+</a>
+  </li>
+  <li>
+    <a href="/keycloak-and-openldap-on-kubernetes">
+  Linking Keycloak and OpenLDAP
+</a>
+  </li>
+  <li>
+    <a href="/setting-up-oidc-login-kubernetes-kubectl-with-keycloak">
+  OIDC Kubectl Login with Keycloak
+</a>
+  </li>
+  <li>
+    <a href="/webapp-authentication-keycloak-OAuth2-proxy-nginx-ingress-kubernetes">
+  Authenticate any web app using ingress annotations
+</a>
+  </li>
+  <li>
+    <a href="/gitea-sso-with-keycloak-openldap-openid-connect">
+  Gitea (requires LDAP)
+</a>
+  </li>
+  <li>
+    <a href="/docker-registry-authentication-with-keycloak">
+  <strong>Simple Docker Registry</strong>
+</a>
+  </li>
+  <li>
+    <a href="/harbor-docker-registry-on-kubernetes-authentication-with-keycloak">
+  Harbor Docker Registry with ACL
+</a>
+  </li>
+</ol>
+
+    </section>
+
+    
+
+    <footer class="post-footer">
+      
+      <!-- If we want to display author's name and bio -->
+
+<section class="author">
+  <header> <a href="/about.html"> <img class="profile" src="/assets/images/profile4.jpg" alt="Ben Dixon. Without
+      Aviators."></a></header>
+  <article>
+    <!-- Author Name -->
+    <h4> Ben Dixon </h4>
+    <!-- Author Bio -->
+    <p>
+      My name's Ben Dixon, I'm the co-founder of <a target="_blank"
+        href="https://www.getsona.com?utm_source=benblogabout">Sona</a> where we're building the operating system for
+      the worlds deskless workforce.
+      I'm an experienced CTO, LLM geek, lover of good coffee and above all, making things.
+      Also a regular conference speaker, author and travel
+      addict. Chat to me on twitter <a href="http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a>
+    </p>
+  </article>
+</section>
+
+      
+      
+      
+
+
+      
+
+    </footer>
+
+  </article>
+
+</main>
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="/rss.xml"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+          <section class="copyright">All content copyright <a href="/about.html">Ben Dixon</a> &copy; &bull; All rights reserved. Twitter: <a href="http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a></section>
+             <section class="poweredby">Made with Jekyll and based on the <a href="http://github.com/rosario/kasper" target="_blank">Kasper theme</a></section>
+        </div>
+    </footer>
+
+
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-7333902-35']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</body>
+</html>
