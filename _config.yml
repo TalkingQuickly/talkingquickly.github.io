@@ -1,6 +1,6 @@
 name: talkingquickly
-description: 'kubernetes, rails, stress free deployment and small steps taken quickly'
-meta_description: "Blog by Ben Dixon, Ruby on Rails Developer, about rails, kubernetes, docker, climbing and startups"
+description: 'Ben Dixon, Co-founder of Sona. Writing about AI, Startups, Elixir and Small Steps Taken Quickly.'
+meta_description: "Blog by Ben Dixon, Co-founder of Sona, about startups, elixir, AI, climbing and photography"
 
 permalink: /:year/:month/:title/
 

@@ -32,8 +32,8 @@
 /* Import the font file with the icons in it */
 @font-face {
     font-family: 'icons';
-    src:url('../fonts/icons.eot');
-    src:url('../fonts/icons.eot?#iefix') format('embedded-opentype'),
+    src: url('../fonts/icons.eot');
+    src: url('../fonts/icons.eot?#iefix') format('embedded-opentype'),
         url('../fonts/icons.woff') format('woff'),
         url('../fonts/icons.ttf') format('truetype'),
         url('../fonts/icons.svg#icons') format('svg');
@@ -63,16 +63,20 @@
 .icon-ghost:before {
     content: "\e000";
 }
+
 .icon-feed:before {
     content: "\e001";
 }
+
 .icon-twitter:before {
     content: "\e002";
     font-size: 1.1em;
 }
+
 .icon-google-plus:before {
     content: "\e003";
 }
+
 .icon-facebook:before {
     content: "\e004";
 }
@@ -109,8 +113,12 @@ body {
     text-shadow: none;
 }
 
-h1, h2, h3,
-h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     text-rendering: optimizeLegibility;
     line-height: 1;
     margin-top: 0;
@@ -156,18 +164,27 @@ a:hover {
     color: #57A3E8;
 }
 
-h1 a, h2 a, h3 a,
-h4 a, h5 a, h6 a {
+h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a,
+h6 a {
     color: #50585D;
 }
 
 
-p, ul, ol, dl {
+p,
+ul,
+ol,
+dl {
     margin: 1.6em 0;
 }
 
-ol ol, ul ul,
-ul ol, ol ul {
+ol ol,
+ul ul,
+ul ol,
+ol ul {
     margin: 0.4em 0;
 }
 
@@ -213,23 +230,28 @@ blockquote p {
 blockquote small {
     display: inline-block;
     margin: 0.8em 0 0.8em 1.5em;
-    font-size:0.9em;
+    font-size: 0.9em;
     color: #ccc;
 }
 
-blockquote small:before { content: '\2014 \00A0'; }
-
-blockquote cite {
-    font-weight:bold;
+blockquote small:before {
+    content: '\2014 \00A0';
 }
 
-blockquote cite a { font-weight: normal; }
+blockquote cite {
+    font-weight: bold;
+}
+
+blockquote cite a {
+    font-weight: normal;
+}
 
 mark {
     background-color: #ffc336;
 }
 
-code, tt {
+code,
+tt {
     padding: 1px 3px;
     font-family: Inconsolata, monospace, sans-serif;
     font-size: 0.85em;
@@ -254,7 +276,8 @@ pre {
     border-radius: 3px;
 }
 
-pre code, tt {
+pre code,
+tt {
     font-size: inherit;
     white-space: -moz-pre-wrap;
     white-space: pre-wrap;
@@ -283,7 +306,7 @@ table {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     margin: 1.6em 0;
-    width:100%;
+    width: 100%;
     max-width: 100%;
     background-color: transparent;
 }
@@ -297,32 +320,39 @@ table td {
     border-top: 1px solid #efefef;
 }
 
-table th { color: #000; }
+table th {
+    color: #000;
+}
 
-table caption + thead tr:first-child th,
-table caption + thead tr:first-child td,
-table colgroup + thead tr:first-child th,
-table colgroup + thead tr:first-child td,
+table caption+thead tr:first-child th,
+table caption+thead tr:first-child td,
+table colgroup+thead tr:first-child th,
+table colgroup+thead tr:first-child td,
 table thead:first-child tr:first-child th,
 table thead:first-child tr:first-child td {
     border-top: 0;
 }
 
-table tbody + tbody { border-top: 2px solid #efefef; }
+table tbody+tbody {
+    border-top: 2px solid #efefef;
+}
 
-table table table { background-color: #fff; }
+table table table {
+    background-color: #fff;
+}
 
-table tbody > tr:nth-child(odd) > td,
-table tbody > tr:nth-child(odd) > th {
+table tbody>tr:nth-child(odd)>td,
+table tbody>tr:nth-child(odd)>th {
     background-color: #f6f6f6;
 }
 
-table.plain tbody > tr:nth-child(odd) > td,
-table.plain tbody > tr:nth-child(odd) > th {
-   background: transparent;
+table.plain tbody>tr:nth-child(odd)>td,
+table.plain tbody>tr:nth-child(odd)>th {
+    background: transparent;
 }
 
-iframe, .fluid-width-video-wrapper {
+iframe,
+.fluid-width-video-wrapper {
     display: block;
     margin: 1.6em 0;
 }
@@ -377,6 +407,11 @@ margin on the iframe, cause it breaks stuff. */
     background-size: cover;
 }
 
+.site-head-content {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
 .blog-logo {
     text-decoration: none;
 }
@@ -411,11 +446,11 @@ margin on the iframe, cause it breaks stuff. */
 /* Every post, on every page, gets this style on its <article> tag */
 .post {
     position: relative;
-    width:80%;
+    width: 80%;
     max-width: 700px;
     margin: 4rem auto;
-    padding-bottom: 4rem;
-    border-bottom: #EBF2F6 1px solid;
+    /* padding-bottom: 4rem; */
+    /* border-bottom: #EBF2F6 1px solid; */
     word-break: break-word;
     hyphens: auto;
 }
@@ -440,7 +475,7 @@ margin on the iframe, cause it breaks stuff. */
 }
 
 .post-title {
-    margin:0;
+    margin: 0;
 }
 
 .post-title a {
@@ -541,7 +576,8 @@ margin on the iframe, cause it breaks stuff. */
 }
 
 /* Keep large images within the bounds of the post-width */
-.post-content img, .post-excerpt img {
+.post-content img,
+.post-excerpt img {
     display: block;
     max-width: 100%;
     margin: 0 auto;
@@ -567,42 +603,44 @@ margin on the iframe, cause it breaks stuff. */
     margin: 0;
 }
 
-.post-footer p, .post-footer li {
+.post-footer p,
+.post-footer li {
     margin: 1rem 0;
     font-size: 1.4rem;
     line-height: 1.6em;
 }
 
 .post-footer ul {
-  margin: 0.3em;
+    margin: 0.3em;
 }
 
 /* the book advert after the post */
-.book, .docker-book {
-  padding: 20px;
-  background-color: rgb(241, 241, 241);
+.book,
+.docker-book {
+    padding: 20px;
+    background-color: rgb(241, 241, 241);
 }
 
 .book header {
-  float: left;
-  margin-right: 20px;
+    float: left;
+    margin-right: 20px;
 }
 
 .book header img {
-  max-width: 200px
+    max-width: 200px
 }
 
 .book article {
-  min-height: 280px;
+    min-height: 280px;
 }
 
 .docker-book article {
-  min-height: 100px;
+    min-height: 100px;
 }
 
 .book form {
-  font-family: Arial;
-  margin-top: 30px;
+    font-family: Arial;
+    margin-top: 30px;
 }
 
 /* Create some space to the right for the share links */
@@ -771,7 +809,7 @@ margin on the iframe, cause it breaks stuff. */
 
 /* Add a box shadow to on hover */
 .subscribe:hover {
-    box-shadow: rgba(0,0,0,0.05) 0 0 0 3px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0 0 0 3px;
     transition: box-shadow 0.25s;
 }
 
@@ -781,35 +819,35 @@ margin on the iframe, cause it breaks stuff. */
 
 /* CSS tooltip saying "Subscribe!" - initially hidden */
 .tooltip {
-    opacity:0;
+    opacity: 0;
     display: inline-block;
     padding: 4px 8px 5px 8px;
-    position:absolute;
+    position: absolute;
     top: -23px;
     left: -21px;
-    color: rgba(255,255,255,0.9);
+    color: rgba(255, 255, 255, 0.9);
     font-size: 1.1rem;
     line-height: 1em;
     text-align: center;
     background: #50585D;
-    border-radius:20px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    border-radius: 20px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
     transition: opacity 0.3s ease, top 0.3s ease;
 }
 
 /* The little chiclet arrow under the tooltip, pointing down */
 .tooltip:after {
-    content:"";
-    border-width:5px 5px 0 5px;
-    border-style:solid;
+    content: "";
+    border-width: 5px 5px 0 5px;
+    border-style: solid;
     border-color: #50585D transparent;
-    display:block;
-    position:absolute;
-    bottom:-4px;
-    left:50%;
-    margin-left:-5px;
+    display: block;
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    margin-left: -5px;
     z-index: 220;
-    width:0;
+    width: 0;
 }
 
 /* On hover, show the tooltip! */
@@ -899,7 +937,7 @@ margin on the iframe, cause it breaks stuff. */
     }
 
     .post {
-        width:auto;
+        width: auto;
         margin-left: 16px;
         margin-right: 16px;
         font-size: 0.8em;
@@ -919,7 +957,8 @@ margin on the iframe, cause it breaks stuff. */
     }
 
 
-    h1, h2 {
+    h1,
+    h2 {
         font-size: 3rem;
         line-height: 1.1em;
         letter-spacing: -1px;

@@ -6,31 +6,28 @@ about: 'about.html'
 regenerate: true
 ---
 
-<header class="site-head" {% if page.cover %} style="background-image: url({{ page.cover }})"{% endif%}>
+<header class="site-head" {% if page.cover %} style="background-image: url({{ page.cover }})" {% endif%}>
     <div class="vertical">
         <div class="site-head-content" class="inner">
             {% if page.logo %}
-                <a class="blog-logo" href="{{ site.baseurl }}">
-                    <img src="{{ page.logo}}" alt="Blog Logo" />
-                </a>
+            <a class="blog-logo" href="{{ site.baseurl }}">
+                <img src="{{ page.logo}}" alt="Blog Logo" />
+            </a>
             {% endif %}
             <h1 class="blog-title">{{ site.name}}</h1>
             <h2 class="blog-description">
-               {{ site.description }}
+                {{ site.description }}
             </h2>
             <h2 class="blog-description">
                 {% if page.about %} <a href='{{site.baseurl}}{{ page.about }}'> About me</a> {% endif %}
-                |
-                <a target="_blank" href="https://leanpub.com/deploying_rails_applications?utm_source=tlqblog&utm_campaign=homepage_banner">Deploying Rails Book</a>
             </h2>
 
             <h3 class="best-of-header">best of</h3>
             <ul class="best-of-list">
-            <li><a href="/2015/04/what-id-tell-myself-about-startups/">What I'd tell myself about startups if I could go back 5 years</a></li>
-            <li><a href="/kubernetes-sso-a-detailed-guide">Kubernetes SSO - A detailed Guide</a></li>
-            <li><a href="/getting-things-done-while-staying-sane">Getting things done while staying sane</a></li>
-            <li><a href="/2017/11/startup-reading-list/">Startup Reading List</a></li>
-            <li><a href="/deploying-rails-to-a-vps-with-capistrano-v3-and-systemd">Deploying Rails with Capistrano</a></li>
+                <li><a href="/2015/04/what-id-tell-myself-about-startups/">What I'd tell myself about startups</a></li>
+                <li><a href="/kubernetes-sso-a-detailed-guide">Kubernetes SSO</a></li>
+                <li><a href="/getting-things-done-while-staying-sane">Getting things done while staying sane</a></li>
+                <li><a href="/2017/11/startup-reading-list/">Startup Reading List</a></li>
             </ul>
         </div>
     </div>
@@ -42,7 +39,8 @@ regenerate: true
 
     <article class="post">
         <header class="post-header">
-            <span class="post-meta"><time datetime="{{ post.date | date_to_string }}">{{ post.date | date_to_string }}</time></span>
+            <span class="post-meta"><time datetime="{{ post.date | date_to_string }}">{{ post.date | date_to_string
+                    }}</time></span>
             <h2 class="post-title"><a href="{{ post.url}}">{{ post.title }}</a></h2>
 
         </header>
@@ -56,11 +54,11 @@ regenerate: true
     <nav class="pagination" role="pagination">
 
         {% if paginator.previous_page %}
-          {% if paginator.previous_page == 1 %}
-          <a class="newer-posts" href="/" title="Previous Page">&laquo; Newer Posts</a>
-          {% else %}
-          <a class="newer-posts" href="/page{{ paginator.previous_page }}/" title="Previous Page">&laquo; Newer Posts</a>
-          {% endif %}
+        {% if paginator.previous_page == 1 %}
+        <a class="newer-posts" href="/" title="Previous Page">&laquo; Newer Posts</a>
+        {% else %}
+        <a class="newer-posts" href="/page{{ paginator.previous_page }}/" title="Previous Page">&laquo; Newer Posts</a>
+        {% endif %}
         {% endif %}
 
         <span class="page-number"> Page {{paginator.page}} of {{paginator.total_pages}} </span>
