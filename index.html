@@ -58,6 +58,64 @@
 
     <article class="post">
         <header class="post-header">
+            <span class="post-meta"><time datetime="15 Dec 2024">15 Dec 2024</time></span>
+            <h2 class="post-title"><a href="/books">Non Fiction Books</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            <p><p>This is a page I update periodically with key takeaways from non-fiction books I&#39;ve read. My current top 25 are:</p>
+
+<ol>
+<li>Four thousand weeks</li>
+<li>Fooled by randomness</li>
+<li>Atomic Habits</li>
+<li>Thanks for the feedback</li>
+<li>Radical Candor </li>
+<li>High output management</li>
+<li>The 4 hour work week</li>
+<li>The 4 hour body</li>
+<li>The hard thing about hard things</li>
+<li>The lean startup</li>
+<li>Deep Work</li>
+<li>Digital Minimalism</li>
+<li>The power of now</li>
+<li>Why we sleep</li>
+<li>In defence of food</li>
+<li>The tipping point</li>
+<li>Breath</li>
+<li>Outlive</li>
+<li>Getting things done</li>
+<li>Algorithms to live by </li>
+<li>Thinking in systems</li>
+<li>Zen and the art of motorcycle maintenance </li>
+<li>The 48 laws of power</li>
+<li>Inspired</li>
+<li>The dip</li>
+</ol>
+
+<p>It&#39;s mainly a tool for me to skim through and remind myself of what I&#39;ve read as a way to jog my thinking.</p>
+</p>
+        </section>
+    </article>
+
+    
+
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta"><time datetime="15 Dec 2024">15 Dec 2024</time></span>
+            <h2 class="post-title"><a href="/podcasts">Podcasts</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            <p><p>This page mainly exists as a tool for me to write up my key takeaways from Podcasts.</p>
+</p>
+        </section>
+    </article>
+
+    
+
+    <article class="post">
+        <header class="post-header">
             <span class="post-meta"><time datetime="07 Feb 2024">07 Feb 2024</time></span>
             <h2 class="post-title"><a href="/integrations">Integrations</a></h2>
 
@@ -435,38 +493,6 @@ WantedBy=&lt;%=(fetch(:puma_systemctl_user) == :system) ? &quot;multi-user.targe
 <p>By default, configuring Kubernetes to support OIDC auth requires passing flags to the kubelet API server. The challenge with this approach is that only one such provider can be configured and managed Kubernetes offerings - e.g. GCP or AWS - use this for their proprietary IAM systems.</p>
 
 <p>To address this we will use <a href="https://github.com/jetstack/kube-oidc-proxy">kube-oidc-proxy</a>, a tool from Jetstack which allows us to connect to a proxy server which will manage OIDC authentication and use impersonation to give the authenticating user the required permissions. This approach has the benefit of being universal across clusters, so we don&#39;t have to follow different approaches for our managed vs unmanaged clusters.</p>
-
-<p>This post is part of a series on single sign on for Kubernetes.</p>
-</p>
-        </section>
-    </article>
-
-    
-
-    <article class="post">
-        <header class="post-header">
-            <span class="post-meta"><time datetime="21 Feb 2021">21 Feb 2021</time></span>
-            <h2 class="post-title"><a href="/webapp-authentication-keycloak-OAuth2-proxy-nginx-ingress-kubernetes">Web application authentication and authorization with Keycloak and OAuth2 Proxy on Kubernetes using Nginx Ingress</a></h2>
-
-        </header>
-        <section class="post-excerpt">
-            <p><p>In this post we&#39;ll setup a generic solution which allows us to add authentication via Keycloak to any application, simply by adding an ingress annotation. This gives us a much more extendable and secure alternative to basic auth.</p>
-</p>
-        </section>
-    </article>
-
-    
-
-    <article class="post">
-        <header class="post-header">
-            <span class="post-meta"><time datetime="19 Feb 2021">19 Feb 2021</time></span>
-            <h2 class="post-title"><a href="/harbor-docker-registry-on-kubernetes-authentication-with-keycloak">Comprehensive docker registry on Kubernetes with Harbor and Keycloak for single sign on</a></h2>
-
-        </header>
-        <section class="post-excerpt">
-            <p><p>In this post we&#39;ll install a feature rich but lightweight docker registry and integrate login and authorization with Keycloak users and groups. </p>
-
-<p><a href="https://goharbor.io">Harbor</a> is an open source registry which can serve multiple types of cloud artifacts and secure them using fine grained access control. In this case we&#39;ll be focussed on using harbor as a docker image registry and linking it&#39;s authentication with Keycloak but it is also capable of serving multiple other types of artifact, including helm charts.</p>
 
 <p>This post is part of a series on single sign on for Kubernetes.</p>
 </p>
