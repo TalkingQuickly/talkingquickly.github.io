@@ -2,3 +2,4 @@ _site
 .DS_Store
 *.sublime-*
 .jekyll-metadata
+/_posts/.Ulysses-Group.plist
