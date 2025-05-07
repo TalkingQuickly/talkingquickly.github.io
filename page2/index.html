@@ -58,6 +58,34 @@
 
     <article class="post">
         <header class="post-header">
+            <span class="post-meta"><time datetime="23 Feb 2021">23 Feb 2021</time></span>
+            <h2 class="post-title"><a href="/setting-up-oidc-login-kubernetes-kubectl-with-keycloak">OIDC Login to Kubernetes and Kubectl with Keycloak</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            <p><p>A commonly cited pain point for teams working with Kubernetes clusters is managing the configuration to connect to the cluster. All to often this ends up being either sending KUBECONFIG files with hardcoded credentials back and forth or fragile custom shell scripts wrapping the AWS or GCP cli&#39;s.</p>
+
+<p>In this post we&#39;ll integrate Kubernetes with Keycloak so that when we execute a <code>kubectl</code> or <code>helm</code> command, if the user is not already authenticated, they&#39;ll be presented with a keycloak browser login where they can enter their credentials. No more sharing KUBECONFIG files and forgetting to export different KUBECONFIG paths!</p>
+
+<p>We&#39;ll also configure group based access control, so we can, for example create a <code>KubernetesAdminstrators</code> group, and have all users in that group given <code>cluster-admin</code> access automatically.</p>
+
+<p>When we remove a user from Keycloak (or remove them from the relevant groups within Keycloak) they will then lose access to the cluster (subject to token expiry).</p>
+
+<p>For this we&#39;ll be using OpenID Connect, more <a href="https://kubernetes.io/docs/reference/access-authn-authz/authentication/#openid-connect-tokens">here</a> on how this works.</p>
+
+<p>By default, configuring Kubernetes to support OIDC auth requires passing flags to the kubelet API server. The challenge with this approach is that only one such provider can be configured and managed Kubernetes offerings - e.g. GCP or AWS - use this for their proprietary IAM systems.</p>
+
+<p>To address this we will use <a href="https://github.com/jetstack/kube-oidc-proxy">kube-oidc-proxy</a>, a tool from Jetstack which allows us to connect to a proxy server which will manage OIDC authentication and use impersonation to give the authenticating user the required permissions. This approach has the benefit of being universal across clusters, so we don&#39;t have to follow different approaches for our managed vs unmanaged clusters.</p>
+
+<p>This post is part of a series on single sign on for Kubernetes.</p>
+</p>
+        </section>
+    </article>
+
+    
+
+    <article class="post">
+        <header class="post-header">
             <span class="post-meta"><time datetime="21 Feb 2021">21 Feb 2021</time></span>
             <h2 class="post-title"><a href="/webapp-authentication-keycloak-OAuth2-proxy-nginx-ingress-kubernetes">Web application authentication and authorization with Keycloak and OAuth2 Proxy on Kubernetes using Nginx Ingress</a></h2>
 
@@ -278,20 +306,6 @@
         </header>
         <section class="post-excerpt">
             <p><p>One of the most high leverage tools available to us is habit. We are the sum of the things we do, our habits tend to be the things we do most and therefore we tend towards being the sum of our habits. Charles Duhigg&#39;s <a href="https://www.amazon.co.uk/Power-Habit-Why-What-Change/dp/1847946240">The Power of Habit</a> is a great primer on this. An interplay I&#39;m increasingly interested in is the one between habits and batching (or habits of batching).</p>
-</p>
-        </section>
-    </article>
-
-    
-
-    <article class="post">
-        <header class="post-header">
-            <span class="post-meta"><time datetime="29 Apr 2018">29 Apr 2018</time></span>
-            <h2 class="post-title"><a href="/getting-things-done-while-staying-sane">Getting things done while staying sane</a></h2>
-
-        </header>
-        <section class="post-excerpt">
-            <p><p>These are the guidelines I aim to follow with the goal of maintaining a high output while still enjoying life and avoiding burnout. I can&#39;t claim to be exceptionally good at sticking to them. As per usual, the &quot;you&quot; here is me, this isn&#39;t advice, it&#39;s just what&#39;s worked for me whenever I&#39;ve managed to stick to it. It&#39;s definitely highly influenced by the dynamics of building technology companies and is very tailored to the quirks of my psyche, ymmv.</p>
 </p>
         </section>
     </article>

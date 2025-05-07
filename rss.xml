@@ -3,13 +3,250 @@
 <generator uri="http://jekyllrb.com" version="3.9.3">Jekyll</generator>
 <link href="https://www.talkingquickly.co.uk/rss.xml" rel="self" type="application/atom+xml" />
 <link href="https://www.talkingquickly.co.uk/" rel="alternate" type="text/html" />
-<updated>2025-02-16T17:46:50+00:00</updated>
+<updated>2025-05-07T12:50:14+00:00</updated>
 <id>https://www.talkingquickly.co.uk/</id>
 <title>talkingquickly</title>
 <subtitle>Ben Dixon, Co-founder of Sona. Writing about AI, Startups, Elixir and Small Steps Taken Quickly.</subtitle>
 <author>
 <name>Ben Dixon</name>
 </author>
+<entry>
+<title>AI Coding (&amp;quot;vibe coding&amp;quot;) is real, and that&amp;#39;s a good thing</title>
+<link href="https://www.talkingquickly.co.uk/vibe-coding-is-real" rel="alternate" type="text/html" title="AI Coding (&quot;vibe coding&quot;) is real, and that's a good thing" />
+<published>2025-05-06T00:00:00+00:00</published>
+<updated>2025-05-06T00:00:00+00:00</updated>
+<id>https://www.talkingquickly.co.uk/vibe-coding-is-real</id>
+<content type="html" xml:base="https://www.talkingquickly.co.uk/vibe-coding-is-real">&lt;p&gt;tldr; AI Coding (&amp;quot;vibe coding&amp;quot;) is real and it has fundamentally changed what it means to be a software engineer forever (in a really good way!)&lt;/p&gt;
+
+&lt;p&gt;The single thing that will define which businesses and which engineers are successful over the coming years is how quickly they are able to adapt to this.&lt;/p&gt;
+
+&lt;p&gt;This post is a summary of the topics that are coming up again and again when discussing this with other engineers and engineering leaders.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;h2 id=&quot;what-is-ai-coding-its-not-auto-complete&quot;&gt;What is AI Coding (it&amp;#39;s not auto-complete)&lt;/h2&gt;
+
+&lt;p&gt;By AI coding I&amp;#39;m talking about a dynamic where an engineer builds software by talking in natural language to some sort of software agent; asking it to perform actions that result in the modification of one or more files without specifying exactly what those modifications should be or how they should be made.&lt;/p&gt;
+
+&lt;p&gt;So I&amp;#39;m explicitly excluding:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;AI powered auto complete, even if it&amp;#39;s completing whole files&lt;/li&gt;
+&lt;li&gt;Stubbing function heads and having AI fill in the blanks&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;From this definition of AI coding.&lt;/p&gt;
+
+&lt;p&gt;So prompting an AI:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&amp;quot;Could you modify this to spawn tasks for each item and keep track of the spawned tasks, I&amp;#39;ve attached a screenshot of what the UI should look like and given you access to both the UI and the underlying interface&amp;quot;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;is&lt;/strong&gt; AI coding.&lt;/p&gt;
+
+&lt;p&gt;But for the purposes of this post, defining a function head &lt;code&gt;do_thing_using_async_tasks&lt;/code&gt;, writing comments that explain how it should work then having an AI &amp;quot;fill in the blanks&amp;quot; is &lt;strong&gt;not&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-mental-model-is-more-important-than-the-tool&quot;&gt;The mental model is more important than the tool&lt;/h2&gt;
+
+&lt;p&gt;When evaluating AI coding, people are spending a lot of time talking about &amp;quot;which tool&amp;quot; and &amp;quot;which model&amp;quot;.&lt;/p&gt;
+
+&lt;p&gt;For all practical purposes the leading foundation models perform similarly and most of the tools use these foundation models in approximately similar ways. Different tool and model combinations eek out different advantages daily but mastery of a model tool combination is - excluding any as yet unannounced step changes - far more important than picking a model-tool combination. &lt;/p&gt;
+
+&lt;p&gt;The mental model I&amp;#39;ve found to be most effective for AI coding is that each and every engineer is now pair programming with a new joiner. &lt;/p&gt;
+
+&lt;p&gt;This new joiner is incredibly smart, knows the language and libraries almost perfectly and can &lt;strong&gt;ship code at approximately 50x the speed of a regular engineer&lt;/strong&gt;. Importantly we&amp;#39;re not talking about typing speed here - very few programmers are constrained by how fast they can type - we&amp;#39;re talking about the time taking to move from an abstract idea of wanting to instruct a computer to do something, to having written, iterated on and debugged the code to make it do that thing.&lt;/p&gt;
+
+&lt;p&gt;They are exceptionally good at following instructions, matching existing style and reasoning about complex pieces of existing code. &lt;/p&gt;
+
+&lt;p&gt;They have never seen your codebase before and don&amp;#39;t know the business domain.&lt;/p&gt;
+
+&lt;p&gt;When given new information, they assimilate it quickly, act on it rationally, and then &lt;strong&gt;forget it when they move onto the next task&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Think Groundhog day meets the best engineer you&amp;#39;ve ever met.&lt;/p&gt;
+
+&lt;h2 id=&quot;everything-is-architecture-context-management&quot;&gt;Everything is architecture &amp;amp; context management&lt;/h2&gt;
+
+&lt;p&gt;If you imagine working with this Groundhog day trapped new joiner, how would you get the most out of them?&lt;/p&gt;
+
+&lt;p&gt;What they bring to the table is that they can conceptualise and write code 50x faster than you, rarely have to Google anything and do not need to sleep.&lt;/p&gt;
+
+&lt;p&gt;What you - as an experienced engineer in that business with that codebase - bring to the table is that you know the codebase and the domain.&lt;/p&gt;
+
+&lt;p&gt;So you are positioned to reason about the big picture in the way that they can&amp;#39;t.&lt;/p&gt;
+
+&lt;p&gt;Specifically your job is:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Guide the new joiner towards which parts of the codebase are relevant and which aren&amp;#39;t for the current task (constrain context)&lt;/li&gt;
+&lt;li&gt;Think through the current task in the context of the wider system architecture, domain and future plans and constrain options accordingly&lt;/li&gt;
+&lt;li&gt;Provide all of the implicit context around the evolution of the codebase and business which is rarely - if ever - documented anywhere&lt;/li&gt;
+&lt;li&gt;Help the new joiner to understand where existing documentation is and create new documentation where appropriate (build re-usable context)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;This is already what most senior engineers are doing when working on code themselves, it&amp;#39;s just that currently there&amp;#39;s a fifth step; &amp;quot;write and ship code&amp;quot;.&lt;/p&gt;
+
+&lt;p&gt;AI coding effectively reduces the time and cognitive load of that &amp;quot;write and ship code&amp;quot; step to zero or close to zero allowing for more iterations in a day. &lt;/p&gt;
+
+&lt;h2 id=&quot;some-tools-drive-the-mental-model-better-than-others&quot;&gt;Some tools drive the mental model better than others&lt;/h2&gt;
+
+&lt;p&gt;In particular tools like Cursor and Claude Code have tried to solve the &amp;quot;context discovery&amp;quot; problem as well as the shipping code problem. So they have tried to provide closer to the magic experience of &amp;quot;given a codebase, point me at it, tell me what you want to do and I&amp;#39;ll figure out the rest&amp;quot;.&lt;/p&gt;
+
+&lt;p&gt;This works brilliantly for extremely small codebases with minimal business context and &amp;quot;history driven complexity&amp;quot; encoded into them (and does truly feel like magic when it works).&lt;/p&gt;
+
+&lt;p&gt;But most of the complexity of developing good software in the medium term is accurate understanding &amp;amp; communication of product objectives and managing the domain + business history driven complexity, not writing code.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&amp;quot;Order forms and order sheets are similar right?&amp;quot; Oh no you see actually in this business domain they&amp;#39;re completely unrelated concepts, so the &lt;code&gt;OrderForms&lt;/code&gt; context and the &lt;code&gt;OrderSheets&lt;/code&gt; contexts have nothing to do with each other. Except...&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;How well would you expect a senior engineer to do if on day one you gave them access to a git repo, your company wiki and a big feature brief and said &amp;quot;see you in two weeks, don&amp;#39;t talk to anyone&amp;quot;? &lt;/p&gt;
+
+&lt;p&gt;AI Coding tools broadly can&amp;#39;t currently really do things human engineers can&amp;#39;t do. They can just do some of the things human engineers can do MUCH faster. &lt;/p&gt;
+
+&lt;p&gt;Because tools like Cursor and Claude code TRY to solve this context discovery problem, people tend to try and use it (because it would be cool if it worked right?). &lt;/p&gt;
+
+&lt;p&gt;When it doesn&amp;#39;t work, it generates frustration - because learning new tools IS frustrating - and so people are disproportionately likely to give up.&lt;/p&gt;
+
+&lt;p&gt;I &lt;em&gt;think&lt;/em&gt; this has led to a lot of the the &amp;quot;AI Coding doesn&amp;#39;t work on large codebases&amp;quot; myths. &lt;/p&gt;
+
+&lt;p&gt;Cursor is capable - and extremely good at - allowing the engineer to manage context themselves, it just doesn&amp;#39;t make that the path of least resistance. &lt;/p&gt;
+
+&lt;p&gt;Tools which force you to manage context yourself (e.g. Aider) are therefore in my opinion much better for learning the mental model initially.&lt;/p&gt;
+
+&lt;h2 id=&quot;shipping-faster-shipping-more-shipping-better-er&quot;&gt;Shipping faster? Shipping more? Shipping Better(er)?&lt;/h2&gt;
+
+&lt;p&gt;AI coding will mean we build more and better software given the same amount of effort but I don&amp;#39;t think it&amp;#39;s clear yet the balance between:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Shipping the same things faster&lt;/li&gt;
+&lt;li&gt;Shipping the same things at higher quality&lt;br&gt;&lt;/li&gt;
+&lt;li&gt;Shipping more complete things earlier &lt;/li&gt;
+&lt;li&gt;Shipping more different things&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;So it&amp;#39;s hard to make blanket statements about efficiency. My early intuition is that it&amp;#39;s probably more about items 2-4 above than it is item 1.&lt;/p&gt;
+
+&lt;p&gt;There&amp;#39;ll be some &amp;quot;shipping the same things faster&amp;quot; effect, e.g. maybe it on-average halves the time it currently takes to ship a given roadmap item.&lt;/p&gt;
+
+&lt;p&gt;But some large proportion of shipping stuff is thinking and this is also where 90% of the value of a senior engineer sits.&lt;/p&gt;
+
+&lt;p&gt;So if you spend two weeks mainly thinking and two weeks mainly building (obviously a gross over simplification), you save most of the two weeks building and the two weeks thinking remains largely intact.&lt;/p&gt;
+
+&lt;p&gt;But while you were thinking you probably didn&amp;#39;t just think through the first iteration, you thought through some of the first ten iterations then scope hammered heavily to keep the building down to two weeks. You&amp;#39;d probably done enough thinking for ten weeks of building. &lt;/p&gt;
+
+&lt;p&gt;As the building time approaches zero, you &amp;quot;might as well&amp;quot; include some of iterations two to four, so polish that might otherwise be delayed, sometimes indefinitely, will now be included in version ones. &lt;/p&gt;
+
+&lt;p&gt;Similarly the cost (time investment) of refactoring, adding complex detailed test coverage etc is reduced dramatically which will tend to drive up code quality and product quality for the same or lower engineering investment.&lt;/p&gt;
+
+&lt;p&gt;But there&amp;#39;s some danger that because it&amp;#39;s easy to talk about 3-5x productivity improvements - and I think those are achievable with just what&amp;#39;s available now - we equate that with &amp;quot;shipping 3-5x of what we currently ship&amp;quot;.&lt;/p&gt;
+
+&lt;p&gt;And those two things are not the same.&lt;/p&gt;
+
+&lt;p&gt;In practice we&amp;#39;ll create more (by some multiple) higher quality software. &lt;/p&gt;
+
+&lt;p&gt;Some of that will be by creating what we already create faster, but probably the majority of it will be by creating more things that we otherwise wouldn&amp;#39;t have done or by creating higher quality versions of these things.&lt;/p&gt;
+
+&lt;h2 id=&quot;who-writes-code-and-code-as-a-communication-tool&quot;&gt;Who writes code and code as a communication tool&lt;/h2&gt;
+
+&lt;p&gt;One of the fundamental (THE fundamental?) challenges of building software businesses is communicating a cohesive vision of a large objective in such a way that many people can work on it in parallel so that it can be achieved far faster than any one person could do it alone.&lt;/p&gt;
+
+&lt;p&gt;This is a problem shared across founders, product managers, engineers and solutions range from &amp;quot;talking to each other&amp;quot; to product requirements documents, clickable prototypes and a thousand other tools.&lt;/p&gt;
+
+&lt;p&gt;As a technical founder who&amp;#39;s spent the last fifteen years building technology companies, probably my single greatest frustration is having spent hundreds of hours with customers and prospects and being able to see in my head the full outline of the next version of the thing we&amp;#39;re trying to create and knowing how woefully inadequate conversation and memo&amp;#39;s will be as tools to communicate this. &lt;/p&gt;
+
+&lt;p&gt;AI Coding is especially efficient at the POC stage, so a POC which might have taken 3 months in the past may well be achievable in a week.&lt;/p&gt;
+
+&lt;p&gt;This includes time spent iterating in realtime on a POC as &amp;quot;using&amp;quot; it helps your thinking to evolve. &lt;/p&gt;
+
+&lt;p&gt;This makes code as a communication tool far more viable. &lt;/p&gt;
+
+&lt;p&gt;So rather than weeks of meetings and memos, creating a POC - sometimes with the intention of throwing it away - will increasingly be the most efficient way for technical - and eventually product - leaders to communicate concepts. &lt;/p&gt;
+
+&lt;p&gt;This probably means technical leaders become &amp;quot;more technical&amp;quot; insofar as they return to being more involved with code.&lt;/p&gt;
+
+&lt;h2 id=&quot;interlude-it-gets-more-speculative-from-here&quot;&gt;Interlude; it gets more speculative from here&lt;/h2&gt;
+
+&lt;p&gt;Up until here the majority of the points I&amp;#39;m making are just observations, e.g. what I believe the current state based on what currently exists and is happening. The remainder of this piece is more speculative.&lt;/p&gt;
+
+&lt;h2 id=&quot;pocs-as-the-new-communication-standard-generally&quot;&gt;POC&amp;#39;s as the new communication standard generally&lt;/h2&gt;
+
+&lt;p&gt;In the same way AI pair programmers make POC&amp;#39;s a far more viable communication tool for engineering leadership, UI based AI programming tools such as Windsurf, DataButton, Lovable etc make this type of POC accessible to none technical folks.&lt;/p&gt;
+
+&lt;p&gt;So it will probably become standard that product managers create clickable prototypes in these tools first and iterate on them with designers and engineers and test these with customers, replacing the more traditional memo + designs type model. &lt;/p&gt;
+
+&lt;p&gt;So far nobody (that I know of?) has successfully bridged the gap between these UI based tools and complex codebases (probably for the context reasons mentioned above) so there&amp;#39;s likely to remain separation in the tools used here until somebody makes progress on that.&lt;/p&gt;
+
+&lt;h2 id=&quot;codebases-will-have-to-adapt-not-the-other-way-around&quot;&gt;Codebases will have to adapt, not the other way around&lt;/h2&gt;
+
+&lt;p&gt;Realistically most companies - or at least startups - should expect that the amount of their new code which is written by AI will cross 50% in the next 6 months and 80% in the next 12 months. Any company not on this trajectory risks being left behind by competitors who do manage to adapt.&lt;/p&gt;
+
+&lt;p&gt;So practically the primary user of the codebase becomes AI tooling with humans a secondary consumer.&lt;/p&gt;
+
+&lt;p&gt;This means that in situations where there is a tension between something that makes the codebase better for humans and better for AI, we should choose the thing that makes it better for AI. So the trend will be as much about patterns in codebases developing to support the tooling as it will the other way around.&lt;/p&gt;
+
+&lt;p&gt;The good news is that in the vast majority of cases, things that make codebases better for AI&amp;#39;s also make them better for humans so this conflict will be rare.&lt;/p&gt;
+
+&lt;p&gt;But it may accelerate certain optimisations. E.g. a small team of REALLY good engineers can often paper over a lot of technical debt just by virtue of being incredibly good at reasoning about something which is becoming hard to reason about.&lt;/p&gt;
+
+&lt;p&gt;The improved performance of AI once the technical debt is paid back, combined with it being faster to pay it back using AI, may make these types of projects viable sooner.&lt;/p&gt;
+
+&lt;p&gt;A specific example of that is clear separation of concerns and enforced boundaries. Separation of concerns and enforced boundaries are to an extent just a formalised way of constraining context, and AI performs far better when context is constrained (as do people).&lt;/p&gt;
+
+&lt;p&gt;So we may well see startups prioritising refactoring, technical debt payback and putting in strict rules about code boundaries earlier than they otherwise and historically would.&lt;/p&gt;
+
+&lt;h2 id=&quot;beware-intuition-over-data&quot;&gt;Beware intuition over data&lt;/h2&gt;
+
+&lt;p&gt;AI coding is so new and so different that it breaks most of the existing mental models for what&amp;#39;s possible.&lt;/p&gt;
+
+&lt;p&gt;So if someone has spent less than 100-200 hours exclusively writing code by collaborating with an AI agent, most of their mental models of what will work and what won&amp;#39;t are simply wrong by virtue of lack of information.&lt;/p&gt;
+
+&lt;p&gt;A disproportionate quantity of the objections about &amp;quot;why AI coding won&amp;#39;t work&amp;quot; come from people in the 0-10 hour range. &lt;/p&gt;
+
+&lt;p&gt;So it&amp;#39;s worth building a culture of having people disclose their level of exposure early in conversations and discounting the &amp;quot;haven&amp;#39;t really tried it yet&amp;quot; groups views heavily. Of course do so compassionately, but don&amp;#39;t confuse fear based reactions with valid data.&lt;/p&gt;
+
+&lt;p&gt;Counterintuitively the main reason to do this is so that you DO hear about the valid objections. There are plenty of things that genuinely don&amp;#39;t work well yet and understanding and discussing those limitations is an important part of adoption. But often they are lost in the noise of broadly incorrect objections from people without sufficient data.&lt;/p&gt;
+
+&lt;h2 id=&quot;push-pull-people-up-the-adoption-curve&quot;&gt;Push &amp;amp; Pull people up the adoption curve&lt;/h2&gt;
+
+&lt;p&gt;In practice the job of every engineer has now changed.&lt;/p&gt;
+
+&lt;p&gt;The part that was about writing code (and that &lt;strong&gt;IS&lt;/strong&gt; only part of it) is now mainly about instructing AI tools to write code.&lt;/p&gt;
+
+&lt;p&gt;I don&amp;#39;t think it&amp;#39;s realistic that there are many engineering jobs two years from now where the expectation is anything other than this e.g. that it&amp;#39;s possible to have those jobs without being an expert in instructing AI tools to write code.&lt;/p&gt;
+
+&lt;p&gt;So assuming people want to continue to be software engineers - and I hope they do because coding with AI is SO MUCH more fun than coding without it - learning this skill isn&amp;#39;t really optional. &lt;/p&gt;
+
+&lt;p&gt;Some people will naturally dive into this head first and enthusiastically, some will need a nudge, some will completely refuse.&lt;/p&gt;
+
+&lt;p&gt;It&amp;#39;s important to create an environment where it&amp;#39;s easy for those who want to experiment to try things and share their experiences.&lt;/p&gt;
+
+&lt;p&gt;Having clear policies (and budget) around which tools and which models helps a lot. As does encouraging people to explain their experiences, both good and bad to wider teams.&lt;/p&gt;
+
+&lt;p&gt;For the people who need a nudge and those who completely refuse to engage, it&amp;#39;s important to be transparent about what&amp;#39;s at stake.&lt;/p&gt;
+
+&lt;p&gt;In the same way most people will be fairly reluctant to hire an engineer who wants to build a typical webapp purely in C, people will soon be reluctant to hire engineers who don&amp;#39;t know how to leverage these tools. So there&amp;#39;s a definite risk of being left behind.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-craft-lives-on&quot;&gt;The craft lives on&lt;/h2&gt;
+
+&lt;p&gt;Whenever there is a new abstraction invented for creating software people lament the end of writing software as a craft. &lt;/p&gt;
+
+&lt;p&gt;As with every other iteration, it wasn&amp;#39;t true then and it isn&amp;#39;t true now.&lt;/p&gt;
+
+&lt;p&gt;I&amp;#39;ve always written code for fun as well as for work. I write slightly different code for fun than for work and these days spend more of my time at work collaborating with other engineers than I do shipping code myself.&lt;/p&gt;
+
+&lt;p&gt;But using AI tools to write code has made both worlds more fun.&lt;/p&gt;
+
+&lt;p&gt;Moving from Basic to Delphi to PHP to Ruby to Elixir over the last 25 years has at each stage, allowed me to realise the visions for things I wanted to exist in the world more fully and often more quickly.&lt;/p&gt;
+
+&lt;p&gt;AI coding is just one more step on this journey and I&amp;#39;ve never been more excited.&lt;/p&gt;
+
+&lt;p&gt;Every engineer deserves to experience the moment when by collaborating with an AI, something that would have taken them a week, takes an hour.&lt;/p&gt;
+
+&lt;p&gt;It&amp;#39;s genuinely the closest thing to magic I&amp;#39;ve felt in decades. &lt;/p&gt;
+</content>
+<summary>tldr; AI Coding (&amp;quot;vibe coding&amp;quot;) is real and it has fundamentally changed what it means to be a software engineer forever (in a really good way!)The single thing that will define which businesses and which engineers are successful over the coming years is how quickly they are able to adapt to this.This post is a summary of the topics that are coming up again and again when discussing this with other engineers and engineering leaders.</summary>
+</entry>
 <entry>
 <title>Non Fiction Books</title>
 <link href="https://www.talkingquickly.co.uk/books" rel="alternate" type="text/html" title="Non Fiction Books" />
@@ -49,7 +286,7 @@
 
 &lt;p&gt;It&amp;#39;s mainly a tool for me to skim through and remind myself of what I&amp;#39;ve read as a way to jog my thinking. The summaries are a mixture of notes I wrote when reading them, reminders from Shortform summaries and what I remember. So they&amp;#39;ve been heavily filtered by my interpretation and what I was thinking about at the time I read them. They are almost certainly &lt;em&gt;not&lt;/em&gt; accurate summaries of the books themselves!&lt;/p&gt;
 
-&lt;p&gt;more&lt;/p&gt;
+&lt;!--more--&gt;
 
 &lt;h2 id=&quot;four-thousand-weeks&quot;&gt;Four thousand weeks&lt;/h2&gt;
 
@@ -99,7 +336,7 @@
 &lt;li&gt;Five Dysfunctions of a team&lt;/li&gt;
 &lt;/ol&gt;
 </content>
-<summary>This is a page I update periodically with key takeaways from non-fiction books I&amp;#39;ve read. My current top 25 are:Four thousand weeksFooled by randomnessAtomic HabitsMake TimeThanks for the feedbackRadical Candor High output managementThe 4 hour work weekThe 4 hour bodyThe hard thing about hard thingsThe lean startupDeep WorkDigital MinimalismThe power of nowWhy we sleepIn defence of foodThe tipping pointBreathOutliveGetting things doneAlgorithms to live by Thinking in systemsZen and the art of motorcycle maintenance The 48 laws of powerInspiredThe dipIt&amp;#39;s mainly a tool for me to skim through and remind myself of what I&amp;#39;ve read as a way to jog my thinking. The summaries are a mixture of notes I wrote when reading them, reminders from Shortform summaries and what I remember. So they&amp;#39;ve been heavily filtered by my interpretation and what I was thinking about at the time I read them. They are almost certainly not accurate summaries of the books themselves!moreFour thousand weeksThis is the book that gave me a framework for carving out dedicated, non negotiable time usually early in the morning for an ongoing passion project. For a long time I used the “make time” app for this.Four thousand weeks focuses on the shortness of life and how we spend it. It drives home that the deciding factor in how we spend our life is where and how we direct our attention.One of the quotes that has never left me is about how apt the idea of &amp;quot;spending&amp;quot; your time is, because once each moment is spent, you can never have it back:Pay attention, because you are paying with your lifeIt emphasises how time will pass no matter what, and so it is our decisions about where to direct our attention that govern the quality of our life.The core thread of the book is around the extent to which you really control your time. In essence that we never have full control over our time, or at least we will never be able to do all of the things we want. There are probably a variety of reasons for this, not least that as we get more efficient, we come up with more things we want to do. So we will never get to the end of the list.This resonates with one of the most important lessons I learned from my father. That many people imagine if they could just have a day to get to the end of their todo list, they&amp;#39;d be caught up and &amp;quot;on top of things&amp;quot;. But in reality this would be true for mere hours until the todo list started to grow again. So the real skill in life is doing the right things from the list and learning to live peacfully with the fact it will never end.The book turns to some practical considerations for making the most of the little time we have:Force time for the things that matter, never wait for time to &amp;quot;open up&amp;quot;. Because it never will.Limit your work in progress projects. Probably to 3-4.Become comfortable with and embrace discomfort. Especially the type of discomfort that might cause you to deviate from your project. The main approach suggested is noticing the distraction and discomfort and directing constantly increasing attention to it rather than shying away from it.Stop expecting the future to unfold in a particular away. In particular reflect on how little of your life to date your eally controlled and stop expecting a far greater degree of control over the future.Develop patience for how long things really take. An interesting tactic here is time boxing heavily and refusing to allow yourself more than that amount of time to work on something. Whenever you run out of time, your forced to become a little more comfortable with the feeling of impatience.Align your free time with your friend. As someone who obsessively tries to control my schedule, this one came from left field. The goal being to align your schedule to maximise the chances you can spend time with those you love. The second part of the book delves more deeply into the idea of life being finite. This comes with the - to me at least - calming sentiment that you can never have all of the experiences you want, because every choice you make implicitly takes the space of something else. Because it is fundamentally finite, the thing that matters is choosing things that matter, not wasting time on todo lists.The book suggests four tactics in particular:Make and strongly commit to life choices. The essence of this is that since you&amp;#39;ll never be able to do everything, you&amp;#39;ll be happier if you commit to something and do it well. The underlying principle is that more happiness is created by committing and doing well than by keeping options open.Focus on the present not the future. This hit quite hard, that it&amp;#39;s tempting to spend lots of time on actions with future payoffs, to control the future. But generally these payoffs are highly uncertain, but the payoffs now are much clearer. An example would be working on a marketing campaign for the future vs going outside to enjoy the good weather. The happiness from the good weather is certain, the payoff from the marketing campaign is very much not. I didn&amp;#39;t interpret this as not investing in the future, just that many people - me included - have a tendancy to over-invest in the future, at the expense of realising a return on the present.Incorporate purposeless time. I loved this one. In a world where it&amp;#39;s fashionable to try and turn every hobby into a profit making &amp;quot;side hustle&amp;quot;, the emphasis here is on the importance of doing things purely for the sake of doing them, with no expectation of a return.Don&amp;#39;t live only for changing the world, because you probably won&amp;#39;t. Nobody has that much impact on the world in the grand scheme of things. Humanities impact will be insignificant on many timescales. Once you let go of a need to make a grand change to the world, you open yourself up to being able to make the little changes which are possible and actually matter.On a tangent, this is the book that led me to have a poster on my wall where I mark off the weeks, counting down to 4000. Tosome people this seems morbid. For me it aligns nicely with the parts of Stoicism I relate to, acting as a reminder to enjoy each moment.Reading listFive Dysfunctions of a team</summary>
+<summary>This is a page I update periodically with key takeaways from non-fiction books I&amp;#39;ve read. My current top 25 are:Four thousand weeksFooled by randomnessAtomic HabitsMake TimeThanks for the feedbackRadical Candor High output managementThe 4 hour work weekThe 4 hour bodyThe hard thing about hard thingsThe lean startupDeep WorkDigital MinimalismThe power of nowWhy we sleepIn defence of foodThe tipping pointBreathOutliveGetting things doneAlgorithms to live by Thinking in systemsZen and the art of motorcycle maintenance The 48 laws of powerInspiredThe dipIt&amp;#39;s mainly a tool for me to skim through and remind myself of what I&amp;#39;ve read as a way to jog my thinking. The summaries are a mixture of notes I wrote when reading them, reminders from Shortform summaries and what I remember. So they&amp;#39;ve been heavily filtered by my interpretation and what I was thinking about at the time I read them. They are almost certainly not accurate summaries of the books themselves!</summary>
 </entry>
 <entry>
 <title>Podcasts</title>
@@ -1134,100 +1371,5 @@ sudo dpkg -i /tmp/chef-workstation.deb
 &lt;p&gt;If you&amp;#39;ve run into any issues, please feel free to ping me on Twitter where I&amp;#39;m &lt;a href=&quot;https://www.twitter.com/talkingquickly&quot;&gt;@talkingquickly&lt;/a&gt; or open an issue on the &lt;a href=&quot;https://github.com/TalkingQuickly/rails-server-template&quot;&gt;sample code repository&lt;/a&gt; and I&amp;#39;ll do my best to help.&lt;/p&gt;
 </content>
 <summary>Deploying Rails to a VPS with Capistrano remains one of the simplest and most reliable methods for getting a Rails app up-and running. With the likes of Hetzner Cloud, Digital Ocean and Linode providing inexpensive, reliable virtual machines, Rails app serving substantial amounts of traffic can be hosted with minimal cost and complexity.We&amp;#39;ll first use Chef to provision a VPS including securing and hardening the server, installing the correct Ruby version(s) and setting up Postgres and Redis. We&amp;#39;ll then use Capistrano to deploy our Rails app, including appropriate systemd units to ensure our services are started automatically on boot .</summary>
-</entry>
-<entry>
-<title>Managing puma with the systemd user instance and monit</title>
-<link href="https://www.talkingquickly.co.uk/managing-puma-with-systemd-user-instance-and-monit" rel="alternate" type="text/html" title="Managing puma with the systemd user instance and monit" />
-<published>2021-03-23T15:40:00+00:00</published>
-<updated>2021-03-23T15:40:00+00:00</updated>
-<id>https://www.talkingquickly.co.uk/controlling-puma-with-systemd-userspace-and-monit</id>
-<content type="html" xml:base="https://www.talkingquickly.co.uk/managing-puma-with-systemd-user-instance-and-monit">&lt;p&gt;Many guides to deploying Rails with Capistrano will use systemd to have it auto-started when the system boots. This is often done using the system instance of systemd which by default can only be controlled by root.&lt;/p&gt;
-
-&lt;p&gt;The typical workaround for this is either to grant our Capistrano deployment user passwordless sudo access or to grant them passwordless sudo access to just the commands required to restart the rails (and potentially sidekiq) systemd services.&lt;/p&gt;
-
-&lt;p&gt;This can be avoided by using the systemd user instance, which allows persistent services to be managed as a non-root user. This is compatible with the default systemd configuration in Ubuntu 20.04.&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;p&gt;There are multiple locations systemd user instance units can be located, there&amp;#39;s more &lt;a href=&quot;https://wiki.archlinux.org/index.php/systemd/User&quot;&gt;here&lt;/a&gt;, in this case we&amp;#39;ll be using: &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;~/.config/systemd/user/
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;In here we&amp;#39;ll put a systemd unit file similar to the following:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;[Unit]
-Description=Puma HTTP Server for RAILS APP NAME (ENVIRONMENT)
-After=network.target
-
-[Service]
-Type=simple
-
-WorkingDirectory=/home/deploy/apps/APP_NAME/current
-ExecStart=/usr/local/rbenv/bin/rbenv exec bundle exec puma -C /home/deploy/apps/APP_NAME/shared/puma.rb
-ExecReload=/bin/kill -USR1 $MAINPID
-ExecStop=/bin/kill -TSTP $MAINPID
-StandardOutput=append:/home/deploy/apps/APP_NAME/shared/log/puma_access.log
-StandardError=append:/home/deploy/apps/APP_NAME/shared/log/puma_error.log
-
-Environment=RBENV_VERSION=3.0.0
-Environment=RBENV_ROOT=/usr/local/rbenv
-
-Restart=always
-RestartSec=1
-
-SyslogIdentifier=APP_NAME
-
-[Install]
-WantedBy=default.target
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The &lt;code&gt;capistrano-puma&lt;/code&gt; Gem can auto-generate this file and the &lt;code&gt;capistrano-cookbook&lt;/code&gt; gem provides and overridden version of the template which fixes some rbenv compatibility issues and allows for zero downtime deploys (as well as also generating all other capistrano configuration automatically).&lt;/p&gt;
-
-&lt;p&gt;You can see the most recent Capistrano Cookbooks unit file template - which may be useful as a reference - &lt;a href=&quot;https://github.com/TalkingQuickly/capistrano-cookbook/blob/master/lib/generators/capistrano/reliably_deploying_rails/templates/puma.service.erb&quot;&gt;here&lt;/a&gt; which is a tweaked version of the version in &lt;code&gt;capistrano-puma&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Note a few things about this unit file:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;There is no &lt;code&gt;User&lt;/code&gt; directive, user services will run as the user in question, including a &lt;code&gt;User&lt;/code&gt; directive may lead to non-descriptive &lt;code&gt;service start request repeated too quickly, refusing to start&lt;/code&gt; type errors&lt;/li&gt;
-&lt;li&gt;Our Environment variables are not included in the &lt;code&gt;ExecStart&lt;/code&gt; command, they&amp;#39;re in separate &lt;code&gt;Environment&lt;/code&gt; lines, &lt;a href=&quot;http://www.talkingquickly.co.uk/capistrano-puma-neither-valid-executable-nor-absolute-path&quot;&gt;this is explained here&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;WantedBy&lt;/code&gt; is set to &lt;code&gt;default.target&lt;/code&gt; which is the correct value for user services if we want them to be started at boot&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;In order for our service to be started at boot, we then need to enable this service with:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;systemctl --user enable UNIT_FILE_NAME
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Note that this is different to starting the unit. We can start a unit immediately with &lt;code&gt;systemctl --user start UNIT_FILE_NAME&lt;/code&gt; but this does not set the unit to be started on boot, so we must enable it as well. This is taken care of automatically if you&amp;#39;re using the &lt;code&gt;deploy:setup_config&lt;/code&gt; task from &lt;code&gt;capistrano-cookbook&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Our next challenge is that by default, user instance systemd services are only started when the user starts a session and will continue to run only while the user in question has an active session.&lt;/p&gt;
-
-&lt;p&gt;To resolve this we must enable &lt;a href=&quot;http://manpages.ubuntu.com/manpages/xenial/man1/loginctl.1.html&quot;&gt;lingering&lt;/a&gt;, lingering ensures that a manager for the user in question in spawned on boot so that the user can manage long run services.&lt;/p&gt;
-
-&lt;p&gt;We can enable lingering with:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;loginctl enable-linger USERNAME
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Where USERNAME is the capistrano deployment user. This is taken care of automatically if you&amp;#39;re using the &lt;code&gt;deploy:setup_config&lt;/code&gt; task from &lt;code&gt;capistrano-cookbook&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Finally we may want to monitor our systemd service with Monit. While there is crossover between systemd and monit, both will monitor that a process is running and start it if not.&lt;/p&gt;
-
-&lt;p&gt;Monit however adds some additional capabilities on top of systemd, it can allow for significantly more complex checks such as making sure that our service is responding on a given port and even check the contents of certain healthcheck responses and issuing restarts if these aren&amp;#39;t matched.&lt;/p&gt;
-
-&lt;p&gt;Monit however runs as root and we need it to control a systemd user service.&lt;/p&gt;
-
-&lt;p&gt;We may initially think we can use something like:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;start program = &amp;quot;/usr/bin/systemctl --user start SYSTEMD_SERVICE_UNIT_FILE&amp;quot; as uid &amp;quot;deploy&amp;quot; and gid &amp;quot;deploy&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;As our start program where &lt;code&gt;deploy&lt;/code&gt; is our Capistrano user. We might expect this to be equivalent to running &lt;code&gt;systemctl --user start&lt;/code&gt; as the deploy user in a shell. While the command will be run as that user, due to some missing environment variables, we&amp;#39;re likely to get an error along the lines of:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;Failed to get D-bus connection: no such file or directory
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;This is due to &lt;code&gt;XDG_RUNTIME_DIR&lt;/code&gt; &lt;a href=&quot;https://serverfault.com/questions/936985/cannot-use-systemctl-user-due-to-failed-to-get-d-bus-connection-permission&quot;&gt;not being set correctly&lt;/a&gt; when users are switched in this way. The same issue can happen if we try and use &lt;code&gt;su&lt;/code&gt; in Capistrano to change users before executing a &lt;code&gt;systemctl --user&lt;/code&gt; command.&lt;/p&gt;
-
-&lt;p&gt;We can resolve is by modifying our start command to set this environment variable manually. So a simple monit definition might look like this:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;check process APP_NAME
-  with pidfile &amp;quot;/home/deploy/apps/APP_NAME/shared/tmp/pids/puma.pid&amp;quot;
-  start program = &amp;quot;/bin/bash -c &amp;#39;XDG_RUNTIME_DIR=/run/user/$(id -u) /usr/bin/systemctl start --user SYSTEMD_SERVICE_UNIT_FILE&amp;#39;&amp;quot; as uid &amp;quot;deploy&amp;quot; and gid &amp;quot;deploy&amp;quot;
-  stop program = &amp;quot;/bin/bash -c &amp;#39;XDG_RUNTIME_DIR=/run/user/$(id -u) /usr/bin/systemctl stop --user SYSTEMD_SERVICE_UNIT_FILE&amp;#39;&amp;quot; as uid &amp;quot;deploy&amp;quot; and gid &amp;quot;deploy&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;You can see the most recent version of &lt;code&gt;capistrano cookbooks&lt;/code&gt; monit definition &lt;a href=&quot;https://github.com/TalkingQuickly/capistrano-cookbook/blob/master/lib/generators/capistrano/reliably_deploying_rails/templates/puma_monit.conf.erb&quot;&gt;here&lt;/a&gt; which may be useful as a reference.&lt;/p&gt;
-
-&lt;p&gt;With all of this completed, we should now have puma being managed by a systemd service, which will auto start at boot, and is monitored with monit.&lt;/p&gt;
-</content>
-<summary>Many guides to deploying Rails with Capistrano will use systemd to have it auto-started when the system boots. This is often done using the system instance of systemd which by default can only be controlled by root.The typical workaround for this is either to grant our Capistrano deployment user passwordless sudo access or to grant them passwordless sudo access to just the commands required to restart the rails (and potentially sidekiq) systemd services.This can be avoided by using the systemd user instance, which allows persistent services to be managed as a non-root user. This is compatible with the default systemd configuration in Ubuntu 20.04.</summary>
 </entry>
 </feed>
