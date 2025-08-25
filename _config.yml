@@ -4,14 +4,21 @@ meta_description: "Blog by Ben Dixon, Co-founder of Sona, about startups, elixir
 
 permalink: /:year/:month/:title/
 
-markdown: redcarpet
-highlighter: pygments
+markdown: kramdown
+highlighter: rouge
 logo: false
 paginate: 15
 excerpt_separator: <!--more-->
 
-redcarpet:
-  extensions: ["tables", "autolink", "strikethrough", "with_toc_data"]
+kramdown:
+  input: GFM
+  hard_wrap: false
+  auto_ids: true
+  footnote_nr: 1
+  entity_output: as_char
+  toc_levels: 1..6
+  smart_quotes: lsquo,rsquo,ldquo,rdquo
+  enable_coderay: false
 
 exclude:
   - _drafts/k8s-supporting

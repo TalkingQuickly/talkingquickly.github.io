@@ -7,6 +7,12 @@ services:
     ports:
       - "4000:4000"
 
+  clean:
+    build: .
+    command: bundle exec jekyll clean
+    volumes:
+      - .:/home/deploy/app:delegated
+
   shell:
     build: .
     command: bash

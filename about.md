@@ -22,4 +22,4 @@ Previously I co-founded Catapult (also venture backed), a staff marketplace (thi
 
 Other projects include working as the software and embedded device developer behind the Mousemet Electronic Von Frey and building tooling to help startups manage their teams more effectively.
 
-I'm always interested in chatting to new people whether it's about startups, tech, travel or photography. You can find me on twitter as <a href="http://www.twitter.com/talkingquickly"target="_blank">@talkingquickly</a> , on <a href="https://www.linkedin.com/in/talkingquickly/" target="_blnank">LinkedIn</a>, or by emailing <a href="mailto:ben@talkingquickly.co.uk">ben@talkingquickly.co.uk</a>.
+I'm always interested in chatting to new people whether it's about startups, tech, travel or photography. You can find me on twitter as <a href="http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a> , on <a href="https://www.linkedin.com/in/talkingquickly/" target="_blank">LinkedIn</a>, or by emailing <a href="mailto:ben@talkingquickly.co.uk">ben@talkingquickly.co.uk</a>.
