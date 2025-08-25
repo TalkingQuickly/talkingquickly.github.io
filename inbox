@@ -1,0 +1,78 @@
+#!/bin/bash
+
+# Exit on error
+set -e
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+# Check if _inbox directory exists
+if [ ! -d "_inbox" ]; then
+    echo -e "${RED}Error: _inbox directory not found${NC}"
+    exit 1
+fi
+
+# Check if there are any markdown files to process
+shopt -s nullglob
+markdown_files=(_inbox/*.md _inbox/*.markdown)
+shopt -u nullglob
+
+if [ ${#markdown_files[@]} -eq 0 ]; then
+    echo -e "${YELLOW}No markdown files found in _inbox/${NC}"
+    exit 0
+fi
+
+echo -e "${GREEN}Found ${#markdown_files[@]} file(s) to process${NC}"
+echo ""
+
+# Process each markdown file
+for file in "${markdown_files[@]}"; do
+    filename=$(basename "$file")
+    echo -e "${YELLOW}Processing: $filename${NC}"
+    
+    # Create a temporary file for the prompt
+    temp_prompt=$(mktemp)
+    
+    # Generate the prompt for Claude Code
+    cat > "$temp_prompt" << 'EOF'
+I have a markdown file that needs to be prepared for publishing as a Jekyll blog post. Please:
+
+1. Read the file and analyze its content
+2. Generate appropriate frontmatter including:
+   - layout: post (always)
+   - title: Generate a suitable title based on the content
+   - date: Use today's date in YYYY-MM-DD format
+   - permalink: Generate a URL-friendly slug based on the title (NO dates in the permalink, just /slug-here/)
+   - biofooter: true (always)
+3. Check for any typos, grammatical errors, or improvements
+4. Move the file to _posts/ with the proper naming convention (YYYY-MM-DD-slug.md) - the filename should include the date, but the permalink should not
+5. Let me know what changes you made
+
+The file to process is: 
+EOF
+    echo "$file" >> "$temp_prompt"
+    
+    # Use Claude Code to process the file
+    echo -e "Invoking Claude Code to process the file..."
+    
+    # Execute Claude Code with the prompt
+    if command -v claude &> /dev/null; then
+        claude < "$temp_prompt"
+    else
+        echo -e "${RED}Error: Claude Code CLI not found. Please ensure 'claude' is installed and in your PATH${NC}"
+        echo -e "You can install it from: https://github.com/anthropics/claude-code"
+        rm "$temp_prompt"
+        exit 1
+    fi
+    
+    # Clean up temp file
+    rm "$temp_prompt"
+    
+    echo -e "${GREEN}✓ Processed $filename${NC}"
+    echo ""
+done
+
+echo -e "${GREEN}All files processed successfully!${NC}"

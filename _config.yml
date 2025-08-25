@@ -6,6 +6,7 @@ permalink: /:year/:month/:title/
 
 markdown: kramdown
 highlighter: rouge
+future: true
 logo: false
 paginate: 15
 excerpt_separator: <!--more-->
@@ -22,6 +23,13 @@ kramdown:
 
 exclude:
   - _drafts/k8s-supporting
+  - _inbox
+  - inbox
+  - Dockerfile
+  - docker-compose.yml
+  - dev
+  - Gemfile
+  - Gemfile.lock
 
 plugins:
   - jekyll-paginate

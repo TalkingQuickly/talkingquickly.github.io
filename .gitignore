@@ -3,3 +3,5 @@ _site
 *.sublime-*
 .jekyll-metadata
 /_posts/.Ulysses-Group.plist
+_inbox/*.md
+_inbox/*.markdown

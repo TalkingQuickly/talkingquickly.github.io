@@ -16,7 +16,40 @@ html {
     --link-hover: #0052a3;
     --border-color: #e5e5e5;
     --bg-subtle: #fafafa;
+    --bg-primary: white;
     --max-width: 680px;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text-primary: #e8e8e8;
+        --text-secondary: #999;
+        --link-color: #4da3ff;
+        --link-hover: #70b5ff;
+        --border-color: #333;
+        --bg-subtle: #1a1a1a;
+        --bg-primary: #0d0d0d;
+    }
+    
+    /* Smooth transitions for SVG icons */
+    svg {
+        transition: color 0.3s ease;
+    }
+    
+    /* Better code block appearance in dark mode */
+    .post-content pre {
+        background: #1a1a1a;
+        border: 1px solid var(--border-color);
+    }
+    
+    .post-content code {
+        background: #1a1a1a;
+        color: #e8e8e8;
+    }
+    
+    .post-content pre code {
+        background: transparent;
+    }
 }
 
 /* Typography */
@@ -25,9 +58,10 @@ body {
     font-size: 16px;
     line-height: 1.6;
     color: var(--text-primary);
-    background: white;
+    background: var(--bg-primary);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -274,6 +308,38 @@ a:hover {
     margin-bottom: 0.5rem;
 }
 
+/* Author Bio Section */
+.author {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+}
+
+.author .profile {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.author article {
+    flex: 1;
+}
+
+.author h4 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+.author p {
+    color: var(--text-secondary);
+    margin-bottom: 0;
+}
+
 /* Footer */
 .site-footer {
     padding: 2rem 0;
@@ -335,9 +401,19 @@ a:hover {
         font-size: 1.1rem;
     }
     
-    
     .nav-links {
         gap: 1.5rem;
+    }
+    
+    .author {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .author .profile {
+        width: 100px;
+        height: 100px;
     }
 }
 
