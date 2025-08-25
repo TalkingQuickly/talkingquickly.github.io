@@ -1,4 +1,4 @@
-FROM ruby:2.7-buster
+FROM ruby:3.1-bookworm
 
 # Install apt based dependencies required to run Rails as
 # well as RubyGems. As the Ruby image itself is based on a
@@ -6,7 +6,8 @@ FROM ruby:2.7-buster
 RUN apt-get update && apt-get install -y \
   build-essential \
   nodejs \
-  rsync
+  rsync \
+  && rm -rf /var/lib/apt/lists/*
 
 RUN useradd -ms /bin/bash deploy
 
@@ -29,5 +30,5 @@ RUN chown deploy:deploy /home/deploy/.ssh
 # the RubyGems. This is a separate step so the dependencies
 # will be cached unless changes to one of those two files
 # are made.
-COPY Gemfile Gemfile.lock ./
-RUN gem install bundler:1.16.1 && bundle install --jobs 20 --retry 5
+COPY --chown=deploy:deploy Gemfile Gemfile.lock ./
+RUN gem install bundler:2.5.3 && bundle _2.5.3_ update --bundler && bundle install --jobs 20 --retry 5

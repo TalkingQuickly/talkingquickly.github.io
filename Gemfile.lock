@@ -44,15 +44,14 @@ GEM
       rb-inotify (~> 0.9, >= 0.9.10)
     mercenary (0.3.6)
     method_source (0.9.0)
-    multi_json (1.13.1)
+    multi_json (1.15.0)
     pathutil (0.16.2)
       forwardable-extended (~> 2.6)
     pry (0.11.3)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
     public_suffix (5.0.1)
-    pygments.rb (1.2.1)
-      multi_json (>= 1.0.0)
+    pygments.rb (2.4.1)
     rake (10.0.3)
     rb-fsevent (0.11.2)
     rb-inotify (0.10.1)
@@ -66,6 +65,7 @@ GEM
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
+    webrick (1.9.1)
 
 PLATFORMS
   ruby
@@ -75,10 +75,12 @@ DEPENDENCIES
   jekyll-feed (~> 0.3.1)
   jekyll-paginate (~> 1.1.0)
   jekyll-redirect-from (~> 0.13.0)
+  multi_json (~> 1.15.0)
   pry
-  pygments.rb (~> 1.2.1)
+  pygments.rb (~> 2.4.0)
   rake (= 10.0.3)
   redcarpet (~> 3.6.0)
+  webrick (~> 1.8)
 
 BUNDLED WITH
-   1.16.1
+   2.6.9
