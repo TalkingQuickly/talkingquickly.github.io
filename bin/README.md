@@ -52,7 +52,7 @@ Starts the Jekyll development server using Docker Compose.
 **Usage:** `./bin/dev`
 
 ### `./bin/social`
-Creates Buffer social media posts for a blog post. Requires Buffer API access token and profile IDs.
+Creates Buffer social media posts for a blog post (automated). Requires Buffer API access token and profile IDs.
 
 **Usage:** `./bin/social _posts/YYYY-MM-DD-post-title.md`
 
@@ -61,6 +61,25 @@ Creates Buffer social media posts for a blog post. Requires Buffer API access to
 - `BUFFER_TWITTER_PROFILE_ID`: Twitter profile ID (optional)
 - `BUFFER_LINKEDIN_PROFILE_ID`: LinkedIn profile ID (optional)
 - `BUFFER_BLUESKY_PROFILE_ID`: Bluesky profile ID (optional)
+
+### `./bin/social_draft`
+Interactive script to create and save social media post drafts. Works collaboratively with you to create posts for different platforms.
+
+**Usage:** `./bin/social_draft _posts/YYYY-MM-DD-post-title.md`
+
+**Features:**
+- Interactive prompts for each platform (Twitter/X, LinkedIn, Bluesky)
+- Character count validation for each platform
+- Support for Twitter/X threads
+- Saves drafts to `_social/` directory with today's date
+- Add notes and hashtags for reference
+
+**Output:** Creates a markdown file in `_social/POST-NAME-YYYY-MM-DD.md` with all your social media drafts.
+
+### `./bin/inbox`
+Creates a new draft post in the inbox for quick capture of ideas.
+
+**Usage:** `./bin/inbox "Post title"`
 
 ## Docker Volume Management
 

@@ -25,6 +25,7 @@ exclude:
   - _drafts/k8s-supporting
   - _inbox
   - inbox
+  - _social
   - Dockerfile
   - docker-compose.yml
   - dev
