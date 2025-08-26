@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="https://www.talkingquickly.co.uk/rss.xml" rel="self" type="application/atom+xml" /><link href="https://www.talkingquickly.co.uk/" rel="alternate" type="text/html" /><updated>2025-08-26T09:53:29+00:00</updated><id>https://www.talkingquickly.co.uk/rss.xml</id><title type="html">talkingquickly</title><subtitle>Ben Dixon, Co-founder of Sona. Writing about AI, Startups, Elixir and Small Steps Taken Quickly.</subtitle><author><name>Ben Dixon</name></author><entry><title type="html">Punchcards and why there are now only apprenticeships and management roles in software engineering</title><link href="https://www.talkingquickly.co.uk/punchcards-apprenticeships-and-management-in-software-engineering/" rel="alternate" type="text/html" title="Punchcards and why there are now only apprenticeships and management roles in software engineering" /><published>2025-08-25T00:00:00+00:00</published><updated>2025-08-25T00:00:00+00:00</updated><id>https://www.talkingquickly.co.uk/punchcards-apprenticeships-and-management-in-software-engineering</id><content type="html" xml:base="https://www.talkingquickly.co.uk/punchcards-apprenticeships-and-management-in-software-engineering/"><![CDATA[<p>A job that used to exist is creating punch cards for computers to read. Then keyboards and magnetic storage became a thing and fairly rapidly there wasn’t really this job anymore.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="https://www.talkingquickly.co.uk/rss.xml" rel="self" type="application/atom+xml" /><link href="https://www.talkingquickly.co.uk/" rel="alternate" type="text/html" /><updated>2025-08-26T10:05:45+00:00</updated><id>https://www.talkingquickly.co.uk/rss.xml</id><title type="html">talkingquickly</title><subtitle>Ben Dixon, Co-founder of Sona. Writing about AI, Startups, Elixir and Small Steps Taken Quickly.</subtitle><author><name>Ben Dixon</name></author><entry><title type="html">Punchcards and why there are now only apprenticeships and management roles in software engineering</title><link href="https://www.talkingquickly.co.uk/punchcards-apprenticeships-and-management-in-software-engineering/" rel="alternate" type="text/html" title="Punchcards and why there are now only apprenticeships and management roles in software engineering" /><published>2025-08-25T00:00:00+00:00</published><updated>2025-08-25T00:00:00+00:00</updated><id>https://www.talkingquickly.co.uk/punchcards-apprenticeships-and-management-in-software-engineering</id><content type="html" xml:base="https://www.talkingquickly.co.uk/punchcards-apprenticeships-and-management-in-software-engineering/"><![CDATA[<p>A job that used to exist is creating punch cards for computers to read. Then keyboards and magnetic storage became a thing and fairly rapidly there wasn’t really this job anymore.</p>
 
 <p>Likewise, due to the level LLM-powered coding assistants have gotten to, there used to be this job of writing code by hand. But now there sort of isn’t anymore.</p>
 
@@ -111,88 +111,7 @@
   <li>Ownership and portability of conversation data is going to become as - probably more - important as ownership of structured data</li>
 </ul>
 
-<p>“Let the model do the work” is increasingly becoming a very good rule of thumb.</p>]]></content><author><name>Ben Dixon</name></author><summary type="html"><![CDATA[Over the last few years a reliable way to be wrong has been to predict “chat won’t work as an interface for that” and then wait a few weeks. So it increasingly looks like conversations as a general purpose user interface are here to stay. Conversations as a fundamental primitive of programming and data storage have been getting less attention. An LLM-powered CRM agent which makes recommendations about deals could be built by giving an agent access to tools that query certain data, carefully constructing input prompts and then building checking logic which ensures the agent isn’t repeating itself. This is the traditional model of programming, the LLM is a special purpose tool (like any method) and then we write methods which do other things and chain these together in highly structured ways to achieve (pseudo) predictable outputs. Another way to build that CRM agent is to write a system prompt along the lines of: You’re going to receive a stream of messages which are updates on a sales deal. Your job is to provide recommendations by calling the set_recommendations tool, don’t repeat yourself too often Where the set recommendations tool shows the user a list of recommendations. This step being entirely optional, we could just ask for a bulleted list. This approach has some interesting properties: There’s not a whole lot of programming going on, we just sort of let the LLM do it We defer the structuring of data until the tool call to turn it into something structured (which we could skip completely and just use bullets) As a result of deferred structuring, our data model is “just a bunch of text” Deferred structuring has some interesting implications for portability, both within a loose application boundary and across unrelated or competing applications. Since the structuring is deferred until the point of output, putting the data through an alternative process or into another system is relatively easy as long as they can accept conversation text as an input. If there is some standardization as to a structured or semi-structured representation of a conversation, it becomes entirely trivial. Which leaves me with two main takeaways: Engineers should increasingly be asking themselves “do I really need anything more than a conversation to solve this problem” Ownership and portability of conversation data is going to become as - probably more - important as ownership of structured data “Let the model do the work” is increasingly becoming a very good rule of thumb.]]></summary></entry><entry><title type="html">Non Fiction Books</title><link href="https://www.talkingquickly.co.uk/books" rel="alternate" type="text/html" title="Non Fiction Books" /><published>2024-12-15T01:00:00+00:00</published><updated>2024-12-15T01:00:00+00:00</updated><id>https://www.talkingquickly.co.uk/books</id><content type="html" xml:base="https://www.talkingquickly.co.uk/books"><![CDATA[<p>This is a page I update periodically with key takeaways from non-fiction books I’ve read. My current top 25 are:</p>
-
-<ol>
-  <li>Four thousand weeks</li>
-  <li>Fooled by randomness</li>
-  <li>Atomic Habits</li>
-  <li>Make Time</li>
-  <li>Thanks for the feedback</li>
-  <li>Radical Candor</li>
-  <li>High output management</li>
-  <li>The 4 hour work week</li>
-  <li>The 4 hour body</li>
-  <li>The hard thing about hard things</li>
-  <li>The lean startup</li>
-  <li>Deep Work</li>
-  <li>Digital Minimalism</li>
-  <li>The power of now</li>
-  <li>Why we sleep</li>
-  <li>In defence of food</li>
-  <li>The tipping point</li>
-  <li>Breath</li>
-  <li>Outlive</li>
-  <li>Getting things done</li>
-  <li>Algorithms to live by</li>
-  <li>Thinking in systems</li>
-  <li>Zen and the art of motorcycle maintenance</li>
-  <li>The 48 laws of power</li>
-  <li>Inspired</li>
-  <li>The dip</li>
-</ol>
-
-<p>It’s mainly a tool for me to skim through and remind myself of what I’ve read as a way to jog my thinking. The summaries are a mixture of notes I wrote when reading them, reminders from Shortform summaries and what I remember. So they’ve been heavily filtered by my interpretation and what I was thinking about at the time I read them. They are almost certainly <em>not</em> accurate summaries of the books themselves!</p>
-
-<!--more-->
-
-<h2 id="four-thousand-weeks">Four thousand weeks</h2>
-
-<p>This is the book that gave me a framework for carving out dedicated, non negotiable time usually early in the morning for an ongoing passion project. For a long time I used the “make time” app for this.</p>
-
-<p>Four thousand weeks focuses on the shortness of life and how we spend it. It drives home that the deciding factor in how we spend our life is where and how we direct our attention.</p>
-
-<p>One of the quotes that has never left me is about how apt the idea of “spending” your time is, because once each moment is spent, you can never have it back:</p>
-
-<blockquote>
-  <p>Pay attention, because you are paying with your life</p>
-</blockquote>
-
-<p>It emphasises how time will pass no matter what, and so it is our decisions about where to direct our attention that govern the quality of our life.</p>
-
-<p>The core thread of the book is around the extent to which you really control your time. In essence that we never have full control over our time, or at least we will never be able to do all of the things we want. There are probably a variety of reasons for this, not least that as we get more efficient, we come up with more things we want to do. So we will never get to the end of the list.</p>
-
-<p>This resonates with one of the most important lessons I learned from my father. That many people imagine if they could just have a day to get to the end of their todo list, they’d be caught up and “on top of things”. But in reality this would be true for mere hours until the todo list started to grow again. So the real skill in life is doing the right things from the list and learning to live peacfully with the fact it will never end.</p>
-
-<p>The book turns to some practical considerations for making the most of the little time we have:</p>
-
-<ol>
-  <li>Force time for the things that matter, never wait for time to “open up”. Because it never will.</li>
-  <li>Limit your work in progress projects. Probably to 3-4.</li>
-  <li>Become comfortable with and embrace discomfort. Especially the type of discomfort that might cause you to deviate from your project. The main approach suggested is noticing the distraction and discomfort and directing constantly increasing attention to it rather than shying away from it.</li>
-  <li>Stop expecting the future to unfold in a particular away. In particular reflect on how little of your life to date your eally controlled and stop expecting a far greater degree of control over the future.</li>
-  <li>Develop patience for how long things really take. An interesting tactic here is time boxing heavily and refusing to allow yourself more than that amount of time to work on something. Whenever you run out of time, your forced to become a little more comfortable with the feeling of impatience.</li>
-  <li>Align your free time with your friend. As someone who obsessively tries to control my schedule, this one came from left field. The goal being to align your schedule to maximise the chances you can spend time with those you love.</li>
-</ol>
-
-<p>The second part of the book delves more deeply into the idea of life being finite. This comes with the - to me at least - calming sentiment that you can never have all of the experiences you want, because every choice you make implicitly takes the space of something else. Because it is fundamentally finite, the thing that matters is choosing things that matter, not wasting time on todo lists.</p>
-
-<p>The book suggests four tactics in particular:</p>
-
-<ol>
-  <li>Make and strongly commit to life choices. The essence of this is that since you’ll never be able to do everything, you’ll be happier if you commit to something and do it well. The underlying principle is that more happiness is created by committing and doing well than by keeping options open.</li>
-  <li>Focus on the present not the future. This hit quite hard, that it’s tempting to spend lots of time on actions with future payoffs, to control the future. But generally these payoffs are highly uncertain, but the payoffs now are much clearer. An example would be working on a marketing campaign for the future vs going outside to enjoy the good weather. The happiness from the good weather is certain, the payoff from the marketing campaign is very much not. I didn’t interpret this as not investing in the future, just that many people - me included - have a tendancy to over-invest in the future, at the expense of realising a return on the present.</li>
-  <li>Incorporate purposeless time. I loved this one. In a world where it’s fashionable to try and turn every hobby into a profit making “side hustle”, the emphasis here is on the importance of doing things purely for the sake of doing them, with no expectation of a return.</li>
-  <li>Don’t live only for changing the world, because you probably won’t. Nobody has that much impact on the world in the grand scheme of things. Humanities impact will be insignificant on many timescales. Once you let go of a need to make a grand change to the world, you open yourself up to being able to make the little changes which are possible and actually matter.</li>
-</ol>
-
-<p>On a tangent, this is the book that led me to have a poster on my wall where I mark off the weeks, counting down to 4000. Tosome people this seems morbid. For me it aligns nicely with the parts of Stoicism I relate to, acting as a reminder to enjoy each moment.</p>
-
-<h2 id="reading-list">Reading list</h2>
-
-<ol>
-  <li>Five Dysfunctions of a team</li>
-</ol>]]></content><author><name>Ben Dixon</name></author><category term="reading" /><summary type="html"><![CDATA[This is a page I update periodically with key takeaways from non-fiction books I’ve read. My current top 25 are: Four thousand weeks Fooled by randomness Atomic Habits Make Time Thanks for the feedback Radical Candor High output management The 4 hour work week The 4 hour body The hard thing about hard things The lean startup Deep Work Digital Minimalism The power of now Why we sleep In defence of food The tipping point Breath Outlive Getting things done Algorithms to live by Thinking in systems Zen and the art of motorcycle maintenance The 48 laws of power Inspired The dip It’s mainly a tool for me to skim through and remind myself of what I’ve read as a way to jog my thinking. The summaries are a mixture of notes I wrote when reading them, reminders from Shortform summaries and what I remember. So they’ve been heavily filtered by my interpretation and what I was thinking about at the time I read them. They are almost certainly not accurate summaries of the books themselves!]]></summary></entry><entry><title type="html">Vibe coding is real, and that’s a good thing</title><link href="https://www.talkingquickly.co.uk/vibe-coding-is-real/" rel="alternate" type="text/html" title="Vibe coding is real, and that’s a good thing" /><published>2024-06-15T00:00:00+00:00</published><updated>2024-06-15T00:00:00+00:00</updated><id>https://www.talkingquickly.co.uk/vibe-coding-is-real</id><content type="html" xml:base="https://www.talkingquickly.co.uk/vibe-coding-is-real/"><![CDATA[<p><strong>tldr;</strong> AI Coding (“vibe coding”) is real and it has fundamentally changed what it means to be a software engineer forever.</p>
+<p>“Let the model do the work” is increasingly becoming a very good rule of thumb.</p>]]></content><author><name>Ben Dixon</name></author><summary type="html"><![CDATA[Over the last few years a reliable way to be wrong has been to predict “chat won’t work as an interface for that” and then wait a few weeks. So it increasingly looks like conversations as a general purpose user interface are here to stay. Conversations as a fundamental primitive of programming and data storage have been getting less attention. An LLM-powered CRM agent which makes recommendations about deals could be built by giving an agent access to tools that query certain data, carefully constructing input prompts and then building checking logic which ensures the agent isn’t repeating itself. This is the traditional model of programming, the LLM is a special purpose tool (like any method) and then we write methods which do other things and chain these together in highly structured ways to achieve (pseudo) predictable outputs. Another way to build that CRM agent is to write a system prompt along the lines of: You’re going to receive a stream of messages which are updates on a sales deal. Your job is to provide recommendations by calling the set_recommendations tool, don’t repeat yourself too often Where the set recommendations tool shows the user a list of recommendations. This step being entirely optional, we could just ask for a bulleted list. This approach has some interesting properties: There’s not a whole lot of programming going on, we just sort of let the LLM do it We defer the structuring of data until the tool call to turn it into something structured (which we could skip completely and just use bullets) As a result of deferred structuring, our data model is “just a bunch of text” Deferred structuring has some interesting implications for portability, both within a loose application boundary and across unrelated or competing applications. Since the structuring is deferred until the point of output, putting the data through an alternative process or into another system is relatively easy as long as they can accept conversation text as an input. If there is some standardization as to a structured or semi-structured representation of a conversation, it becomes entirely trivial. Which leaves me with two main takeaways: Engineers should increasingly be asking themselves “do I really need anything more than a conversation to solve this problem” Ownership and portability of conversation data is going to become as - probably more - important as ownership of structured data “Let the model do the work” is increasingly becoming a very good rule of thumb.]]></summary></entry><entry><title type="html">Vibe coding is real, and that’s a good thing</title><link href="https://www.talkingquickly.co.uk/vibe-coding-is-real/" rel="alternate" type="text/html" title="Vibe coding is real, and that’s a good thing" /><published>2025-05-06T00:00:00+00:00</published><updated>2025-05-06T00:00:00+00:00</updated><id>https://www.talkingquickly.co.uk/vibe-coding-is-real</id><content type="html" xml:base="https://www.talkingquickly.co.uk/vibe-coding-is-real/"><![CDATA[<p><strong>tldr;</strong> AI Coding (“vibe coding”) is real and it has fundamentally changed what it means to be a software engineer forever.</p>
 
 <p>The single thing that will define which businesses and which engineers are successful over the coming years is how quickly they are able to adapt to this.</p>
 
@@ -419,7 +338,88 @@
 
 <p>Every engineer deserves to experience the moment when by collaborating with an AI, something that would have taken them a week, takes an hour.</p>
 
-<p>It’s genuinely the closest thing to magic I’ve felt in decades.</p>]]></content><author><name>Ben Dixon</name></author><summary type="html"><![CDATA[tldr; AI Coding (“vibe coding”) is real and it has fundamentally changed what it means to be a software engineer forever. The single thing that will define which businesses and which engineers are successful over the coming years is how quickly they are able to adapt to this. This post is a summary of the topics that are coming up again and again when discussing this with other engineers and engineering leaders.]]></summary></entry><entry><title type="html">Integrations are hard</title><link href="https://www.talkingquickly.co.uk/integrations" rel="alternate" type="text/html" title="Integrations are hard" /><published>2024-02-07T15:40:00+00:00</published><updated>2024-02-07T15:40:00+00:00</updated><id>https://www.talkingquickly.co.uk/integrations</id><content type="html" xml:base="https://www.talkingquickly.co.uk/integrations"><![CDATA[<p>Best in breed procurement, where many systems - the best in class for each system - are procured independently then integrated with one another has had a tricky decade.</p>
+<p>It’s genuinely the closest thing to magic I’ve felt in decades.</p>]]></content><author><name>Ben Dixon</name></author><summary type="html"><![CDATA[tldr; AI Coding (“vibe coding”) is real and it has fundamentally changed what it means to be a software engineer forever. The single thing that will define which businesses and which engineers are successful over the coming years is how quickly they are able to adapt to this. This post is a summary of the topics that are coming up again and again when discussing this with other engineers and engineering leaders.]]></summary></entry><entry><title type="html">Non Fiction Books</title><link href="https://www.talkingquickly.co.uk/books" rel="alternate" type="text/html" title="Non Fiction Books" /><published>2024-12-15T01:00:00+00:00</published><updated>2024-12-15T01:00:00+00:00</updated><id>https://www.talkingquickly.co.uk/books</id><content type="html" xml:base="https://www.talkingquickly.co.uk/books"><![CDATA[<p>This is a page I update periodically with key takeaways from non-fiction books I’ve read. My current top 25 are:</p>
+
+<ol>
+  <li>Four thousand weeks</li>
+  <li>Fooled by randomness</li>
+  <li>Atomic Habits</li>
+  <li>Make Time</li>
+  <li>Thanks for the feedback</li>
+  <li>Radical Candor</li>
+  <li>High output management</li>
+  <li>The 4 hour work week</li>
+  <li>The 4 hour body</li>
+  <li>The hard thing about hard things</li>
+  <li>The lean startup</li>
+  <li>Deep Work</li>
+  <li>Digital Minimalism</li>
+  <li>The power of now</li>
+  <li>Why we sleep</li>
+  <li>In defence of food</li>
+  <li>The tipping point</li>
+  <li>Breath</li>
+  <li>Outlive</li>
+  <li>Getting things done</li>
+  <li>Algorithms to live by</li>
+  <li>Thinking in systems</li>
+  <li>Zen and the art of motorcycle maintenance</li>
+  <li>The 48 laws of power</li>
+  <li>Inspired</li>
+  <li>The dip</li>
+</ol>
+
+<p>It’s mainly a tool for me to skim through and remind myself of what I’ve read as a way to jog my thinking. The summaries are a mixture of notes I wrote when reading them, reminders from Shortform summaries and what I remember. So they’ve been heavily filtered by my interpretation and what I was thinking about at the time I read them. They are almost certainly <em>not</em> accurate summaries of the books themselves!</p>
+
+<!--more-->
+
+<h2 id="four-thousand-weeks">Four thousand weeks</h2>
+
+<p>This is the book that gave me a framework for carving out dedicated, non negotiable time usually early in the morning for an ongoing passion project. For a long time I used the “make time” app for this.</p>
+
+<p>Four thousand weeks focuses on the shortness of life and how we spend it. It drives home that the deciding factor in how we spend our life is where and how we direct our attention.</p>
+
+<p>One of the quotes that has never left me is about how apt the idea of “spending” your time is, because once each moment is spent, you can never have it back:</p>
+
+<blockquote>
+  <p>Pay attention, because you are paying with your life</p>
+</blockquote>
+
+<p>It emphasises how time will pass no matter what, and so it is our decisions about where to direct our attention that govern the quality of our life.</p>
+
+<p>The core thread of the book is around the extent to which you really control your time. In essence that we never have full control over our time, or at least we will never be able to do all of the things we want. There are probably a variety of reasons for this, not least that as we get more efficient, we come up with more things we want to do. So we will never get to the end of the list.</p>
+
+<p>This resonates with one of the most important lessons I learned from my father. That many people imagine if they could just have a day to get to the end of their todo list, they’d be caught up and “on top of things”. But in reality this would be true for mere hours until the todo list started to grow again. So the real skill in life is doing the right things from the list and learning to live peacfully with the fact it will never end.</p>
+
+<p>The book turns to some practical considerations for making the most of the little time we have:</p>
+
+<ol>
+  <li>Force time for the things that matter, never wait for time to “open up”. Because it never will.</li>
+  <li>Limit your work in progress projects. Probably to 3-4.</li>
+  <li>Become comfortable with and embrace discomfort. Especially the type of discomfort that might cause you to deviate from your project. The main approach suggested is noticing the distraction and discomfort and directing constantly increasing attention to it rather than shying away from it.</li>
+  <li>Stop expecting the future to unfold in a particular away. In particular reflect on how little of your life to date your eally controlled and stop expecting a far greater degree of control over the future.</li>
+  <li>Develop patience for how long things really take. An interesting tactic here is time boxing heavily and refusing to allow yourself more than that amount of time to work on something. Whenever you run out of time, your forced to become a little more comfortable with the feeling of impatience.</li>
+  <li>Align your free time with your friend. As someone who obsessively tries to control my schedule, this one came from left field. The goal being to align your schedule to maximise the chances you can spend time with those you love.</li>
+</ol>
+
+<p>The second part of the book delves more deeply into the idea of life being finite. This comes with the - to me at least - calming sentiment that you can never have all of the experiences you want, because every choice you make implicitly takes the space of something else. Because it is fundamentally finite, the thing that matters is choosing things that matter, not wasting time on todo lists.</p>
+
+<p>The book suggests four tactics in particular:</p>
+
+<ol>
+  <li>Make and strongly commit to life choices. The essence of this is that since you’ll never be able to do everything, you’ll be happier if you commit to something and do it well. The underlying principle is that more happiness is created by committing and doing well than by keeping options open.</li>
+  <li>Focus on the present not the future. This hit quite hard, that it’s tempting to spend lots of time on actions with future payoffs, to control the future. But generally these payoffs are highly uncertain, but the payoffs now are much clearer. An example would be working on a marketing campaign for the future vs going outside to enjoy the good weather. The happiness from the good weather is certain, the payoff from the marketing campaign is very much not. I didn’t interpret this as not investing in the future, just that many people - me included - have a tendancy to over-invest in the future, at the expense of realising a return on the present.</li>
+  <li>Incorporate purposeless time. I loved this one. In a world where it’s fashionable to try and turn every hobby into a profit making “side hustle”, the emphasis here is on the importance of doing things purely for the sake of doing them, with no expectation of a return.</li>
+  <li>Don’t live only for changing the world, because you probably won’t. Nobody has that much impact on the world in the grand scheme of things. Humanities impact will be insignificant on many timescales. Once you let go of a need to make a grand change to the world, you open yourself up to being able to make the little changes which are possible and actually matter.</li>
+</ol>
+
+<p>On a tangent, this is the book that led me to have a poster on my wall where I mark off the weeks, counting down to 4000. Tosome people this seems morbid. For me it aligns nicely with the parts of Stoicism I relate to, acting as a reminder to enjoy each moment.</p>
+
+<h2 id="reading-list">Reading list</h2>
+
+<ol>
+  <li>Five Dysfunctions of a team</li>
+</ol>]]></content><author><name>Ben Dixon</name></author><category term="reading" /><summary type="html"><![CDATA[This is a page I update periodically with key takeaways from non-fiction books I’ve read. My current top 25 are: Four thousand weeks Fooled by randomness Atomic Habits Make Time Thanks for the feedback Radical Candor High output management The 4 hour work week The 4 hour body The hard thing about hard things The lean startup Deep Work Digital Minimalism The power of now Why we sleep In defence of food The tipping point Breath Outlive Getting things done Algorithms to live by Thinking in systems Zen and the art of motorcycle maintenance The 48 laws of power Inspired The dip It’s mainly a tool for me to skim through and remind myself of what I’ve read as a way to jog my thinking. The summaries are a mixture of notes I wrote when reading them, reminders from Shortform summaries and what I remember. So they’ve been heavily filtered by my interpretation and what I was thinking about at the time I read them. They are almost certainly not accurate summaries of the books themselves!]]></summary></entry><entry><title type="html">Integrations are hard</title><link href="https://www.talkingquickly.co.uk/integrations" rel="alternate" type="text/html" title="Integrations are hard" /><published>2024-02-07T15:40:00+00:00</published><updated>2024-02-07T15:40:00+00:00</updated><id>https://www.talkingquickly.co.uk/integrations</id><content type="html" xml:base="https://www.talkingquickly.co.uk/integrations"><![CDATA[<p>Best in breed procurement, where many systems - the best in class for each system - are procured independently then integrated with one another has had a tricky decade.</p>
 
 <p>The underlying principle was good. Take lots of vendors who do just one thing really well and connect them to one another to form one fully integrated super system.</p>
 
