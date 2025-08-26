@@ -12,20 +12,30 @@ This directory contains wrapper scripts that execute commands inside Docker cont
 
 ### `./bin/publish`
 Generates and publishes the blog to GitHub Pages (master branch). This script:
-1. Runs Jekyll build inside Docker
-2. Creates a temporary directory
-3. Initializes a new git repository
-4. Force pushes to the master branch
+1. Checks for uncommitted and unpushed changes (unless --force is used)
+2. Runs Jekyll build inside Docker
+3. Creates a temporary directory
+4. Initializes a new git repository
+5. Force pushes to the master branch
 
-**Usage:** `./bin/publish`
+**Usage:** 
+```bash
+./bin/publish           # Normal publish (checks for clean repository)
+./bin/publish --force   # Force publish (skips repository checks)
+```
 
 ### `./bin/publish_fast`
 Publishes using a cached clone stored in a Docker volume for faster deployment. This script:
-1. Runs Jekyll build inside Docker
-2. Uses rsync to sync files to the cached directory
-3. Commits and pushes changes
+1. Checks for uncommitted and unpushed changes (unless --force is used)
+2. Runs Jekyll build inside Docker
+3. Uses rsync to sync files to the cached directory
+4. Commits and pushes changes
 
-**Usage:** `./bin/publish_fast`
+**Usage:** 
+```bash
+./bin/publish_fast           # Normal fast publish (checks for clean repository)
+./bin/publish_fast --force   # Force fast publish (skips repository checks)
+```
 
 **Note:** You must run `./bin/setup_fast_publish` first to set up the cached repository.
 
@@ -66,6 +76,16 @@ docker volume inspect talkingquicklygithubio_fast_deploy_cache
 # Remove the volume (if you need to reset)
 docker volume rm talkingquicklygithubio_fast_deploy_cache
 ```
+
+## Safety Checks
+
+The publish scripts include safety checks to prevent the source branch and published site from getting out of sync:
+
+- **Uncommitted changes check**: Prevents publishing if you have local changes that aren't committed
+- **Unpushed commits check**: Prevents publishing if your local branch has commits not pushed to the remote
+- **Force flag**: Use `--force` to override these checks when necessary
+
+This ensures that what's published always matches what's in your source repository.
 
 ## Requirements
 

@@ -11,12 +11,32 @@ fi
 if [[ "$FORCE" == false ]]; then
     # Check if there are any uncommitted changes
     if ! git diff --quiet || ! git diff --cached --quiet; then
-        echo "❌ Error: You have uncommitted changes in your repository."
-        echo "   Please commit or stash your changes before publishing."
+        echo "⚠️  You have uncommitted changes in your repository."
         echo ""
-        echo "   To see uncommitted changes: git status"
-        echo "   To override this check: ./bin/publish --force"
-        exit 1
+        git status --short
+        echo ""
+        read -p "Would you like to commit and push these changes now? (y/N) " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            # Get commit message from user
+            echo "Enter commit message (or press Enter for default):"
+            read -r commit_message
+            if [[ -z "$commit_message" ]]; then
+                commit_message="Update site content before publishing"
+            fi
+            
+            # Add all changes and commit
+            git add -A
+            git commit -m "$commit_message"
+            echo "✅ Changes committed"
+        else
+            echo "❌ Publishing cancelled. Please commit or stash your changes."
+            echo ""
+            echo "   To commit: git add -A && git commit -m 'Your message'"
+            echo "   To stash: git stash"
+            echo "   To force publish anyway: ./bin/publish --force"
+            exit 1
+        fi
     fi
     
     # Check if there are unpushed commits on the current branch
@@ -26,20 +46,37 @@ if [[ "$FORCE" == false ]]; then
     
     if [[ -z "$REMOTE" ]]; then
         echo "⚠️  Warning: Current branch '$BRANCH' has no upstream branch."
-        echo "   Make sure your changes are pushed before publishing."
-        read -p "   Continue anyway? (y/N) " -n 1 -r
+        read -p "Would you like to push to origin and set upstream? (y/N) " -n 1 -r
         echo
-        if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-            exit 1
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            git push -u origin "$BRANCH"
+            echo "✅ Pushed to origin and set upstream"
+        else
+            read -p "Continue publishing anyway? (y/N) " -n 1 -r
+            echo
+            if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+                exit 1
+            fi
         fi
     elif [[ "$LOCAL" != "$REMOTE" ]]; then
-        echo "❌ Error: You have unpushed commits on branch '$BRANCH'."
-        echo "   Please push your changes before publishing."
+        # Count unpushed commits
+        UNPUSHED_COUNT=$(git rev-list @{u}..HEAD --count)
+        echo "⚠️  You have $UNPUSHED_COUNT unpushed commit(s) on branch '$BRANCH'."
         echo ""
-        echo "   To push: git push"
-        echo "   To see unpushed commits: git log @{u}..HEAD --oneline"
-        echo "   To override this check: ./bin/publish --force"
-        exit 1
+        git log @{u}..HEAD --oneline
+        echo ""
+        read -p "Would you like to push these changes now? (y/N) " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            git push
+            echo "✅ Changes pushed to remote"
+        else
+            echo "❌ Publishing cancelled. Please push your changes."
+            echo ""
+            echo "   To push: git push"
+            echo "   To force publish anyway: ./bin/publish --force"
+            exit 1
+        fi
     fi
 fi
 
