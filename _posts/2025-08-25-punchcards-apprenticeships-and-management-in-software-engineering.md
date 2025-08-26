@@ -48,6 +48,6 @@ It also comes with the same style of problems:
 
 So the single most important thing if we want to maximize the quality and rate at which we can deliver software is to work out the playbook for ramping engineers who previously thought of themselves as individual contributors to the point where they're effectively managing LLM coding agents.
 
-We know where they are when their process of building software looks much more like managing and collaborating with a team than it does writing code in an editor.
+We know they are there when their process of building software looks much more like managing and collaborating with a team than it does writing code in an editor.
 
 But it's a strange dynamic now because you're effectively either an apprentice who's learning to do this, or a manager who's established a base layer of competence in doing this. The "individual contributor" layer that's existed for so long sort of doesn't anymore.
