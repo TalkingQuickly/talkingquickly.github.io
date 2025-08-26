@@ -30,6 +30,4 @@ So I can't prove any of the below, but based on a year of being deeply immersed 
 
 I'm not making any attempt to refute that the above is somewhat crazy, I just think it's probably true.
 
-If you believe equally crazy things, you'll probably enjoy working with me, so get in touch! 
-
-(And if you don't, there's a good chance you'll find me very annoying to work with!)
+If you believe equally crazy things, I'd love to chat, please get in touch.
