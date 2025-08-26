@@ -7,6 +7,8 @@ biofooter: true
 bookfooter: false
 ---
 
+Update (2025); this post is now over 10 years old. Depending which set of analytics you believe somewhere between 200k and 2m people have read it in the decade since I wrote it in a lunch break. Off the back of this post I met my co-founders and have built two venture backed companies with them as a result. This remains my goto example of why serendipity always win! Original post below;
+
 This is, in no particular order, what I'd tell myself about startups if I could go back in time to when I first got involved. Which is probably the same as what I've learned. This is most definitely not advice, the "you" here is directed at me. So is "I". Grammar is hard.
 
 <!--more-->

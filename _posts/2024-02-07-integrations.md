@@ -1,6 +1,6 @@
 ---
 layout : post
-title: Integrations
+title: "Integrations are hard"
 date: 2024-02-07 15:40:00
 categories: culture
 biofooter: true

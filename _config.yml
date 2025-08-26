@@ -30,6 +30,10 @@ exclude:
   - dev
   - Gemfile
   - Gemfile.lock
+  - bin
+  - scripts
+  - Rakefile
+  - tmp_delete_me
 
 plugins:
   - jekyll-paginate

@@ -14,7 +14,7 @@ Something most of the startup and product people I look up to have in common is 
 
 Each has their own constantly evolving approach, but it's one developed with the benefit of the learnings from many hundreds of other people. This reading list is the books and articles which I return to most frequently which have had the biggest impact on my approach.
 
-##General "Startups"
+## General "Startups"
 
 * [Founders Stories (Book)](http://amzn.to/2ka2IH0). Insightful series of interviews covering everything from unexpected pivots to the impact startups have on your personal life.
 * [Zero To One (Book)](http://amzn.to/2BxKUty). Find an important truth not many people agree with you on, aim to build a monopoly business based on that truth. And make sure you nail Sales, Marketing, Hiring etc while you're at it.
@@ -26,7 +26,7 @@ Each has their own constantly evolving approach, but it's one developed with the
 * [Smart and gets things done (Book)](http://amzn.to/2BtbKD3). Focused on hiring developers but applicable generally, clues in the title, "good" people to hire are smart and get stuff done, the book focuses on how to identify these traits.
 * [How To Start A Startup (Lecture Series from Stanford)](http://startupclass.samaltman.com/). Incredible series of lectures from people who've actually done it. Everything from product to culture to hiring.
 
-##Product Development & Product Management
+## Product Development & Product Management
 
 * [The Four Steps to the Epiphany (Book)](http://amzn.to/2kauV0g). The original and most comprehensive book on the "lean" approach to startups and product development.
 * [Lean Startup (Book)](http://amzn.to/2Bm6G2w) (first half). The most accessible and widely read introduction to the "lean" approach to startups and product development. Gets a bit repetitive towards the end.
@@ -40,12 +40,12 @@ Each has their own constantly evolving approach, but it's one developed with the
 * [Using design studios to beat the feature factory (Article)](https://medium.com/@johnpcutler/beat-the-feature-factory-run-pre-cap-design-studios-725d1c83ecd7). Similar to the Amazon "press release first" approach but more actionable in smaller organizations. Design the retrospective slide first.
 * [Hooked - How to Build Habit Forming Products (Book)](http://amzn.to/2k9Pfiy) (the first few chapters). This book can get somewhat repetitive but a good look at the principles underlying addictive products and how to leverage this.
 
-##Big Picture
+## Big Picture
 
 * [The master algorithm (Book)](http://amzn.to/2Bwyu5h). The single best book on approaches to machine learning / artificial intelligence I've encountered. It's easy to become skeptical with everyone throwing the term "AI" around. This is the book which made me want to get involved with it again.
 * [The Hard Thing about Hard Things (Book)](http://amzn.to/2kb3MdK). Drives home that fundamentally there can't be a "playbook" for solving hard problem x, because it's never been solved before. Filled with advice and practical experience for how to handle that.
 
-##General "Life"
+## General "Life"
 
 * [Fooled by Randomness (Book)](http://amzn.to/2BlfFRq). Humans tend to see patterns everywhere, even where there aren't any. Lots of examples of where this tends to happen, how it messes with our decision making and what to do about it. Probably the single book that's had the biggest impact on how I think about the world.
 * [The Four Hour Work Week (Book)](http://amzn.to/2BwRSyZ). Initially dismissed this book for the spammy title. When I eventually read it found it densely packed with actionable information about how to allocate time and what conventional business & financial wisdom should be considered harmful. Also strongly recommend the weekly [Tim Ferris Podcast](https://tim.blog/podcast/).
@@ -55,16 +55,6 @@ Each has their own constantly evolving approach, but it's one developed with the
 * [Getting Things Done (Book)](http://amzn.to/2BxcZ4h). I've never met anyone who actually follows the fiendishly complicated ToDo list system Dave Allen suggests here. But it contains pretty much all the building blocks you'll ever need to come up with a task tracking system which suits you.
 * [How to expose yourself to randomness (Article)](http://casnocha.com/2010/05/50-ways-to-expose-yourself-to-randomness.html). Most big things have a huge "luck" component, being exposed to randomness a lot dramatically increases the odds of being lucky.
 * [How to be an early riser (Article)](https://www.stevepavlina.com/blog/2005/05/how-to-become-an-early-riser/). Something _most_ successful people seem to have in common is getting up early, being a morning person is definitely learnable.
-
-##Things I'm Embarrassed I Still Haven't Read
-
-* [The Innovators Dilemma (Book)](http://amzn.to/2kbKDYV)
-* [The Innovators Solution (Book)](http://amzn.to/2Bzxeyr)
-* [The Mythical Man Month (Book)](http://amzn.to/2BxGItS)
-* [The Everything Store: Jeff Bezos and the Age of Amazon (Book)](http://amzn.to/2nfeSQ7)
-* [The Design of Everyday Things (Book)](http://amzn.to/2njxcYq)
-* [Don't Make Me Think (Book)](http://amzn.to/2BzZlNJ)
-* [Shoe Dog (Book)](http://amzn.to/2Bxc1ot)
 
 ## But I don't have time!
 

@@ -230,8 +230,6 @@ a:hover {
     letter-spacing: 0.05em;
     margin-top: 0;
     margin-bottom: 1.5rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--border-color);
 }
 
 .posts-list {

@@ -1,0 +1,4 @@
+#!/bin/bash
+# Wrapper script to run publish_fast inside Docker container
+
+docker compose run --rm shell ./scripts/publish_fast.sh

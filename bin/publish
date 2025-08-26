@@ -1,0 +1,4 @@
+#!/bin/bash
+# Wrapper script to run publish inside Docker container
+
+docker compose run --rm shell ./scripts/publish.sh

@@ -1,7 +1,7 @@
 services:
   app:
     build: .
-    command: bundle exec jekyll serve --host=0.0.0.0 --force_polling --incremental --drafts
+    command: bundle exec jekyll serve --host=0.0.0.0 --force_polling --drafts
     volumes:
       - .:/home/deploy/app:delegated
     ports:
