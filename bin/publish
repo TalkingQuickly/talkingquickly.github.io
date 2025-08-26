@@ -1,4 +1,56 @@
 #!/bin/bash
 # Wrapper script to run publish inside Docker container
 
+# Check for --force flag
+FORCE=false
+if [[ "$1" == "--force" ]]; then
+    FORCE=true
+fi
+
+# Check for uncommitted changes
+if [[ "$FORCE" == false ]]; then
+    # Check if there are any uncommitted changes
+    if ! git diff --quiet || ! git diff --cached --quiet; then
+        echo "❌ Error: You have uncommitted changes in your repository."
+        echo "   Please commit or stash your changes before publishing."
+        echo ""
+        echo "   To see uncommitted changes: git status"
+        echo "   To override this check: ./bin/publish --force"
+        exit 1
+    fi
+    
+    # Check if there are unpushed commits on the current branch
+    BRANCH=$(git rev-parse --abbrev-ref HEAD)
+    LOCAL=$(git rev-parse @)
+    REMOTE=$(git rev-parse @{u} 2>/dev/null || echo "")
+    
+    if [[ -z "$REMOTE" ]]; then
+        echo "⚠️  Warning: Current branch '$BRANCH' has no upstream branch."
+        echo "   Make sure your changes are pushed before publishing."
+        read -p "   Continue anyway? (y/N) " -n 1 -r
+        echo
+        if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+            exit 1
+        fi
+    elif [[ "$LOCAL" != "$REMOTE" ]]; then
+        echo "❌ Error: You have unpushed commits on branch '$BRANCH'."
+        echo "   Please push your changes before publishing."
+        echo ""
+        echo "   To push: git push"
+        echo "   To see unpushed commits: git log @{u}..HEAD --oneline"
+        echo "   To override this check: ./bin/publish --force"
+        exit 1
+    fi
+fi
+
+# Check if SSH_AUTH_SOCK is set
+if [ -z "$SSH_AUTH_SOCK" ]; then
+    echo "⚠️  Warning: SSH_AUTH_SOCK not set. You may have issues pushing to GitHub."
+    echo "   Run: eval \$(ssh-agent) && ssh-add ~/.ssh/your_github_key"
+fi
+
+# Export SSH_AUTH_SOCK for docker-compose
+export SSH_AUTH_SOCK
+
+echo "✅ Repository is clean and up to date. Starting publish..."
 docker compose run --rm shell ./scripts/publish.sh

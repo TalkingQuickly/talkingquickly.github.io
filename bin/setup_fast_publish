@@ -1,4 +1,13 @@
 #!/bin/bash
 # Wrapper script to run setup_fast_publish inside Docker container
 
+# Check if SSH_AUTH_SOCK is set
+if [ -z "$SSH_AUTH_SOCK" ]; then
+    echo "⚠️  Warning: SSH_AUTH_SOCK not set. You may have issues cloning from GitHub."
+    echo "   Run: eval \$(ssh-agent) && ssh-add ~/.ssh/your_github_key"
+fi
+
+# Export SSH_AUTH_SOCK for docker-compose
+export SSH_AUTH_SOCK
+
 docker compose run --rm shell ./scripts/setup_fast_publish.sh

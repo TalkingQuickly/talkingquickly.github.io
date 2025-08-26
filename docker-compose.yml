@@ -18,11 +18,11 @@ services:
     command: bash
     volumes:
       - .:/home/deploy/app
-      - ~/.ssh:/home/deploy/.ssh
-      - /run/host-services/ssh-auth.sock:/home/deploy/ssh_auth_sock
+      - ~/.ssh:/home/deploy/.ssh:ro
+      - ${SSH_AUTH_SOCK:-/dev/null}:/ssh-agent
       - fast_deploy_cache:/home/deploy/release
     environment:
-      SSH_AUTH_SOCK: /home/deploy/ssh_auth_sock
+      SSH_AUTH_SOCK: /ssh-agent
 
 
 volumes:

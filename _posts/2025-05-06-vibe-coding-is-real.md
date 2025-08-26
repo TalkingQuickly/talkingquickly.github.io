@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Vibe coding is real, and that's a good thing"
-date: 2024-06-15
+date: 2025-05-06
 permalink: /vibe-coding-is-real/
 biofooter: true
 ---
