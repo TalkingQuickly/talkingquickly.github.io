@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)">
+    
+    <title>Google Cardboard Unity Tutorial - talkingquickly</title>
+    
+    
+    <meta name="description" content="Blog by Ben Dixon, Co-founder of Sona, about startups, elixir, AI, climbing and photography">
+    
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/minimal.css">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml">
+    <link rel="canonical" href="https://www.talkingquickly.co.uk/2014/11/google-cardboard-unity-tutorial/">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="layout-wrapper">
+        <header class="mobile-header">
+            <div class="mobile-header-top">
+                <a href="/" class="site-title">talkingquickly</a>
+                <a href="/about.html" class="mobile-about-link">About</a>
+            </div>
+            <p class="mobile-tagline">Co-founder & CTO at Sona. Writing about AI, startups, and engineering.</p>
+            <div class="mobile-social-links">
+                <a href="https://github.com/talkingquickly" target="_blank" title="GitHub">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                </a>
+                <a href="https://twitter.com/talkingquickly" target="_blank" title="Twitter">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                    </svg>
+                </a>
+                <a href="https://www.linkedin.com/in/talkingquickly/" target="_blank" title="LinkedIn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                </a>
+                <a href="https://bsky.app/profile/talkingquickly.bsky.social" target="_blank" title="Bluesky">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.206-.659-.298-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8Z"/>
+                    </svg>
+                </a>
+            </div>
+        </header>
+        
+        <aside class="sidebar">
+            <div class="sidebar-content">
+                <div class="sidebar-header">
+                    <a href="/" class="site-title">talkingquickly</a>
+                    <p class="sidebar-tagline">Co-founder & CTO at Sona. Writing about AI, startups, and engineering.</p>
+                </div>
+                
+                <nav class="nav-links">
+                    <a href="/about.html">About</a>
+                </nav>
+                
+                <div class="social-links">
+                    <a href="https://github.com/talkingquickly" target="_blank" title="GitHub">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                    <a href="https://twitter.com/talkingquickly" target="_blank" title="Twitter">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/talkingquickly/" target="_blank" title="LinkedIn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                    </a>
+                    <a href="https://bsky.app/profile/talkingquickly.co.uk" target="_blank" title="Bluesky">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.206-.659-.298-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8Z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </aside>
+        
+        <div class="main-container">
+            <main class="site-content">
+                <article class="post">
+    <header class="post-header">
+        <h1>Google Cardboard Unity Tutorial</h1>
+    </header>
+    
+    <div class="post-content">
+        <p>Having tried the Oculus I’d prepared myself to be completely unimpressed by Google’s $2 VR solution. But after trying Roller Coaster VR I was blown away by how well the slightly shabby looking cardboard assembly performed. Naturally despite never have tried any game development or 3D modeling, I wanted to make stuff for it. Using Unity and some plugins, this turned out to be surprisingly easy. This tutorial covers the bare minimum needed to go from never having used Unity before, to a simple 3D environment you can look around using Google Cardboard.</p>
+
+<!--more-->
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<ul>
+  <li>Latest version of Unity (<a href="http://unity3d.com/unity/download">http://unity3d.com/unity/download</a>)</li>
+  <li>Google Cardboard (<a href="https://cardboard.withgoogle.com/">https://cardboard.withgoogle.com/</a>) I got mine from Amazon, there are manufacturers springing up all over the world</li>
+  <li>The Android SDK (<a href="https://developer.android.com/sdk/index.html?hl=i">https://developer.android.com/sdk/index.html?hl=i</a>). This assumes you want to build and run on the Android platform. This tutorial will work with iOS but the build process at the end will be different.</li>
+</ul>
+
+<h2 id="get-setup-with-unity">Get Setup with Unity</h2>
+
+<p>The first step has nothing to do with Google Cardboard, we just need to get a simple 3D environment created within Unity with a character who can move around and interact with it.</p>
+
+<p>No point in re-inventing the wheel here, this excellent tutorial gets you up and running with such an environment in about 12 minutes: <a href="https://www.youtube.com/watch?v=fRED_-LvJKQ&amp;list=PLPV2KyIb3jR7F_B4p8X3YwHPaExh0R9Kk">https://www.youtube.com/watch?v=fRED_-LvJKQ&amp;list=PLPV2KyIb3jR7F_B4p8X3YwHPaExh0R9Kk</a>.</p>
+
+<p>That entire series of tutorials is a really accessible introduction to Unity so I’d recommend coming back to the remaining ones later on. Each one is recorded as a single take so sometimes the author makes mistakes he goes back and fixes later on. I made the mistake several times of pausing the video when I saw an error and spending ages trying to fix it myself, only to find out that he explains how to resolve it immediately afterwards.</p>
+
+<p>Once you’ve completed that tutorial, continue below to add Google Cardboard integration.</p>
+
+<h2 id="one-camera-for-each-eye">One Camera for Each Eye</h2>
+
+<p>At the moment our game window looks something like this:</p>
+
+<p><img src="/assets/images/unity_cardboard_tutorial/single_camera.png" alt="Single Camera" /></p>
+
+<p>We have a single camera, some simple 3D shapes and a point light source. The camera is attached to the player which can be moved around with the arrow keys.</p>
+
+<p>For this to work with Google cardboard, we need to add a second camera, so we have one for each eye and set these up to be offset from the center of the viewport by equal amounts.</p>
+
+<p>Begin by renaming the existing camera (mine was called “MainCamera”) to “LeftCamera” and then in the inspector, changing the following values:</p>
+
+<ul>
+  <li>Position X : -1</li>
+  <li>Field of View : 60</li>
+  <li>Viewport Rect W : 0.5</li>
+</ul>
+
+<p>This should give you a game screen similar to before but filling only half of the viewport:</p>
+
+<p><img src="/assets/images/unity_cardboard_tutorial/half_viewport.png" alt="Half Viewport Camera" /></p>
+
+<p>Now right click on “LeftCamera” in the Hierarchy and choose Duplicate. Rename the newly duplicated “LeftCamera” to “RightCamera”.</p>
+
+<p>Then in the inspector for RightCamera, change the following values:</p>
+
+<ul>
+  <li>Position X : 1</li>
+  <li>Viewport Rect X : 0.5</li>
+</ul>
+
+<p>This should give you a viewport which is split down the middle, with one camera for each eye:</p>
+
+<p><img src="/assets/images/unity_cardboard_tutorial/two_cameras.png" alt="Two Cameras" /></p>
+
+<p>If you were to load this onto a device now and look at it through Cardboard, it would work. But you wouldn’t be able to look around so it wouldn’t be that interesting.</p>
+
+<h2 id="adding-head-tracking">Adding Head Tracking</h2>
+
+<p>One of the biggest challenges with Google Cardboard is that the only forms of user input are head movement and a magnet based switch on the side. The most impressive is the head tracking which uses the Gyroscope to detect exactly where the user is looking.</p>
+
+<p>This would be quite challenging to implement smoothly from scratch but luckily the clever folk at Durovis have created a Unity plugin which will take care of it for us.</p>
+
+<p>Begin by downloading the plugin from <a href="https://www.durovis.com/sdk.html">https://www.durovis.com/sdk.html</a> and double clicking on the <code class="language-plaintext highlighter-rouge">.unitypackage</code> file once it’s finished downloading. This should automatically open the Unity import dialog.</p>
+
+<p>Don’t change any options on the import window and just click “Import”. You may see an error about not having Blender installed at this point, for now this can be ignored.</p>
+
+<p>Now select the “Player” in the Hierarchy (the parent object to your two cameras) and in the Inspector click “Add Component” at the bottom.</p>
+
+<p>Select “Scripts” and then “Open Dive Sensor”. You’ll then see a pane for configuring the Open Dive Sensor.</p>
+
+<p>There are two attributes which need setting here:</p>
+
+<ul>
+  <li>Cameraleft</li>
+  <li>Cameraright</li>
+</ul>
+
+<p>Which are shown below:</p>
+
+<p><img src="/assets/images/unity_cardboard_tutorial/open_dive_before_adding_cameras.png" alt="Configuring Open Dive Sensor" /></p>
+
+<p>Click the button to the far right of Cameraleft (see the arrow in the screenshot above) and in the dialog which comes up choose “LeftCamera” by double clicking on it. Repeat the process for Cameraright, choosing “RightCamera” in the dialog.</p>
+
+<p>If you select play now and look at the game window, notice that there is distortion added to correct for the lenses in Google Cardboard:</p>
+
+<p><img src="/assets/images/unity_cardboard_tutorial/with_open_dive_distortion.png" alt="Configuring Open Dive Sensor" /></p>
+
+<h2 id="trying-it-out">Trying it out</h2>
+
+<p>We’re now ready to test the scene with Cardboard.</p>
+
+<p>Begin by selecting “File” and then “Build Settings”. Add our current Scene to the Build by clicking the “Add Current” button (middle right).</p>
+
+<p>Under Platform select “Android”. Make sure your Android device is plugged into the computer using a USB cable and that USB Debugging is enabled (this varies between Android devices but a quick Google Search should do the trick).</p>
+
+<p>Having selected Android, click on “Player Settings” which will load the settings in the Inspector window. Under “Other” you’ll need to enter a bundle identifier:</p>
+
+<p><img src="/assets/images/unity_cardboard_tutorial/android_bundle_identifier.png" alt="Adding a bundle identifier" /></p>
+
+<p>Now choose “Build and Run” and wait for the build process to complete. When asked for a file location initially, choose somewhere to store the generated APK (Android Installer). This file can be copied to you device for installing manually or sent to friends.</p>
+
+<p>At some point it will also ask you for the location of the Android SDK. Because everyone read the “prerequisites” section of this post, this will already been downloaded and extracted somewhere (or not!).</p>
+
+<p>I’d downloaded and extracted this in my <code class="language-plaintext highlighter-rouge">~/Downloads</code> folder so the SDK was located in <code class="language-plaintext highlighter-rouge">~/Downloads/adt-bundle-mac-x86_64-20140702/sdk</code>.</p>
+
+<p>Once the process completes, the application should automatically launch on your device. Slot it into Google Cardboard and look around!</p>
+
+<p>The next big challenge is finding a way to get user input. The magnetic button is clever but hardly that useful for fine grained directional control and expecting people to have a gamepad available is unreasonable.</p>
+
+<p>My current thinking is to allow a computers arrow keys to be used as input via web sockets, or eventually hand gestures recognised by the camera.</p>
+
+<p>Any questions or comments, find me on twitter, <a href="http://www.twitter.com/talkingquickly">http://www.twitter.com/talkingquickly</a>.</p>
+
+<h2 id="references">References</h2>
+
+<p><a href="http://www.sc0ttgames.com/?p=293">http://www.sc0ttgames.com/?p=293</a></p>
+
+<p><a href="https://www.youtube.com/watch?v=fRED_-LvJKQ&amp;list=PLPV2KyIb3jR7F_B4p8X3YwHPaExh0R9Kk">https://www.youtube.com/watch?v=fRED_-LvJKQ&amp;list=PLPV2KyIb3jR7F_B4p8X3YwHPaExh0R9Kk</a></p>
+
+<p><a href="https://www.durovis.com/board/viewforum.php?f=1&amp;sid=a3e36bc84f5e3e70f7bb00c9b11af7a2">https://www.durovis.com/board/viewforum.php?f=1&amp;sid=a3e36bc84f5e3e70f7bb00c9b11af7a2</a></p>
+
+<p><a href="http://forum.unity3d.com/threads/cardboard-vr-by-google-for-android-only-45.253903/">http://forum.unity3d.com/threads/cardboard-vr-by-google-for-android-only-45.253903/</a></p>
+
+    </div>
+    
+    
+        <!-- If we want to display author's name and bio -->
+
+<section class="author">
+  <header> <a href="/about.html"> <img class="profile" src="/assets/images/profile4.jpg" alt="Ben Dixon. Without
+      Aviators."></a></header>
+  <article>
+    <!-- Author Name -->
+    <h4> Ben Dixon </h4>
+    <!-- Author Bio -->
+    <p>
+      My name's Ben Dixon, I'm the co-founder of <a target="_blank"
+        href="https://www.getsona.com?utm_source=benblogabout">Sona</a> where we're building the operating system for
+      the worlds deskless workforce.
+      I'm an experienced CTO, LLM geek, lover of good coffee and above all, making things.
+      Also a regular conference speaker, author and travel
+      addict. Chat to me on twitter <a href="http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a>
+    </p>
+  </article>
+</section>
+
+    
+    
+    
+    
+    
+</article>
+            </main>
+            
+            <footer class="site-footer">
+                <p>&copy; 2025 <a href="/about.html">Ben Dixon</a> · 
+                <a href="https://twitter.com/talkingquickly" target="_blank">Twitter</a> · 
+                <a href="https://www.linkedin.com/in/talkingquickly/" target="_blank">LinkedIn</a> · 
+                <a href="mailto:ben@talkingquickly.co.uk">Email</a> · 
+                <a href="/rss.xml">RSS</a></p>
+            </footer>
+        </div>
+    </div>
+    
+    <!-- Simple Analytics -->
+    <script>
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-7333902-35']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+</body>
+</html>

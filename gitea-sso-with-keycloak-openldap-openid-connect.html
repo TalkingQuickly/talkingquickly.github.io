@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)">
+    
+    <title>Gitea SSO with Keycloak, OpenLDAP and OpenID Connect - talkingquickly</title>
+    
+    
+    <meta name="description" content="Blog by Ben Dixon, Co-founder of Sona, about startups, elixir, AI, climbing and photography">
+    
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/minimal.css">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml">
+    <link rel="canonical" href="https://www.talkingquickly.co.uk/gitea-sso-with-keycloak-openldap-openid-connect">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="layout-wrapper">
+        <header class="mobile-header">
+            <div class="mobile-header-top">
+                <a href="/" class="site-title">talkingquickly</a>
+                <a href="/about.html" class="mobile-about-link">About</a>
+            </div>
+            <p class="mobile-tagline">Co-founder & CTO at Sona. Writing about AI, startups, and engineering.</p>
+            <div class="mobile-social-links">
+                <a href="https://github.com/talkingquickly" target="_blank" title="GitHub">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                </a>
+                <a href="https://twitter.com/talkingquickly" target="_blank" title="Twitter">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                    </svg>
+                </a>
+                <a href="https://www.linkedin.com/in/talkingquickly/" target="_blank" title="LinkedIn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                </a>
+                <a href="https://bsky.app/profile/talkingquickly.bsky.social" target="_blank" title="Bluesky">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.206-.659-.298-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8Z"/>
+                    </svg>
+                </a>
+            </div>
+        </header>
+        
+        <aside class="sidebar">
+            <div class="sidebar-content">
+                <div class="sidebar-header">
+                    <a href="/" class="site-title">talkingquickly</a>
+                    <p class="sidebar-tagline">Co-founder & CTO at Sona. Writing about AI, startups, and engineering.</p>
+                </div>
+                
+                <nav class="nav-links">
+                    <a href="/about.html">About</a>
+                </nav>
+                
+                <div class="social-links">
+                    <a href="https://github.com/talkingquickly" target="_blank" title="GitHub">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                    <a href="https://twitter.com/talkingquickly" target="_blank" title="Twitter">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/talkingquickly/" target="_blank" title="LinkedIn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                    </a>
+                    <a href="https://bsky.app/profile/talkingquickly.co.uk" target="_blank" title="Bluesky">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.206-.659-.298-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8Z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </aside>
+        
+        <div class="main-container">
+            <main class="site-content">
+                <article class="post">
+    <header class="post-header">
+        <h1>Gitea SSO with Keycloak, OpenLDAP and OpenID Connect</h1>
+    </header>
+    
+    <div class="post-content">
+        <p>Gitea is a lightweight open source git service. As an aside, Gitea - especially when combined with Drone CI - is one of my favourite pieces of open source software!</p>
+
+<p>It’s minimal footprint and easy to use interface make it perfect for running on clusters to facilitate git push deploys and CI.</p>
+
+<p>Here we’ll configure OpenLDAP for centralised user management and single sign on. We’ll optionally configure OpenID Connect but with several caveats on its usage.</p>
+
+<p>This post is part of a series on single sign on for Kubernetes.</p>
+
+<!--more-->
+
+<ol>
+  <li>
+    <a href="/kubernetes-sso-a-comprehensive-guide">
+  Contents and overview
+</a>
+  </li>
+  <li>
+    <a href="/installing-openldap-kubernetes-helm">
+  Installing OpenLDAP
+</a>
+  </li>
+  <li>
+    <a href="/installing-keycloak-kubernetes-helm">
+  Installing Keycloak
+</a>
+  </li>
+  <li>
+    <a href="/keycloak-and-openldap-on-kubernetes">
+  Linking Keycloak and OpenLDAP
+</a>
+  </li>
+  <li>
+    <a href="/setting-up-oidc-login-kubernetes-kubectl-with-keycloak">
+  OIDC Kubectl Login with Keycloak
+</a>
+  </li>
+  <li>
+    <a href="/webapp-authentication-keycloak-OAuth2-proxy-nginx-ingress-kubernetes">
+  Authenticate any web app using ingress annotations
+</a>
+  </li>
+  <li>
+    <a href="/gitea-sso-with-keycloak-openldap-openid-connect">
+  <strong>Gitea (requires LDAP)</strong>
+</a>
+  </li>
+  <li>
+    <a href="/docker-registry-authentication-with-keycloak">
+  Simple Docker Registry
+</a>
+  </li>
+  <li>
+    <a href="/harbor-docker-registry-on-kubernetes-authentication-with-keycloak">
+  Harbor Docker Registry with ACL
+</a>
+  </li>
+</ol>
+
+<h2>Pre-requisites</h2>
+
+<p>This assumes you have CLI access to a Kubernetes cluster, will be working in a namespace called <code>identity</code> and have both Helm 3 and Kubectl installed and working locally. Finally it assumes that you're using <a href="https://kubernetes.github.io/ingress-nginx/">NGINX for Ingress</a> along with cert manager for SSL certificates with a Cluster Issuer called <code>letsencrypt-production</code>.</p>
+
+<p>If your configuration is different, the majority of the steps will be the same, but you'll need to change the ingress annotations accordingly.</p>
+
+<p>The source for this series of tutorials can be found here: <a href="https://github.com/TalkingQuickly/kubernetes-sso-guide">https://github.com/TalkingQuickly/kubernetes-sso-guide</a> and cloned with:</p>
+
+<div class="highlight">
+  <pre><code class="language-bash" data-lang="bash"><span></span>git clone git@github.com:TalkingQuickly/kubernetes-sso-guide.git</code></pre>
+</div>
+
+<p>All commands in the tutorial assume that they’re being executed from the root of this cloned repository.</p>
+
+<p>This post assumes you’ve completed the “Installing OpenLDAP”, “Installing Keycloak” and “Linking Keycloak and OpenLDAP” sections.</p>
+
+<h2 id="installing-gitea">Installing Gitea</h2>
+
+<p>Since we’re primarily concerned with configuring Gitea to use LDAP for authentication, we’ll only cover setting up the web UI here.</p>
+
+<p>Depending on your cluster configuration, you’ll want to customise <code class="language-plaintext highlighter-rouge">gitea/values-gitea.yml</code> with an ingress address and whether or not SSL should be enabled:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">gitea</span><span class="pi">:</span>
+  <span class="na">domain</span><span class="pi">:</span> <span class="s">gitea-keycloak.ssotest.staging.talkingquickly.co.uk</span> 
+  <span class="na">protocol</span><span class="pi">:</span> <span class="s">http</span>
+  <span class="na">installLock</span><span class="pi">:</span> <span class="s2">"</span><span class="s">false"</span>
+
+<span class="na">ingress</span><span class="pi">:</span>
+  <span class="na">enabled</span><span class="pi">:</span> <span class="kc">true</span>
+  <span class="na">annotations</span><span class="pi">:</span>
+    <span class="na">cert-manager.io/cluster-issuer</span><span class="pi">:</span> <span class="s">letsencrypt-staging</span>
+  <span class="na">hosts</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">host</span><span class="pi">:</span> <span class="s">gitea-keycloak.ssotest.staging.talkingquickly.co.uk</span>
+      <span class="na">paths</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">/'</span><span class="pi">]</span>
+  <span class="na">tls</span><span class="pi">:</span>
+   <span class="pi">-</span> <span class="na">secretName</span><span class="pi">:</span> <span class="s">gitea-keycloak-https-secret</span>
+     <span class="na">hosts</span><span class="pi">:</span>
+       <span class="pi">-</span> <span class="s">gitea-keycloak.ssotest.staging.talkingquickly.co.uk</span>
+</code></pre></div></div>
+
+<p>We can then install Gitea with:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>helm3 upgrade --install gitea-keycloak ./charts/gitea --values ./gitea/values-gitea.yml
+</code></pre></div></div>
+
+<p>Gitea should now be available on the chosen Ingress URL, in the example configuration above; <code class="language-plaintext highlighter-rouge">gitea-keycloak.ssotest.staging.talkingquickly.co.uk</code>.</p>
+
+<p>We can then use this command to create an initial user with the username <code class="language-plaintext highlighter-rouge">administrator</code>, by executing the gitea CLI inside its pod. Remember to change <code class="language-plaintext highlighter-rouge">YOUR_PASSWORD</code> and <code class="language-plaintext highlighter-rouge">YOUR_EMAIL</code> to something:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl exec -it --namespace identity \
+      $(kubectl get pods -n identity --selector='app.kubernetes.io/instance=gitea' -o jsonpath='{.items[0].metadata.name}') \
+      -- gitea admin user create --username YOUR_EMAIL --password YOUR_PASSWORD --email YOUR_EMAIL --admin --access-token --must-change-password=false
+</code></pre></div></div>
+
+<p>We should then be able to login to our Gitea instance.</p>
+
+<h2 id="configuring-gitea-to-use-ldap">Configuring Gitea to use LDAP</h2>
+
+<p>While Gitea does support OIDC login, this is only for existing accounts, so it’s not suitable for centralised user management. So here we’ll be using LDAP.</p>
+
+<p><a href="https://github.com/go-gitea/gitea/issues/1124?_pjax=%23js-repo-pjax-container#issuecomment-284911694">This Github Issue</a> on the Gitea repository explains the difference in behaviour between OIDC and LDAP.</p>
+
+<p>Begin by logging into Gitea as the <code class="language-plaintext highlighter-rouge">administrator</code> user and going to “Site Administration” and then then “Authentication Sources” tab. Choose “Add Authentication Source” and then select “LDAP (via BindDN)” as the source, select the following values:</p>
+
+<ul>
+  <li><strong>Authentication Name</strong>: <code class="language-plaintext highlighter-rouge">OpenLDAP</code></li>
+  <li><strong>Security Protocol</strong>: <code class="language-plaintext highlighter-rouge">Unencrypted</code></li>
+  <li><strong>Host</strong>: <code class="language-plaintext highlighter-rouge">openldap.identity.svc.cluster.local</code></li>
+  <li><strong>Port</strong>: <code class="language-plaintext highlighter-rouge">389</code></li>
+  <li><strong>Bind DN</strong>: <code class="language-plaintext highlighter-rouge">cn=readonly,dc=k4stest4,dc=talkingquickly,dc=co,dc=uk</code></li>
+  <li><strong>Bind Password</strong>: This should be the password you selected for the read only user in the <code class="language-plaintext highlighter-rouge">values-openldap.yml</code> file</li>
+  <li><strong>User Search Base</strong>: <code class="language-plaintext highlighter-rouge">ou=People,dc=k4stest4,dc=talkingquickly,dc=co,dc=uk</code> remembering to replace the <code class="language-plaintext highlighter-rouge">dc</code> components with your own</li>
+  <li><strong>User Filter</strong>: <code class="language-plaintext highlighter-rouge">(&amp;(objectClass=inetOrgPerson)(uid=%s))</code> This will allow all users to log into Gitea, you could create a more complex filter that would only let users in certain groups (e.g. “Engineers”) <a href="https://confluence.atlassian.com/kb/how-to-write-ldap-search-filters-792496933.html">this article on search filters</a> has some inspiration on how write these. <code class="language-plaintext highlighter-rouge">uid=%s</code> matches on uid, so people will be able to login with their username, you could modify this filter to match on both email and username.</li>
+  <li><strong>Username Attribute</strong>: <code class="language-plaintext highlighter-rouge">uid</code></li>
+  <li><strong>First Name Attribute</strong>: <code class="language-plaintext highlighter-rouge">cn</code></li>
+  <li><strong>Surname attribute</strong>: <code class="language-plaintext highlighter-rouge">sn</code></li>
+  <li><strong>Email Attribute</strong>: <code class="language-plaintext highlighter-rouge">mail</code></li>
+</ul>
+
+<p>The <a href="https://docs.gitea.io/en-us/authentication/">Gitea LDAP documentation</a> provides more detail on what each of these fields does.</p>
+
+<p>Note that if we’re looking to configure gitea using a configuration management tool, we can use the same approach we used to create the admin user above, to create the LDAP configuration using the CLI as <a href="https://docs.gitea.io/en-us/command-line/">documented here</a></p>
+
+<p>If we now go back to the Gitea sign in page, we’ll find that we can login directly with the credentials for the user we created in Keycloak. Importantly this should be a user we created in the master realm, not our administrative user.</p>
+
+<p>There’s no re-direction, password authentication is performed behind the scenes. If we go to the security settings for the account, we’ll see that because this user is managed externally, the password cannot be changed from with Gitea, only from within Keycloak.</p>
+
+<h2 id="configuring-gitea-to-use-openid-connect">Configuring Gitea to use OpenID Connect</h2>
+
+<p>While OpenID connect cannot be used for “full” SSO in Gitea, e.g. the underlying users must already exist, it’s possible for users who have already logged in, to configure Keycloak OIDC as an additional login, so that they can go through the Keycloak flow rather than entering their keycloak username and password in Gitea.</p>
+
+<p>The only real benefit of this approach is that where Keycloak is used extensively, the user may have an ongoing session there, so using that flow to login may be marginally more convenient than entering a username and password. So this option is included for completeness rather than as a typical user case.</p>
+
+<p>In the Keycloak admin interface, go to “Clients” in the side menu and choose “Create”. Enter gitea for the <code class="language-plaintext highlighter-rouge">Client ID</code> and choose <code class="language-plaintext highlighter-rouge">openid-connect</code> for the “Client Protocol”. Then enter:</p>
+
+<ul>
+  <li><strong>Name</strong>: Gitea</li>
+  <li><strong>Access Type</strong>: <code class="language-plaintext highlighter-rouge">confidential</code> (this is required to generate the client secret)</li>
+  <li><strong>Valid Redirect URI’s</strong>: <code class="language-plaintext highlighter-rouge">https://GITEA_INGRESS_URL/*</code> (so in the case of my example above, this would be <code class="language-plaintext highlighter-rouge">https://gitea-keycloak.k4stest4.talkingquickly.co.uk/*</code>)</li>
+</ul>
+
+<p>Once we’ve saved, we can then find the client secret by going back to the “Credentials” tab.</p>
+
+<p>In gitea go to “Site Administration” and choose “Authentication Sources”. Then choose “Add Authentication Source” and choose the following options:</p>
+
+<ul>
+  <li><strong>Authentication Type</strong>: <code class="language-plaintext highlighter-rouge">OAuth2</code></li>
+  <li><strong>Authentication Name</strong>: <code class="language-plaintext highlighter-rouge">Keycloak</code></li>
+  <li><strong>OAuth2 Provider</strong>: <code class="language-plaintext highlighter-rouge">OpenID Connect</code></li>
+  <li><strong>Client ID</strong>: <code class="language-plaintext highlighter-rouge">gitea</code> (the value entered for id when creating the client)</li>
+  <li><strong>Client Secret</strong>: <code class="language-plaintext highlighter-rouge">YOUR_SECRET</code> the secret displayed on the credentials tab of the Keycloak Client page for the <code class="language-plaintext highlighter-rouge">gitea</code> client we created</li>
+  <li><strong>OpenID Connect Auto Discovery URL</strong>: <code class="language-plaintext highlighter-rouge">https://YOUR_KEYCLOAK_INGRESS_URL/auth/realms/master/.well-known/openid-configuration</code> replacing <code class="language-plaintext highlighter-rouge">YOUR_KEYCLOAK_INGRESS_URL</code> with the Ingress domain chosen for keycloak.</li>
+</ul>
+
+<p>It’s important to note that Gitea will validate the certificate on creation of the provider and will not work without a valid SSL cert.</p>
+
+<p>Before we try and login, we’ll need to set a password for the user we created in KeyCloak. We can do this by going to the User in Keycloak, choosing the “Credentials” tab and setting a password, if we leave the “Temporary” switch on that page set to 1, then when the user signs in, they’ll be asked to set a new password.</p>
+
+<p>We can then go to the sign in page in Gitea and click on the “Sign in with OpenID Connect” option (we’ll need to sign out if we’re currently signed in as the administrator user). This will re-direct us the Keycloak login page where we can login with the user we created earlier in Keycloak.</p>
+
+<p>Once we’ve signed in with our Keycloak credentials, we’ll be re-directed back to Gitea.</p>
+
+<p>Here we’re asked to enter credentials for an existing user and can enter our keycloak users username and password so that in future we can login using the Keycloak auth flow.</p>
+
+<ol>
+  <li>
+    <a href="/kubernetes-sso-a-comprehensive-guide">
+  Contents and overview
+</a>
+  </li>
+  <li>
+    <a href="/installing-openldap-kubernetes-helm">
+  Installing OpenLDAP
+</a>
+  </li>
+  <li>
+    <a href="/installing-keycloak-kubernetes-helm">
+  Installing Keycloak
+</a>
+  </li>
+  <li>
+    <a href="/keycloak-and-openldap-on-kubernetes">
+  Linking Keycloak and OpenLDAP
+</a>
+  </li>
+  <li>
+    <a href="/setting-up-oidc-login-kubernetes-kubectl-with-keycloak">
+  OIDC Kubectl Login with Keycloak
+</a>
+  </li>
+  <li>
+    <a href="/webapp-authentication-keycloak-OAuth2-proxy-nginx-ingress-kubernetes">
+  Authenticate any web app using ingress annotations
+</a>
+  </li>
+  <li>
+    <a href="/gitea-sso-with-keycloak-openldap-openid-connect">
+  <strong>Gitea (requires LDAP)</strong>
+</a>
+  </li>
+  <li>
+    <a href="/docker-registry-authentication-with-keycloak">
+  Simple Docker Registry
+</a>
+  </li>
+  <li>
+    <a href="/harbor-docker-registry-on-kubernetes-authentication-with-keycloak">
+  Harbor Docker Registry with ACL
+</a>
+  </li>
+</ol>
+
+    </div>
+    
+    
+        <!-- If we want to display author's name and bio -->
+
+<section class="author">
+  <header> <a href="/about.html"> <img class="profile" src="/assets/images/profile4.jpg" alt="Ben Dixon. Without
+      Aviators."></a></header>
+  <article>
+    <!-- Author Name -->
+    <h4> Ben Dixon </h4>
+    <!-- Author Bio -->
+    <p>
+      My name's Ben Dixon, I'm the co-founder of <a target="_blank"
+        href="https://www.getsona.com?utm_source=benblogabout">Sona</a> where we're building the operating system for
+      the worlds deskless workforce.
+      I'm an experienced CTO, LLM geek, lover of good coffee and above all, making things.
+      Also a regular conference speaker, author and travel
+      addict. Chat to me on twitter <a href="http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a>
+    </p>
+  </article>
+</section>
+
+    
+    
+    
+    
+    
+</article>
+            </main>
+            
+            <footer class="site-footer">
+                <p>&copy; 2025 <a href="/about.html">Ben Dixon</a> · 
+                <a href="https://twitter.com/talkingquickly" target="_blank">Twitter</a> · 
+                <a href="https://www.linkedin.com/in/talkingquickly/" target="_blank">LinkedIn</a> · 
+                <a href="mailto:ben@talkingquickly.co.uk">Email</a> · 
+                <a href="/rss.xml">RSS</a></p>
+            </footer>
+        </div>
+    </div>
+    
+    <!-- Simple Analytics -->
+    <script>
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-7333902-35']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+</body>
+</html>

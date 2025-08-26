@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)">
+    
+    <title>Vibe coding is real, and that's a good thing - talkingquickly</title>
+    
+    
+    <meta name="description" content="Blog by Ben Dixon, Co-founder of Sona, about startups, elixir, AI, climbing and photography">
+    
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/minimal.css">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml">
+    <link rel="canonical" href="https://www.talkingquickly.co.uk/vibe-coding-is-real/">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="layout-wrapper">
+        <header class="mobile-header">
+            <div class="mobile-header-top">
+                <a href="/" class="site-title">talkingquickly</a>
+                <a href="/about.html" class="mobile-about-link">About</a>
+            </div>
+            <p class="mobile-tagline">Co-founder & CTO at Sona. Writing about AI, startups, and engineering.</p>
+            <div class="mobile-social-links">
+                <a href="https://github.com/talkingquickly" target="_blank" title="GitHub">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                </a>
+                <a href="https://twitter.com/talkingquickly" target="_blank" title="Twitter">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                    </svg>
+                </a>
+                <a href="https://www.linkedin.com/in/talkingquickly/" target="_blank" title="LinkedIn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                </a>
+                <a href="https://bsky.app/profile/talkingquickly.bsky.social" target="_blank" title="Bluesky">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.206-.659-.298-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8Z"/>
+                    </svg>
+                </a>
+            </div>
+        </header>
+        
+        <aside class="sidebar">
+            <div class="sidebar-content">
+                <div class="sidebar-header">
+                    <a href="/" class="site-title">talkingquickly</a>
+                    <p class="sidebar-tagline">Co-founder & CTO at Sona. Writing about AI, startups, and engineering.</p>
+                </div>
+                
+                <nav class="nav-links">
+                    <a href="/about.html">About</a>
+                </nav>
+                
+                <div class="social-links">
+                    <a href="https://github.com/talkingquickly" target="_blank" title="GitHub">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                    <a href="https://twitter.com/talkingquickly" target="_blank" title="Twitter">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/talkingquickly/" target="_blank" title="LinkedIn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                    </a>
+                    <a href="https://bsky.app/profile/talkingquickly.co.uk" target="_blank" title="Bluesky">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.206-.659-.298-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8Z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </aside>
+        
+        <div class="main-container">
+            <main class="site-content">
+                <article class="post">
+    <header class="post-header">
+        <h1>Vibe coding is real, and that's a good thing</h1>
+    </header>
+    
+    <div class="post-content">
+        <p><strong>tldr;</strong> AI Coding (“vibe coding”) is real and it has fundamentally changed what it means to be a software engineer forever.</p>
+
+<p>The single thing that will define which businesses and which engineers are successful over the coming years is how quickly they are able to adapt to this.</p>
+
+<p>This post is a summary of the topics that are coming up again and again when discussing this with other engineers and engineering leaders.</p>
+
+<!--more-->
+
+<h2 id="what-is-ai-coding-its-not-auto-complete">What is AI Coding (it’s not auto-complete)</h2>
+
+<p>By AI coding I’m talking about a dynamic where an engineer builds software by talking in natural language to some sort of software agent; asking it to perform actions that result in the modification of one or more files without specifying exactly what those modifications should be or how they should be made.</p>
+
+<p>So I’m explicitly excluding:</p>
+
+<ol>
+  <li>AI powered auto complete, even if it’s completing whole files</li>
+  <li>Stubbing function heads and having AI fill in the blanks</li>
+</ol>
+
+<p>From this definition of AI coding.</p>
+
+<p>So prompting an AI:</p>
+
+<blockquote>
+  <p>“Could you modify this to spawn tasks for each item and keep track of the spawned tasks, I’ve attached a screenshot of what the UI should look like and given you access to both the UI and the underlying interface”</p>
+</blockquote>
+
+<p><strong>is</strong> AI coding.</p>
+
+<p>But for the purposes of this post, defining a function head <code class="language-plaintext highlighter-rouge">do_thing_using_async_tasks</code>, writing comments that explain how it should work then having an AI “fill in the blanks” is <strong>not</strong>.</p>
+
+<h2 id="the-mental-model-is-more-important-than-the-tool">The mental model is more important than the tool</h2>
+
+<p>When evaluating AI coding, people are spending a lot of time talking about “which tool” and “which model”.</p>
+
+<p>For all practical purposes the leading foundation models perform similarly and most of the tools use these foundation models in approximately similar ways. Different tool and model combinations eek out different advantages daily but mastery of a model tool combination is - excluding any as yet unannounced step changes - far more important than picking a model-tool combination.</p>
+
+<p>The mental model I’ve found to be most effective for AI coding is that each and every engineer is now pair programming with a new joiner.</p>
+
+<p>This new joiner is incredibly smart, knows the language and libraries almost perfectly and can <strong>ship code at approximately 50x the speed of a regular engineer</strong>. Importantly we’re not talking about typing speed here - very few programmers are constrained by how fast they can type - we’re talking about the time taking to move from an abstract idea of wanting to instruct a computer to do something, to having written, iterated on and debugged the code to make it do that thing.</p>
+
+<p>They are exceptionally good at following instructions, matching existing style and reasoning about complex pieces of existing code.</p>
+
+<p>They have never seen your codebase before and don’t know the business domain.</p>
+
+<p>When given new information, they assimilate it quickly, act on it rationally, and then <strong>forget it when they move onto the next task</strong>.</p>
+
+<p>Think Groundhog day meets the best engineer you’ve ever met.</p>
+
+<h2 id="everything-is-architecture--context-management">Everything is architecture &amp; context management</h2>
+
+<p>If you imagine working with this Groundhog day trapped new joiner, how would you get the most out of them?</p>
+
+<p>What they bring to the table is that they can conceptualise and write code 50x faster than you, rarely have to Google anything and do not need to sleep.</p>
+
+<p>What you - as an experienced engineer in that business with that codebase - bring to the table is that you know the codebase and the domain.</p>
+
+<p>So you are positioned to reason about the big picture in the way that they can’t.</p>
+
+<p>Specifically your job is:</p>
+
+<ol>
+  <li>Guide the new joiner towards which parts of the codebase are relevant and which aren’t for the current task (constrain context)</li>
+  <li>Think through the current task in the context of the wider system architecture, domain and future plans and constrain options accordingly</li>
+  <li>Provide all of the implicit context around the evolution of the codebase and business which is rarely - if ever - documented anywhere</li>
+  <li>Help the new joiner to understand where existing documentation is and create new documentation where appropriate (build re-usable context)</li>
+</ol>
+
+<p>This is already what most senior engineers are doing when working on code themselves, it’s just that currently there’s a fifth step; “write and ship code”.</p>
+
+<p>AI coding effectively reduces the time and cognitive load of that “write and ship code” step to zero or close to zero allowing for more iterations in a day.</p>
+
+<h2 id="some-tools-drive-the-mental-model-better-than-others">Some tools drive the mental model better than others</h2>
+
+<p>In particular tools like Cursor and Claude Code have tried to solve the “context discovery” problem as well as the shipping code problem. So they have tried to provide closer to the magic experience of “given a codebase, point me at it, tell me what you want to do and I’ll figure out the rest”.</p>
+
+<p>This works brilliantly for extremely small codebases with minimal business context and “history driven complexity” encoded into them (and does truly feel like magic when it works).</p>
+
+<p>But most of the complexity of developing good software in the medium term is accurate understanding &amp; communication of product objectives and managing the domain + business history driven complexity, not writing code.</p>
+
+<blockquote>
+  <p>“Order forms and order sheets are similar right?” Oh no you see actually in this business domain they’re completely unrelated concepts, so the <code class="language-plaintext highlighter-rouge">OrderForms</code> context and the <code class="language-plaintext highlighter-rouge">OrderSheets</code> contexts have nothing to do with each other. Except…</p>
+</blockquote>
+
+<p>How well would you expect a senior engineer to do if on day one you gave them access to a git repo, your company wiki and a big feature brief and said “see you in two weeks, don’t talk to anyone”?</p>
+
+<p>AI Coding tools broadly can’t currently really do things human engineers can’t do. They can just do some of the things human engineers can do MUCH faster.</p>
+
+<p>Because tools like Cursor and Claude code TRY to solve this context discovery problem, people tend to try and use it (because it would be cool if it worked right?).</p>
+
+<p>When it doesn’t work, it generates frustration - because learning new tools IS frustrating - and so people are disproportionately likely to give up.</p>
+
+<p>I <em>think</em> this has led to a lot of the the “AI Coding doesn’t work on large codebases” myths.</p>
+
+<p>Cursor is capable - and extremely good at - allowing the engineer to manage context themselves, it just doesn’t make that the path of least resistance.</p>
+
+<p>Tools which force you to manage context yourself (e.g. Aider) are therefore in my opinion much better for learning the mental model initially.</p>
+
+<h2 id="shipping-faster-shipping-more-shipping-betterer">Shipping faster? Shipping more? Shipping Better(er)?</h2>
+
+<p>AI coding will mean we build more and better software given the same amount of effort but I don’t think it’s clear yet the balance between:</p>
+
+<ol>
+  <li>Shipping the same things faster</li>
+  <li>Shipping the same things at higher quality</li>
+  <li>Shipping more complete things earlier</li>
+  <li>Shipping more different things</li>
+</ol>
+
+<p>So it’s hard to make blanket statements about efficiency. My early intuition is that it’s probably more about items 2-4 above than it is item 1.</p>
+
+<p>There’ll be some “shipping the same things faster” effect, e.g. maybe it on-average halves the time it currently takes to ship a given roadmap item.</p>
+
+<p>But some large proportion of shipping stuff is thinking and this is also where 90% of the value of a senior engineer sits.</p>
+
+<p>So if you spend two weeks mainly thinking and two weeks mainly building (obviously a gross over simplification), you save most of the two weeks building and the two weeks thinking remains largely intact.</p>
+
+<p>But while you were thinking you probably didn’t just think through the first iteration, you thought through some of the first ten iterations then scope hammered heavily to keep the building down to two weeks. You’d probably done enough thinking for ten weeks of building.</p>
+
+<p>As the building time approaches zero, you “might as well” include some of iterations two to four, so polish that might otherwise be delayed, sometimes indefinitely, will now be included in version ones.</p>
+
+<p>Similarly the cost (time investment) of refactoring, adding complex detailed test coverage etc is reduced dramatically which will tend to drive up code quality and product quality for the same or lower engineering investment.</p>
+
+<p>But there’s some danger that because it’s easy to talk about 3-5x productivity improvements - and I think those are achievable with just what’s available now - we equate that with “shipping 3-5x of what we currently ship”.</p>
+
+<p>And those two things are not the same.</p>
+
+<p>In practice we’ll create more (by some multiple) higher quality software.</p>
+
+<p>Some of that will be by creating what we already create faster, but probably the majority of it will be by creating more things that we otherwise wouldn’t have done or by creating higher quality versions of these things.</p>
+
+<h2 id="who-writes-code-and-code-as-a-communication-tool">Who writes code and code as a communication tool</h2>
+
+<p>One of the fundamental (THE fundamental?) challenges of building software businesses is communicating a cohesive vision of a large objective in such a way that many people can work on it in parallel so that it can be achieved far faster than any one person could do it alone.</p>
+
+<p>This is a problem shared across founders, product managers, engineers and solutions range from “talking to each other” to product requirements documents, clickable prototypes and a thousand other tools.</p>
+
+<p>As a technical founder who’s spent the last fifteen years building technology companies, probably my single greatest frustration is having spent hundreds of hours with customers and prospects and being able to see in my head the full outline of the next version of the thing we’re trying to create and knowing how woefully inadequate conversation and memo’s will be as tools to communicate this.</p>
+
+<p>AI Coding is especially efficient at the POC stage, so a POC which might have taken 3 months in the past may well be achievable in a week.</p>
+
+<p>This includes time spent iterating in realtime on a POC as “using” it helps your thinking to evolve.</p>
+
+<p>This makes code as a communication tool far more viable.</p>
+
+<p>So rather than weeks of meetings and memos, creating a POC - sometimes with the intention of throwing it away - will increasingly be the most efficient way for technical - and eventually product - leaders to communicate concepts.</p>
+
+<p>This probably means technical leaders become “more technical” insofar as they return to being more involved with code.</p>
+
+<h2 id="interlude-it-gets-more-speculative-from-here">Interlude; it gets more speculative from here</h2>
+
+<p>Up until here the majority of the points I’m making are just observations, e.g. what I believe the current state based on what currently exists and is happening. The remainder of this piece is more speculative.</p>
+
+<h2 id="pocs-as-the-new-communication-standard-generally">POC’s as the new communication standard generally</h2>
+
+<p>In the same way AI pair programmers make POC’s a far more viable communication tool for engineering leadership, UI based AI programming tools such as Windsurf, DataButton, Lovable etc make this type of POC accessible to none technical folks.</p>
+
+<p>So it will probably become standard that product managers create clickable prototypes in these tools first and iterate on them with designers and engineers and test these with customers, replacing the more traditional memo + designs type model.</p>
+
+<p>So far nobody (that I know of?) has successfully bridged the gap between these UI based tools and complex codebases (probably for the context reasons mentioned above) so there’s likely to remain separation in the tools used here until somebody makes progress on that.</p>
+
+<h2 id="codebases-will-have-to-adapt-not-the-other-way-around">Codebases will have to adapt, not the other way around</h2>
+
+<p>Realistically most companies - or at least startups - should expect that the amount of their new code which is written by AI will cross 50% in the next 6 months and 80% in the next 12 months. Any company not on this trajectory risks being left behind by competitors who do manage to adapt.</p>
+
+<p>So practically the primary user of the codebase becomes AI tooling with humans a secondary consumer.</p>
+
+<p>This means that in situations where there is a tension between something that makes the codebase better for humans and better for AI, we should choose the thing that makes it better for AI. So the trend will be as much about patterns in codebases developing to support the tooling as it will the other way around.</p>
+
+<p>The good news is that in the vast majority of cases, things that make codebases better for AI’s also make them better for humans so this conflict will be rare.</p>
+
+<p>But it may accelerate certain optimisations. E.g. a small team of REALLY good engineers can often paper over a lot of technical debt just by virtue of being incredibly good at reasoning about something which is becoming hard to reason about.</p>
+
+<p>The improved performance of AI once the technical debt is paid back, combined with it being faster to pay it back using AI, may make these types of projects viable sooner.</p>
+
+<p>A specific example of that is clear separation of concerns and enforced boundaries. Separation of concerns and enforced boundaries are to an extent just a formalised way of constraining context, and AI performs far better when context is constrained (as do people).</p>
+
+<p>So we may well see startups prioritising refactoring, technical debt payback and putting in strict rules about code boundaries earlier than they otherwise and historically would.</p>
+
+<h2 id="beware-intuition-over-data">Beware intuition over data</h2>
+
+<p>AI coding is so new and so different that it breaks most of the existing mental models for what’s possible.</p>
+
+<p>So if someone has spent less than 100-200 hours exclusively writing code by collaborating with an AI agent, most of their mental models of what will work and what won’t are simply wrong by virtue of lack of information.</p>
+
+<p>A disproportionate quantity of the objections about “why AI coding won’t work” come from people in the 0-10 hour range.</p>
+
+<p>So it’s worth building a culture of having people disclose their level of exposure early in conversations and discounting the “haven’t really tried it yet” groups views heavily. Of course do so compassionately, but don’t confuse fear based reactions with valid data.</p>
+
+<p>Counterintuitively the main reason to do this is so that you DO hear about the valid objections. There are plenty of things that genuinely don’t work well yet and understanding and discussing those limitations is an important part of adoption. But often they are lost in the noise of broadly incorrect objections from people without sufficient data.</p>
+
+<h2 id="push--pull-people-up-the-adoption-curve">Push &amp; Pull people up the adoption curve</h2>
+
+<p>In practice the job of every engineer has now changed.</p>
+
+<p>The part that was about writing code (and that <strong>IS</strong> only part of it) is now mainly about instructing AI tools to write code.</p>
+
+<p>I don’t think it’s realistic that there are many engineering jobs two years from now where the expectation is anything other than this e.g. that it’s possible to have those jobs without being an expert in instructing AI tools to write code.</p>
+
+<p>So assuming people want to continue to be software engineers - and I hope they do because coding with AI is SO MUCH more fun than coding without it - learning this skill isn’t really optional.</p>
+
+<p>Some people will naturally dive into this head first and enthusiastically, some will need a nudge, some will completely refuse.</p>
+
+<p>It’s important to create an environment where it’s easy for those who want to experiment to try things and share their experiences.</p>
+
+<p>Having clear policies (and budget) around which tools and which models helps a lot. As does encouraging people to explain their experiences, both good and bad to wider teams.</p>
+
+<p>For the people who need a nudge and those who completely refuse to engage, it’s important to be transparent about what’s at stake.</p>
+
+<p>In the same way most people will be fairly reluctant to hire an engineer who wants to build a typical webapp purely in C, people will soon be reluctant to hire engineers who don’t know how to leverage these tools. So there’s a definite risk of being left behind.</p>
+
+<h2 id="the-craft-lives-on">The craft lives on</h2>
+
+<p>Whenever there is a new abstraction invented for creating software people lament the end of writing software as a craft.</p>
+
+<p>As with every other iteration, it wasn’t true then and it isn’t true now.</p>
+
+<p>I’ve always written code for fun as well as for work. I write slightly different code for fun than for work and these days spend more of my time at work collaborating with other engineers than I do shipping code myself.</p>
+
+<p>But using AI tools to write code has made both worlds more fun.</p>
+
+<p>Moving from Basic to Delphi to PHP to Ruby to Elixir over the last 25 years has at each stage, allowed me to realise the visions for things I wanted to exist in the world more fully and often more quickly.</p>
+
+<p>AI coding is just one more step on this journey and I’ve never been more excited.</p>
+
+<p>Every engineer deserves to experience the moment when by collaborating with an AI, something that would have taken them a week, takes an hour.</p>
+
+<p>It’s genuinely the closest thing to magic I’ve felt in decades.</p>
+
+    </div>
+    
+    
+        <!-- If we want to display author's name and bio -->
+
+<section class="author">
+  <header> <a href="/about.html"> <img class="profile" src="/assets/images/profile4.jpg" alt="Ben Dixon. Without
+      Aviators."></a></header>
+  <article>
+    <!-- Author Name -->
+    <h4> Ben Dixon </h4>
+    <!-- Author Bio -->
+    <p>
+      My name's Ben Dixon, I'm the co-founder of <a target="_blank"
+        href="https://www.getsona.com?utm_source=benblogabout">Sona</a> where we're building the operating system for
+      the worlds deskless workforce.
+      I'm an experienced CTO, LLM geek, lover of good coffee and above all, making things.
+      Also a regular conference speaker, author and travel
+      addict. Chat to me on twitter <a href="http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a>
+    </p>
+  </article>
+</section>
+
+    
+    
+    
+    
+    
+</article>
+            </main>
+            
+            <footer class="site-footer">
+                <p>&copy; 2025 <a href="/about.html">Ben Dixon</a> · 
+                <a href="https://twitter.com/talkingquickly" target="_blank">Twitter</a> · 
+                <a href="https://www.linkedin.com/in/talkingquickly/" target="_blank">LinkedIn</a> · 
+                <a href="mailto:ben@talkingquickly.co.uk">Email</a> · 
+                <a href="/rss.xml">RSS</a></p>
+            </footer>
+        </div>
+    </div>
+    
+    <!-- Simple Analytics -->
+    <script>
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-7333902-35']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+</body>
+</html>

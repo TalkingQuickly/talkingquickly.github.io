@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)">
+    
+    <title>A Rails development environment with Docker - talkingquickly</title>
+    
+    
+    <meta name="description" content="Blog by Ben Dixon, Co-founder of Sona, about startups, elixir, AI, climbing and photography">
+    
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/minimal.css">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml">
+    <link rel="canonical" href="https://www.talkingquickly.co.uk/2018/03/rails-development-environment-with-docker-compose/">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="layout-wrapper">
+        <header class="mobile-header">
+            <div class="mobile-header-top">
+                <a href="/" class="site-title">talkingquickly</a>
+                <a href="/about.html" class="mobile-about-link">About</a>
+            </div>
+            <p class="mobile-tagline">Co-founder & CTO at Sona. Writing about AI, startups, and engineering.</p>
+            <div class="mobile-social-links">
+                <a href="https://github.com/talkingquickly" target="_blank" title="GitHub">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                </a>
+                <a href="https://twitter.com/talkingquickly" target="_blank" title="Twitter">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                    </svg>
+                </a>
+                <a href="https://www.linkedin.com/in/talkingquickly/" target="_blank" title="LinkedIn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                </a>
+                <a href="https://bsky.app/profile/talkingquickly.bsky.social" target="_blank" title="Bluesky">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.206-.659-.298-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8Z"/>
+                    </svg>
+                </a>
+            </div>
+        </header>
+        
+        <aside class="sidebar">
+            <div class="sidebar-content">
+                <div class="sidebar-header">
+                    <a href="/" class="site-title">talkingquickly</a>
+                    <p class="sidebar-tagline">Co-founder & CTO at Sona. Writing about AI, startups, and engineering.</p>
+                </div>
+                
+                <nav class="nav-links">
+                    <a href="/about.html">About</a>
+                </nav>
+                
+                <div class="social-links">
+                    <a href="https://github.com/talkingquickly" target="_blank" title="GitHub">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                    <a href="https://twitter.com/talkingquickly" target="_blank" title="Twitter">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/talkingquickly/" target="_blank" title="LinkedIn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                    </a>
+                    <a href="https://bsky.app/profile/talkingquickly.co.uk" target="_blank" title="Bluesky">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.206-.659-.298-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8Z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </aside>
+        
+        <div class="main-container">
+            <main class="site-content">
+                <article class="post">
+    <header class="post-header">
+        <h1>A Rails development environment with Docker</h1>
+    </header>
+    
+    <div class="post-content">
+        <p>Docker and Docker Compose reduces bringing up a development environment on any system which supports Docker to a single command. For me this means the time to a working development environment, even on a fresh machine for a project I haven’t worked on for months or years, is just a few seconds.</p>
+
+<!--more-->
+
+<p>This tutorial is not a comprehensive introduction to either Docker or Docker Compose, for this this I highly recomend the <a href="https://docs.docker.com/compose/gettingstarted/">official docker compose tutorial</a> as a starting point. The steps here will stand alone but it’s definitely beneficial to get familiar with the docker-compose fundamentals at some point.</p>
+
+<h2 id="installing-docker">Installing Docker</h2>
+
+<p>We’ll need to have Docker installed locally <a href="https://docs.docker.com/install/">https://docs.docker.com/install/</a>. We’ll also need <code class="language-plaintext highlighter-rouge">docker-compose</code> installed, for OSX then this is included when installing Docker, for Linux, it must be installed separately and instructions are here; <a href="https://docs.docker.com/compose/install/#install-compose">https://docs.docker.com/compose/install/#install-compose</a>.</p>
+
+<h2 id="dockerising-a-rails-application">Dockerising a Rails Application</h2>
+
+<p>For an existing Rails application the files below should be added to the root of the project. If generating a new project we should create an empty directory with the name matching the desired name of the Rails project and create the files here. We’ll cover generating the Rails application itself using Docker below.</p>
+
+<p>First we add a file called <code class="language-plaintext highlighter-rouge">Dockerfile</code> to the project root which defines how to build the runtime environment for our application:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FROM ruby:2.4.2
+MAINTAINER YOUR_EMAIL
+
+# Install apt based dependencies required to run Rails as
+# well as RubyGems. As the Ruby image itself is based on a
+# Debian image, we use apt-get to install those.
+RUN apt-get update &amp;&amp; apt-get install -y \
+  build-essential \
+  nodejs
+
+
+# Configure the main working directory. This is the base
+# directory used in any further RUN, COPY, and ENTRYPOINT
+# commands.
+RUN mkdir -p /app
+WORKDIR /app
+
+# Copy the Gemfile as well as the Gemfile.lock and install
+# the RubyGems. This is a separate step so the dependencies
+# will be cached unless changes to one of those two files
+# are made.
+COPY Gemfile Gemfile.lock ./
+RUN gem install bundler &amp;&amp; bundle install --jobs 20 --retry 5
+
+COPY . /app
+RUN rm -rf tmp/*
+
+ADD . /app
+</code></pre></div></div>
+
+<p>Replacing <code class="language-plaintext highlighter-rouge">YOUR_EMAIL</code> with your email address.</p>
+
+<p>Then we add a second file called <code class="language-plaintext highlighter-rouge">docker-compose.yml</code> to the project root containing the following:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>version: "3"
+services:
+  app:
+    build: .
+    command: rails server -p 3000 -b '0.0.0.0'
+    volumes:
+      - .:/app:delegated
+    ports:
+      - "3000:3000"
+    environment:
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_HOST=postgres
+    depends_on:
+      - postgres
+      - redis
+
+
+  postgres:
+    image: postgres:9.4
+    volumes:
+      - postgresdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis
+    command: redis-server --appendonly yes
+    volumes:
+      - redisdata:/data
+    ports:
+      - "6379:6379"
+
+volumes:
+  postgresdata:
+  redisdata:
+</code></pre></div></div>
+
+<h2 id="the-compose-file">The compose file</h2>
+
+<p>A few elements of this compose file are worth noting as they differ from the many other Rails compose files out there:</p>
+
+<ul>
+  <li>We don’t use <code class="language-plaintext highlighter-rouge">links</code>, these are <a href="https://docs.docker.com/compose/compose-file/#links">no longer the recommended approach</a> for establishing communication between containers. Instead services are available by hostname where the hostname will be the name of the service. E.g. in this case our <code class="language-plaintext highlighter-rouge">app</code> conainer can access postgres via the hostname <code class="language-plaintext highlighter-rouge">postgres</code> and redis via the hostname <code class="language-plaintext highlighter-rouge">redis</code></li>
+  <li>The <code class="language-plaintext highlighter-rouge">:delegated</code> option on the volume mount for our app directory. This is specific to Docker for Mac, although won’t cause problems on other platforms. Details of what this does are <a href="https://docs.docker.com/compose/compose-file/#caching-options-for-volume-mounts-docker-for-mac">available here</a> but it provides a substantial improvement in filesystem performance on OSX, without which day to day development of Rails applications can be painful. If file performance is still not sufficient for your application, it’s worth considering <a href="http://docker-sync.io/">Docker Sync</a> although the 60x slowdown references on that site is substantially reduced by the sue of <code class="language-plaintext highlighter-rouge">delegated</code> on OSX</li>
+</ul>
+
+<h2 id="generating-a-new-application">Generating a new application</h2>
+
+<p>When working with an existing Rails application, we can skip this section. Using Docker to generate the entire application is especially useful when trying to maintain no local development environment at all, so we can develop Rails applications without ever needing a local Ruby install.</p>
+
+<p>One of the quickest ways to generate a new Rails application is simply to use the pre-built Bitnami image and execute:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run --rm -v $(pwd):/app bitnami/rails:latest rails new my_app --database postgresql
+</code></pre></div></div>
+
+<p>Which will pull the Bitnami image and generate a new Rails app called <code class="language-plaintext highlighter-rouge">my_app</code> in the current directory.</p>
+
+<p>Alternatively, if you wish to avoid use of a third party image, alongside our <code class="language-plaintext highlighter-rouge">Dockerfile</code>, we’ll need to add a <code class="language-plaintext highlighter-rouge">Gemfile</code> containing the following:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>source 'https://rubygems.org' do
+  gem "rails",
+end
+</code></pre></div></div>
+
+<p>and a blank <code class="language-plaintext highlighter-rouge">Gemfile.lock</code></p>
+
+<p>Then execute:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker build -t my_name/my_rails_image .
+docker run --rm -v $(pwd):/app my_name/my_rails_image rails new my_app --database postgresql
+</code></pre></div></div>
+
+<p>Which builds an image based on our Dockerfile, tags it with the name <code class="language-plaintext highlighter-rouge">my_rails_image</code> and then runs <code class="language-plaintext highlighter-rouge">rails new myapp --database postgresql</code> within a container based on that image and creates a new Rails application as a subfolder.</p>
+
+<p>Once we have this image built locally, we can re-use it in future with:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run --rm -v $(pwd):/app my_name/my_rails_image rails new my_app --database postgresql
+</code></pre></div></div>
+
+<h2 id="dockerising-the-application">Dockerising the application</h2>
+
+<p>Our <code class="language-plaintext highlighter-rouge">docker-compose.yml</code> file will bring up not only our rails application, but supporting Postgres and Redis instances.</p>
+
+<p>First we’ll make some changes to our Rails application so that all configuration is taken from environment variables. We’ll then update our <code class="language-plaintext highlighter-rouge">docker-compose.yml</code> file to set some environment variables. This lays the groundwork for using something like Hashicorp’s <a href="https://github.com/hashicorp/envconsul">envconsul</a> for managing configuration in production at a later date. It’s also a core tenant of building <a href="https://12factor.net/config">12 factor</a> applications.</p>
+
+<p>We’ll begin by modifying <code class="language-plaintext highlighter-rouge">config/database.yml</code> to pull connection details from the environment by adding these three lines:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>username: &lt;%= ENV.fetch("DB_USERNAME") %&gt;
+password: &lt;%= ENV.fetch("DB_PASSWORD") %&gt;
+host: &lt;%= ENV.fetch("DB_HOST") %&gt;
+</code></pre></div></div>
+
+<p>These can either be added to the <code class="language-plaintext highlighter-rouge">default</code> section or individually to the <code class="language-plaintext highlighter-rouge">development</code> and <code class="language-plaintext highlighter-rouge">test</code> sections.</p>
+
+<p>It may look like we could skip this entirely and just use the standard <code class="language-plaintext highlighter-rouge">DATABASE_URL</code> environment variable with something like <code class="language-plaintext highlighter-rouge">postgres://username:password@postgres/DB_NAME</code> but this will cause problems when running commands such as <code class="language-plaintext highlighter-rouge">rake db:migrate</code>. These do not reload environment variables between operating on the test and development databases and therefore raise exceptions when trying to apply migrations to test and development as these will both try and use the same database name.</p>
+
+<p>We can see these map to the values set in the <code class="language-plaintext highlighter-rouge">environment</code> section of our <code class="language-plaintext highlighter-rouge">app</code> definition in <code class="language-plaintext highlighter-rouge">docker-compose.yml</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>services:
+  app:
+    build: .
+    command: rails server -p 3000 -b '0.0.0.0'
+    volumes:
+      - .:/app:delegated
+    ports:
+      - "3000:3000"
+    environment:
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_HOST=postgres
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">environment</code> section allows us to set up the environment variables which will be set within the container. As discussed above, the <code class="language-plaintext highlighter-rouge">postgres</code> service will be available to our container automatically on the hostname <code class="language-plaintext highlighter-rouge">postgres</code> which matches the service name in <code class="language-plaintext highlighter-rouge">docker-compose.yml</code>. The default credentials for the official postgres image are <code class="language-plaintext highlighter-rouge">postgres</code> and <code class="language-plaintext highlighter-rouge">postgres</code> and there’s <a href="https://hub.docker.com/_/postgres/">more about customising here</a>.</p>
+
+<p>We can apply the same approach to the <code class="language-plaintext highlighter-rouge">config/secrets.yml</code> file if needed as well as anywhere else in the application we want to pass in configuration dynamically. If something like <a href="https://github.com/bkeepers/dotenv">dotenv</a> is in use then we can simply update our local <code class="language-plaintext highlighter-rouge">.env</code> file with the above environment variables, rather than defining them in the compose file.</p>
+
+<h2 id="starting-the-rails-application">Starting the rails application</h2>
+
+<p>We can now build the docker image based on our <code class="language-plaintext highlighter-rouge">Dockerfile</code> by executing:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker-compose build
+</code></pre></div></div>
+
+<p>Once this is complete we can start our application with:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker-compose up
+</code></pre></div></div>
+
+<p>This will start postgres, redis and our rails application, exposing the rails application on port 3000 so that we can access it by visiting <a href="http://localhost:3000">http://localhost:3000</a> as usual.</p>
+
+<h2 id="using-with-pry">Using with pry</h2>
+
+<p>If we want to use something like <code class="language-plaintext highlighter-rouge">pry-rails</code> to debug our rails application, instead of executing <code class="language-plaintext highlighter-rouge">docker-compose up</code>, we should use:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker-compose run --service-ports app
+</code></pre></div></div>
+
+<h2 id="running-one-off-commands">Running one off commands</h2>
+
+<p>Usually when setting up a rails application we would run <code class="language-plaintext highlighter-rouge">rake db:create</code> and <code class="language-plaintext highlighter-rouge">rake db:migrate</code>. If dockerising an existing application, we’re likely to find that we’re greeted with an error page that the database does not exist.</p>
+
+<p>To run one off commands using <code class="language-plaintext highlighter-rouge">docker-compose</code> we use the <code class="language-plaintext highlighter-rouge">run</code> command in the format:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker-compose run SERVICE_NAME CMD
+</code></pre></div></div>
+
+<p>So to run <code class="language-plaintext highlighter-rouge">rake db:create db:migrate</code> within the context of our rails application we would use:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker-compose run app rake db:migrate db:create
+</code></pre></div></div>
+
+<p>Similarly to start a console we would run:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker-compose run app rails console
+</code></pre></div></div>
+
+<p>We could run <code class="language-plaintext highlighter-rouge">rspec</code> tests with:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker-compose run app rspec spec
+</code></pre></div></div>
+
+<h2 id="adding-gems">Adding Gems</h2>
+
+<p>When adding new gems, we first update the Gemfile, then execute:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker-compose run app bundle
+</code></pre></div></div>
+
+<p>To update the <code class="language-plaintext highlighter-rouge">Gemfile.lock</code> and then:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker-compose build
+</code></pre></div></div>
+
+<p>To cache the gems in the image.</p>
+
+<h2 id="bash">Bash</h2>
+
+<p>We can launch a bash shell in our app container using:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker-compose run app bash
+</code></pre></div></div>
+
+<p>It’s important to bear in mind that each invocation of the above runs in a separate, completely isolated, container and so outside the <code class="language-plaintext highlighter-rouge">/app</code> directory which is bind mounted to our local directory, the file-systems are transitory and independent of one another.</p>
+
+<p>Being able to run a shell within our app container can be the key to avoiding a lot of frustrating workflow issues when working in a Docker based development environment.</p>
+
+<p>A great example is when upgrading a Rails version. The workflow is typically:</p>
+
+<ul>
+  <li>Update the version of GEM1 within the <code class="language-plaintext highlighter-rouge">Gemfile</code></li>
+  <li>Execute <code class="language-plaintext highlighter-rouge">bundle update GEM1</code></li>
+  <li>Look to see which dependency issues are raised</li>
+  <li>Update the <code class="language-plaintext highlighter-rouge">Gemfile</code> again</li>
+  <li>etc etc</li>
+</ul>
+
+<p>This can be slow and painful if a separate <code class="language-plaintext highlighter-rouge">docker-compose run app ...</code> is required every time. Instead we can use <code class="language-plaintext highlighter-rouge">docker-compose run app bash</code> once and then iterate within that container as many times as we want. Once it works we simply jump out of the container and execute <code class="language-plaintext highlighter-rouge">docker-compose build</code> to persist the new gems to the image.</p>
+
+<h2 id="deploying-to-production">Deploying to production</h2>
+
+<p>Part two covers how to deploy this application to a Kubernetes Cluster on any VPS or Bare Metal provider without having to learn several thousand previously unheard of pieces of terminology.</p>
+
+<p>Feel free to ping me on twitter <a href="https://www.twitter.com/talkingquickly">@TalkingQuickly</a> with any questions or feedback, in particular I’d love to know if a screencast version of this tutorial would be useful?</p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+        <section class="docker-book">
+  <article>
+    <h4>Get updates on the series</h4>
+    <p>This blog post is part of a 2018 series on using Docker to develop and deploy Rails applications. Currently planned posts include:</p>
+    <ul>
+      <li>Setting up a private registry</li>
+      <li>Production deployment using swarm</li>
+      <li>Automatic & Free SSL with LetsEncrypt</li>
+      <li>Persistent Storage and database backups</li>
+    </ul>
+    <p>To find out when new posts are added, please follow me on twitter <a href="https://twitter.com/talkingquickly">@talkingquickly</a>.</p>
+  </article>
+</section>
+
+    
+</article>
+            </main>
+            
+            <footer class="site-footer">
+                <p>&copy; 2025 <a href="/about.html">Ben Dixon</a> · 
+                <a href="https://twitter.com/talkingquickly" target="_blank">Twitter</a> · 
+                <a href="https://www.linkedin.com/in/talkingquickly/" target="_blank">LinkedIn</a> · 
+                <a href="mailto:ben@talkingquickly.co.uk">Email</a> · 
+                <a href="/rss.xml">RSS</a></p>
+            </footer>
+        </div>
+    </div>
+    
+    <!-- Simple Analytics -->
+    <script>
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-7333902-35']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+</body>
+</html>

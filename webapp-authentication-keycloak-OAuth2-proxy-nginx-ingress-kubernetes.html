@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)">
+    
+    <title>Web application authentication and authorization with Keycloak and OAuth2 Proxy on Kubernetes using Nginx Ingress - talkingquickly</title>
+    
+    
+    <meta name="description" content="Blog by Ben Dixon, Co-founder of Sona, about startups, elixir, AI, climbing and photography">
+    
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/minimal.css">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml">
+    <link rel="canonical" href="https://www.talkingquickly.co.uk/webapp-authentication-keycloak-OAuth2-proxy-nginx-ingress-kubernetes">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="layout-wrapper">
+        <header class="mobile-header">
+            <div class="mobile-header-top">
+                <a href="/" class="site-title">talkingquickly</a>
+                <a href="/about.html" class="mobile-about-link">About</a>
+            </div>
+            <p class="mobile-tagline">Co-founder & CTO at Sona. Writing about AI, startups, and engineering.</p>
+            <div class="mobile-social-links">
+                <a href="https://github.com/talkingquickly" target="_blank" title="GitHub">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                </a>
+                <a href="https://twitter.com/talkingquickly" target="_blank" title="Twitter">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                    </svg>
+                </a>
+                <a href="https://www.linkedin.com/in/talkingquickly/" target="_blank" title="LinkedIn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                </a>
+                <a href="https://bsky.app/profile/talkingquickly.bsky.social" target="_blank" title="Bluesky">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.206-.659-.298-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8Z"/>
+                    </svg>
+                </a>
+            </div>
+        </header>
+        
+        <aside class="sidebar">
+            <div class="sidebar-content">
+                <div class="sidebar-header">
+                    <a href="/" class="site-title">talkingquickly</a>
+                    <p class="sidebar-tagline">Co-founder & CTO at Sona. Writing about AI, startups, and engineering.</p>
+                </div>
+                
+                <nav class="nav-links">
+                    <a href="/about.html">About</a>
+                </nav>
+                
+                <div class="social-links">
+                    <a href="https://github.com/talkingquickly" target="_blank" title="GitHub">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                    <a href="https://twitter.com/talkingquickly" target="_blank" title="Twitter">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/talkingquickly/" target="_blank" title="LinkedIn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                    </a>
+                    <a href="https://bsky.app/profile/talkingquickly.co.uk" target="_blank" title="Bluesky">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.206-.659-.298-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8Z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </aside>
+        
+        <div class="main-container">
+            <main class="site-content">
+                <article class="post">
+    <header class="post-header">
+        <h1>Web application authentication and authorization with Keycloak and OAuth2 Proxy on Kubernetes using Nginx Ingress</h1>
+    </header>
+    
+    <div class="post-content">
+        <p>In this post we’ll setup a generic solution which allows us to add authentication via Keycloak to any application, simply by adding an ingress annotation. This gives us a much more extendable and secure alternative to basic auth.</p>
+
+<!--more-->
+
+<p>Many third party applications we run on Kubernetes will already support either OIDC or LDAP based login. Some however will not. In addition we may wish to deploy our own applications and use Keycloak to manage access to them without going through the work of adding OIDC or LDAP integration to them.</p>
+
+<p>We’ll use OAuth2 Proxy to add authentication to a simple nginx container.</p>
+
+<p>We’ll then look at how the application being authenticated can access and decode the Keycloak JSON Web Token and use this for things like group based authorization.</p>
+
+<p>In it’s simplest form, this would allow us to protect internal admin applications. In a more complete setup, we could setup a “customers” realm within Keycloak and delegate all of our authentication and authorization to Keycloak.</p>
+
+<p>For this we’ll be using <a href="https://github.com/oauth2-proxy/oauth2-proxy">OAuth2 Proxy</a> which is the <a href="https://www.keycloak.org/2020/08/sunsetting-louketo-project.adoc">suggested replacement</a> for Keycloaks Gatekeeper / Louketo project which reached EOL in August 2020.</p>
+
+<ol>
+  <li>
+    <a href="/kubernetes-sso-a-comprehensive-guide">
+  Contents and overview
+</a>
+  </li>
+  <li>
+    <a href="/installing-openldap-kubernetes-helm">
+  Installing OpenLDAP
+</a>
+  </li>
+  <li>
+    <a href="/installing-keycloak-kubernetes-helm">
+  Installing Keycloak
+</a>
+  </li>
+  <li>
+    <a href="/keycloak-and-openldap-on-kubernetes">
+  Linking Keycloak and OpenLDAP
+</a>
+  </li>
+  <li>
+    <a href="/setting-up-oidc-login-kubernetes-kubectl-with-keycloak">
+  OIDC Kubectl Login with Keycloak
+</a>
+  </li>
+  <li>
+    <a href="/webapp-authentication-keycloak-OAuth2-proxy-nginx-ingress-kubernetes">
+  <strong>Authenticate any web app using ingress annotations</strong>
+</a>
+  </li>
+  <li>
+    <a href="/gitea-sso-with-keycloak-openldap-openid-connect">
+  Gitea (requires LDAP)
+</a>
+  </li>
+  <li>
+    <a href="/docker-registry-authentication-with-keycloak">
+  Simple Docker Registry
+</a>
+  </li>
+  <li>
+    <a href="/harbor-docker-registry-on-kubernetes-authentication-with-keycloak">
+  Harbor Docker Registry with ACL
+</a>
+  </li>
+</ol>
+
+<h2>Pre-requisites</h2>
+
+<p>This assumes you have CLI access to a Kubernetes cluster, will be working in a namespace called <code>identity</code> and have both Helm 3 and Kubectl installed and working locally. Finally it assumes that you're using <a href="https://kubernetes.github.io/ingress-nginx/">NGINX for Ingress</a> along with cert manager for SSL certificates with a Cluster Issuer called <code>letsencrypt-production</code>.</p>
+
+<p>If your configuration is different, the majority of the steps will be the same, but you'll need to change the ingress annotations accordingly.</p>
+
+<p>The source for this series of tutorials can be found here: <a href="https://github.com/TalkingQuickly/kubernetes-sso-guide">https://github.com/TalkingQuickly/kubernetes-sso-guide</a> and cloned with:</p>
+
+<div class="highlight">
+  <pre><code class="language-bash" data-lang="bash"><span></span>git clone git@github.com:TalkingQuickly/kubernetes-sso-guide.git</code></pre>
+</div>
+
+<p>All commands in the tutorial assume that they’re being executed from the root of this cloned repository.</p>
+
+<p>This post assumes you’ve completed the “Installing Keycloak” section and have a working Keycloak installation.</p>
+
+<h2 id="keycloak-authentication-for-an-nginx-server">Keycloak authentication for an Nginx server</h2>
+
+<p>First we’ll configure OAuth2 Proxy to work with our Keycloak installation and deploy it using a helm chart.</p>
+
+<p>Then we’ll deploy the <a href="https://hub.docker.com/_/nginx">official Nginx container</a> image using a helm chart as an example application and then we’ll restrict access to it via Keycloak using ingress annotations.</p>
+
+<p>We’ll then look at how the app we’re authenticating can access information about the logged in user and how this information could be used to implement more fine-grained access control.</p>
+
+<h2 id="how-it-works">How it works</h2>
+
+<p>Nginx supports authentication <a href="https://docs.nginx.com/nginx/admin-guide/security-controls/configuring-subrequest-authentication/">based on the result of a sub-request</a>. This means that when a request comes in for a protected page, it will make a sub-request to an additional URL, if that URL returns any 2xx response code then the request will be allowed, if it returns a 401 or 403 it will be denied.</p>
+
+<p>In practice we don’t need a deep understanding of the above because OAuth2 Proxy links with keycloak on one side for the actual authentication and provides suitable endpoints for the NGinx to use to check whether a user is authenticated or not.</p>
+
+<p>So we simple need to configure OAuth2 Proxy and then add suitable ingress annotations to the service we want to protect.</p>
+
+<h2 id="configuring-oauth2-proxy">Configuring OAuth2 Proxy</h2>
+
+<p>First we’ll need to create a client application with Keycloak. Crate a new OpenID Connection application and set:</p>
+
+<ul>
+  <li><strong>Client ID</strong>: <code class="language-plaintext highlighter-rouge">oauth2-proxy</code></li>
+  <li><strong>Access Type</strong>: <code class="language-plaintext highlighter-rouge">confidential</code></li>
+  <li><strong>Valid Redirect URLs</strong>:: <code class="language-plaintext highlighter-rouge">https://oauth.ssotest.staging.talkingquickly.co.uk/oauth2/callback</code> replacing <code class="language-plaintext highlighter-rouge">oauth.ssotest.staging.talkingquickly.co.uk</code> with the subdomain you plan to install OAuth2 Proxy on</li>
+</ul>
+
+<p>You’ll then need to save the entry and go to the newly available “Credentials” tab and make a note of the “Secret”.</p>
+
+<p>Finally we go to the “Mappers” tab, choose “Create” and select:</p>
+
+<ul>
+  <li><strong>Name</strong>: <code class="language-plaintext highlighter-rouge">Groups</code></li>
+  <li><strong>Mapper Type</strong>: <code class="language-plaintext highlighter-rouge">Group Membership</code></li>
+  <li><strong>Token Claim Name</strong>: <code class="language-plaintext highlighter-rouge">groups</code></li>
+  <li>All other options “On”</li>
+</ul>
+
+<p>And then choose save. This ensures that the groups the user is a member of are passed back to OAuth2 Proxy and subsequently to the application itself.</p>
+
+<p>While OAuth2 Proxy does have a “Keycloak” provider, we’re going to use the generic OIDC provider. This is both a more general solution and allows for some additional functionality which is missing the the Keycloak provider, in particular automatic cookie refresh. There is an ongoing discussion within the OAuth2 Proxy team about modifying the Keycloak provider to use the OIDC provider.</p>
+
+<p>We can then create our configuration for OAuth2 Proxy, an example is included in <code class="language-plaintext highlighter-rouge">oauth2-proxy/values-oauth2-proxy.yml</code> and looks like this:</p>
+
+<p>@TODO update for OIDC provider 
+@TODO update for buffer sizes</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Oauth client configuration specifics</span>
+<span class="na">config</span><span class="pi">:</span>
+  <span class="na">clientID</span><span class="pi">:</span> <span class="s2">"</span><span class="s">oauth2-proxy"</span>
+  <span class="na">clientSecret</span><span class="pi">:</span> <span class="s2">"</span><span class="s">YOUR_SECRET"</span>
+  <span class="c1"># Create a new secret with the following command</span>
+  <span class="c1"># openssl rand -base64 32 | head -c 32 | base64</span>
+  <span class="na">cookieSecret</span><span class="pi">:</span> <span class="s2">"</span><span class="s">YOUR_COOKIE_SECRET"</span>
+  <span class="na">configFile</span><span class="pi">:</span> <span class="pi">|-</span>
+    <span class="s">provider = "oidc"</span>
+    <span class="s">provider_display_name = "Keycloak"</span>
+    <span class="s">oidc_issuer_url = "YOUR_ISSUER"</span>
+    <span class="s">email_domains = [ "*" ]</span>
+    <span class="s">scope = "openid profile email"</span>
+    <span class="s">cookie_domain = ".ssotest.staging.talkingquickly.co.uk"</span>
+    <span class="s">whitelist_domains = ".ssotest.staging.talkingquickly.co.uk"</span>
+    <span class="s">pass_authorization_header = true</span>
+    <span class="s">pass_access_token = true</span>
+    <span class="s">pass_user_headers = true</span>
+    <span class="s">set_authorization_header = true</span>
+    <span class="s">set_xauthrequest = true</span>
+    <span class="s">cookie_refresh = "1m"</span>
+    <span class="s">cookie_expire = "30m"</span>
+
+<span class="na">ingress</span><span class="pi">:</span>
+  <span class="na">enabled</span><span class="pi">:</span> <span class="kc">true</span>
+  <span class="na">path</span><span class="pi">:</span> <span class="s">/</span>
+  <span class="na">hosts</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">oauth.ssotest.staging.talkingquickly.co.uk</span>
+  <span class="na">annotations</span><span class="pi">:</span>
+    <span class="na">cert-manager.io/cluster-issuer</span><span class="pi">:</span> <span class="s">letsencrypt-production</span>
+    <span class="na">nginx.ingress.kubernetes.io/proxy-buffer-size</span><span class="pi">:</span> <span class="s2">"</span><span class="s">16k"</span>
+  <span class="na">tls</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">secretName</span><span class="pi">:</span> <span class="s">oauth-proxy-tls</span>
+      <span class="na">hosts</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">oauth.ssotest.staging.talkingquickly.co.uk</span>
+</code></pre></div></div>
+
+<p>The key fields to update with your own values are:</p>
+
+<ul>
+  <li><strong>clientSecret</strong>: This is the client secret noted down from the Keycloak credentials page</li>
+  <li><strong>cookieSecret</strong>: This can be randomly generated with: <code class="language-plaintext highlighter-rouge">openssl rand -base64 32 | head -c 32 | base64</code></li>
+  <li><strong>login_url, redeem_url, validate_url</strong>: which should be updated to match the relevant 
+URL’s for your Keycloak installation and realm (in the example above I’m using the master realm)</li>
+  <li><strong>cookie_domain, whitelist_domain</strong>: which should be updated to match the base URL you’re deploying services on. E.g. in this example configuration I have <code class="language-plaintext highlighter-rouge">sso.ssotest.staging.talkingquickly.co.uk</code>, <code class="language-plaintext highlighter-rouge">someapp.ssotest.staging.talkingquickly.co.uk</code>, <code class="language-plaintext highlighter-rouge">oauth.ssotest.staging.talkingquickly.co.uk</code> etc and so my base domain would be <code class="language-plaintext highlighter-rouge">.ssotest.staging.talkingquickly.co.uk</code>.</li>
+  <li><strong>ingress hosts</strong>: These should be set the subdomain you wish to deploy OAuth2 Proxy to</li>
+</ul>
+
+<p>Setting the <code class="language-plaintext highlighter-rouge">cookie_domain</code> and <code class="language-plaintext highlighter-rouge">whitelist_domain</code> is important because by default, OAuth2 Proxy is configured to work only with the subdomain it is deployed on. So cookies will be specific to that subdomain and redirects will only be allowed to that subdomain.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">scope = "openid profile email"</code> line is important because by default, OAuth2 Proxy will request a scope called <code class="language-plaintext highlighter-rouge">api</code> which does not exist in Keycloak which will result in a 403 Invalid Scopes erorr.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">set_authorization_header</code> line ensures that the JWT is passed back to the NGinx ingress, this is important because it allows us to then pass this header back to the authenticating application so that it can access more information about the logged in user.</p>
+
+<p>Finally the <code class="language-plaintext highlighter-rouge">nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"</code> avoids an issue where the large headers which are often passed around with OAuth requests don’t exceed the buffer size in NGinx which leads to errors along the lines of “Cookie “_oauth2_proxy” not present” and “upstream sent too big header while reading response header from upstream”.</p>
+
+<h2 id="installing-oauth2-proxy">Installing OAuth2 Proxy</h2>
+
+<p>While we wait for the <code class="language-plaintext highlighter-rouge">OAuth2 Proxy</code> chart to get a new home following the deprecation of the old helm stable repository, the most recent version is mirrored in the example code for this tutorial, so we can install OAuth 2 Proxy with:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>helm upgrade --install oauth2-proxy ./charts/oauth2-proxy --values oauth2-proxy/values-oauth2-proxy.yml
+</code></pre></div></div>
+
+<p>We can then go the ingress domain that we selected for OAuth2 Proxy and we will see a “Sign in with Keycloak” option.</p>
+
+<p>Note that if we are still signed in as the admin user (rather than as a regular user in the realm we configured OAuth2 Proxy with, then we will see something along the lines of 403 Permission Denied, Invalid Account. Incognito / private browsing windows are useful for avoiding this.</p>
+
+<p>Once we’ve successfully logged in with Keycloak, we’ll simply be re-directed to a 404 page not found error because at the moment, there is nothing to authenticate. In practice we won’t ever go to this URL directly, instead the authentication flow will be triggered automatically by visiting a protected application. So visiting this URL and logging in like this is purely to show that it works.</p>
+
+<h2 id="putting-an-application-behind-auth">Putting an application behind auth</h2>
+
+<p>Now that we’ve setup OAuth2 Proxy, we can install an example application and add annotations to the ingress definition to have it protected behind the auth.</p>
+
+<p>In this example we’re going to simply install an instance of NGINX which serves up the default “Welcome to nginx!” page but require that users login with Keycloak before they can access it. Note that this is completely separate to the <a href="https://kubernetes.github.io/ingress-nginx/">NGINX Ingress</a> that we’re using for Kubernetes.</p>
+
+<p>We’re going to be using the bitnami nginx helm chart for this so first we’ll need to add the repo with:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>helm repo add bitnami https://charts.bitnami.com/bitnami
+</code></pre></div></div>
+
+<p>We then configure our NGINX demo application along the lines of:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">serverBlock</span><span class="pi">:</span> <span class="pi">|</span>
+  <span class="s">log_format    withauthheaders '$remote_addr - $remote_user [$time_local] '</span>
+                    <span class="s">'"$request" $status  $body_bytes_sent "$http_referer" '</span>
+                    <span class="s">'"$http_user_agent" "$http_x_forwarded_for" "$http_x_auth_request_access_token"';</span>
+  <span class="no">                  </span>
+    <span class="s">add_header    x-auth-request-access-token "$http_x_auth_request_access_token";</span>
+
+  <span class="s"># HTTP Server</span>
+  <span class="s">server {</span>
+      <span class="s"># Port to listen on, can also be set in IP:PORT format</span>
+      <span class="s">listen  8080;</span>
+
+      <span class="s">include  "/opt/bitnami/nginx/conf/bitnami/*.conf";</span>
+
+      <span class="s">location /status {</span>
+          <span class="s">stub_status on;</span>
+          <span class="s">access_log   off;</span>
+          <span class="s">allow 127.0.0.1;</span>
+          <span class="s">deny all;</span>
+      <span class="s">}</span>
+
+      <span class="s">access_log /dev/stdout withauthheaders;</span>
+  <span class="s">}</span>
+
+<span class="na">ingress</span><span class="pi">:</span>
+  <span class="na">enabled</span><span class="pi">:</span> <span class="kc">true</span>
+  <span class="na">hostname</span><span class="pi">:</span> <span class="s">nginx-demo-app2.ssotest.staging.talkingquickly.co.uk</span>
+  <span class="na">tls</span><span class="pi">:</span> <span class="kc">true</span>
+  <span class="na">annotations</span><span class="pi">:</span>
+    <span class="na">cert-manager.io/cluster-issuer</span><span class="pi">:</span> <span class="s">letsencrypt-staging</span>
+    <span class="na">nginx.ingress.kubernetes.io/auth-url</span><span class="pi">:</span> <span class="s2">"</span><span class="s">https://oauth.ssotest.staging.talkingquickly.co.uk/oauth2/auth"</span>
+    <span class="na">nginx.ingress.kubernetes.io/auth-signin</span><span class="pi">:</span> <span class="s2">"</span><span class="s">https://oauth.ssotest.staging.talkingquickly.co.uk/oauth2/start?rd=$scheme://$best_http_host$request_uri"</span>
+    <span class="na">nginx.ingress.kubernetes.io/auth-response-headers</span><span class="pi">:</span> <span class="s2">"</span><span class="s">x-auth-request-user,</span><span class="nv"> </span><span class="s">x-auth-request-email,</span><span class="nv"> </span><span class="s">x-auth-request-access-token"</span>
+    <span class="na">acme.cert-manager.io/http01-edit-in-place</span><span class="pi">:</span> <span class="s2">"</span><span class="s">true"</span>
+    <span class="na">nginx.ingress.kubernetes.io/proxy-buffer-size</span><span class="pi">:</span> <span class="s2">"</span><span class="s">16k"</span>
+  
+<span class="na">service</span><span class="pi">:</span>
+  <span class="na">type</span><span class="pi">:</span> <span class="s">ClusterIP</span>
+</code></pre></div></div>
+
+<p>The custom <code class="language-plaintext highlighter-rouge">serverBlock</code> is nothing to do with the actual authentication process. It instead does the following two things to facilitate using NGINX as a demo for the auth functionality:</p>
+
+<ul>
+  <li>Modifies the logging so that the <code class="language-plaintext highlighter-rouge">x-auth-request-access-token</code> header will be include in log output, this allows us to watch the logs and extract the tokens for analysis and testing</li>
+  <li>It automatically appends the <code class="language-plaintext highlighter-rouge">x-auth-request-access-token</code> header from the incoming request to the final user response, so that we can inspect it in the browser</li>
+</ul>
+
+<p>Note that especially outputting access tokens to logs is a security risk and should never be done in production.</p>
+
+<p>The lines associated with the authentication are the following:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">ingress</span><span class="pi">:</span>
+  <span class="na">annotations</span><span class="pi">:</span>
+    <span class="na">nginx.ingress.kubernetes.io/auth-url</span><span class="pi">:</span> <span class="s2">"</span><span class="s">https://oauth.ssotest.staging.talkingquickly.co.uk/oauth2/auth"</span>
+    <span class="na">nginx.ingress.kubernetes.io/auth-signin</span><span class="pi">:</span> <span class="s2">"</span><span class="s">https://oauth.ssotest.staging.talkingquickly.co.uk/oauth2/start?rd=$scheme://$best_http_host$request_uri"</span>
+    <span class="na">nginx.ingress.kubernetes.io/auth-response-headers</span><span class="pi">:</span> <span class="s2">"</span><span class="s">x-auth-request-user,</span><span class="nv"> </span><span class="s">x-auth-request-email,</span><span class="nv"> </span><span class="s">x-auth-request-access-token"</span>
+    <span class="na">acme.cert-manager.io/http01-edit-in-place</span><span class="pi">:</span> <span class="s2">"</span><span class="s">true"</span>
+    <span class="na">nginx.ingress.kubernetes.io/proxy-buffer-size</span><span class="pi">:</span> <span class="s2">"</span><span class="s">16k"</span>
+</code></pre></div></div>
+
+<p>We include <code class="language-plaintext highlighter-rouge">acme.cert-manager.io/http01-edit-in-place: "true"</code> to workaround an issue with Cert Manager and setting auth response headers. We use <code class="language-plaintext highlighter-rouge">nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"</code> to avoid the same buffer size issue with OAuth headers which we described when installing OAuth 2 Proxy.</p>
+
+<p>The first core line is <code class="language-plaintext highlighter-rouge">nginx.ingress.kubernetes.io/auth-url</code> which specifies the URL which should be used for checking if the current user is authenticated.</p>
+
+<p>When a request comes in, NGINX auth will first send the request onto this URL, note that it will not send the request body, only the headers, most importantly, any cookies which are associated with the request.</p>
+
+<p>The service at this URL (in our case OAuth2 Proxy) is responsible for validating, based on any cookies or headers present, whether the user is authenticated.</p>
+
+<p>If the user is authenticated, then the service returns a 2xx status code, and the request is passed onto our application. If it is not authenticated, then it is passed to the URL specified in <code class="language-plaintext highlighter-rouge">nginx.ingress.kubernetes.io/auth-signin</code> to kick off the authentication flow.</p>
+
+<p>This is why we had to set the cookie domain of OAuth2 Proxy to explicitly be the base domain, so that the cookie is available on all of the subdomains that we wish to authenticate from.</p>
+
+<p>Because of the <code class="language-plaintext highlighter-rouge">set_authorization_header = true</code> in our configuration, When a request is authenticated, OAuth2 Proxy will set the <code class="language-plaintext highlighter-rouge">x-auth-request-access-token</code> header on the 2xx response it sends back to NGINX to contain the auth token, in this case a JWT containing information about the user and their session.</p>
+
+<p>By default, there’s no way for our original application to access this token and if we want our application to know which user is logging in or which groups they are a member of, it will need this information.</p>
+
+<p>To rectify this, the annotation <code class="language-plaintext highlighter-rouge">nginx.ingress.kubernetes.io/auth-response-headers: "x-auth-request-user, x-auth-request-email, x-auth-request-access-token"</code> instructs the NGINX Ingress to take the listed headers from the returned 2xx response and append them to the response which goes to the backend application.</p>
+
+<p>Our backend application can then take this header and decode the JWT to gain information about the user.</p>
+
+<p>In the case of this simple example we simply output it to the logs (insecurely) and append it to the response sent to the user. So if we now go to our Ingress URL for our nginx demo app, in the example case this was https://nginx-demo-app2.ssotest.staging.talkingquickly.co.uk we’ll be asked to login and then redirected to the “Welcome to nginx!” page.</p>
+
+<p>We can then inspect the request using the network tab in our browser and we’ll see that the <code class="language-plaintext highlighter-rouge">x-auth-request-access-token</code> is set on the response.</p>
+
+<p>If we copy the value of this header into a decoder such as the one at <a href="https://jwt.io/">https://jwt.io/</a> we’ll see something like:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+</span><span class="err">...</span><span class="w">
+  </span><span class="nl">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"openid email profile"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"email_verified"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ben Dixon"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"/DockerRegistry"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"/KubernetesAdmins"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"/Administrators"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"preferred_username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"talkingquickly"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"given_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ben"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"family_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dixon"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ben@talkingquickly.co.uk"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Which in a more complex system, could then be used by our backend application to show different content depending on group membership or surface profile information to the user.</p>
+
+<h2 id="token-expiry">Token expiry</h2>
+
+<p>We effectively have two levels of authentication going on. When a request is first authenticated, OAuth2 Proxy communicates with Keycloak and gets an access token. Going forward when requests come in, as long as the OAuth2 Proxy cookie is present and valid, then the request will not be re-authenticated with Keycloak.</p>
+
+<p>When working with JSON Web Tokens, this presents a problem because they will typically be issued with an expiry (by default in Keycloak this is 1 minute). This leads to a situation where the user is considered authenticated by OAuth2 Proxy but the JSON web token which is being passed in the <code class="language-plaintext highlighter-rouge">x-auth-request-access-token</code> header is expired. So if we were to then validate this token with our library of choice, we’d receive an exception that the token is invalid.</p>
+
+<p>The solution of this lies in the following part of the OAuth 2 Proxy configuration file:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cookie_refresh = "1m"
+cookie_expire = "30m"
+</code></pre></div></div>
+
+<p>The first part <code class="language-plaintext highlighter-rouge">cookie_refresh</code>, instructs OAuth2 Proxy to refresh the access token if the OAuth2 Proxy cookie hasn’t been refreshed for a minute or more. This is aligned with the token expiry set in Keycloak and prevents us from adding stale access tokens to requests. Note that the reason for using the generic OIDC provider in OAuth2 Proxy rather than the specific “Keycloak” one is that the “Keycloak” provider does not (at time of writing) support refresh tokens).</p>
+
+<p>The second part <code class="language-plaintext highlighter-rouge">cookie_expire</code> instructs OAuth 2 Proxy to expire the cookie if it’s more than 30 minutes old. The user will then be passed back to KeyCloak to re-authenticate. This is again aligned with the default session expiry in Keycloak.</p>
+
+<h2 id="limiting-access-to-certain-groups">Limiting access to certain groups</h2>
+
+<p>It is possible to crudely limit login to users in particular groups by adding:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>allowed_groups = ["/DemoAdmin"]
+</code></pre></div></div>
+
+<p>To the <code class="language-plaintext highlighter-rouge">configFile</code> block in OAuth2 Proxies configuration. This would have the effect of only allowing access if the logged in user was in the <code class="language-plaintext highlighter-rouge">DemoAdmin</code> Keycloak group. It’s worth noting that at time of writing the user experience of this approach is quite poor because the user trying to login will simply see a 500 Internal Server error rather than an informative error message. If we look at the NGinx Ingress logs we’ll see something like <code class="language-plaintext highlighter-rouge">auth request unexpected status: 400 while sending to client</code> which is because OAuth2 Proxy returns a 400 response when the user logs in but is not found to be in one of the allowed groups.</p>
+
+<p>So while this approach is suitable for simple internal applications, handling group membership within the authenticated application will allow for a more user friendly experience.</p>
+
+<h2 id="working-with-the-token">Working with the token</h2>
+
+<p>The file <code class="language-plaintext highlighter-rouge">jwt-ruby-example/main.rb</code> contains a simple example of how we could work with this token in a Ruby application. The code itself is very simple:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s1">'jwt'</span>
+
+<span class="n">public_key_string</span> <span class="o">=</span> <span class="s2">"""
+PUBLIC_KEY_GOES_HERE
+"""</span>
+
+<span class="n">public_key</span> <span class="o">=</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">PKey</span><span class="o">::</span><span class="no">RSA</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">public_key_string</span><span class="p">)</span>
+
+<span class="n">token</span> <span class="o">=</span> <span class="s2">"TOKEN_GOES_HERE"</span>
+
+<span class="n">decoded_token</span> <span class="o">=</span> <span class="no">JWT</span><span class="p">.</span><span class="nf">decode</span> <span class="n">token</span><span class="p">,</span> <span class="n">public_key</span><span class="p">,</span> <span class="kp">true</span><span class="p">,</span> <span class="p">{</span> <span class="ss">algorithm: </span><span class="s1">'RS256'</span> <span class="p">}</span>
+
+<span class="nb">puts</span> <span class="n">decoded_token</span>
+</code></pre></div></div>
+
+<p>Here we replace <code class="language-plaintext highlighter-rouge">PUBLIC_KEY_GOES_HERE</code> with the public key which can be found by going to “Realm Settings” and then “Keys” in our Keycloak realm and then choosing “Public Key” for the <code class="language-plaintext highlighter-rouge">RS256</code> entry.</p>
+
+<p>We then replace <code class="language-plaintext highlighter-rouge">TOKEN_GOES_HERE</code> with a token that we’ve copied from our example apps logs or headers and execute the script with <code class="language-plaintext highlighter-rouge">ruby main.rb</code> (after having run <code class="language-plaintext highlighter-rouge">bundle install</code> etc).</p>
+
+<p>Note that by default the tokens issued by Keycloak have a 1 minute expiry, so you have to be quick copying and pasting them into this script.</p>
+
+<p>The output will be the decoded token as a ruby map. So in a full web application (e.g. a Rails or Sinatra app), we could make decisions based on the groups the user is a member of or display to the user their currently logged in email address.</p>
+
+<ol>
+  <li>
+    <a href="/kubernetes-sso-a-comprehensive-guide">
+  Contents and overview
+</a>
+  </li>
+  <li>
+    <a href="/installing-openldap-kubernetes-helm">
+  Installing OpenLDAP
+</a>
+  </li>
+  <li>
+    <a href="/installing-keycloak-kubernetes-helm">
+  Installing Keycloak
+</a>
+  </li>
+  <li>
+    <a href="/keycloak-and-openldap-on-kubernetes">
+  Linking Keycloak and OpenLDAP
+</a>
+  </li>
+  <li>
+    <a href="/setting-up-oidc-login-kubernetes-kubectl-with-keycloak">
+  OIDC Kubectl Login with Keycloak
+</a>
+  </li>
+  <li>
+    <a href="/webapp-authentication-keycloak-OAuth2-proxy-nginx-ingress-kubernetes">
+  <strong>Authenticate any web app using ingress annotations</strong>
+</a>
+  </li>
+  <li>
+    <a href="/gitea-sso-with-keycloak-openldap-openid-connect">
+  Gitea (requires LDAP)
+</a>
+  </li>
+  <li>
+    <a href="/docker-registry-authentication-with-keycloak">
+  Simple Docker Registry
+</a>
+  </li>
+  <li>
+    <a href="/harbor-docker-registry-on-kubernetes-authentication-with-keycloak">
+  Harbor Docker Registry with ACL
+</a>
+  </li>
+</ol>
+
+    </div>
+    
+    
+        <!-- If we want to display author's name and bio -->
+
+<section class="author">
+  <header> <a href="/about.html"> <img class="profile" src="/assets/images/profile4.jpg" alt="Ben Dixon. Without
+      Aviators."></a></header>
+  <article>
+    <!-- Author Name -->
+    <h4> Ben Dixon </h4>
+    <!-- Author Bio -->
+    <p>
+      My name's Ben Dixon, I'm the co-founder of <a target="_blank"
+        href="https://www.getsona.com?utm_source=benblogabout">Sona</a> where we're building the operating system for
+      the worlds deskless workforce.
+      I'm an experienced CTO, LLM geek, lover of good coffee and above all, making things.
+      Also a regular conference speaker, author and travel
+      addict. Chat to me on twitter <a href="http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a>
+    </p>
+  </article>
+</section>
+
+    
+    
+    
+    
+    
+</article>
+            </main>
+            
+            <footer class="site-footer">
+                <p>&copy; 2025 <a href="/about.html">Ben Dixon</a> · 
+                <a href="https://twitter.com/talkingquickly" target="_blank">Twitter</a> · 
+                <a href="https://www.linkedin.com/in/talkingquickly/" target="_blank">LinkedIn</a> · 
+                <a href="mailto:ben@talkingquickly.co.uk">Email</a> · 
+                <a href="/rss.xml">RSS</a></p>
+            </footer>
+        </div>
+    </div>
+    
+    <!-- Simple Analytics -->
+    <script>
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-7333902-35']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+</body>
+</html>

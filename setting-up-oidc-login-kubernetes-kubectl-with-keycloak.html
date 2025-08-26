@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)">
+    
+    <title>OIDC Login to Kubernetes and Kubectl with Keycloak - talkingquickly</title>
+    
+    
+    <meta name="description" content="Blog by Ben Dixon, Co-founder of Sona, about startups, elixir, AI, climbing and photography">
+    
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/minimal.css">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml">
+    <link rel="canonical" href="https://www.talkingquickly.co.uk/setting-up-oidc-login-kubernetes-kubectl-with-keycloak">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="layout-wrapper">
+        <header class="mobile-header">
+            <div class="mobile-header-top">
+                <a href="/" class="site-title">talkingquickly</a>
+                <a href="/about.html" class="mobile-about-link">About</a>
+            </div>
+            <p class="mobile-tagline">Co-founder & CTO at Sona. Writing about AI, startups, and engineering.</p>
+            <div class="mobile-social-links">
+                <a href="https://github.com/talkingquickly" target="_blank" title="GitHub">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                </a>
+                <a href="https://twitter.com/talkingquickly" target="_blank" title="Twitter">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                    </svg>
+                </a>
+                <a href="https://www.linkedin.com/in/talkingquickly/" target="_blank" title="LinkedIn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                </a>
+                <a href="https://bsky.app/profile/talkingquickly.bsky.social" target="_blank" title="Bluesky">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.206-.659-.298-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8Z"/>
+                    </svg>
+                </a>
+            </div>
+        </header>
+        
+        <aside class="sidebar">
+            <div class="sidebar-content">
+                <div class="sidebar-header">
+                    <a href="/" class="site-title">talkingquickly</a>
+                    <p class="sidebar-tagline">Co-founder & CTO at Sona. Writing about AI, startups, and engineering.</p>
+                </div>
+                
+                <nav class="nav-links">
+                    <a href="/about.html">About</a>
+                </nav>
+                
+                <div class="social-links">
+                    <a href="https://github.com/talkingquickly" target="_blank" title="GitHub">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                    <a href="https://twitter.com/talkingquickly" target="_blank" title="Twitter">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/talkingquickly/" target="_blank" title="LinkedIn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                    </a>
+                    <a href="https://bsky.app/profile/talkingquickly.co.uk" target="_blank" title="Bluesky">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.206-.659-.298-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8Z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </aside>
+        
+        <div class="main-container">
+            <main class="site-content">
+                <article class="post">
+    <header class="post-header">
+        <h1>OIDC Login to Kubernetes and Kubectl with Keycloak</h1>
+    </header>
+    
+    <div class="post-content">
+        <p>A commonly cited pain point for teams working with Kubernetes clusters is managing the configuration to connect to the cluster. All to often this ends up being either sending KUBECONFIG files with hardcoded credentials back and forth or fragile custom shell scripts wrapping the AWS or GCP cli’s.</p>
+
+<p>In this post we’ll integrate Kubernetes with Keycloak so that when we execute a <code class="language-plaintext highlighter-rouge">kubectl</code> or <code class="language-plaintext highlighter-rouge">helm</code> command, if the user is not already authenticated, they’ll be presented with a keycloak browser login where they can enter their credentials. No more sharing KUBECONFIG files and forgetting to export different KUBECONFIG paths!</p>
+
+<p>We’ll also configure group based access control, so we can, for example create a <code class="language-plaintext highlighter-rouge">KubernetesAdminstrators</code> group, and have all users in that group given <code class="language-plaintext highlighter-rouge">cluster-admin</code> access automatically.</p>
+
+<p>When we remove a user from Keycloak (or remove them from the relevant groups within Keycloak) they will then lose access to the cluster (subject to token expiry).</p>
+
+<p>For this we’ll be using OpenID Connect, more <a href="https://kubernetes.io/docs/reference/access-authn-authz/authentication/#openid-connect-tokens">here</a> on how this works.</p>
+
+<p>By default, configuring Kubernetes to support OIDC auth requires passing flags to the kubelet API server. The challenge with this approach is that only one such provider can be configured and managed Kubernetes offerings - e.g. GCP or AWS - use this for their proprietary IAM systems.</p>
+
+<p>To address this we will use <a href="https://github.com/jetstack/kube-oidc-proxy">kube-oidc-proxy</a>, a tool from Jetstack which allows us to connect to a proxy server which will manage OIDC authentication and use impersonation to give the authenticating user the required permissions. This approach has the benefit of being universal across clusters, so we don’t have to follow different approaches for our managed vs unmanaged clusters.</p>
+
+<p>This post is part of a series on single sign on for Kubernetes.</p>
+
+<!--more-->
+
+<ol>
+  <li>
+    <a href="/kubernetes-sso-a-comprehensive-guide">
+  Contents and overview
+</a>
+  </li>
+  <li>
+    <a href="/installing-openldap-kubernetes-helm">
+  Installing OpenLDAP
+</a>
+  </li>
+  <li>
+    <a href="/installing-keycloak-kubernetes-helm">
+  Installing Keycloak
+</a>
+  </li>
+  <li>
+    <a href="/keycloak-and-openldap-on-kubernetes">
+  Linking Keycloak and OpenLDAP
+</a>
+  </li>
+  <li>
+    <a href="/setting-up-oidc-login-kubernetes-kubectl-with-keycloak">
+  <strong>OIDC Kubectl Login with Keycloak</strong>
+</a>
+  </li>
+  <li>
+    <a href="/webapp-authentication-keycloak-OAuth2-proxy-nginx-ingress-kubernetes">
+  Authenticate any web app using ingress annotations
+</a>
+  </li>
+  <li>
+    <a href="/gitea-sso-with-keycloak-openldap-openid-connect">
+  Gitea (requires LDAP)
+</a>
+  </li>
+  <li>
+    <a href="/docker-registry-authentication-with-keycloak">
+  Simple Docker Registry
+</a>
+  </li>
+  <li>
+    <a href="/harbor-docker-registry-on-kubernetes-authentication-with-keycloak">
+  Harbor Docker Registry with ACL
+</a>
+  </li>
+</ol>
+
+<h2>Pre-requisites</h2>
+
+<p>This assumes you have CLI access to a Kubernetes cluster, will be working in a namespace called <code>identity</code> and have both Helm 3 and Kubectl installed and working locally. Finally it assumes that you're using <a href="https://kubernetes.github.io/ingress-nginx/">NGINX for Ingress</a> along with cert manager for SSL certificates with a Cluster Issuer called <code>letsencrypt-production</code>.</p>
+
+<p>If your configuration is different, the majority of the steps will be the same, but you'll need to change the ingress annotations accordingly.</p>
+
+<p>The source for this series of tutorials can be found here: <a href="https://github.com/TalkingQuickly/kubernetes-sso-guide">https://github.com/TalkingQuickly/kubernetes-sso-guide</a> and cloned with:</p>
+
+<div class="highlight">
+  <pre><code class="language-bash" data-lang="bash"><span></span>git clone git@github.com:TalkingQuickly/kubernetes-sso-guide.git</code></pre>
+</div>
+
+<p>All commands in the tutorial assume that they’re being executed from the root of this cloned repository.</p>
+
+<p>This also assumes you’ve already followed the Installing Keycloak section and have a functioning Keycloak instance you can login to with administrator rights.</p>
+
+<h2 id="setting-up-keycloak">Setting up Keycloak</h2>
+
+<p>First we’ll create a new client in Keycloak with Client ID: <code class="language-plaintext highlighter-rouge">kube-oidc-proxy</code> and client protocol: <code class="language-plaintext highlighter-rouge">openid-connect</code>. We’ll then configure the following parameters for this client:</p>
+
+<ul>
+  <li><strong>Access Type</strong>: <code class="language-plaintext highlighter-rouge">confidential</code>, this is required for a client secret to be generated</li>
+  <li><strong>Valid Redirect URLs</strong>: <code class="language-plaintext highlighter-rouge">http://localhost:8000</code> and <code class="language-plaintext highlighter-rouge">http://localhost:18000</code>. This is used by <a href="https://github.com/int128/kubelogin">kubelogin</a> as a callback when we login with <code class="language-plaintext highlighter-rouge">kubectl</code> so a browser window can be opened for us to authenticate with keycloak.</li>
+</ul>
+
+<p>We can then save this new client and a new “Credentials” tab will appear. We’ll need the generated client secret along with our client id (<code class="language-plaintext highlighter-rouge">kube-oidc-proxy</code>) for later steps.</p>
+
+<h2 id="setting-up-kube-oidc-proxy">Setting up Kube OIDC Proxy</h2>
+
+<p>Having created the client, we can now create our configuration for <code class="language-plaintext highlighter-rouge">kube-oidc-proxy</code>. A sample configuration can be found in <code class="language-plaintext highlighter-rouge">kube-oidc-proxy/values-kube-oidc.yml</code> and looks like this:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">oidc</span><span class="pi">:</span>
+  <span class="na">clientId</span><span class="pi">:</span> <span class="s">kube-oidc-proxy</span>
+  <span class="na">issuerUrl</span><span class="pi">:</span> <span class="s">https://sso.ssotest.staging.talkingquickly.co.uk/auth/realms/master</span>
+  <span class="na">usernameClaim</span><span class="pi">:</span> <span class="s">sub</span>
+
+<span class="na">extraArgs</span><span class="pi">:</span>
+  <span class="na">v</span><span class="pi">:</span> <span class="m">10</span>
+
+<span class="na">ingress</span><span class="pi">:</span>
+  <span class="na">enabled</span><span class="pi">:</span> <span class="kc">true</span>
+  <span class="na">annotations</span><span class="pi">:</span>
+    <span class="na">cert-manager.io/cluster-issuer</span><span class="pi">:</span> <span class="s">letsencrypt-production</span>
+    <span class="na">nginx.ingress.kubernetes.io/backend-protocol</span><span class="pi">:</span> <span class="s">HTTPS</span>
+  <span class="na">hosts</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">host</span><span class="pi">:</span> <span class="s">kube.ssotest.staging.talkingquickly.co.uk</span>
+      <span class="na">paths</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">/</span>
+  <span class="na">tls</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">secretName</span><span class="pi">:</span> <span class="s">oidc-proxy-tls</span>
+      <span class="na">hosts</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">kube.ssotest.staging.talkingquickly.co.uk</span>
+</code></pre></div></div>
+
+<p>The important things to customise here are:</p>
+
+<ul>
+  <li>The <code class="language-plaintext highlighter-rouge">issuerUrl</code>, this is the URL of our keycloak instance, including the realm (in this case we’re using the default master realm)</li>
+  <li>The hostnames within the ingress definition. This URL will be a second Kubernetes API URL, so once our SSO login is setup, our kubeconfig files will point at this URL instead of the default cluster endpoint</li>
+</ul>
+
+<p>The <code class="language-plaintext highlighter-rouge">extraArgs</code> <code class="language-plaintext highlighter-rouge">v: 10</code> sets <code class="language-plaintext highlighter-rouge">kube-oidc-proxy</code> to output verbose logging methods which is useful for debugging issues. In production this line can be removed.</p>
+
+<p>We can then install <code class="language-plaintext highlighter-rouge">kube-oidc-proxy</code> with:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>helm upgrade --install kube-oidc-proxy ./charts/kube-oidc-proxy --values kube-oidc-proxy/values-kube-oidc.yml
+</code></pre></div></div>
+
+<p>With <code class="language-plaintext highlighter-rouge">kube-oidc-proxy</code> up and running, we can now configure <code class="language-plaintext highlighter-rouge">kubectl</code> to use it. The simplest way to do this is with a <code class="language-plaintext highlighter-rouge">kubectl</code> plugin called <a href="https://github.com/int128/kubelogin">kubelogin</a>. With this plugin installed, when you execute a <code class="language-plaintext highlighter-rouge">kubectl</code> command, it will open a browser window for the user to login via Keycloak. It will then handle refreshing tokens and subsequently re-authorising if the session expires.</p>
+
+<p>Installation instructions for <code class="language-plaintext highlighter-rouge">kubelogin</code> are <a href="https://github.com/int128/kubelogin">here</a>, if you use homebrew, it’s as simple as <code class="language-plaintext highlighter-rouge">brew install int128/kubelogin/kubelogin</code>, otherwise I recommend <a href="https://krew.sigs.k8s.io/docs/user-guide/setup/install/">installing krew</a> to manage <code class="language-plaintext highlighter-rouge">kubectl</code> plugins which will then allow you to install the plugin with <code class="language-plaintext highlighter-rouge">kubectl krew install oidc-login</code>.</p>
+
+<p>We’ll then want to create a <code class="language-plaintext highlighter-rouge">kubeconfig.yml</code> file with the following contents (there’s an example in <code class="language-plaintext highlighter-rouge">kubelogin/kuebconfig.yml</code>):</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">clusters</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">cluster</span><span class="pi">:</span>
+    <span class="na">server</span><span class="pi">:</span> <span class="s">https://kube.ssotest.staging.talkingquickly.co.uk</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">default</span>
+<span class="na">contexts</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">context</span><span class="pi">:</span>
+    <span class="na">cluster</span><span class="pi">:</span> <span class="s">default</span>
+    <span class="na">namespace</span><span class="pi">:</span> <span class="s">identity</span>
+    <span class="na">user</span><span class="pi">:</span> <span class="s">oidc</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">default</span>
+<span class="na">current-context</span><span class="pi">:</span> <span class="s">default</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Config</span>
+<span class="na">preferences</span><span class="pi">:</span> <span class="pi">{}</span>
+<span class="na">users</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">oidc</span>
+  <span class="na">user</span><span class="pi">:</span>
+    <span class="na">exec</span><span class="pi">:</span>
+      <span class="na">apiVersion</span><span class="pi">:</span> <span class="s">client.authentication.k8s.io/v1beta1</span>
+      <span class="na">args</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">oidc-login</span>
+      <span class="pi">-</span> <span class="s">get-token</span>
+      <span class="c1"># - -v1</span>
+      <span class="pi">-</span> <span class="s">--oidc-issuer-url=https://sso.ssotest.staging.talkingquickly.co.uk/auth/realms/master</span>
+      <span class="pi">-</span> <span class="s">--oidc-client-id=kube-oidc-proxy</span>
+      <span class="pi">-</span> <span class="s">--oidc-client-secret=a32807bc-4b5d-40b7-8391-91bb2b80fd30</span>
+      <span class="pi">-</span> <span class="s">--oidc-extra-scope=email</span>
+      <span class="pi">-</span> <span class="s">--grant-type=authcode</span>
+      <span class="na">command</span><span class="pi">:</span> <span class="s">kubectl</span>
+      <span class="na">env</span><span class="pi">:</span> <span class="kc">null</span>
+      <span class="na">provideClusterInfo</span><span class="pi">:</span> <span class="kc">false</span>
+</code></pre></div></div>
+
+<p>Replacing:</p>
+
+<ul>
+  <li>The <code class="language-plaintext highlighter-rouge">server</code> url the ingress url we chose for <code class="language-plaintext highlighter-rouge">kube-oidc-proxy</code></li>
+  <li>The <code class="language-plaintext highlighter-rouge">oidc-issuer-url</code> with the same keycloak url we used in the <code class="language-plaintext highlighter-rouge">kube-oidc-proxy</code> configuration</li>
+  <li>The value of <code class="language-plaintext highlighter-rouge">oidc-client-secret</code> with the secret key we extracted from the credentials tab of the client in Keycloak</li>
+  <li>Optionally uncommenting the <code class="language-plaintext highlighter-rouge">-v1</code> line if you want to see verbose logging output</li>
+</ul>
+
+<p>We can then execute</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export KUBECONFIG=./kubelogin/kubeconfig.yml
+kubectl get pods  
+</code></pre></div></div>
+
+<p>Managing your kubeconfig files is beyond the scope of this tutorial but if you aren’t already I strongly recommend some combination of <a href="https://direnv.net">direnv</a> and <a href="https://github.com/ahmetb/kubectx">kubectx</a>. Both my <a href="/2021/01/debian-dev-environment-for-remote-vscode/">Debian Remote Dev Env Environment</a> and <a href="/2021/01/macos-setup-with-ansible/">OSX Setup</a> provide these tools out of the box.</p>
+
+<p>It’s important to note that the <code class="language-plaintext highlighter-rouge">export KUBECONFIG=./kubelogin/kubeconfig.yml</code> is local to an individual terminal session, so if you switch to a new terminal tab or close and re-open your terminal, it will be gone and you’ll fallback to using whichever <code class="language-plaintext highlighter-rouge">KUBECONFIG</code> envrironment variable your shell is set to use by default.</p>
+
+<p>When we execute the above we’ll be sent out to a browser to login via Keycloak and once completed we’ll be logged in.</p>
+
+<p>We will however see an error along the lines of:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error from server (Forbidden): pods is forbidden: User "oidcuser:7d7c2183-3d96-496a-9516-dda7538854c9" cannot list resource "pods" in API group "" in the namespace "identity"
+</code></pre></div></div>
+
+<p>Although our user is authenticated, e.g. Kubernetes knows that the current user is <code class="language-plaintext highlighter-rouge">oidcuser:7d7c2183-3d96-496a-9516-dda7538854c9</code>, this user is currently not authorised to do anything.</p>
+
+<p>We can fix this by creating a cluster role binding which binds our user to the <code class="language-plaintext highlighter-rouge">cluster-admin</code> role which is the “superuser” role on Kubernetes.</p>
+
+<p>We’ll need to execute this in a separate temrinal, e.g. one in which we have not run <code class="language-plaintext highlighter-rouge">export KUBECONFIG=./kubelogin/kubeconfig.yml</code> and so <code class="language-plaintext highlighter-rouge">KUBECONFIG</code> is still pointing at a kubeconfig file which gives us <code class="language-plaintext highlighter-rouge">cluster-admin</code> access to the cluster.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create clusterrolebinding oidc-cluster-admin --clusterrole=cluster-admin --user='oidcuser:OUR_USER_ID'
+</code></pre></div></div>
+
+<p>Replacing OUR_USER_ID with our login users id from Keycloak (or from the error message above).</p>
+
+<p>Note the <code class="language-plaintext highlighter-rouge">oidcuser:</code> prefix which is added due to the <code class="language-plaintext highlighter-rouge">usernamePrefix: "oidcuser:"</code> prefix configuration line in our Kube OIDC Proxy values file. This prevents users defined in Keycloak from conflicting with any kubernetes internal users.</p>
+
+<h2 id="keycloak-login-to-kubernetes-with-groups">Keycloak login to kubernetes with groups</h2>
+
+<p>The above setup allows us to use <code class="language-plaintext highlighter-rouge">kubectl</code> while authenticating with our keycloak user. However for each user we have to create an individual cluster role binding assigning them permissions. This is manual and becomes painful for anything beyond a small handful of users.</p>
+
+<p>The solution to this lies in groups, we’ll configure our kubernetes oidc implementation to be aware of Keycloak groups. We can then create a <code class="language-plaintext highlighter-rouge">KubernetesAdmin</code> group in Keycloak and have all users in this group given <code class="language-plaintext highlighter-rouge">cluster-admin</code> permissions automatically using a single ClusterRoleBinding.</p>
+
+<p>Begin by creating a <code class="language-plaintext highlighter-rouge">KubernetesAdmins</code> group in Keycloak and then creating a new user and adding them to this group.</p>
+
+<p>We then need to update our Keycloak client to include the groups the user is a member of as part of the JWT.</p>
+
+<p>We do this by going back to our <code class="language-plaintext highlighter-rouge">kube-oidc-client</code> entry under Keycloak clients and choosing the mappers tab then “Create”.</p>
+
+<p>We then enter the following:</p>
+
+<ul>
+  <li><strong>Name</strong>: <code class="language-plaintext highlighter-rouge">Groups</code></li>
+  <li><strong>Mapper Type</strong>: <code class="language-plaintext highlighter-rouge">Group Membership</code></li>
+  <li><strong>Full Group Path</strong>: <code class="language-plaintext highlighter-rouge">Off</code></li>
+</ul>
+
+<p>And then choosing save.</p>
+
+<p>If we uncomment the <code class="language-plaintext highlighter-rouge"># - -v1</code> line in our <code class="language-plaintext highlighter-rouge">kubelogin/kubeconfig.yml</code> file, remove the contents of <code class="language-plaintext highlighter-rouge">~/.kube/cache/oidc-login/</code> and then execute a <code class="language-plaintext highlighter-rouge">kubectl</code> command e.g. <code class="language-plaintext highlighter-rouge">kubectl get pods</code> then we’ll be asked to login and again and then we’ll see that the decoded JWT now contains our groups, e.g:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="err">...</span><span class="w">                                         
+  </span><span class="nl">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">                                                       
+    </span><span class="s2">"DockerRegistry"</span><span class="p">,</span><span class="w">                                             
+    </span><span class="s2">"Administrators"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"KubernetesAdmins"</span><span class="w">
+  </span><span class="p">],</span><span class="w">             
+  </span><span class="err">...</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>We can then create cluster role binding to give anyone with the <code class="language-plaintext highlighter-rouge">KubernetesAdmin</code> group, <code class="language-plaintext highlighter-rouge">cluster-admin</code> access. Our cluster role binding looks like this:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">rbac.authorization.k8s.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterRoleBinding</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">oidc-admin-group</span>
+<span class="na">roleRef</span><span class="pi">:</span>
+  <span class="na">apiGroup</span><span class="pi">:</span> <span class="s">rbac.authorization.k8s.io</span>
+  <span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterRole</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">cluster-admin</span>
+<span class="na">subjects</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">apiGroup</span><span class="pi">:</span> <span class="s">rbac.authorization.k8s.io</span>
+  <span class="na">kind</span><span class="pi">:</span> <span class="s">Group</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">oidcgroup:KubernetesAdmins</span>
+</code></pre></div></div>
+
+<p>Note that <code class="language-plaintext highlighter-rouge">oidcgroup</code> which is added due to the <code class="language-plaintext highlighter-rouge">groupsPrefix: "oidcgroup:"</code> in our Kube OIDC Proxy values configuration. This prevents keycloak groups from colliding with in-built kubernetes groups.</p>
+
+<p>We can apply the above with:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl apply -f ./group-auth/cluster-role-binding.yml
+</code></pre></div></div>
+
+<p>And then delete our user specific cluster role binding with:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl delete clusterrolebinding oidc-cluster-admin
+</code></pre></div></div>
+
+<p>We can confirm that our groups login works with a simple <code class="language-plaintext highlighter-rouge">kubectl get pods</code>.</p>
+
+<p>We can take this further by creating more restrictive cluster roles (or using more of the in-built ones) to do things like creating users that only have access to certain namespaces within our cluster.</p>
+
+<ol>
+  <li>
+    <a href="/kubernetes-sso-a-comprehensive-guide">
+  Contents and overview
+</a>
+  </li>
+  <li>
+    <a href="/installing-openldap-kubernetes-helm">
+  Installing OpenLDAP
+</a>
+  </li>
+  <li>
+    <a href="/installing-keycloak-kubernetes-helm">
+  Installing Keycloak
+</a>
+  </li>
+  <li>
+    <a href="/keycloak-and-openldap-on-kubernetes">
+  Linking Keycloak and OpenLDAP
+</a>
+  </li>
+  <li>
+    <a href="/setting-up-oidc-login-kubernetes-kubectl-with-keycloak">
+  <strong>OIDC Kubectl Login with Keycloak</strong>
+</a>
+  </li>
+  <li>
+    <a href="/webapp-authentication-keycloak-OAuth2-proxy-nginx-ingress-kubernetes">
+  Authenticate any web app using ingress annotations
+</a>
+  </li>
+  <li>
+    <a href="/gitea-sso-with-keycloak-openldap-openid-connect">
+  Gitea (requires LDAP)
+</a>
+  </li>
+  <li>
+    <a href="/docker-registry-authentication-with-keycloak">
+  Simple Docker Registry
+</a>
+  </li>
+  <li>
+    <a href="/harbor-docker-registry-on-kubernetes-authentication-with-keycloak">
+  Harbor Docker Registry with ACL
+</a>
+  </li>
+</ol>
+
+    </div>
+    
+    
+        <!-- If we want to display author's name and bio -->
+
+<section class="author">
+  <header> <a href="/about.html"> <img class="profile" src="/assets/images/profile4.jpg" alt="Ben Dixon. Without
+      Aviators."></a></header>
+  <article>
+    <!-- Author Name -->
+    <h4> Ben Dixon </h4>
+    <!-- Author Bio -->
+    <p>
+      My name's Ben Dixon, I'm the co-founder of <a target="_blank"
+        href="https://www.getsona.com?utm_source=benblogabout">Sona</a> where we're building the operating system for
+      the worlds deskless workforce.
+      I'm an experienced CTO, LLM geek, lover of good coffee and above all, making things.
+      Also a regular conference speaker, author and travel
+      addict. Chat to me on twitter <a href="http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a>
+    </p>
+  </article>
+</section>
+
+    
+    
+    
+    
+    
+</article>
+            </main>
+            
+            <footer class="site-footer">
+                <p>&copy; 2025 <a href="/about.html">Ben Dixon</a> · 
+                <a href="https://twitter.com/talkingquickly" target="_blank">Twitter</a> · 
+                <a href="https://www.linkedin.com/in/talkingquickly/" target="_blank">LinkedIn</a> · 
+                <a href="mailto:ben@talkingquickly.co.uk">Email</a> · 
+                <a href="/rss.xml">RSS</a></p>
+            </footer>
+        </div>
+    </div>
+    
+    <!-- Simple Analytics -->
+    <script>
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-7333902-35']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+</body>
+</html>

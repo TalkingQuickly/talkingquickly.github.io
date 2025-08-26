@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)">
+    
+    <title>Integrations are hard - talkingquickly</title>
+    
+    
+    <meta name="description" content="Blog by Ben Dixon, Co-founder of Sona, about startups, elixir, AI, climbing and photography">
+    
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/minimal.css">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml">
+    <link rel="canonical" href="https://www.talkingquickly.co.uk/integrations">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="layout-wrapper">
+        <header class="mobile-header">
+            <div class="mobile-header-top">
+                <a href="/" class="site-title">talkingquickly</a>
+                <a href="/about.html" class="mobile-about-link">About</a>
+            </div>
+            <p class="mobile-tagline">Co-founder & CTO at Sona. Writing about AI, startups, and engineering.</p>
+            <div class="mobile-social-links">
+                <a href="https://github.com/talkingquickly" target="_blank" title="GitHub">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                </a>
+                <a href="https://twitter.com/talkingquickly" target="_blank" title="Twitter">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                    </svg>
+                </a>
+                <a href="https://www.linkedin.com/in/talkingquickly/" target="_blank" title="LinkedIn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                </a>
+                <a href="https://bsky.app/profile/talkingquickly.bsky.social" target="_blank" title="Bluesky">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.206-.659-.298-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8Z"/>
+                    </svg>
+                </a>
+            </div>
+        </header>
+        
+        <aside class="sidebar">
+            <div class="sidebar-content">
+                <div class="sidebar-header">
+                    <a href="/" class="site-title">talkingquickly</a>
+                    <p class="sidebar-tagline">Co-founder & CTO at Sona. Writing about AI, startups, and engineering.</p>
+                </div>
+                
+                <nav class="nav-links">
+                    <a href="/about.html">About</a>
+                </nav>
+                
+                <div class="social-links">
+                    <a href="https://github.com/talkingquickly" target="_blank" title="GitHub">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                    <a href="https://twitter.com/talkingquickly" target="_blank" title="Twitter">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/talkingquickly/" target="_blank" title="LinkedIn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                    </a>
+                    <a href="https://bsky.app/profile/talkingquickly.co.uk" target="_blank" title="Bluesky">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.206-.659-.298-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8Z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </aside>
+        
+        <div class="main-container">
+            <main class="site-content">
+                <article class="post">
+    <header class="post-header">
+        <h1>Integrations are hard</h1>
+    </header>
+    
+    <div class="post-content">
+        <p>Best in breed procurement, where many systems - the best in class for each system - are procured independently then integrated with one another has had a tricky decade.</p>
+
+<p>The underlying principle was good. Take lots of vendors who do just one thing really well and connect them to one another to form one fully integrated super system.</p>
+
+<p>But multiple studies suggest that 70-85% of the integration projects which are essential to make these systems work together fail to achieve their objectives.</p>
+
+<p>This post looks at what it’s necessary to consider to avoid these failures, especially in the workforce management space and breaks out specific things to explore when considering an integration project.</p>
+
+<!--more-->
+
+<h2 id="which-system-owns-which-data-source-of-truth">Which system owns which data (“source of truth”)?</h2>
+<p>If you’ve ever been part of a project where there was no central project tracking, instead everyone kept their own todo lists and then met periodically to talk about what had been done and what needed to be done then you’re probably experienced the source of truth problem.</p>
+
+<p>Different people have different ideas about the state of individual tasks, in-between alignment sessions several people may try and work on the same task or change the same document and it becomes incredibly difficult to work out what the true state of the project is at any given time.</p>
+
+<p>Integrations can suffer from the same problem. If there are two places where someone can book holiday and they have different data about one persons holiday bookings, which one is true?</p>
+
+<p>So one of the most fundamentals requirements for a successful integration strategy is being completely clear on which systems are the “source of truth” or owners of each piece or category of data.</p>
+
+<p>Only the source of truth system generally stores this data and is responsible for defining the interface by which other systems can alter and perform workflows against it.</p>
+
+<h2 id="which-system-owns-which-workflows">Which system owns which workflows?</h2>
+<p>In the same way data being in multiple places can cause problems, workflows spanning multiple systems or worse being duplicated across system can cause substantial problems.</p>
+
+<p>Imagine a system where people are asked to go to one place to build their roster and another to approve timesheets. To approve timesheets they need to open the roster in another system and manually compare timesheets to the roster.</p>
+
+<p>In this example it’s not impossible, but it is painful. If your goal is to get company wide engagement with a technology programme, it’s friction like this that will stop it from happening.</p>
+
+<p>If you take it one step further you can imagine a system where people are asked to put availability into one system, holiday into another and sickness into another.</p>
+
+<p>People being people, they will forget which system they need to go to for what, especially for workflows they don’t have to do very often.</p>
+
+<p>In the best case scenario here this drives up queries to internal support desks. In the worst case scenario it will drive down compliance and usage of the newly rolled out technology, directly preventing the technology programme from reaching and demonstrating it’s goals.</p>
+
+<p>A good rule of thumb is that somebody shouldn’t need to change systems part way through a workflow and generally shouldn’t need to overtly access multiple systems to complete a single task.</p>
+
+<h2 id="big-pieces-vs-small-pieces">Big pieces vs small pieces</h2>
+<p>It can be tempting to read the above and think “great, so we’ll just create a 1000 line spreadsheet of all our data and all our workflows and decide on the owner, job done”. I’ve seen this approach multiple times at an impressive level of detail!</p>
+
+<p>The problem with this is that data has dependencies. Yes it’s theoretically possible to store a users national insurance number and address in two separate systems. But in practice the unit of data you’ll most often want to work with is “user data”, not “national insurance numbers”. And changing address or national insurance number may mutually have implications for the payroll system.</p>
+
+<p>In general when defining sources for truth for both data and workflows, try and work with big pieces not small pieces.</p>
+
+<p>Another example is holiday &amp; sickness. It’s tempting to think of these as separate things which could sit in different systems. In practice sickness can impact holiday and vice versa so splitting them is generally a challenging process. It’s far better to think in terms of “absence” as an overall concept.</p>
+
+<h2 id="user-interface-vs-data-integrations">User Interface vs Data Integrations</h2>
+<p>So far we’ve primarily talked about data. About which systems own data and perform workflows against that data.</p>
+
+<p>Another type of integration is a user interface integration. Where you want to take an existing system and include the user interface of another system in it so that the user feels like they’re doing everything in one piece of software.</p>
+
+<p>An important thing to be aware of is that this is very hard to do at the level of “parts” of a screen.</p>
+
+<p>There are no standard or easy ways of modifying the user interface of a piece of software to include the user interface of another alongside it.</p>
+
+<p>If a piece of software already has a box where some information is displayed and you want the information in that box to come from another system, that’s fine, that’s a data integration, the box is already there.</p>
+
+<p>If you want to take the box from another piece of software, maybe including some buttons and “embed” it in the interface of another piece of software alongside their existing interface, expect this to be hard and expensive and for the results to feel somewhat clunky.</p>
+
+<p>The main exception to this is where vendors have a deep partnership with one another and so typically one vendor has actually replicated the UI of the other product in their own. This is expensive for the vendor to do and so is rarely done for any one customer, instead it is done when those vendors have some form of ongoing strategic partnership.</p>
+
+<p>There are two intermediate steps which are possible:</p>
+
+<ol>
+  <li>“Iframing”  Is a way to define a rectangular area of a webpage or web app and have another webpage or web app appear in that rectangular box. This can work as an approach where your goal is “I want someone to access a different system from within the first system without needing to change pages”. There’s no deep UI integration here, it just saves people going to a different page or screen.</li>
+  <li>Single Sign On allows you to have users click on a link to another piece of software and be automatically signed in rather than having to login manually. This can have an extremely positive impact on engagement as people drop off surprisingly heavily when asked to login. If all systems are white labelled this can lead to a near seamless experience if the goal is simply to make moving between systems easier.</li>
+</ol>
+
+<p>Importantly both iframeing and SSO can be good solutions, it’s just important to be clear what you’re getting when discussing a UI integration because there’s far more variability in what this could mean than there is for data integrations.</p>
+
+<p>It’s an unfortunate truth that deep UI integration between multiple systems remains a largely unsolved problem in software. It’s a technically hard problem and it’s not for lack of trying that it hasn’t been solved in the industry.</p>
+
+<h2 id="read-vs-write-one-way-vs-two-way">Read vs write, one way vs two way</h2>
+<p>A simple but important distinction is read vs write integrations.</p>
+
+<p>In a read integration, one system needs to get data from another system for storage or display. It has no need to ever change this data and push those changes back into the original system.</p>
+
+<p>It either needs to do this once (e.g. an Applicant Tracking  System integration) or repeatedly (e.g. when pulling daily forecasts in).</p>
+
+<p>This is typically simpler and less error prone than an integration that needs to pull data in, manipulate it and then push data back out again (write / two way).</p>
+
+<h2 id="data-warehouse-integrations">Data Warehouse Integrations</h2>
+<p>An important sub-category of integration are data warehouse integrations.</p>
+
+<p>A data warehouse is when an organisation has a single central location they collate all of their data, typically for the purposes of reporting and analytics.</p>
+
+<p>If an organisation has a data warehouse initiative, it’s common for it to be a requirement that all vendors can provide a way to get raw data out of the vendors system and into the</p>
+
+<p>Generally the onus is on the vendor to provide a standard method for accessing this data, typically via either direct access to a database or API.</p>
+
+<p>How this gets from this standard interface to the customer data warehouse generally sits with the customer.</p>
+
+<p>Typical options for this include:</p>
+
+<ol>
+  <li>Many vendors will build a further bridge between their standard interface and the customer data warehouse for a fee</li>
+  <li>Many data warehouse vendors offer some form of integration service</li>
+  <li>There are third parties which specialise entirely in building data warehouse connectors</li>
+  <li>There are third parties who maintain huge libraries of data warehouse connectors for common vendors</li>
+</ol>
+
+<p>It is a huge red flag if a vendor refuses to provide data warehouse access to customers.</p>
+<h2 id="push-vs-pull">Push vs Pull</h2>
+<p>Push vs pull is terminology that gets used to describe whether one vendor “pushes” data in or the other vendor “pulls” it out. It’s helpful as a short-hand when combined with read vs write above but it tends to mix a few different concepts:</p>
+
+<ol>
+  <li>Who builds &amp; owns the integration</li>
+  <li>Which company’s interfaces are used to build the integration</li>
+  <li>How is the data transfer actually triggered</li>
+</ol>
+
+<p>We’ll look at each of these individually.</p>
+<h2 id="who-builds-and-owns-the-integration">Who builds and owns the integration?</h2>
+<p>A typical integration will involve somebody writing some “glue” code to link the two systems together, the options for this are typically:</p>
+
+<ol>
+  <li>The vendors already have a “deep” integration which they commit to supporting. It’s worth asking more about this relationship as generally one vendor will have assumed responsibility for the technical work of maintaining the integration and so be your point of contact if something goes wrong</li>
+  <li>The integration is being built by one of the vendors specifically for this client. In this case it’s worth drilling into whether the other vendor has committed to providing the resources and technical functionality and being looped into this process as most integrations require mutual co-operation and commitment of resource.</li>
+  <li>The integration is being build by a third party company commissioned by the client. This gives the client more control but it’s essential to ensure costs and resource commitments from the vendors are agreed upfront because a third party building the integration does not mean no costs or resource requirements from the vendors.</li>
+  <li>The integration is being built in-house. If an organisation has the capability to do this, this is extremely powerful subject to the maintenance point below.</li>
+</ol>
+
+<p>In all of these situations it’s essential to be clear on where the responsibility for maintaining the integration over-time sits.</p>
+
+<p>As with any software initiative, more of the lifetime cost will sit in maintenance rather than implementation so understanding how this will work is as important as understanding how it will get built to begin with.</p>
+
+<h2 id="which-companys-interfaces-are-used-to-build-the-integration">Which company’s interfaces are used to build the integration?</h2>
+<p>Companies generally talk about having API’s - Application Programming Interfaces - which are tools for software systems to communicate with each other. There are broadly two core models for an integration:</p>
+
+<ol>
+  <li>One vendor uses the others API</li>
+  <li>The two vendors API’s are linked together with “glue” code</li>
+</ol>
+
+<p>Both are valid approaches, increasingly (2) is preferred because of the standardisation which this enables.</p>
+
+<p>It’s important before commencing a project to understand if the vendors have the required interfaces for the integration request and where they don’t, to have commitments to build these.</p>
+
+<h2 id="what-about-csvs">What about CSV’s</h2>
+<p>CSV’s are one of the oldest data transfer methods still in-use. A CSV is essentially a human readable text file of data. There can be some snobbery about CSV’s along the lines of “but it’s not an API”.</p>
+
+<p>CSV’s are incredibly powerful, it’s an integration method that is disproportionately well supported across many systems and fairly easy to automate and debug.</p>
+
+<p>So especially for simple one way integrations, CSV’s should not be overlooked or excluded on the basis that API’s are in some way “better”.</p>
+
+<h2 id="how-is-the-data-transfer-actually-triggered-technical">How is the data transfer actually triggered (technical)</h2>
+<p>There are three technical concepts which come up and cause confusion.</p>
+
+<ol>
+  <li><strong>API</strong>: This is the grouping for the endpoints and webhooks which make up a vendors interface for building integrations</li>
+  <li><strong>Endpoints</strong>: API Endpoints are web addresses that a third party can request data from or send data to</li>
+  <li><strong>Webhooks</strong>: These allow one system to “notify” another system when something happens instead of that system having to “ask”. Put the other way, this allows one system to “subscribe” to be told about changes from the other.</li>
+</ol>
+
+<p>A typical integration will use both endpoints and webhooks and a Webhook from Vendor 1 may be configured to “call” an “Endpoint” from Vendor 2. The distinction is not important from the perspective of agreeing an integration and this is only covered here because mis-use of this terminology drives a surprising amount of confusion.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+<p>In the end it’s up to software vendors to be both flexible and honest to facilitate successful integration programmes.</p>
+
+<p>Deep cross vendor UI integration is still a largely unsolved problem and so we should exercise skepticism when anyone claims to have solved it.</p>
+
+<p>Best of breed is by no means dead, but the pieces are going to be bigger and so the number of vendors smaller as we learn more and more about where it’s practical to draw integration boundaries and where it isn’t.</p>
+
+    </div>
+    
+    
+        <!-- If we want to display author's name and bio -->
+
+<section class="author">
+  <header> <a href="/about.html"> <img class="profile" src="/assets/images/profile4.jpg" alt="Ben Dixon. Without
+      Aviators."></a></header>
+  <article>
+    <!-- Author Name -->
+    <h4> Ben Dixon </h4>
+    <!-- Author Bio -->
+    <p>
+      My name's Ben Dixon, I'm the co-founder of <a target="_blank"
+        href="https://www.getsona.com?utm_source=benblogabout">Sona</a> where we're building the operating system for
+      the worlds deskless workforce.
+      I'm an experienced CTO, LLM geek, lover of good coffee and above all, making things.
+      Also a regular conference speaker, author and travel
+      addict. Chat to me on twitter <a href="http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a>
+    </p>
+  </article>
+</section>
+
+    
+    
+    
+    
+    
+</article>
+            </main>
+            
+            <footer class="site-footer">
+                <p>&copy; 2025 <a href="/about.html">Ben Dixon</a> · 
+                <a href="https://twitter.com/talkingquickly" target="_blank">Twitter</a> · 
+                <a href="https://www.linkedin.com/in/talkingquickly/" target="_blank">LinkedIn</a> · 
+                <a href="mailto:ben@talkingquickly.co.uk">Email</a> · 
+                <a href="/rss.xml">RSS</a></p>
+            </footer>
+        </div>
+    </div>
+    
+    <!-- Simple Analytics -->
+    <script>
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-7333902-35']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+</body>
+</html>

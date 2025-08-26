@@ -1,0 +1,839 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="https://www.talkingquickly.co.uk/rss.xml" rel="self" type="application/atom+xml" /><link href="https://www.talkingquickly.co.uk/" rel="alternate" type="text/html" /><updated>2025-08-26T09:53:29+00:00</updated><id>https://www.talkingquickly.co.uk/rss.xml</id><title type="html">talkingquickly</title><subtitle>Ben Dixon, Co-founder of Sona. Writing about AI, Startups, Elixir and Small Steps Taken Quickly.</subtitle><author><name>Ben Dixon</name></author><entry><title type="html">Punchcards and why there are now only apprenticeships and management roles in software engineering</title><link href="https://www.talkingquickly.co.uk/punchcards-apprenticeships-and-management-in-software-engineering/" rel="alternate" type="text/html" title="Punchcards and why there are now only apprenticeships and management roles in software engineering" /><published>2025-08-25T00:00:00+00:00</published><updated>2025-08-25T00:00:00+00:00</updated><id>https://www.talkingquickly.co.uk/punchcards-apprenticeships-and-management-in-software-engineering</id><content type="html" xml:base="https://www.talkingquickly.co.uk/punchcards-apprenticeships-and-management-in-software-engineering/"><![CDATA[<p>A job that used to exist is creating punch cards for computers to read. Then keyboards and magnetic storage became a thing and fairly rapidly there wasn’t really this job anymore.</p>
+
+<p>Likewise, due to the level LLM-powered coding assistants have gotten to, there used to be this job of writing code by hand. But now there sort of isn’t anymore.</p>
+
+<p>The job that remains is—to me at least—10x more fun, and that’s managing LLM agents as they write code.</p>
+
+<p>But management is famously hard.</p>
+
+<p>There are many different failure modes when people start managing, but there’s one that gets basically everyone when they start out:</p>
+
+<blockquote>
+  <p>I’ll just do it myself, it’ll be faster</p>
+</blockquote>
+
+<p>New managers almost without fail make this mistake at least a few times. Rather than coaching others, they decide to do it themselves.</p>
+
+<p>Each time they do this, a few things happen:</p>
+
+<ol>
+  <li>The would-be manager doesn’t learn more about managing</li>
+  <li>The person they were managing doesn’t learn how to do something</li>
+</ol>
+
+<p>Eventually—if they avoid the disillusionment that goes with this phase—they realize this doesn’t scale.</p>
+
+<p>Commonly they then move to micromanaging.</p>
+
+<blockquote>
+  <p>I won’t do it for you, but I will tell you exactly how I want it done to an incredible level of detail</p>
+</blockquote>
+
+<p>This is the most dangerous phase. They’re still doing most of the work, but it sort of feels like delegation. This is where new managers are at the greatest risk of burnout.</p>
+
+<p>It’s the job of whoever is coaching and managing that new manager to guide them through these phases to the level where they’re really managing.</p>
+
+<p>The same curve applies to managing LLM agents.</p>
+
+<p>People start with autocomplete and move on to giving incredibly specific briefs where they’re still doing all of the thinking.</p>
+
+<p>This feels sort of like using LLM coding agents. But it’s as far away from agentic coding as micromanagement is from true management.</p>
+
+<p>It also comes with the same style of problems:</p>
+
+<ul>
+  <li>Every time someone does it, they sacrifice an opportunity to learn how to better collaborate with an agent to do it</li>
+  <li>Every time someone does it, they’re less likely to iterate on their environment and tools for collaborating with agents, they’re also less likely to optimize the codebase for agentic changes</li>
+</ul>
+
+<p>So the single most important thing if we want to maximize the quality and rate at which we can deliver software is to work out the playbook for ramping engineers who previously thought of themselves as individual contributors to the point where they’re effectively managing LLM coding agents.</p>
+
+<p>We know where they are when their process of building software looks much more like managing and collaborating with a team than it does writing code in an editor.</p>
+
+<p>But it’s a strange dynamic now because you’re effectively either an apprentice who’s learning to do this, or a manager who’s established a base layer of competence in doing this. The “individual contributor” layer that’s existed for so long sort of doesn’t anymore.</p>]]></content><author><name>Ben Dixon</name></author><summary type="html"><![CDATA[A job that used to exist is creating punch cards for computers to read. Then keyboards and magnetic storage became a thing and fairly rapidly there wasn’t really this job anymore. Likewise, due to the level LLM-powered coding assistants have gotten to, there used to be this job of writing code by hand. But now there sort of isn’t anymore. The job that remains is—to me at least—10x more fun, and that’s managing LLM agents as they write code. But management is famously hard. There are many different failure modes when people start managing, but there’s one that gets basically everyone when they start out: I’ll just do it myself, it’ll be faster New managers almost without fail make this mistake at least a few times. Rather than coaching others, they decide to do it themselves. Each time they do this, a few things happen: The would-be manager doesn’t learn more about managing The person they were managing doesn’t learn how to do something Eventually—if they avoid the disillusionment that goes with this phase—they realize this doesn’t scale. Commonly they then move to micromanaging. I won’t do it for you, but I will tell you exactly how I want it done to an incredible level of detail This is the most dangerous phase. They’re still doing most of the work, but it sort of feels like delegation. This is where new managers are at the greatest risk of burnout. It’s the job of whoever is coaching and managing that new manager to guide them through these phases to the level where they’re really managing. The same curve applies to managing LLM agents. People start with autocomplete and move on to giving incredibly specific briefs where they’re still doing all of the thinking. This feels sort of like using LLM coding agents. But it’s as far away from agentic coding as micromanagement is from true management. It also comes with the same style of problems: Every time someone does it, they sacrifice an opportunity to learn how to better collaborate with an agent to do it Every time someone does it, they’re less likely to iterate on their environment and tools for collaborating with agents, they’re also less likely to optimize the codebase for agentic changes So the single most important thing if we want to maximize the quality and rate at which we can deliver software is to work out the playbook for ramping engineers who previously thought of themselves as individual contributors to the point where they’re effectively managing LLM coding agents. We know where they are when their process of building software looks much more like managing and collaborating with a team than it does writing code in an editor. But it’s a strange dynamic now because you’re effectively either an apprentice who’s learning to do this, or a manager who’s established a base layer of competence in doing this. The “individual contributor” layer that’s existed for so long sort of doesn’t anymore.]]></summary></entry><entry><title type="html">Why you should try vibe coding from your phone</title><link href="https://www.talkingquickly.co.uk/vibe-coding-from-your-phone/" rel="alternate" type="text/html" title="Why you should try vibe coding from your phone" /><published>2025-08-25T00:00:00+00:00</published><updated>2025-08-25T00:00:00+00:00</updated><id>https://www.talkingquickly.co.uk/vibe-coding-from-your-phone</id><content type="html" xml:base="https://www.talkingquickly.co.uk/vibe-coding-from-your-phone/"><![CDATA[<p>My secondary coding environment is a Proxmox server I use to spin up LXC dev containers which are just Debian containers with tmux and Neovim and all my dev dependencies on them.</p>
+
+<p>I can get to that using Termius on a phone or tablet and do stuff. My stack is already terminal based so the change vs a laptop is pretty minimal.</p>
+
+<p>Up until recently this has existed mainly as a backup, it means I can handle emergencies without a laptop.</p>
+
+<p>I’ve always imagined it “freeing” me from a laptop but it just hasn’t stuck. Don’t get me wrong, Vim works using an iPhone keyboard but only in the same way a bicycle “works” for off-roading.</p>
+
+<p>But recently I added Claude Code to this configuration.</p>
+
+<p>Increasingly I’ve found myself not bothering to get my laptop because whatever I need to do, I could just fire up a Claude instance inside tmux and ask it to do it for me.</p>
+
+<p>Side projects I’ve been meaning to continue for years are coming along again, I’ve redesigned my blog, revamped my local LLM setup and—for reasons I’ll explain in another post—built a simulator of an LLM meditating.</p>
+
+<p>I’ve created more and had more fun doing it than any time I can remember.</p>
+
+<p>All from a phone.</p>
+
+<p>In the same way I learned Vim by disabling the mouse and arrow keys on my computer; using a coding agent in an environment where using Vim is incredibly painful has forced me to get really good at that interaction model.</p>
+
+<p>I never looked back from Vim and I can’t imagine ever looking back from this.</p>
+
+<p>If you haven’t tried it, I thoroughly recommend having a go banning yourself from your editor and working only through an agent for a few weeks.</p>]]></content><author><name>Ben Dixon</name></author><summary type="html"><![CDATA[My secondary coding environment is a Proxmox server I use to spin up LXC dev containers which are just Debian containers with tmux and Neovim and all my dev dependencies on them. I can get to that using Termius on a phone or tablet and do stuff. My stack is already terminal based so the change vs a laptop is pretty minimal. Up until recently this has existed mainly as a backup, it means I can handle emergencies without a laptop. I’ve always imagined it “freeing” me from a laptop but it just hasn’t stuck. Don’t get me wrong, Vim works using an iPhone keyboard but only in the same way a bicycle “works” for off-roading. But recently I added Claude Code to this configuration. Increasingly I’ve found myself not bothering to get my laptop because whatever I need to do, I could just fire up a Claude instance inside tmux and ask it to do it for me. Side projects I’ve been meaning to continue for years are coming along again, I’ve redesigned my blog, revamped my local LLM setup and—for reasons I’ll explain in another post—built a simulator of an LLM meditating. I’ve created more and had more fun doing it than any time I can remember. All from a phone. In the same way I learned Vim by disabling the mouse and arrow keys on my computer; using a coding agent in an environment where using Vim is incredibly painful has forced me to get really good at that interaction model. I never looked back from Vim and I can’t imagine ever looking back from this. If you haven’t tried it, I thoroughly recommend having a go banning yourself from your editor and working only through an agent for a few weeks.]]></summary></entry><entry><title type="html">Conversations as Programming Primitives</title><link href="https://www.talkingquickly.co.uk/conversations-as-programming-primitives/" rel="alternate" type="text/html" title="Conversations as Programming Primitives" /><published>2025-08-24T00:00:00+00:00</published><updated>2025-08-24T00:00:00+00:00</updated><id>https://www.talkingquickly.co.uk/conversations-as-programming-primitives</id><content type="html" xml:base="https://www.talkingquickly.co.uk/conversations-as-programming-primitives/"><![CDATA[<p>Over the last few years a reliable way to be wrong has been to predict “chat won’t work as an interface for that” and then wait a few weeks.</p>
+
+<p>So it increasingly looks like conversations as a general purpose user interface are here to stay.</p>
+
+<p>Conversations as a fundamental primitive of programming and data storage have been getting less attention.</p>
+
+<p>An LLM-powered CRM agent which makes recommendations about deals could be built by giving an agent access to tools that query certain data, carefully constructing input prompts and then building checking logic which ensures the agent isn’t repeating itself.</p>
+
+<p>This is the traditional model of programming, the LLM is a special purpose tool (like any method) and then we write methods which do other things and chain these together in highly structured ways to achieve (pseudo) predictable outputs.</p>
+
+<p>Another way to build that CRM agent is to write a system prompt along the lines of:</p>
+
+<blockquote>
+  <p>You’re going to receive a stream of messages which are updates on a sales deal. Your job is to provide recommendations by calling the set_recommendations tool, don’t repeat yourself too often</p>
+</blockquote>
+
+<p>Where the set recommendations tool shows the user a list of recommendations. This step being entirely optional, we could just ask for a bulleted list.</p>
+
+<p>This approach has some interesting properties:</p>
+
+<ul>
+  <li>There’s not a whole lot of programming going on, we just sort of let the LLM do it</li>
+  <li>We defer the structuring of data until the tool call to turn it into something structured (which we could skip completely and just use bullets)</li>
+  <li>As a result of deferred structuring, our data model is “just a bunch of text”</li>
+</ul>
+
+<p>Deferred structuring has some interesting implications for portability, both within a loose application boundary and across unrelated or competing applications.</p>
+
+<p>Since the structuring is deferred until the point of output, putting the data through an alternative process or into another system is relatively easy as long as they can accept conversation text as an input.</p>
+
+<p>If there is some standardization as to a structured or semi-structured representation of a conversation, it becomes entirely trivial.</p>
+
+<p>Which leaves me with two main takeaways:</p>
+
+<ul>
+  <li>Engineers should increasingly be asking themselves “do I really need anything more than a conversation to solve this problem”</li>
+  <li>Ownership and portability of conversation data is going to become as - probably more - important as ownership of structured data</li>
+</ul>
+
+<p>“Let the model do the work” is increasingly becoming a very good rule of thumb.</p>]]></content><author><name>Ben Dixon</name></author><summary type="html"><![CDATA[Over the last few years a reliable way to be wrong has been to predict “chat won’t work as an interface for that” and then wait a few weeks. So it increasingly looks like conversations as a general purpose user interface are here to stay. Conversations as a fundamental primitive of programming and data storage have been getting less attention. An LLM-powered CRM agent which makes recommendations about deals could be built by giving an agent access to tools that query certain data, carefully constructing input prompts and then building checking logic which ensures the agent isn’t repeating itself. This is the traditional model of programming, the LLM is a special purpose tool (like any method) and then we write methods which do other things and chain these together in highly structured ways to achieve (pseudo) predictable outputs. Another way to build that CRM agent is to write a system prompt along the lines of: You’re going to receive a stream of messages which are updates on a sales deal. Your job is to provide recommendations by calling the set_recommendations tool, don’t repeat yourself too often Where the set recommendations tool shows the user a list of recommendations. This step being entirely optional, we could just ask for a bulleted list. This approach has some interesting properties: There’s not a whole lot of programming going on, we just sort of let the LLM do it We defer the structuring of data until the tool call to turn it into something structured (which we could skip completely and just use bullets) As a result of deferred structuring, our data model is “just a bunch of text” Deferred structuring has some interesting implications for portability, both within a loose application boundary and across unrelated or competing applications. Since the structuring is deferred until the point of output, putting the data through an alternative process or into another system is relatively easy as long as they can accept conversation text as an input. If there is some standardization as to a structured or semi-structured representation of a conversation, it becomes entirely trivial. Which leaves me with two main takeaways: Engineers should increasingly be asking themselves “do I really need anything more than a conversation to solve this problem” Ownership and portability of conversation data is going to become as - probably more - important as ownership of structured data “Let the model do the work” is increasingly becoming a very good rule of thumb.]]></summary></entry><entry><title type="html">Non Fiction Books</title><link href="https://www.talkingquickly.co.uk/books" rel="alternate" type="text/html" title="Non Fiction Books" /><published>2024-12-15T01:00:00+00:00</published><updated>2024-12-15T01:00:00+00:00</updated><id>https://www.talkingquickly.co.uk/books</id><content type="html" xml:base="https://www.talkingquickly.co.uk/books"><![CDATA[<p>This is a page I update periodically with key takeaways from non-fiction books I’ve read. My current top 25 are:</p>
+
+<ol>
+  <li>Four thousand weeks</li>
+  <li>Fooled by randomness</li>
+  <li>Atomic Habits</li>
+  <li>Make Time</li>
+  <li>Thanks for the feedback</li>
+  <li>Radical Candor</li>
+  <li>High output management</li>
+  <li>The 4 hour work week</li>
+  <li>The 4 hour body</li>
+  <li>The hard thing about hard things</li>
+  <li>The lean startup</li>
+  <li>Deep Work</li>
+  <li>Digital Minimalism</li>
+  <li>The power of now</li>
+  <li>Why we sleep</li>
+  <li>In defence of food</li>
+  <li>The tipping point</li>
+  <li>Breath</li>
+  <li>Outlive</li>
+  <li>Getting things done</li>
+  <li>Algorithms to live by</li>
+  <li>Thinking in systems</li>
+  <li>Zen and the art of motorcycle maintenance</li>
+  <li>The 48 laws of power</li>
+  <li>Inspired</li>
+  <li>The dip</li>
+</ol>
+
+<p>It’s mainly a tool for me to skim through and remind myself of what I’ve read as a way to jog my thinking. The summaries are a mixture of notes I wrote when reading them, reminders from Shortform summaries and what I remember. So they’ve been heavily filtered by my interpretation and what I was thinking about at the time I read them. They are almost certainly <em>not</em> accurate summaries of the books themselves!</p>
+
+<!--more-->
+
+<h2 id="four-thousand-weeks">Four thousand weeks</h2>
+
+<p>This is the book that gave me a framework for carving out dedicated, non negotiable time usually early in the morning for an ongoing passion project. For a long time I used the “make time” app for this.</p>
+
+<p>Four thousand weeks focuses on the shortness of life and how we spend it. It drives home that the deciding factor in how we spend our life is where and how we direct our attention.</p>
+
+<p>One of the quotes that has never left me is about how apt the idea of “spending” your time is, because once each moment is spent, you can never have it back:</p>
+
+<blockquote>
+  <p>Pay attention, because you are paying with your life</p>
+</blockquote>
+
+<p>It emphasises how time will pass no matter what, and so it is our decisions about where to direct our attention that govern the quality of our life.</p>
+
+<p>The core thread of the book is around the extent to which you really control your time. In essence that we never have full control over our time, or at least we will never be able to do all of the things we want. There are probably a variety of reasons for this, not least that as we get more efficient, we come up with more things we want to do. So we will never get to the end of the list.</p>
+
+<p>This resonates with one of the most important lessons I learned from my father. That many people imagine if they could just have a day to get to the end of their todo list, they’d be caught up and “on top of things”. But in reality this would be true for mere hours until the todo list started to grow again. So the real skill in life is doing the right things from the list and learning to live peacfully with the fact it will never end.</p>
+
+<p>The book turns to some practical considerations for making the most of the little time we have:</p>
+
+<ol>
+  <li>Force time for the things that matter, never wait for time to “open up”. Because it never will.</li>
+  <li>Limit your work in progress projects. Probably to 3-4.</li>
+  <li>Become comfortable with and embrace discomfort. Especially the type of discomfort that might cause you to deviate from your project. The main approach suggested is noticing the distraction and discomfort and directing constantly increasing attention to it rather than shying away from it.</li>
+  <li>Stop expecting the future to unfold in a particular away. In particular reflect on how little of your life to date your eally controlled and stop expecting a far greater degree of control over the future.</li>
+  <li>Develop patience for how long things really take. An interesting tactic here is time boxing heavily and refusing to allow yourself more than that amount of time to work on something. Whenever you run out of time, your forced to become a little more comfortable with the feeling of impatience.</li>
+  <li>Align your free time with your friend. As someone who obsessively tries to control my schedule, this one came from left field. The goal being to align your schedule to maximise the chances you can spend time with those you love.</li>
+</ol>
+
+<p>The second part of the book delves more deeply into the idea of life being finite. This comes with the - to me at least - calming sentiment that you can never have all of the experiences you want, because every choice you make implicitly takes the space of something else. Because it is fundamentally finite, the thing that matters is choosing things that matter, not wasting time on todo lists.</p>
+
+<p>The book suggests four tactics in particular:</p>
+
+<ol>
+  <li>Make and strongly commit to life choices. The essence of this is that since you’ll never be able to do everything, you’ll be happier if you commit to something and do it well. The underlying principle is that more happiness is created by committing and doing well than by keeping options open.</li>
+  <li>Focus on the present not the future. This hit quite hard, that it’s tempting to spend lots of time on actions with future payoffs, to control the future. But generally these payoffs are highly uncertain, but the payoffs now are much clearer. An example would be working on a marketing campaign for the future vs going outside to enjoy the good weather. The happiness from the good weather is certain, the payoff from the marketing campaign is very much not. I didn’t interpret this as not investing in the future, just that many people - me included - have a tendancy to over-invest in the future, at the expense of realising a return on the present.</li>
+  <li>Incorporate purposeless time. I loved this one. In a world where it’s fashionable to try and turn every hobby into a profit making “side hustle”, the emphasis here is on the importance of doing things purely for the sake of doing them, with no expectation of a return.</li>
+  <li>Don’t live only for changing the world, because you probably won’t. Nobody has that much impact on the world in the grand scheme of things. Humanities impact will be insignificant on many timescales. Once you let go of a need to make a grand change to the world, you open yourself up to being able to make the little changes which are possible and actually matter.</li>
+</ol>
+
+<p>On a tangent, this is the book that led me to have a poster on my wall where I mark off the weeks, counting down to 4000. Tosome people this seems morbid. For me it aligns nicely with the parts of Stoicism I relate to, acting as a reminder to enjoy each moment.</p>
+
+<h2 id="reading-list">Reading list</h2>
+
+<ol>
+  <li>Five Dysfunctions of a team</li>
+</ol>]]></content><author><name>Ben Dixon</name></author><category term="reading" /><summary type="html"><![CDATA[This is a page I update periodically with key takeaways from non-fiction books I’ve read. My current top 25 are: Four thousand weeks Fooled by randomness Atomic Habits Make Time Thanks for the feedback Radical Candor High output management The 4 hour work week The 4 hour body The hard thing about hard things The lean startup Deep Work Digital Minimalism The power of now Why we sleep In defence of food The tipping point Breath Outlive Getting things done Algorithms to live by Thinking in systems Zen and the art of motorcycle maintenance The 48 laws of power Inspired The dip It’s mainly a tool for me to skim through and remind myself of what I’ve read as a way to jog my thinking. The summaries are a mixture of notes I wrote when reading them, reminders from Shortform summaries and what I remember. So they’ve been heavily filtered by my interpretation and what I was thinking about at the time I read them. They are almost certainly not accurate summaries of the books themselves!]]></summary></entry><entry><title type="html">Vibe coding is real, and that’s a good thing</title><link href="https://www.talkingquickly.co.uk/vibe-coding-is-real/" rel="alternate" type="text/html" title="Vibe coding is real, and that’s a good thing" /><published>2024-06-15T00:00:00+00:00</published><updated>2024-06-15T00:00:00+00:00</updated><id>https://www.talkingquickly.co.uk/vibe-coding-is-real</id><content type="html" xml:base="https://www.talkingquickly.co.uk/vibe-coding-is-real/"><![CDATA[<p><strong>tldr;</strong> AI Coding (“vibe coding”) is real and it has fundamentally changed what it means to be a software engineer forever.</p>
+
+<p>The single thing that will define which businesses and which engineers are successful over the coming years is how quickly they are able to adapt to this.</p>
+
+<p>This post is a summary of the topics that are coming up again and again when discussing this with other engineers and engineering leaders.</p>
+
+<!--more-->
+
+<h2 id="what-is-ai-coding-its-not-auto-complete">What is AI Coding (it’s not auto-complete)</h2>
+
+<p>By AI coding I’m talking about a dynamic where an engineer builds software by talking in natural language to some sort of software agent; asking it to perform actions that result in the modification of one or more files without specifying exactly what those modifications should be or how they should be made.</p>
+
+<p>So I’m explicitly excluding:</p>
+
+<ol>
+  <li>AI powered auto complete, even if it’s completing whole files</li>
+  <li>Stubbing function heads and having AI fill in the blanks</li>
+</ol>
+
+<p>From this definition of AI coding.</p>
+
+<p>So prompting an AI:</p>
+
+<blockquote>
+  <p>“Could you modify this to spawn tasks for each item and keep track of the spawned tasks, I’ve attached a screenshot of what the UI should look like and given you access to both the UI and the underlying interface”</p>
+</blockquote>
+
+<p><strong>is</strong> AI coding.</p>
+
+<p>But for the purposes of this post, defining a function head <code class="language-plaintext highlighter-rouge">do_thing_using_async_tasks</code>, writing comments that explain how it should work then having an AI “fill in the blanks” is <strong>not</strong>.</p>
+
+<h2 id="the-mental-model-is-more-important-than-the-tool">The mental model is more important than the tool</h2>
+
+<p>When evaluating AI coding, people are spending a lot of time talking about “which tool” and “which model”.</p>
+
+<p>For all practical purposes the leading foundation models perform similarly and most of the tools use these foundation models in approximately similar ways. Different tool and model combinations eek out different advantages daily but mastery of a model tool combination is - excluding any as yet unannounced step changes - far more important than picking a model-tool combination.</p>
+
+<p>The mental model I’ve found to be most effective for AI coding is that each and every engineer is now pair programming with a new joiner.</p>
+
+<p>This new joiner is incredibly smart, knows the language and libraries almost perfectly and can <strong>ship code at approximately 50x the speed of a regular engineer</strong>. Importantly we’re not talking about typing speed here - very few programmers are constrained by how fast they can type - we’re talking about the time taking to move from an abstract idea of wanting to instruct a computer to do something, to having written, iterated on and debugged the code to make it do that thing.</p>
+
+<p>They are exceptionally good at following instructions, matching existing style and reasoning about complex pieces of existing code.</p>
+
+<p>They have never seen your codebase before and don’t know the business domain.</p>
+
+<p>When given new information, they assimilate it quickly, act on it rationally, and then <strong>forget it when they move onto the next task</strong>.</p>
+
+<p>Think Groundhog day meets the best engineer you’ve ever met.</p>
+
+<h2 id="everything-is-architecture--context-management">Everything is architecture &amp; context management</h2>
+
+<p>If you imagine working with this Groundhog day trapped new joiner, how would you get the most out of them?</p>
+
+<p>What they bring to the table is that they can conceptualise and write code 50x faster than you, rarely have to Google anything and do not need to sleep.</p>
+
+<p>What you - as an experienced engineer in that business with that codebase - bring to the table is that you know the codebase and the domain.</p>
+
+<p>So you are positioned to reason about the big picture in the way that they can’t.</p>
+
+<p>Specifically your job is:</p>
+
+<ol>
+  <li>Guide the new joiner towards which parts of the codebase are relevant and which aren’t for the current task (constrain context)</li>
+  <li>Think through the current task in the context of the wider system architecture, domain and future plans and constrain options accordingly</li>
+  <li>Provide all of the implicit context around the evolution of the codebase and business which is rarely - if ever - documented anywhere</li>
+  <li>Help the new joiner to understand where existing documentation is and create new documentation where appropriate (build re-usable context)</li>
+</ol>
+
+<p>This is already what most senior engineers are doing when working on code themselves, it’s just that currently there’s a fifth step; “write and ship code”.</p>
+
+<p>AI coding effectively reduces the time and cognitive load of that “write and ship code” step to zero or close to zero allowing for more iterations in a day.</p>
+
+<h2 id="some-tools-drive-the-mental-model-better-than-others">Some tools drive the mental model better than others</h2>
+
+<p>In particular tools like Cursor and Claude Code have tried to solve the “context discovery” problem as well as the shipping code problem. So they have tried to provide closer to the magic experience of “given a codebase, point me at it, tell me what you want to do and I’ll figure out the rest”.</p>
+
+<p>This works brilliantly for extremely small codebases with minimal business context and “history driven complexity” encoded into them (and does truly feel like magic when it works).</p>
+
+<p>But most of the complexity of developing good software in the medium term is accurate understanding &amp; communication of product objectives and managing the domain + business history driven complexity, not writing code.</p>
+
+<blockquote>
+  <p>“Order forms and order sheets are similar right?” Oh no you see actually in this business domain they’re completely unrelated concepts, so the <code class="language-plaintext highlighter-rouge">OrderForms</code> context and the <code class="language-plaintext highlighter-rouge">OrderSheets</code> contexts have nothing to do with each other. Except…</p>
+</blockquote>
+
+<p>How well would you expect a senior engineer to do if on day one you gave them access to a git repo, your company wiki and a big feature brief and said “see you in two weeks, don’t talk to anyone”?</p>
+
+<p>AI Coding tools broadly can’t currently really do things human engineers can’t do. They can just do some of the things human engineers can do MUCH faster.</p>
+
+<p>Because tools like Cursor and Claude code TRY to solve this context discovery problem, people tend to try and use it (because it would be cool if it worked right?).</p>
+
+<p>When it doesn’t work, it generates frustration - because learning new tools IS frustrating - and so people are disproportionately likely to give up.</p>
+
+<p>I <em>think</em> this has led to a lot of the the “AI Coding doesn’t work on large codebases” myths.</p>
+
+<p>Cursor is capable - and extremely good at - allowing the engineer to manage context themselves, it just doesn’t make that the path of least resistance.</p>
+
+<p>Tools which force you to manage context yourself (e.g. Aider) are therefore in my opinion much better for learning the mental model initially.</p>
+
+<h2 id="shipping-faster-shipping-more-shipping-betterer">Shipping faster? Shipping more? Shipping Better(er)?</h2>
+
+<p>AI coding will mean we build more and better software given the same amount of effort but I don’t think it’s clear yet the balance between:</p>
+
+<ol>
+  <li>Shipping the same things faster</li>
+  <li>Shipping the same things at higher quality</li>
+  <li>Shipping more complete things earlier</li>
+  <li>Shipping more different things</li>
+</ol>
+
+<p>So it’s hard to make blanket statements about efficiency. My early intuition is that it’s probably more about items 2-4 above than it is item 1.</p>
+
+<p>There’ll be some “shipping the same things faster” effect, e.g. maybe it on-average halves the time it currently takes to ship a given roadmap item.</p>
+
+<p>But some large proportion of shipping stuff is thinking and this is also where 90% of the value of a senior engineer sits.</p>
+
+<p>So if you spend two weeks mainly thinking and two weeks mainly building (obviously a gross over simplification), you save most of the two weeks building and the two weeks thinking remains largely intact.</p>
+
+<p>But while you were thinking you probably didn’t just think through the first iteration, you thought through some of the first ten iterations then scope hammered heavily to keep the building down to two weeks. You’d probably done enough thinking for ten weeks of building.</p>
+
+<p>As the building time approaches zero, you “might as well” include some of iterations two to four, so polish that might otherwise be delayed, sometimes indefinitely, will now be included in version ones.</p>
+
+<p>Similarly the cost (time investment) of refactoring, adding complex detailed test coverage etc is reduced dramatically which will tend to drive up code quality and product quality for the same or lower engineering investment.</p>
+
+<p>But there’s some danger that because it’s easy to talk about 3-5x productivity improvements - and I think those are achievable with just what’s available now - we equate that with “shipping 3-5x of what we currently ship”.</p>
+
+<p>And those two things are not the same.</p>
+
+<p>In practice we’ll create more (by some multiple) higher quality software.</p>
+
+<p>Some of that will be by creating what we already create faster, but probably the majority of it will be by creating more things that we otherwise wouldn’t have done or by creating higher quality versions of these things.</p>
+
+<h2 id="who-writes-code-and-code-as-a-communication-tool">Who writes code and code as a communication tool</h2>
+
+<p>One of the fundamental (THE fundamental?) challenges of building software businesses is communicating a cohesive vision of a large objective in such a way that many people can work on it in parallel so that it can be achieved far faster than any one person could do it alone.</p>
+
+<p>This is a problem shared across founders, product managers, engineers and solutions range from “talking to each other” to product requirements documents, clickable prototypes and a thousand other tools.</p>
+
+<p>As a technical founder who’s spent the last fifteen years building technology companies, probably my single greatest frustration is having spent hundreds of hours with customers and prospects and being able to see in my head the full outline of the next version of the thing we’re trying to create and knowing how woefully inadequate conversation and memo’s will be as tools to communicate this.</p>
+
+<p>AI Coding is especially efficient at the POC stage, so a POC which might have taken 3 months in the past may well be achievable in a week.</p>
+
+<p>This includes time spent iterating in realtime on a POC as “using” it helps your thinking to evolve.</p>
+
+<p>This makes code as a communication tool far more viable.</p>
+
+<p>So rather than weeks of meetings and memos, creating a POC - sometimes with the intention of throwing it away - will increasingly be the most efficient way for technical - and eventually product - leaders to communicate concepts.</p>
+
+<p>This probably means technical leaders become “more technical” insofar as they return to being more involved with code.</p>
+
+<h2 id="interlude-it-gets-more-speculative-from-here">Interlude; it gets more speculative from here</h2>
+
+<p>Up until here the majority of the points I’m making are just observations, e.g. what I believe the current state based on what currently exists and is happening. The remainder of this piece is more speculative.</p>
+
+<h2 id="pocs-as-the-new-communication-standard-generally">POC’s as the new communication standard generally</h2>
+
+<p>In the same way AI pair programmers make POC’s a far more viable communication tool for engineering leadership, UI based AI programming tools such as Windsurf, DataButton, Lovable etc make this type of POC accessible to none technical folks.</p>
+
+<p>So it will probably become standard that product managers create clickable prototypes in these tools first and iterate on them with designers and engineers and test these with customers, replacing the more traditional memo + designs type model.</p>
+
+<p>So far nobody (that I know of?) has successfully bridged the gap between these UI based tools and complex codebases (probably for the context reasons mentioned above) so there’s likely to remain separation in the tools used here until somebody makes progress on that.</p>
+
+<h2 id="codebases-will-have-to-adapt-not-the-other-way-around">Codebases will have to adapt, not the other way around</h2>
+
+<p>Realistically most companies - or at least startups - should expect that the amount of their new code which is written by AI will cross 50% in the next 6 months and 80% in the next 12 months. Any company not on this trajectory risks being left behind by competitors who do manage to adapt.</p>
+
+<p>So practically the primary user of the codebase becomes AI tooling with humans a secondary consumer.</p>
+
+<p>This means that in situations where there is a tension between something that makes the codebase better for humans and better for AI, we should choose the thing that makes it better for AI. So the trend will be as much about patterns in codebases developing to support the tooling as it will the other way around.</p>
+
+<p>The good news is that in the vast majority of cases, things that make codebases better for AI’s also make them better for humans so this conflict will be rare.</p>
+
+<p>But it may accelerate certain optimisations. E.g. a small team of REALLY good engineers can often paper over a lot of technical debt just by virtue of being incredibly good at reasoning about something which is becoming hard to reason about.</p>
+
+<p>The improved performance of AI once the technical debt is paid back, combined with it being faster to pay it back using AI, may make these types of projects viable sooner.</p>
+
+<p>A specific example of that is clear separation of concerns and enforced boundaries. Separation of concerns and enforced boundaries are to an extent just a formalised way of constraining context, and AI performs far better when context is constrained (as do people).</p>
+
+<p>So we may well see startups prioritising refactoring, technical debt payback and putting in strict rules about code boundaries earlier than they otherwise and historically would.</p>
+
+<h2 id="beware-intuition-over-data">Beware intuition over data</h2>
+
+<p>AI coding is so new and so different that it breaks most of the existing mental models for what’s possible.</p>
+
+<p>So if someone has spent less than 100-200 hours exclusively writing code by collaborating with an AI agent, most of their mental models of what will work and what won’t are simply wrong by virtue of lack of information.</p>
+
+<p>A disproportionate quantity of the objections about “why AI coding won’t work” come from people in the 0-10 hour range.</p>
+
+<p>So it’s worth building a culture of having people disclose their level of exposure early in conversations and discounting the “haven’t really tried it yet” groups views heavily. Of course do so compassionately, but don’t confuse fear based reactions with valid data.</p>
+
+<p>Counterintuitively the main reason to do this is so that you DO hear about the valid objections. There are plenty of things that genuinely don’t work well yet and understanding and discussing those limitations is an important part of adoption. But often they are lost in the noise of broadly incorrect objections from people without sufficient data.</p>
+
+<h2 id="push--pull-people-up-the-adoption-curve">Push &amp; Pull people up the adoption curve</h2>
+
+<p>In practice the job of every engineer has now changed.</p>
+
+<p>The part that was about writing code (and that <strong>IS</strong> only part of it) is now mainly about instructing AI tools to write code.</p>
+
+<p>I don’t think it’s realistic that there are many engineering jobs two years from now where the expectation is anything other than this e.g. that it’s possible to have those jobs without being an expert in instructing AI tools to write code.</p>
+
+<p>So assuming people want to continue to be software engineers - and I hope they do because coding with AI is SO MUCH more fun than coding without it - learning this skill isn’t really optional.</p>
+
+<p>Some people will naturally dive into this head first and enthusiastically, some will need a nudge, some will completely refuse.</p>
+
+<p>It’s important to create an environment where it’s easy for those who want to experiment to try things and share their experiences.</p>
+
+<p>Having clear policies (and budget) around which tools and which models helps a lot. As does encouraging people to explain their experiences, both good and bad to wider teams.</p>
+
+<p>For the people who need a nudge and those who completely refuse to engage, it’s important to be transparent about what’s at stake.</p>
+
+<p>In the same way most people will be fairly reluctant to hire an engineer who wants to build a typical webapp purely in C, people will soon be reluctant to hire engineers who don’t know how to leverage these tools. So there’s a definite risk of being left behind.</p>
+
+<h2 id="the-craft-lives-on">The craft lives on</h2>
+
+<p>Whenever there is a new abstraction invented for creating software people lament the end of writing software as a craft.</p>
+
+<p>As with every other iteration, it wasn’t true then and it isn’t true now.</p>
+
+<p>I’ve always written code for fun as well as for work. I write slightly different code for fun than for work and these days spend more of my time at work collaborating with other engineers than I do shipping code myself.</p>
+
+<p>But using AI tools to write code has made both worlds more fun.</p>
+
+<p>Moving from Basic to Delphi to PHP to Ruby to Elixir over the last 25 years has at each stage, allowed me to realise the visions for things I wanted to exist in the world more fully and often more quickly.</p>
+
+<p>AI coding is just one more step on this journey and I’ve never been more excited.</p>
+
+<p>Every engineer deserves to experience the moment when by collaborating with an AI, something that would have taken them a week, takes an hour.</p>
+
+<p>It’s genuinely the closest thing to magic I’ve felt in decades.</p>]]></content><author><name>Ben Dixon</name></author><summary type="html"><![CDATA[tldr; AI Coding (“vibe coding”) is real and it has fundamentally changed what it means to be a software engineer forever. The single thing that will define which businesses and which engineers are successful over the coming years is how quickly they are able to adapt to this. This post is a summary of the topics that are coming up again and again when discussing this with other engineers and engineering leaders.]]></summary></entry><entry><title type="html">Integrations are hard</title><link href="https://www.talkingquickly.co.uk/integrations" rel="alternate" type="text/html" title="Integrations are hard" /><published>2024-02-07T15:40:00+00:00</published><updated>2024-02-07T15:40:00+00:00</updated><id>https://www.talkingquickly.co.uk/integrations</id><content type="html" xml:base="https://www.talkingquickly.co.uk/integrations"><![CDATA[<p>Best in breed procurement, where many systems - the best in class for each system - are procured independently then integrated with one another has had a tricky decade.</p>
+
+<p>The underlying principle was good. Take lots of vendors who do just one thing really well and connect them to one another to form one fully integrated super system.</p>
+
+<p>But multiple studies suggest that 70-85% of the integration projects which are essential to make these systems work together fail to achieve their objectives.</p>
+
+<p>This post looks at what it’s necessary to consider to avoid these failures, especially in the workforce management space and breaks out specific things to explore when considering an integration project.</p>
+
+<!--more-->
+
+<h2 id="which-system-owns-which-data-source-of-truth">Which system owns which data (“source of truth”)?</h2>
+<p>If you’ve ever been part of a project where there was no central project tracking, instead everyone kept their own todo lists and then met periodically to talk about what had been done and what needed to be done then you’re probably experienced the source of truth problem.</p>
+
+<p>Different people have different ideas about the state of individual tasks, in-between alignment sessions several people may try and work on the same task or change the same document and it becomes incredibly difficult to work out what the true state of the project is at any given time.</p>
+
+<p>Integrations can suffer from the same problem. If there are two places where someone can book holiday and they have different data about one persons holiday bookings, which one is true?</p>
+
+<p>So one of the most fundamentals requirements for a successful integration strategy is being completely clear on which systems are the “source of truth” or owners of each piece or category of data.</p>
+
+<p>Only the source of truth system generally stores this data and is responsible for defining the interface by which other systems can alter and perform workflows against it.</p>
+
+<h2 id="which-system-owns-which-workflows">Which system owns which workflows?</h2>
+<p>In the same way data being in multiple places can cause problems, workflows spanning multiple systems or worse being duplicated across system can cause substantial problems.</p>
+
+<p>Imagine a system where people are asked to go to one place to build their roster and another to approve timesheets. To approve timesheets they need to open the roster in another system and manually compare timesheets to the roster.</p>
+
+<p>In this example it’s not impossible, but it is painful. If your goal is to get company wide engagement with a technology programme, it’s friction like this that will stop it from happening.</p>
+
+<p>If you take it one step further you can imagine a system where people are asked to put availability into one system, holiday into another and sickness into another.</p>
+
+<p>People being people, they will forget which system they need to go to for what, especially for workflows they don’t have to do very often.</p>
+
+<p>In the best case scenario here this drives up queries to internal support desks. In the worst case scenario it will drive down compliance and usage of the newly rolled out technology, directly preventing the technology programme from reaching and demonstrating it’s goals.</p>
+
+<p>A good rule of thumb is that somebody shouldn’t need to change systems part way through a workflow and generally shouldn’t need to overtly access multiple systems to complete a single task.</p>
+
+<h2 id="big-pieces-vs-small-pieces">Big pieces vs small pieces</h2>
+<p>It can be tempting to read the above and think “great, so we’ll just create a 1000 line spreadsheet of all our data and all our workflows and decide on the owner, job done”. I’ve seen this approach multiple times at an impressive level of detail!</p>
+
+<p>The problem with this is that data has dependencies. Yes it’s theoretically possible to store a users national insurance number and address in two separate systems. But in practice the unit of data you’ll most often want to work with is “user data”, not “national insurance numbers”. And changing address or national insurance number may mutually have implications for the payroll system.</p>
+
+<p>In general when defining sources for truth for both data and workflows, try and work with big pieces not small pieces.</p>
+
+<p>Another example is holiday &amp; sickness. It’s tempting to think of these as separate things which could sit in different systems. In practice sickness can impact holiday and vice versa so splitting them is generally a challenging process. It’s far better to think in terms of “absence” as an overall concept.</p>
+
+<h2 id="user-interface-vs-data-integrations">User Interface vs Data Integrations</h2>
+<p>So far we’ve primarily talked about data. About which systems own data and perform workflows against that data.</p>
+
+<p>Another type of integration is a user interface integration. Where you want to take an existing system and include the user interface of another system in it so that the user feels like they’re doing everything in one piece of software.</p>
+
+<p>An important thing to be aware of is that this is very hard to do at the level of “parts” of a screen.</p>
+
+<p>There are no standard or easy ways of modifying the user interface of a piece of software to include the user interface of another alongside it.</p>
+
+<p>If a piece of software already has a box where some information is displayed and you want the information in that box to come from another system, that’s fine, that’s a data integration, the box is already there.</p>
+
+<p>If you want to take the box from another piece of software, maybe including some buttons and “embed” it in the interface of another piece of software alongside their existing interface, expect this to be hard and expensive and for the results to feel somewhat clunky.</p>
+
+<p>The main exception to this is where vendors have a deep partnership with one another and so typically one vendor has actually replicated the UI of the other product in their own. This is expensive for the vendor to do and so is rarely done for any one customer, instead it is done when those vendors have some form of ongoing strategic partnership.</p>
+
+<p>There are two intermediate steps which are possible:</p>
+
+<ol>
+  <li>“Iframing”  Is a way to define a rectangular area of a webpage or web app and have another webpage or web app appear in that rectangular box. This can work as an approach where your goal is “I want someone to access a different system from within the first system without needing to change pages”. There’s no deep UI integration here, it just saves people going to a different page or screen.</li>
+  <li>Single Sign On allows you to have users click on a link to another piece of software and be automatically signed in rather than having to login manually. This can have an extremely positive impact on engagement as people drop off surprisingly heavily when asked to login. If all systems are white labelled this can lead to a near seamless experience if the goal is simply to make moving between systems easier.</li>
+</ol>
+
+<p>Importantly both iframeing and SSO can be good solutions, it’s just important to be clear what you’re getting when discussing a UI integration because there’s far more variability in what this could mean than there is for data integrations.</p>
+
+<p>It’s an unfortunate truth that deep UI integration between multiple systems remains a largely unsolved problem in software. It’s a technically hard problem and it’s not for lack of trying that it hasn’t been solved in the industry.</p>
+
+<h2 id="read-vs-write-one-way-vs-two-way">Read vs write, one way vs two way</h2>
+<p>A simple but important distinction is read vs write integrations.</p>
+
+<p>In a read integration, one system needs to get data from another system for storage or display. It has no need to ever change this data and push those changes back into the original system.</p>
+
+<p>It either needs to do this once (e.g. an Applicant Tracking  System integration) or repeatedly (e.g. when pulling daily forecasts in).</p>
+
+<p>This is typically simpler and less error prone than an integration that needs to pull data in, manipulate it and then push data back out again (write / two way).</p>
+
+<h2 id="data-warehouse-integrations">Data Warehouse Integrations</h2>
+<p>An important sub-category of integration are data warehouse integrations.</p>
+
+<p>A data warehouse is when an organisation has a single central location they collate all of their data, typically for the purposes of reporting and analytics.</p>
+
+<p>If an organisation has a data warehouse initiative, it’s common for it to be a requirement that all vendors can provide a way to get raw data out of the vendors system and into the</p>
+
+<p>Generally the onus is on the vendor to provide a standard method for accessing this data, typically via either direct access to a database or API.</p>
+
+<p>How this gets from this standard interface to the customer data warehouse generally sits with the customer.</p>
+
+<p>Typical options for this include:</p>
+
+<ol>
+  <li>Many vendors will build a further bridge between their standard interface and the customer data warehouse for a fee</li>
+  <li>Many data warehouse vendors offer some form of integration service</li>
+  <li>There are third parties which specialise entirely in building data warehouse connectors</li>
+  <li>There are third parties who maintain huge libraries of data warehouse connectors for common vendors</li>
+</ol>
+
+<p>It is a huge red flag if a vendor refuses to provide data warehouse access to customers.</p>
+<h2 id="push-vs-pull">Push vs Pull</h2>
+<p>Push vs pull is terminology that gets used to describe whether one vendor “pushes” data in or the other vendor “pulls” it out. It’s helpful as a short-hand when combined with read vs write above but it tends to mix a few different concepts:</p>
+
+<ol>
+  <li>Who builds &amp; owns the integration</li>
+  <li>Which company’s interfaces are used to build the integration</li>
+  <li>How is the data transfer actually triggered</li>
+</ol>
+
+<p>We’ll look at each of these individually.</p>
+<h2 id="who-builds-and-owns-the-integration">Who builds and owns the integration?</h2>
+<p>A typical integration will involve somebody writing some “glue” code to link the two systems together, the options for this are typically:</p>
+
+<ol>
+  <li>The vendors already have a “deep” integration which they commit to supporting. It’s worth asking more about this relationship as generally one vendor will have assumed responsibility for the technical work of maintaining the integration and so be your point of contact if something goes wrong</li>
+  <li>The integration is being built by one of the vendors specifically for this client. In this case it’s worth drilling into whether the other vendor has committed to providing the resources and technical functionality and being looped into this process as most integrations require mutual co-operation and commitment of resource.</li>
+  <li>The integration is being build by a third party company commissioned by the client. This gives the client more control but it’s essential to ensure costs and resource commitments from the vendors are agreed upfront because a third party building the integration does not mean no costs or resource requirements from the vendors.</li>
+  <li>The integration is being built in-house. If an organisation has the capability to do this, this is extremely powerful subject to the maintenance point below.</li>
+</ol>
+
+<p>In all of these situations it’s essential to be clear on where the responsibility for maintaining the integration over-time sits.</p>
+
+<p>As with any software initiative, more of the lifetime cost will sit in maintenance rather than implementation so understanding how this will work is as important as understanding how it will get built to begin with.</p>
+
+<h2 id="which-companys-interfaces-are-used-to-build-the-integration">Which company’s interfaces are used to build the integration?</h2>
+<p>Companies generally talk about having API’s - Application Programming Interfaces - which are tools for software systems to communicate with each other. There are broadly two core models for an integration:</p>
+
+<ol>
+  <li>One vendor uses the others API</li>
+  <li>The two vendors API’s are linked together with “glue” code</li>
+</ol>
+
+<p>Both are valid approaches, increasingly (2) is preferred because of the standardisation which this enables.</p>
+
+<p>It’s important before commencing a project to understand if the vendors have the required interfaces for the integration request and where they don’t, to have commitments to build these.</p>
+
+<h2 id="what-about-csvs">What about CSV’s</h2>
+<p>CSV’s are one of the oldest data transfer methods still in-use. A CSV is essentially a human readable text file of data. There can be some snobbery about CSV’s along the lines of “but it’s not an API”.</p>
+
+<p>CSV’s are incredibly powerful, it’s an integration method that is disproportionately well supported across many systems and fairly easy to automate and debug.</p>
+
+<p>So especially for simple one way integrations, CSV’s should not be overlooked or excluded on the basis that API’s are in some way “better”.</p>
+
+<h2 id="how-is-the-data-transfer-actually-triggered-technical">How is the data transfer actually triggered (technical)</h2>
+<p>There are three technical concepts which come up and cause confusion.</p>
+
+<ol>
+  <li><strong>API</strong>: This is the grouping for the endpoints and webhooks which make up a vendors interface for building integrations</li>
+  <li><strong>Endpoints</strong>: API Endpoints are web addresses that a third party can request data from or send data to</li>
+  <li><strong>Webhooks</strong>: These allow one system to “notify” another system when something happens instead of that system having to “ask”. Put the other way, this allows one system to “subscribe” to be told about changes from the other.</li>
+</ol>
+
+<p>A typical integration will use both endpoints and webhooks and a Webhook from Vendor 1 may be configured to “call” an “Endpoint” from Vendor 2. The distinction is not important from the perspective of agreeing an integration and this is only covered here because mis-use of this terminology drives a surprising amount of confusion.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+<p>In the end it’s up to software vendors to be both flexible and honest to facilitate successful integration programmes.</p>
+
+<p>Deep cross vendor UI integration is still a largely unsolved problem and so we should exercise skepticism when anyone claims to have solved it.</p>
+
+<p>Best of breed is by no means dead, but the pieces are going to be bigger and so the number of vendors smaller as we learn more and more about where it’s practical to draw integration boundaries and where it isn’t.</p>]]></content><author><name>Ben Dixon</name></author><category term="culture" /><summary type="html"><![CDATA[Best in breed procurement, where many systems - the best in class for each system - are procured independently then integrated with one another has had a tricky decade. The underlying principle was good. Take lots of vendors who do just one thing really well and connect them to one another to form one fully integrated super system. But multiple studies suggest that 70-85% of the integration projects which are essential to make these systems work together fail to achieve their objectives. This post looks at what it’s necessary to consider to avoid these failures, especially in the workforce management space and breaks out specific things to explore when considering an integration project.]]></summary></entry><entry><title type="html">Things which have been consistently true</title><link href="https://www.talkingquickly.co.uk/things-which-have-been-consistently-true" rel="alternate" type="text/html" title="Things which have been consistently true" /><published>2024-02-04T15:40:00+00:00</published><updated>2024-02-04T15:40:00+00:00</updated><id>https://www.talkingquickly.co.uk/things-that-have-been-consistently-true</id><content type="html" xml:base="https://www.talkingquickly.co.uk/things-which-have-been-consistently-true"><![CDATA[<p>After 15 years of building technology businesses, I’ve changed my views on a lot of things from how to build software to what a good culture looks like.</p>
+
+<p>A small subset of things have remained consistently true.</p>
+
+<p>All of these are “true” for me, as always when I write “you” I really mean me. Writing is hard.</p>
+
+<!--more-->
+
+<p>Here they are:</p>
+
+<ol>
+  <li>Sleep, Exercise and Diet pretty much trump everything else. For me I’d estimate the ratio is something like 50% sleep, 30% exercise, 20% diet but I’ve no reason to think that generalises. I firmly believe that when looking to improve output, culture, any number of things, ensuring a workforce is getting enough sleep would probably out-perform almost any other initiative</li>
+  <li><a href="/writing-is-thinking">Writing really is thinking</a>. I have close to zero examples of situations where someone taking their idea and then spending several hours writing it out in a structured long form way didn’t make it at least one order of magnitude better</li>
+  <li>Writing is thinking but talking is communicating. Humans were designed to talk to other humans face to face. Writing and talking serve different purposes and you can’t substitute one for the other. It’s frightening how quickly human relationships decay without some form of direct human to human communication with all the body language and tone of voice that goes with it. This is the main factor to manage when building remote</li>
+  <li>Generally <a href="/information-density-show-your-working">the return on consuming long form non-fiction content vastly outweighs short form non-fiction content</a> if your goal is to acquire knowledge or understanding</li>
+  <li>It’s possible to do vastly less than I estimate in 1 week and vastly more in 6 months. So planning the 6 month horizon is far higher leverage than doing another crazy 1 week sprint. This has been true across work, exercise, nutrition, relationships, learning and pretty much any other domain I can think of. Unfortunately the 1 week sprint feels much more exciting and resisting this pull is hard</li>
+  <li>All of the worst conversations I’ve had started with me going in with a strong opinion and telling everyone else about it. All of the best ones started with me asking other people lots of questions and follow up questions. 9 times our of 10 I’ll learn something that causes me to meaningfully re-evaluate the opinion I would have started with</li>
+  <li>Prioritising X over the people I love and care about is essentially always the wrong choice. In retrospect “the other thing” always turned out not to matter very much and I wished I’d prioritised the people I love. I don’t have a single example of this where on reflection I couldn’t have far better prioritised the people I love while still delivering fully on “the other thing” whether that was work, exercise, hobbies etc</li>
+  <li>People are basically good and well-intentioned. If I look back at nearly every situation where I attributed motivation to malice or some negative personality trait, I was pretty much always wrong. The negative thought processes that went with this not only added no value to the situation, they actively reduced my effectiveness and happiness</li>
+  <li>To paraphrase Sam Altman, it would have been worth being taking advantage of a few times while assuming the best in everyone just for the additional positivity and opportunity exposed by this mindset</li>
+  <li>A very useful heuristic when interpreting people’s opinions is to watch how certain they are. The more certain someone is, particularly in complex domains, the more suspicious you should be of their conclusions. People who are consistently extremely high certainty on a large range of topics are generally the least informed and least likely to be right. This is a great heuristic when evaluating investors.</li>
+  <li>Most of the biggest positive impact events in my life were the result of putting myself in situations where I’m exposed to a high degree of serendipity, generally either by meeting people or creating content, especially content which then goes out onto the internet</li>
+  <li>It’s amazing how many problems both in business and life in general could be avoided simply by giving and learning to receive feedback. It’s frightening how often I realise I’m unhappy with how someone has done something, I’d like them to do it differently and for some reason I haven’t explicitly told them that. Thanks for the Feedback and Radical Candor helped me a lot and I thoroughly recommend them. Once you start seeing this in yourself and others it’s hard to stop seeing it! I keep “turning up the dial” on how much feedback I give and finding it’s still possible and constructive to go further</li>
+  <li>The things and mistakes you’re most frustrated about in others are probably the things you’re most uncomfortable with about yourself. Be careful of this because it can skew decision making and communication across all parts of life</li>
+  <li>Compounding and compound effects are by far the hardest to internalise. This applies to money, technical architecture, team culture and numerous other things. It’s a great example of where it’s worth writing out longform and drawing systems diagrams can help you to identify huge blindspots</li>
+  <li>Delegation is incredibly hard to get right and probably the highest leverage skill that exists when building a business. It’s better to fail by over-delegating and pulling back than by under-delegating.</li>
+  <li>It’s incredibly easy to criticise other people’s ideas and to come up with reasons why somebody might be wrong, why a business idea might not work and how things could go awry. It’s far more interesting and valuable to be able to sit with those points while thinking through how it <em>could</em> work out and where there <em>might</em> be value. Almost all interesting step changes came from things which sounded unlikely or far fetched at the time. So the ability to sit with the challenges and explore the opportunity space is incredibly important. You’ll still generally conclude against an idea, but you’ll also get most of your returns for the ones which turn out to be important.</li>
+  <li>Negative comments on the internet invariably tell you more about the commentor than the subject they are commenting on</li>
+  <li>If in doubt, put on a podcast, go for a run and then think about it again.</li>
+  <li>If that doesn’t work go to bed, get a full nights sleep, and it will be better in the morning</li>
+</ol>
+
+<p>Further reading:</p>
+
+<ol>
+  <li>What I’d tell myself about startups if I could go back in-time</li>
+  <li>Short form vs Long Form Content</li>
+  <li>Writing is thinking</li>
+  <li>Thanks for the feedback</li>
+  <li>Radical Candor</li>
+  <li>Outlive &amp; Lifespan</li>
+  <li>Why we sleep</li>
+  <li>The hard thing about hard things</li>
+</ol>]]></content><author><name>Ben Dixon</name></author><category term="culture" /><summary type="html"><![CDATA[After 15 years of building technology businesses, I’ve changed my views on a lot of things from how to build software to what a good culture looks like. A small subset of things have remained consistently true. All of these are “true” for me, as always when I write “you” I really mean me. Writing is hard.]]></summary></entry><entry><title type="html">Information Density and why you should always show your working</title><link href="https://www.talkingquickly.co.uk/information-density-show-your-working" rel="alternate" type="text/html" title="Information Density and why you should always show your working" /><published>2024-01-30T00:00:00+00:00</published><updated>2024-01-30T00:00:00+00:00</updated><id>https://www.talkingquickly.co.uk/information-density</id><content type="html" xml:base="https://www.talkingquickly.co.uk/information-density-show-your-working"><![CDATA[<p>A fun thing about being alive now is how much knowledge and information is available in the form of books, blog posts, audio books, social media posts and YouTube videos to name just a few. But now more than ever there’s no way we can consume all of it and so on which content we choose to focus our time and attention has the potential to drive wildly different outcomes.</p>
+
+<p>In particular I believe an organisation that is driven heavily by short-form content loses it’s ability both to reason about novel situations and discuss decisions constructively, leading to a lower likelihood of success for that organisation.</p>
+
+<!--more-->
+
+<p>The crude heuristics that have consistently proved true with respect to non-fiction for me have been:</p>
+
+<p>Valuable from highest to least information dense:</p>
+
+<ol>
+  <li>Books, with the value in popular business books being disproportionately in the first 1/3rd</li>
+  <li>Podcasts of over 1 hour with ~2 hours being the sweet spot (On 1.5x that’s ~1.3 hours listening time)</li>
+  <li>High quality summaries of books (with a reading time of 15-45 minutes)</li>
+  <li>Blog posts with a reading time of &gt; 5 minutes</li>
+  <li>Current affairs magazines published weekly or monthly (with an average article reading time of &gt; 5 minutes per article)</li>
+</ol>
+
+<p>Close to zero information density e.g. rarely valuable if my objective is learning:</p>
+
+<ol>
+  <li>Any social media post (especially if it takes less than 5 minutes to read)</li>
+  <li>All daily news (newspapers, websites, TV, daily newsletters etc)</li>
+  <li>Most podcasts of less than 30 minutes</li>
+</ol>
+
+<p>Reading times are my own so YYMV</p>
+
+<p>These are crude heuristics. I’ve read some terrible books, come across some podcasts that pack an incredible amount into twenty minutes and read some truly insightful twitter threads.</p>
+
+<p>But on average, the vast majority of useful information I’ve learned in the last 15 years was from books, longer podcasts and longer blog posts. From the perspective purely of learning, I don’t think daily news or social media has ever - for me - created anything I would count as genuine knowledge.</p>
+
+<p>I think the common factor which drives the above categorisation may be the ability to convey “why” rather than “what”.</p>
+
+<p>The shorter the content, the less space is available for explaining why the author reached that conclusion rather than simply the conclusion they reached.</p>
+
+<p>Genuine knowledge allows us to take a novel situation and reason about it to reach a decision on how to act. To do this, at a minimum, we need to be able to compare the specifics of our situation to other situations we have learned about to see to what extent we believe they are similar.</p>
+
+<p>If we only learn the conclusion, we cannot effectively do that.</p>
+
+<p>This is why maths exams require you to show your working and attribute more marks to the working than the answer; most of the value lies in how you got to the answer, not in the answer itself.</p>
+
+<p>There are very few universal laws. Conservation of energy seems close and the speed of light also looks like a tough nut to crack.</p>
+
+<p>But outside of that, things are broadly complicated. And so saying “Always do X” is default unhelpful. You have to get to “In situation Y, you may want to do X if you objectives are A,B,C, this seems to be the case because…”.</p>
+
+<p>Short form content doesn’t lend itself to achieving this. Imagine two social media posts:</p>
+
+<blockquote>
+  <p>A trait of high performing organisations is that they always pay back their technical debt immediately</p>
+</blockquote>
+
+<p>and</p>
+
+<blockquote>
+  <p>Technical debt is an important lever but like all debt it must be managed carefully. There will be times when the right decision is to incur more technical debt and times where it should be paid back. One of the key drivers of this decision will be the extent to which technical debt is creating drag on engineering velocity. There will be some technical debt which it never makes sense to pay back and some which has to be paid back almost immediately.</p>
+</blockquote>
+
+<p>Neither are long form and neither does a particular good job of giving the reader a clear framework for evaluating technical debt and when to pay it back.</p>
+
+<p>The second post starts to hint at some of the factors that might make up a framework but is far less compelling to read.</p>
+
+<p>If I was going to screenshot a Linkedin post and share it, honestly I’d be tempted to choose the first one (despite not agreeing with it!). It feels sort of compelling to read despite being almost entirely devoid of useful information and probably wrong.</p>
+
+<p>As humans we like things that state simple conclusions without ambiguity because they give us a brief sensation that a complicated world is simple. That a single rule will absolve us of having to spend a lot of time understanding and making non-obvious decisions about something hard.</p>
+
+<p>The lure of making that 49%/51% decision that’s hanging over us a 99%/1% decision is powerful.</p>
+
+<p>The dark side of this when building a startup technology business is that the more “rules” are taken from low information density sources - e.g. the sources that don’t provide a framework for the why - the lower your organisations ability to reason about about novel situations from first principles becomes.</p>
+
+<p>This means increasingly a business can become made up of people who feel very strongly “always do X” and “never do Y” but cannot explain why or when these - often contradictory rules - may or may not apply.</p>
+
+<p>On top of this they may “believe” multiple things which in reality are applicable to different situations but because they lack the why they simply “believe” - without realising it - things which directly contradict each other, usually in proportion to how recently they were exposed to the rule or conclusion in question.</p>
+
+<p>One of the easiest ways to take a conversation into defensive territory is to ask sometime “why” or generally challenge them on a conclusion that they’ve stated publicly but sub consciously know they cannot explain the reasoning behind.</p>
+
+<p>So the more of a company’s operating principles end up being derived from short-form content, the less that organisation will be able to reason about novel situations it encounters and the more it’s ability to discuss decisions objectively and constructively without regressing to defensiveness will decay.</p>
+
+<p>This doesn’t mean organisations should discourage or become hostile to short form content. Just that they should encourage people to think of it as a jumping off point to learn more. They should also encourage respectful but firm ways of challenging anything that is presented as a rule but doesn’t show the working.</p>
+
+<p>To quote Richard Feynman:</p>
+
+<blockquote>
+  <p>“Hell, if I could explain it to the average person, it wouldn’t have been worth the Nobel prize.”</p>
+</blockquote>
+
+<p>Further reading:</p>
+
+<ol>
+  <li><a href="/writing-is-thinking">Writing is thinking</a></li>
+  <li><a href="https://www.amazon.co.uk/Digital-Minimalism-Living-Better-Technology-ebook/dp/B07D1G6DTF/ref=tmm_kin_swatch_0">Digital Minimalism</a></li>
+</ol>]]></content><author><name>Ben Dixon</name></author><category term="culture" /><summary type="html"><![CDATA[A fun thing about being alive now is how much knowledge and information is available in the form of books, blog posts, audio books, social media posts and YouTube videos to name just a few. But now more than ever there’s no way we can consume all of it and so on which content we choose to focus our time and attention has the potential to drive wildly different outcomes. In particular I believe an organisation that is driven heavily by short-form content loses it’s ability both to reason about novel situations and discuss decisions constructively, leading to a lower likelihood of success for that organisation.]]></summary></entry><entry><title type="html">Writing is thinking</title><link href="https://www.talkingquickly.co.uk/writing-is-thinking" rel="alternate" type="text/html" title="Writing is thinking" /><published>2023-04-11T15:40:00+00:00</published><updated>2023-04-11T15:40:00+00:00</updated><id>https://www.talkingquickly.co.uk/writing-is-thinking</id><content type="html" xml:base="https://www.talkingquickly.co.uk/writing-is-thinking"><![CDATA[<p>In the book “<a href="https://amzn.to/3MzNIgQ">High Output Management</a>,” author Andrew Grove writes:</p>
+
+<blockquote>
+  <p>“Reports are more a medium of self-discipline than a way to communicate information. Writing the report is important; reading it often is not.”</p>
+</blockquote>
+
+<p>Over the last ten years of building startups, this concept that the purpose of writing is often more to help the writer develop their thinking than it is to help others understand them has become increasingly central to the culture I aim to drive in an organisation.</p>
+
+<!--more-->
+
+<p>Andy Grove suggests that the process of writing forces us to clarify our thoughts and ideas, making them more concrete and actionable. This is because writing requires a level of specificity and organization that thinking or talking alone may not achieve.</p>
+
+<p>When we write, we are forced to articulate our ideas in a clear and logical way. We need to choose our words carefully and structure our sentences in a way that conveys our message effectively.</p>
+
+<p>In my experience the initial process of writing is often a fairly small proportion of the time invested. By my crude estimations, sub twenty five precent of the total time.</p>
+
+<p>Far more important and time consuming is the process of editing.</p>
+
+<p>Often the narrative or concept which seemed so clear when we sat down to write now has clear gaps, inconsistencies and new assumptions which require validation or explanation. Multiple passes through document resolve these as well as allowing us time to re-consider things like structure and order. It forces us to think through things like “what things will my audience need to believe and in what order”.</p>
+
+<p>By extension combining written documents with an “FAQ” type approach, where you spend time putting yourself in the shoes of your audience and thinking “what will they ask me” after reading this drive a much more rounded consideration of a problem space or idea.</p>
+
+<p>This highlights one of the benefits of building an organisational culture which leverages written documents more than it does meetings. Or at least which leverages written documents <em>before</em> it leverages meetings.</p>
+
+<p>In an organisation which starts with meetings, the raw material people have to work with is the unrefined narrative. Multiple peoples time will be spent just drawing out the gaps, inconsistencies and assumptions the majority of which would have been caught in a writing and editing process.</p>
+
+<p>Worse due to the natural ceiling on how long a productive meeting can be, in many scenarios once this initial work is completed, the meeting will be close to finishing, depriving the group the opportunity to discuss the “core” of the issue, or at least requiring another expensive meeting.</p>
+
+<p>This isn’t to de-value meetings, instead to highlight one of the reasons why a meeting will generally be far more valuable if someone has first spent substantial time writing and editing their thoughts.</p>]]></content><author><name>Ben Dixon</name></author><category term="culture" /><summary type="html"><![CDATA[In the book “High Output Management,” author Andrew Grove writes: “Reports are more a medium of self-discipline than a way to communicate information. Writing the report is important; reading it often is not.” Over the last ten years of building startups, this concept that the purpose of writing is often more to help the writer develop their thinking than it is to help others understand them has become increasingly central to the culture I aim to drive in an organisation.]]></summary></entry><entry><title type="html">Meetings vs Documents</title><link href="https://www.talkingquickly.co.uk/meetings-v-documents" rel="alternate" type="text/html" title="Meetings vs Documents" /><published>2023-01-12T15:40:00+00:00</published><updated>2023-01-12T15:40:00+00:00</updated><id>https://www.talkingquickly.co.uk/meetings-v-documents</id><content type="html" xml:base="https://www.talkingquickly.co.uk/meetings-v-documents"><![CDATA[<p>A common topic of discussion is whether meetings should be used for information distribution or only discussion.</p>
+
+<p>Probably the most famous example of a conclusion on this is the Amazon approach (documented in <a href="https://amzn.to/43pemPl">working backwards</a>) where all meetings begin with some form of document and 15 minutes silence for people to read followed by discussion.</p>
+
+<p>I’m a strong advocate of this approach but wanted to be better able to explain why I believe it’s applicable to most situations and what’s different about the small subset of exceptions.</p>
+
+<p>So I attempted to break down the factors which play into it and what I believe is different between the possible approaches.</p>
+
+<!--more-->
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Document</th>
+      <th>Meeting</th>
+      <th>Document + Meeting</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Organiser Prep Time</td>
+      <td>2 hours</td>
+      <td>15 mins</td>
+      <td>2 hours</td>
+    </tr>
+    <tr>
+      <td>Collaboration Time / person</td>
+      <td>15mins</td>
+      <td>45mins</td>
+      <td>1 hour</td>
+    </tr>
+    <tr>
+      <td>Comprehension</td>
+      <td>50%</td>
+      <td>20%</td>
+      <td>75%</td>
+    </tr>
+    <tr>
+      <td>Re usability</td>
+      <td>100%</td>
+      <td>0%</td>
+      <td>75%</td>
+    </tr>
+    <tr>
+      <td>Alignment + 1 hour</td>
+      <td>50%</td>
+      <td>75%</td>
+      <td>95%</td>
+    </tr>
+    <tr>
+      <td>Alignment + 1 day</td>
+      <td>50%</td>
+      <td>30%</td>
+      <td>95%</td>
+    </tr>
+    <tr>
+      <td>Alignment + 7 days</td>
+      <td>40%</td>
+      <td>20%</td>
+      <td>85%</td>
+    </tr>
+    <tr>
+      <td>Alignment + 1 Month</td>
+      <td>30%</td>
+      <td>5%</td>
+      <td>75%</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In this model I’ve suggested there are 3 main results we’re likely to be looking for:</p>
+
+<ol>
+  <li>Comprehension, e.g. at time of processing, how much of what was being communicated are participants likely to understand</li>
+  <li>Re-usability, e.g. to what extent are others able to re-use the effort expended to understand the same topic</li>
+  <li>Alignment, e.g. to what extent do the participants come away with the same understanding. This is separate to comprehension in that it includes clarifications and requests for additional information the organiser may not have immediately provided</li>
+</ol>
+
+<p>I’ve then suggested that alignment shouldn’t be thought of as binary and measured at the end of the meeting, it should be thought about as a curve which changes (decays) over time.</p>
+
+<p>So we’re not just asking “how well does this initially align people” we’re asking “to what extent is this a good way to achieve alignment over a given time period.”</p>
+
+<p>My observations if you believe in this model were:</p>
+
+<ol>
+  <li>If your only goal is comprehension, e.g. pure information sharing, meetings  on there own will always perform less well than either a document or a document + a discussion meeting</li>
+  <li>If alignment needs to persist over any period of time of more than a day, then a document or a document + discussion meeting will always tend to perform better</li>
+  <li>If alignment purely relates to actions being taken immediately, e.g. over a period of less than 1 day, then a meeting on its own will tend to perform better than a document on its own. A document + meeting will probably still outperform both but given the short time horizon it may make sense to avoid the preparation overhead</li>
+</ol>
+
+<p>So examples of where a meeting alone may be preferable to a document driven approach are things like stand ups, plan for the day and incident response type meetings where alignment is only need to persist at a high level for &lt; 24 hours.</p>
+
+<p>For anything other than this a document or a document + discussion meeting will probably perform better.</p>
+
+<p>This does not take into account the standalone benefits of “<a href="/writing-is-thinking">writing is thinking</a>” if you subscribe to that view (I do).</p>]]></content><author><name>Ben Dixon</name></author><category term="culture" /><summary type="html"><![CDATA[A common topic of discussion is whether meetings should be used for information distribution or only discussion. Probably the most famous example of a conclusion on this is the Amazon approach (documented in working backwards) where all meetings begin with some form of document and 15 minutes silence for people to read followed by discussion. I’m a strong advocate of this approach but wanted to be better able to explain why I believe it’s applicable to most situations and what’s different about the small subset of exceptions. So I attempted to break down the factors which play into it and what I believe is different between the possible approaches.]]></summary></entry></feed>

@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)">
+    
+    <title>Automated remote Debian development environment for VSCode with Ansible - talkingquickly</title>
+    
+    
+    <meta name="description" content="Blog by Ben Dixon, Co-founder of Sona, about startups, elixir, AI, climbing and photography">
+    
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/minimal.css">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml">
+    <link rel="canonical" href="https://www.talkingquickly.co.uk/2021/01/debian-dev-environment-for-remote-vscode/">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="layout-wrapper">
+        <header class="mobile-header">
+            <div class="mobile-header-top">
+                <a href="/" class="site-title">talkingquickly</a>
+                <a href="/about.html" class="mobile-about-link">About</a>
+            </div>
+            <p class="mobile-tagline">Co-founder & CTO at Sona. Writing about AI, startups, and engineering.</p>
+            <div class="mobile-social-links">
+                <a href="https://github.com/talkingquickly" target="_blank" title="GitHub">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                </a>
+                <a href="https://twitter.com/talkingquickly" target="_blank" title="Twitter">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                    </svg>
+                </a>
+                <a href="https://www.linkedin.com/in/talkingquickly/" target="_blank" title="LinkedIn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                </a>
+                <a href="https://bsky.app/profile/talkingquickly.bsky.social" target="_blank" title="Bluesky">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.206-.659-.298-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8Z"/>
+                    </svg>
+                </a>
+            </div>
+        </header>
+        
+        <aside class="sidebar">
+            <div class="sidebar-content">
+                <div class="sidebar-header">
+                    <a href="/" class="site-title">talkingquickly</a>
+                    <p class="sidebar-tagline">Co-founder & CTO at Sona. Writing about AI, startups, and engineering.</p>
+                </div>
+                
+                <nav class="nav-links">
+                    <a href="/about.html">About</a>
+                </nav>
+                
+                <div class="social-links">
+                    <a href="https://github.com/talkingquickly" target="_blank" title="GitHub">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                    <a href="https://twitter.com/talkingquickly" target="_blank" title="Twitter">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/talkingquickly/" target="_blank" title="LinkedIn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                    </a>
+                    <a href="https://bsky.app/profile/talkingquickly.co.uk" target="_blank" title="Bluesky">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.206-.659-.298-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8Z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </aside>
+        
+        <div class="main-container">
+            <main class="site-content">
+                <article class="post">
+    <header class="post-header">
+        <h1>Automated remote Debian development environment for VSCode with Ansible</h1>
+    </header>
+    
+    <div class="post-content">
+        <p>One of the things VSCode has done extremely well is creating a seamless remote development experience. Using the remote extension pack, specifically the SSH development extension, it’s possible to run VSCode locally, while performing all actions on a remote server completely seamlessly. This allows us to use a local VM for much faster docker development on macOS. It also means we are free to spin up powerful Cloud VM’s with many cores and plenty of RAM when we’re working on more intensive tasks.</p>
+
+<p>With this setup I seamlessly switch between fully local development using a Virtualbox VM and a 16 core cloud VM with 64GB of RAM when I need more horsepower. In both environments this provides the level of Docker performance I associate with developing directly on Linux machines.</p>
+
+<p>This is streamlined using an Ansible playbook which automatically sets up Debian VM’s with sensible defaults for development, including a beautiful default ZSH configuration (inc auto-completions) and easy language version management with asdf. This post starts with the practical steps required for this setup, and then goes on to explain what’s being installed and how it works.</p>
+
+<!--more-->
+
+<h2 id="set-up-a-virtualbox-vm">Set up a Virtualbox VM</h2>
+
+<p>If you’re using a cloud VM (e.g. GCP, AWS, Hetzner etc) then you can <a href="#cloud_vm">skip this section</a> and go straight to “Cloud VM” below.</p>
+
+<p>Create a VM, select “Linux” as the type and “Debian (64 bit)” as the version. The amount of RAM to allocate to the VM varies depending on your workload but as a guide, I rarely allocate less than 4GB and often go for 8GB or 16GB. As a very rough rule of thumb, allocate half of your RAM and available threads to the development VM. Create a new virtual disk, if you’re going to be working with Docker, allocate at least 100GB or so (Docker images add up quickly), choose VDI as the type of image and for optimal performance select “Fixed Size” when asked.</p>
+
+<p>Before you start the Virtualbox VM, go to its settings page, then the “System-&gt;Processor” tab and increase the number of processors to half the number of threads available. So on an 8 core, 16 thread Intel Macbook Pro, you would choose 8. This step is important and often missed, remote development on a VM with only 1 core is going to be neither fast nor fun!</p>
+
+<p>Next go to the “Network” tab, choose “Advanced”, then “Port Forwarding” and click the green “add” icon. In host port put <code class="language-plaintext highlighter-rouge">2222</code> and in guest port put <code class="language-plaintext highlighter-rouge">22</code> (ssh). This means that port 22 of the guest will now be available on port 2222 of the host (e.g. our local machine).</p>
+
+<p>Download the latest Debian 10 installation ISO from the <a href="https://www.debian.org">Debian website</a> and in “Settings / Storage” select the “Empty” slot under “Controller: IDE” and click the disc icon on the right, select “Choose a disc file” and then browse to the location of the downloaded Debian ISO and select it.</p>
+
+<p>Now start the VM where you’ll be greeted by the Debian installer (if the display is tiny, try adjusting the scale factor for the VM under its video settings). Select your language, location etc and when asked for a hostname, enter something descriptive, this will be displayed in the shell prompt so that you know when you’re working in the VM and when you’re working locally. When prompted for domain name, you can leave this blank. Make sure you remember - or better store in your password manager - the root and user account credentials you create.</p>
+
+<p>Select default options for disk partitioning and then “Yes” when asked if you want to write the changes to disk (don’t worry, you’re writing changes to the Virtualbox disk, not your boot drive!). Choose no when asked if you want scan another CD / DVD. Select the defaults when going through the steps to setup the package manager.</p>
+
+<p>When you reach the Software Selection screen, <strong>untick everything except for “SSH Server” which should be ticked</strong>.</p>
+
+<p>Select yes when asked if you want to install GRUB to the MBR and then in the next step choose <code class="language-plaintext highlighter-rouge">/dev/sda</code> instead of the manual option.</p>
+
+<p>Complete the installation, don’t worry about instructions for removing the CD, this will happen automatically. The machine will then boot to a login prompt.</p>
+
+<p>This step is optional but recommended; close the machine and when asked choose “Save the machine state”. Then in the Virtualbox main screen, choose your VM, right click on it and choose “Headless Start”. This has a couple of benefits, firstly it avoids extra windows cluttering up your desktop and secondly avoids a periodic issue with audio device conflicts.</p>
+
+<p>You should now be able to ssh into the newly created VM with <code class="language-plaintext highlighter-rouge">ssh USERNAME@localhost -p 2222</code> replacing username with the user account your created above.</p>
+
+<p>The final step is to enable SSH key based login with:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh-copy-id -p 2222 USERNAME@localhost
+</code></pre></div></div>
+
+<p>On MacOS if you don’t have <code class="language-plaintext highlighter-rouge">ssh-copy-id</code> installed then you can install it with; <code class="language-plaintext highlighter-rouge">brew install ssh-copy-id</code> or <code class="language-plaintext highlighter-rouge">sudo port install openssh +ssh-copy-id</code></p>
+
+<p><a id="cloud_vm"></a></p>
+
+<h2 id="cloud-vm">Cloud VM</h2>
+
+<p>You can skip this section if you’re using a local Virtualbox VM.</p>
+
+<p>If you’re using a Cloud VM, choose the latest Debian 10 (Buster) image that’s available. Ensure that you have key based SSH access to the newly created VM, this may be done as part of the creation process. If not (e.g. if you only have password access) then use <code class="language-plaintext highlighter-rouge">ssh-copy-id</code> to copy your public key to the remote machine:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh-copy-id USERNAME@SSH_HOST
+</code></pre></div></div>
+
+<p>On MacOS if you don’t have <code class="language-plaintext highlighter-rouge">ssh-copy-id</code> installed then you can install it with; <code class="language-plaintext highlighter-rouge">brew install ssh-copy-id</code> or <code class="language-plaintext highlighter-rouge">sudo port install openssh +ssh-copy-id</code></p>
+
+<h2 id="provisioning-the-machine">Provisioning the machine</h2>
+
+<p>Now that you have a suitable VM, we can use Ansible to install the tools needed for development.</p>
+
+<p>Begin by cloning <a href="https://github.com/TalkingQuickly/debian_dev_env">https://github.com/TalkingQuickly/debian_dev_env</a>.</p>
+
+<p>We then need to <a href="https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html">install Ansible</a> this is typically as simple as:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip3 <span class="nb">install </span>ansible
+</code></pre></div></div>
+
+<p>Then from within the repo we cloned above, we fetch some community roles from Ansible Galaxy:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ansible-galaxy <span class="nb">install</span> <span class="nt">-r</span> requirements.yml
+</code></pre></div></div>
+
+<p>We then need to create an “inventory” file. An inventory file is just Ansible terminology for a file that tells it about the hosts it is going to be setting up. Start by creating a copy of the example inventory file:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cp </span>inventory.example inventory.dev.yml
+</code></pre></div></div>
+
+<p>Which will create an inventory file <code class="language-plaintext highlighter-rouge">inventory.dev.yml</code> containing the following:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">all</span><span class="pi">:</span>
+  <span class="na">hosts</span><span class="pi">:</span>
+    <span class="s2">"</span><span class="s">SSH_HOST"</span><span class="err">:</span>
+      <span class="na">ansible_user</span><span class="pi">:</span> <span class="s">SSH_USERNAME</span>
+      <span class="na">main_user</span><span class="pi">:</span> <span class="s">DESIRED_LOGIN_USER</span>
+      <span class="na">ansible_ssh_port</span><span class="pi">:</span> <span class="s">SSH_PORT</span>
+      <span class="na">initial_become_method</span><span class="pi">:</span> <span class="s">su</span> <span class="c1"># this should be `su` if the SSH user does not, by default, have sudo access, otherwise (for most cloud providers) this should be `sudo`</span>
+</code></pre></div></div>
+
+<p>Replace <code class="language-plaintext highlighter-rouge">SSH_HOST</code> with the hostname or IP address of the VM. For local virtualbox, this will be “localhost”. Replace <code class="language-plaintext highlighter-rouge">SSH_USERNAME</code> with the user you use to connect via SSH, for virtualbox that’s the user you created in the installer, for cloud VM providers it varies, for AWS it’s often <code class="language-plaintext highlighter-rouge">ec2-user</code>, for GCP this will be your account username and for hetzner VM’s it’s generally root.</p>
+
+<p>Replace <code class="language-plaintext highlighter-rouge">DESIRED_LOGIN_USER</code> with the user who you’ll actually work as for development. If this user doesn’t exist, they will be created and SSH key based login using the public key at <code class="language-plaintext highlighter-rouge">~/.ssh/id_rsa.pub</code> enabled. In the local Virtualbox scenario, this will be the user you created in the Debian installer (so <code class="language-plaintext highlighter-rouge">SSH_USERNAME</code> and <code class="language-plaintext highlighter-rouge">DESIRED_LOGIN_USER</code> will be the same).</p>
+
+<p><code class="language-plaintext highlighter-rouge">initial_become_method</code> should be set to <code class="language-plaintext highlighter-rouge">su</code> if the SSH user does not initially have sudo access, and <code class="language-plaintext highlighter-rouge">sudo</code> otherwise. So for Virtualbox, this should be <code class="language-plaintext highlighter-rouge">su</code>, for GCP; <code class="language-plaintext highlighter-rouge">sudo</code>.</p>
+
+<p>Finally replace <code class="language-plaintext highlighter-rouge">SSH_PORT</code> with the port for connecting to SSH, in most cases this will be 22, except for the local Virtualbox scenario where it will be <code class="language-plaintext highlighter-rouge">2222</code> (the host port we selected at the start).</p>
+
+<p>We’re now ready to use Ansible to provision the machine:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ansible-playbook <span class="nt">-i</span> inventory.dev.yml main.yml <span class="nt">--ask-become-pass</span>
+</code></pre></div></div>
+
+<p>This will prompt you for a “BECOME password”, this is the password which will be used to get root access. If you set <code class="language-plaintext highlighter-rouge">initial_become_method</code> to <code class="language-plaintext highlighter-rouge">su</code> above, it should be the root password, otherwise it should be sudo password for <code class="language-plaintext highlighter-rouge">ansible_user</code>. In the case of Virtualbox, <code class="language-plaintext highlighter-rouge">initial_become_password</code> will be set to <code class="language-plaintext highlighter-rouge">su</code> so this should be the root password. For GCP this should be <code class="language-plaintext highlighter-rouge">sudo</code> and you can leave become pass blank, e.g. just press enter when prompted.</p>
+
+<p>If you get this error:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"Timeout (12s) waiting for privilege escalation prompt: 
+</code></pre></div></div>
+
+<p>Double check that you’ve set <code class="language-plaintext highlighter-rouge">initial_become_method</code> correctly above.</p>
+
+<h2 id="vscode-remote-development">VSCode Remote Development</h2>
+
+<p>Now that the VM is provisioned, we’re ready to use it for remote development. Let’s begin by enabling SSH Forwarding. This means that rather than having to copy our SSH keys to the new VM to allow us to do things like clone git repositories, we can allow the VM to “forward” to our local machine and use those keys to access things, without the keys ever leaving our remote machine, there’s more about how this works in my post on <a href="/2021/01/tmux-ssh-agent-forwarding-vs-code/">making ssh forwarding play nicely with tmux</a>.</p>
+
+<p>Add the following to <code class="language-plaintext highlighter-rouge">~/.ssh/config</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Host A_FRIENDLY_NAME_FOR_THE_HOST
+  ForwardAgent yes
+  HostName ADDRESS_OR_IP_ADDRESS
+  User SSH_USERNAME
+  Port THE_SSH_PORT
+</code></pre></div></div>
+
+<p>Replacing the placeholders with your own values. You can now SSH into the remote machine using <code class="language-plaintext highlighter-rouge">ssh A_FRIENDLY_NAME_FOR_THE_HOST</code>.</p>
+
+<p>More importantly if you fire up VSCode, making sure you have the <a href="https://code.visualstudio.com/docs/remote/remote-overview">Remote Development Extension Pack</a> installed, and navigate to the remote explorer tab, selecting “SSH targets” from the dropdown, you’ll now see <code class="language-plaintext highlighter-rouge">A_FRIENDLY_NAME_FOR_THE_HOST</code> listed!</p>
+
+<p>Right click on your host in this explorer and choose “Connect to host in current window” and you’re ready to go! Opening the vscode built in terminal will seamlessly bring up a terminal on the remote machine. Using commands like <code class="language-plaintext highlighter-rouge">code FILENAME</code> to open a file will open files from the remote machine in the current vscode instance. If you’re a tmux user see <a href="/2021/01/tmux-ssh-agent-forwarding-vs-code/">this post</a> for the extra steps this Ansible playbook takes to make SSH forwarding play nicely with tmux.</p>
+
+<p>Because we’ve setup SSH forwarding, we can use <code class="language-plaintext highlighter-rouge">git clone REPOSITORY</code> in this terminal to clone private repositories, and the public key on our local machine will be automatically used.</p>
+
+<p>Open folder allows folders on the remote machine to be opened in exactly the same way we usually open local folders and the file explorer will show the filesystem of the remote machine.</p>
+
+<p>If, having opened a project, we then start a server which can be access on a port, e.g. for Rails generally <code class="language-plaintext highlighter-rouge">3000</code>, we can go back to the “Remote Explorer”, select “Forward a Port” and then enter <code class="language-plaintext highlighter-rouge">3000</code> and port <code class="language-plaintext highlighter-rouge">3000</code> will be made securely available on our local machine. So we can then access that server in our local web browser by going to <code class="language-plaintext highlighter-rouge">localhost:3000</code>. Ports can also be forwarded without using the mouse by opening the command palette and searching for “Forward a port”.</p>
+
+<h2 id="faster-docker-development-on-macos">Faster docker development on macOS</h2>
+
+<p>The Docker for Mac team have done an incredible job at creating a smooth developer experience for Mac users.</p>
+
+<p>The area which is still most problematic is filesystem performance. This is less an issue with Docker and more an issue with shared folder performance with virtual machines generally being substantially slower than native filesystem access.</p>
+
+<p>This problem is most notable when working with large projects, especially projects with many large files. <a href="https://www.jeffgeerling.com/blog/2020/revisiting-docker-macs-performance-nfs-volumes">This post</a> provides an excellent summary of the key alternative approaches available for Docker for Mac and their performance characteristics. I tried all of these and Docker Sync (which is an amazing project in itself) yielded reasonable performance but with some admin complexity and reliability issues. It was mainly this quest for better docker performance on MacOS that led me to switch to the approach outlined in this post.</p>
+
+<p>When using VSCode to develop remotely (either locally via Virtualbox or remotely on a cloud VM), we are operating directly on the filesystem of a Linux host, so there’s no intermediate VM between our files and Docker. This means that there’s no meaningful performance penalty, so commands run in Docker have almost identical performance characteristics to commands run locally.</p>
+
+<p>For a large Rails project, this was the difference between a time to first render of 30 seconds with vanilla Docker for Mac, 10 seconds with docker sync and 3 seconds using a local VM.</p>
+
+<h2 id="what-are-we-setting-up">What are we setting up</h2>
+
+<p>For a detailed understand of what’s being installed and configured, see the next section (reading the ansible playbook). The core components we are installing and configuring:</p>
+
+<ol>
+  <li>Hardening, enabling UFW to block all incoming connections except for SSH</li>
+  <li>ZSH and OhMyZSH along with shell completions for docker, compose and Kubernetes tools</li>
+  <li>ASDF as a version manager for all languages (including but not limited to Ruby, Python, Node, Elixir and Erlang)</li>
+  <li>Docker and docker compose</li>
+  <li>Common utilities (GCP and AWS clis, <code class="language-plaintext highlighter-rouge">htop</code>, <code class="language-plaintext highlighter-rouge">tmux</code>, <code class="language-plaintext highlighter-rouge">git</code> etc)</li>
+  <li>Utilities for interacting with Kubernetes clusters; <code class="language-plaintext highlighter-rouge">kubectl</code>, <code class="language-plaintext highlighter-rouge">helm</code>, <code class="language-plaintext highlighter-rouge">kubectx</code> &amp; <code class="language-plaintext highlighter-rouge">kubens</code></li>
+</ol>
+
+<h2 id="reading-the-ansible-playbook">Reading the Ansible playbook</h2>
+
+<p>One of the great things about Ansible is that it has a very shallow learning curve, you can get a lot done in it without having to learn that much. The goal of this section is to provide the bare minimum needed to understand what’s happening and make simple tweaks. For a more comprehensive introduction, <a href="https://docs.ansible.com/ansible/latest/user_guide/intro_getting_started.html">start here</a>.</p>
+
+<p>Our command for running ansible is:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ansible-playbook -i inventory.dev.yml main.yml --ask-become-pass
+</code></pre></div></div>
+
+<p>This means “take the Ansible playbook defined in <code class="language-plaintext highlighter-rouge">main.yml</code> and apply it to the hosts defined in the inventory file <code class="language-plaintext highlighter-rouge">inventory.dev.yml</code>”.</p>
+
+<p>If we look at <code class="language-plaintext highlighter-rouge">main.yml</code>, we see something like:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># In a minimal Debian install, sudo won't be available, so we first</span>
+<span class="c1"># install that and make sure the user ansible connects to has access</span>
+<span class="c1"># to it</span>
+<span class="pi">-</span> <span class="na">hosts</span><span class="pi">:</span> <span class="s">all</span>
+  <span class="na">become</span><span class="pi">:</span> <span class="s">yes</span> 
+  <span class="na">become_method</span><span class="pi">:</span> <span class="s">su</span>
+  <span class="na">become_user</span><span class="pi">:</span> <span class="s">root</span>
+
+  <span class="na">pre_tasks</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">include_role</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">sudo</span>
+  
+
+<span class="c1"># Some tasks will fail if run directly as root (e.g. with `su` so once)</span>
+<span class="c1"># we have sudo installed above, we switch back to it before doing the</span>
+<span class="c1"># actual work</span>
+<span class="pi">-</span> <span class="na">hosts</span><span class="pi">:</span> <span class="s">all</span>
+  <span class="na">become</span><span class="pi">:</span> <span class="s">yes</span>
+  <span class="na">become_method</span><span class="pi">:</span> <span class="s">sudo</span>
+
+  <span class="na">roles</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">hardening</span>
+  <span class="pi">-</span> <span class="s">docker</span>
+  <span class="pi">-</span> <span class="s">general</span>
+  <span class="pi">-</span> <span class="s">dotfiles</span>
+  <span class="pi">-</span> <span class="s">asdf</span>
+  <span class="pi">-</span> <span class="s">phraseapp</span>
+  <span class="pi">-</span> <span class="s">kubernetes_tools</span>
+</code></pre></div></div>
+
+<p>There are two distinct sections here. The first is purely responsible for ensuring that <code class="language-plaintext highlighter-rouge">sudo</code> is installed and available (which it isn’t by default in a Debian install).</p>
+
+<p>The second section is where most of the work is done.</p>
+
+<p><code class="language-plaintext highlighter-rouge">hosts: all</code> means that what’s coming next should be run on all hosts in the inventory file, in our case there is only one.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">become</code> lines define how privileges should be escalated so that the Ansible user - who may not be root - is able to do things like installing software.</p>
+
+<p><code class="language-plaintext highlighter-rouge">roles</code> accepts an array of role names. For each one (<code class="language-plaintext highlighter-rouge">$ROLE_NAME</code>), it then loads and executes the tasks defined in <code class="language-plaintext highlighter-rouge">roles/$ROLE_NAME/tasks/main.yml</code>. So for each of these roles, we now know to find out what it’s doing we just need to look at the <code class="language-plaintext highlighter-rouge">main.yml</code> file in the relevant subdirectory.</p>
+
+<p>If we take <code class="language-plaintext highlighter-rouge">hardening</code> as an example, we see something like:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Update apt cache</span>
+  <span class="na">apt</span><span class="pi">:</span>
+    <span class="na">update_cache</span><span class="pi">:</span> <span class="s">yes</span>
+
+<span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Install packages</span>
+  <span class="na">package</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">ufw</span>
+
+<span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Allow rate limited connections to SSH</span>
+  <span class="na">community.general.ufw</span><span class="pi">:</span>
+    <span class="na">rule</span><span class="pi">:</span> <span class="s">limit</span>
+    <span class="na">port</span><span class="pi">:</span> <span class="s">ssh</span>
+    <span class="na">proto</span><span class="pi">:</span> <span class="s">tcp</span>
+
+<span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Deny everything else and enable UFW</span>
+  <span class="na">community.general.ufw</span><span class="pi">:</span>
+    <span class="na">state</span><span class="pi">:</span> <span class="s">enabled</span>
+    <span class="na">policy</span><span class="pi">:</span> <span class="s">deny</span>
+</code></pre></div></div>
+
+<p>Which should be fairly self explanatory. For more information about what each task is doing, the Ansible documentation is excellent. So for example Googling “Ansible apt” gives <a href="https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_module.html">this</a> as it’s first result which - as with all of their documentation - includes a large selection of easy to follow examples at the end.</p>
+
+<p>In our original setup, we executed this command:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ansible-galaxy install -r requirements.yml
+</code></pre></div></div>
+
+<p>In <code class="language-plaintext highlighter-rouge">requirements.yml</code> we describe any third party Ansible modules that we want to use. In this case it’s a very short list:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">collections</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">community.general</span>
+</code></pre></div></div>
+
+<p>We can then see a module from <code class="language-plaintext highlighter-rouge">community.general</code> being used in the above hardening example:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Allow rate limited connections to SSH</span>
+  <span class="na">community.general.ufw</span><span class="pi">:</span>
+    <span class="na">rule</span><span class="pi">:</span> <span class="s">limit</span>
+    <span class="na">port</span><span class="pi">:</span> <span class="s">ssh</span>
+    <span class="na">proto</span><span class="pi">:</span> <span class="s">tcp</span>
+</code></pre></div></div>
+
+<p>Googling “community.general.ufw” gives us <a href="https://docs.ansible.com/ansible/latest/collections/community/general/ufw_module.html">this</a> page of documentation which includes comprehensive examples.</p>
+
+<h2 id="thats-all-folks">That’s all folks</h2>
+
+<p>Being able to quickly provision standardised linux development environments both locally and remotely has been a big boost to productivity and finally provided the best of both worlds in the Mac v Linux journey I’ve been flipflopping between for many years.</p>
+
+    </div>
+    
+    
+        <!-- If we want to display author's name and bio -->
+
+<section class="author">
+  <header> <a href="/about.html"> <img class="profile" src="/assets/images/profile4.jpg" alt="Ben Dixon. Without
+      Aviators."></a></header>
+  <article>
+    <!-- Author Name -->
+    <h4> Ben Dixon </h4>
+    <!-- Author Bio -->
+    <p>
+      My name's Ben Dixon, I'm the co-founder of <a target="_blank"
+        href="https://www.getsona.com?utm_source=benblogabout">Sona</a> where we're building the operating system for
+      the worlds deskless workforce.
+      I'm an experienced CTO, LLM geek, lover of good coffee and above all, making things.
+      Also a regular conference speaker, author and travel
+      addict. Chat to me on twitter <a href="http://www.twitter.com/talkingquickly" target="_blank">@talkingquickly</a>
+    </p>
+  </article>
+</section>
+
+    
+    
+    
+    
+    
+</article>
+            </main>
+            
+            <footer class="site-footer">
+                <p>&copy; 2025 <a href="/about.html">Ben Dixon</a> · 
+                <a href="https://twitter.com/talkingquickly" target="_blank">Twitter</a> · 
+                <a href="https://www.linkedin.com/in/talkingquickly/" target="_blank">LinkedIn</a> · 
+                <a href="mailto:ben@talkingquickly.co.uk">Email</a> · 
+                <a href="/rss.xml">RSS</a></p>
+            </footer>
+        </div>
+    </div>
+    
+    <!-- Simple Analytics -->
+    <script>
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-7333902-35']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+</body>
+</html>
