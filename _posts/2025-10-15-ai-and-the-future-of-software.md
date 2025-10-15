@@ -14,6 +14,7 @@ My rough beliefs as of September 2025 are:
 
 - LLM's represent a fundamental shift in technology (e.g. long term this isn't all hype)
 - A medium term impact is that the market for software gets much bigger because software can now do things currently being done by people (see [Sequoia video](https://www.sequoiacap.com/article/10t-ai-revolution/) or [A16Z podcast](https://open.spotify.com/episode/4QCjZlEzijkVWEQY8L4sIL?si=07e7059da5674c1a))
+- The other facet of this is that a large number of software businesses that were already possible but not viable on a CAC:LTV basis before are now viable 
 - Long term impacts are probably much bigger and incredibly hard to reason about
 - Everything only really got started in March of this year (2025) with models like Opus, everything before that was practice, so we haven't really seen "real" AI products in the wild yet outside of developer tooling
 - The "super fast to $100m ARR with 1 person" thing is a distraction, over time they will get more competition and so have to invest in sales, marketing and more fundamental product areas so burn multiples and fundamentals generally will return to the levels we expect
