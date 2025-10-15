@@ -1,4 +1,26 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="https://www.talkingquickly.co.uk/rss.xml" rel="self" type="application/atom+xml" /><link href="https://www.talkingquickly.co.uk/" rel="alternate" type="text/html" /><updated>2025-08-26T19:27:16+00:00</updated><id>https://www.talkingquickly.co.uk/rss.xml</id><title type="html">talkingquickly</title><subtitle>Ben Dixon, Co-founder of Sona. Writing about AI, Startups, Elixir and Small Steps Taken Quickly.</subtitle><author><name>Ben Dixon</name></author><entry><title type="html">Some unreasonable things I believe about large language models</title><link href="https://www.talkingquickly.co.uk/unreasonable-things-i-believe-about-llms/" rel="alternate" type="text/html" title="Some unreasonable things I believe about large language models" /><published>2025-08-26T00:00:00+00:00</published><updated>2025-08-26T00:00:00+00:00</updated><id>https://www.talkingquickly.co.uk/unreasonable-things-i-believe-about-llms</id><content type="html" xml:base="https://www.talkingquickly.co.uk/unreasonable-things-i-believe-about-llms/"><![CDATA[<p>The more I work with large language models, the more blown away I am by how fundamentally I think they’re going to change everything about how we build software.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="https://www.talkingquickly.co.uk/rss.xml" rel="self" type="application/atom+xml" /><link href="https://www.talkingquickly.co.uk/" rel="alternate" type="text/html" /><updated>2025-10-15T07:58:46+00:00</updated><id>https://www.talkingquickly.co.uk/rss.xml</id><title type="html">talkingquickly</title><subtitle>Ben Dixon, Co-founder of Sona. Writing about AI, Startups, Elixir and Small Steps Taken Quickly.</subtitle><author><name>Ben Dixon</name></author><entry><title type="html">AI and the Future of Software: Thoughts on LLMs and What’s Next</title><link href="https://www.talkingquickly.co.uk/ai-and-the-future-of-software/" rel="alternate" type="text/html" title="AI and the Future of Software: Thoughts on LLMs and What’s Next" /><published>2025-10-15T00:00:00+00:00</published><updated>2025-10-15T00:00:00+00:00</updated><id>https://www.talkingquickly.co.uk/ai-and-the-future-of-software</id><content type="html" xml:base="https://www.talkingquickly.co.uk/ai-and-the-future-of-software/"><![CDATA[<p>There’s lots of talk about a bubble vs not but unless you happen to be fundraising right now, it’s probably one of the less important questions in startups and AI.</p>
+
+<p>This is in addition to <a href="/unreasonable-things-i-believe-about-llms/">unreasonable things I believe about large language models</a>.</p>
+
+<p>My rough beliefs as of September 2025 are:</p>
+
+<ul>
+  <li>LLM’s represent a fundamental shift in technology (e.g. long term this isn’t all hype)</li>
+  <li>A medium term impact is that the market for software gets much bigger because software can now do things currently being done by people (see <a href="https://www.sequoiacap.com/article/10t-ai-revolution/">Sequoia video</a> or <a href="https://open.spotify.com/episode/4QCjZlEzijkVWEQY8L4sIL?si=07e7059da5674c1a">A16Z podcast</a>)</li>
+  <li>The other facet of this is that a large number of software businesses that were already possible but not viable on a CAC:LTV basis before are now viable</li>
+  <li>Long term impacts are probably much bigger and incredibly hard to reason about</li>
+  <li>Everything only really got started in March of this year (2025) with models like Opus, everything before that was practice, so we haven’t really seen “real” AI products in the wild yet outside of developer tooling</li>
+  <li>The “super fast to $100m ARR with 1 person” thing is a distraction, over time they will get more competition and so have to invest in sales, marketing and more fundamental product areas so burn multiples and fundamentals generally will return to the levels we expect</li>
+  <li>Of course there’s a bubble, it’s a blip in the long term but still a large amount of capital will be lost where there have been high valuations for fairly simple AI wrappers. It’s not that they’re bad products, it’s just that there’s a big economic difference between “it’s fast if you’re the first to do something useful and there’s nobody else in the market” and “there’s a persistent first mover advantage once there are competitors in the market”</li>
+  <li>The next wave is how to actually apply this in the Enterprise to generate a real ROI, we’ve barely seen any of this yet. This is taking fundamental systems of record and core workflow systems and imagining them completely</li>
+  <li>Chat and voice will be an unreasonably large point of this, the death of chat as a UI is not just over-stated, it’s wrong</li>
+  <li>One of the next big frontiers will be the availability of training data, e.g. in robotics there’s a lack of structured training data for “doing basic tasks” and even in Enterprise workflows there’s a lack of structured training data on “what does doing x workflow well look like”. So finding ways to create or access this will be as or more impactful as improvements in foundation models. Companies that have proprietary data of this kind will have an unfair advantage</li>
+  <li>Over the next 12 months attention will shift from huge foundation models to fine tunes of smaller models</li>
+  <li>There’s a huge amount of innovation coming down the pipe in terms of model size and inference efficiency</li>
+  <li>Foundation models are in a precarious position given the trajectory of open models. There’s a risk of a “Docker” type situation here where un-intuitively the technology turns out to be too foundational for it to be provided by a company. For this to be true there would have to be a meaningful shift in the economics of training models or a plateau in performance that leads to all focus being on fine tuning</li>
+</ul>
+
+<p>For me that all adds up to “we’ve barely scratched the surface of what LLM’s can do and how much better they can make the world”.</p>]]></content><author><name>Ben Dixon</name></author><summary type="html"><![CDATA[There’s lots of talk about a bubble vs not but unless you happen to be fundraising right now, it’s probably one of the less important questions in startups and AI. This is in addition to unreasonable things I believe about large language models. My rough beliefs as of September 2025 are: LLM’s represent a fundamental shift in technology (e.g. long term this isn’t all hype) A medium term impact is that the market for software gets much bigger because software can now do things currently being done by people (see Sequoia video or A16Z podcast) The other facet of this is that a large number of software businesses that were already possible but not viable on a CAC:LTV basis before are now viable Long term impacts are probably much bigger and incredibly hard to reason about Everything only really got started in March of this year (2025) with models like Opus, everything before that was practice, so we haven’t really seen “real” AI products in the wild yet outside of developer tooling The “super fast to $100m ARR with 1 person” thing is a distraction, over time they will get more competition and so have to invest in sales, marketing and more fundamental product areas so burn multiples and fundamentals generally will return to the levels we expect Of course there’s a bubble, it’s a blip in the long term but still a large amount of capital will be lost where there have been high valuations for fairly simple AI wrappers. It’s not that they’re bad products, it’s just that there’s a big economic difference between “it’s fast if you’re the first to do something useful and there’s nobody else in the market” and “there’s a persistent first mover advantage once there are competitors in the market” The next wave is how to actually apply this in the Enterprise to generate a real ROI, we’ve barely seen any of this yet. This is taking fundamental systems of record and core workflow systems and imagining them completely Chat and voice will be an unreasonably large point of this, the death of chat as a UI is not just over-stated, it’s wrong One of the next big frontiers will be the availability of training data, e.g. in robotics there’s a lack of structured training data for “doing basic tasks” and even in Enterprise workflows there’s a lack of structured training data on “what does doing x workflow well look like”. So finding ways to create or access this will be as or more impactful as improvements in foundation models. Companies that have proprietary data of this kind will have an unfair advantage Over the next 12 months attention will shift from huge foundation models to fine tunes of smaller models There’s a huge amount of innovation coming down the pipe in terms of model size and inference efficiency Foundation models are in a precarious position given the trajectory of open models. There’s a risk of a “Docker” type situation here where un-intuitively the technology turns out to be too foundational for it to be provided by a company. For this to be true there would have to be a meaningful shift in the economics of training models or a plateau in performance that leads to all focus being on fine tuning For me that all adds up to “we’ve barely scratched the surface of what LLM’s can do and how much better they can make the world”.]]></summary></entry><entry><title type="html">Some unreasonable things I believe about large language models</title><link href="https://www.talkingquickly.co.uk/unreasonable-things-i-believe-about-llms/" rel="alternate" type="text/html" title="Some unreasonable things I believe about large language models" /><published>2025-08-26T00:00:00+00:00</published><updated>2025-08-26T00:00:00+00:00</updated><id>https://www.talkingquickly.co.uk/unreasonable-things-i-believe-about-llms</id><content type="html" xml:base="https://www.talkingquickly.co.uk/unreasonable-things-i-believe-about-llms/"><![CDATA[<p>The more I work with large language models, the more blown away I am by how fundamentally I think they’re going to change everything about how we build software.</p>
 
 <p>Belief and intuition are words engineering and science often object to.</p>
 
@@ -676,95 +698,4 @@
   <li>Outlive &amp; Lifespan</li>
   <li>Why we sleep</li>
   <li>The hard thing about hard things</li>
-</ol>]]></content><author><name>Ben Dixon</name></author><category term="culture" /><summary type="html"><![CDATA[After 15 years of building technology businesses, I’ve changed my views on a lot of things from how to build software to what a good culture looks like. A small subset of things have remained consistently true. All of these are “true” for me, as always when I write “you” I really mean me. Writing is hard.]]></summary></entry><entry><title type="html">Information Density and why you should always show your working</title><link href="https://www.talkingquickly.co.uk/information-density-show-your-working" rel="alternate" type="text/html" title="Information Density and why you should always show your working" /><published>2024-01-30T00:00:00+00:00</published><updated>2024-01-30T00:00:00+00:00</updated><id>https://www.talkingquickly.co.uk/information-density</id><content type="html" xml:base="https://www.talkingquickly.co.uk/information-density-show-your-working"><![CDATA[<p>A fun thing about being alive now is how much knowledge and information is available in the form of books, blog posts, audio books, social media posts and YouTube videos to name just a few. But now more than ever there’s no way we can consume all of it and so on which content we choose to focus our time and attention has the potential to drive wildly different outcomes.</p>
-
-<p>In particular I believe an organisation that is driven heavily by short-form content loses it’s ability both to reason about novel situations and discuss decisions constructively, leading to a lower likelihood of success for that organisation.</p>
-
-<!--more-->
-
-<p>The crude heuristics that have consistently proved true with respect to non-fiction for me have been:</p>
-
-<p>Valuable from highest to least information dense:</p>
-
-<ol>
-  <li>Books, with the value in popular business books being disproportionately in the first 1/3rd</li>
-  <li>Podcasts of over 1 hour with ~2 hours being the sweet spot (On 1.5x that’s ~1.3 hours listening time)</li>
-  <li>High quality summaries of books (with a reading time of 15-45 minutes)</li>
-  <li>Blog posts with a reading time of &gt; 5 minutes</li>
-  <li>Current affairs magazines published weekly or monthly (with an average article reading time of &gt; 5 minutes per article)</li>
-</ol>
-
-<p>Close to zero information density e.g. rarely valuable if my objective is learning:</p>
-
-<ol>
-  <li>Any social media post (especially if it takes less than 5 minutes to read)</li>
-  <li>All daily news (newspapers, websites, TV, daily newsletters etc)</li>
-  <li>Most podcasts of less than 30 minutes</li>
-</ol>
-
-<p>Reading times are my own so YYMV</p>
-
-<p>These are crude heuristics. I’ve read some terrible books, come across some podcasts that pack an incredible amount into twenty minutes and read some truly insightful twitter threads.</p>
-
-<p>But on average, the vast majority of useful information I’ve learned in the last 15 years was from books, longer podcasts and longer blog posts. From the perspective purely of learning, I don’t think daily news or social media has ever - for me - created anything I would count as genuine knowledge.</p>
-
-<p>I think the common factor which drives the above categorisation may be the ability to convey “why” rather than “what”.</p>
-
-<p>The shorter the content, the less space is available for explaining why the author reached that conclusion rather than simply the conclusion they reached.</p>
-
-<p>Genuine knowledge allows us to take a novel situation and reason about it to reach a decision on how to act. To do this, at a minimum, we need to be able to compare the specifics of our situation to other situations we have learned about to see to what extent we believe they are similar.</p>
-
-<p>If we only learn the conclusion, we cannot effectively do that.</p>
-
-<p>This is why maths exams require you to show your working and attribute more marks to the working than the answer; most of the value lies in how you got to the answer, not in the answer itself.</p>
-
-<p>There are very few universal laws. Conservation of energy seems close and the speed of light also looks like a tough nut to crack.</p>
-
-<p>But outside of that, things are broadly complicated. And so saying “Always do X” is default unhelpful. You have to get to “In situation Y, you may want to do X if you objectives are A,B,C, this seems to be the case because…”.</p>
-
-<p>Short form content doesn’t lend itself to achieving this. Imagine two social media posts:</p>
-
-<blockquote>
-  <p>A trait of high performing organisations is that they always pay back their technical debt immediately</p>
-</blockquote>
-
-<p>and</p>
-
-<blockquote>
-  <p>Technical debt is an important lever but like all debt it must be managed carefully. There will be times when the right decision is to incur more technical debt and times where it should be paid back. One of the key drivers of this decision will be the extent to which technical debt is creating drag on engineering velocity. There will be some technical debt which it never makes sense to pay back and some which has to be paid back almost immediately.</p>
-</blockquote>
-
-<p>Neither are long form and neither does a particular good job of giving the reader a clear framework for evaluating technical debt and when to pay it back.</p>
-
-<p>The second post starts to hint at some of the factors that might make up a framework but is far less compelling to read.</p>
-
-<p>If I was going to screenshot a Linkedin post and share it, honestly I’d be tempted to choose the first one (despite not agreeing with it!). It feels sort of compelling to read despite being almost entirely devoid of useful information and probably wrong.</p>
-
-<p>As humans we like things that state simple conclusions without ambiguity because they give us a brief sensation that a complicated world is simple. That a single rule will absolve us of having to spend a lot of time understanding and making non-obvious decisions about something hard.</p>
-
-<p>The lure of making that 49%/51% decision that’s hanging over us a 99%/1% decision is powerful.</p>
-
-<p>The dark side of this when building a startup technology business is that the more “rules” are taken from low information density sources - e.g. the sources that don’t provide a framework for the why - the lower your organisations ability to reason about about novel situations from first principles becomes.</p>
-
-<p>This means increasingly a business can become made up of people who feel very strongly “always do X” and “never do Y” but cannot explain why or when these - often contradictory rules - may or may not apply.</p>
-
-<p>On top of this they may “believe” multiple things which in reality are applicable to different situations but because they lack the why they simply “believe” - without realising it - things which directly contradict each other, usually in proportion to how recently they were exposed to the rule or conclusion in question.</p>
-
-<p>One of the easiest ways to take a conversation into defensive territory is to ask sometime “why” or generally challenge them on a conclusion that they’ve stated publicly but sub consciously know they cannot explain the reasoning behind.</p>
-
-<p>So the more of a company’s operating principles end up being derived from short-form content, the less that organisation will be able to reason about novel situations it encounters and the more it’s ability to discuss decisions objectively and constructively without regressing to defensiveness will decay.</p>
-
-<p>This doesn’t mean organisations should discourage or become hostile to short form content. Just that they should encourage people to think of it as a jumping off point to learn more. They should also encourage respectful but firm ways of challenging anything that is presented as a rule but doesn’t show the working.</p>
-
-<p>To quote Richard Feynman:</p>
-
-<blockquote>
-  <p>“Hell, if I could explain it to the average person, it wouldn’t have been worth the Nobel prize.”</p>
-</blockquote>
-
-<p>Further reading:</p>
-
-<ol>
-  <li><a href="/writing-is-thinking">Writing is thinking</a></li>
-  <li><a href="https://www.amazon.co.uk/Digital-Minimalism-Living-Better-Technology-ebook/dp/B07D1G6DTF/ref=tmm_kin_swatch_0">Digital Minimalism</a></li>
-</ol>]]></content><author><name>Ben Dixon</name></author><category term="culture" /><summary type="html"><![CDATA[A fun thing about being alive now is how much knowledge and information is available in the form of books, blog posts, audio books, social media posts and YouTube videos to name just a few. But now more than ever there’s no way we can consume all of it and so on which content we choose to focus our time and attention has the potential to drive wildly different outcomes. In particular I believe an organisation that is driven heavily by short-form content loses it’s ability both to reason about novel situations and discuss decisions constructively, leading to a lower likelihood of success for that organisation.]]></summary></entry></feed>
+</ol>]]></content><author><name>Ben Dixon</name></author><category term="culture" /><summary type="html"><![CDATA[After 15 years of building technology businesses, I’ve changed my views on a lot of things from how to build software to what a good culture looks like. A small subset of things have remained consistently true. All of these are “true” for me, as always when I write “you” I really mean me. Writing is hard.]]></summary></entry></feed>
