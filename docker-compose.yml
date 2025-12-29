@@ -5,7 +5,7 @@ services:
     volumes:
       - .:/home/deploy/app:delegated
     ports:
-      - "4000:4000"
+      - "4912:4000"
 
   clean:
     build: .

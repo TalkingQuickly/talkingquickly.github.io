@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Exit on error
+set -e
+
+# Colors for output
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+
+# Check if filename was provided
+if [ -z "$1" ]; then
+    echo -e "${RED}Usage: bin/new <filename>${NC}"
+    echo "Creates a new markdown file in _inbox/ and opens it in nvim"
+    exit 1
+fi
+
+# Get the filename and ensure it has .md extension
+filename="$1"
+if [[ ! "$filename" == *.md ]]; then
+    filename="${filename}.md"
+fi
+
+# Full path to the new file
+filepath="_inbox/${filename}"
+
+# Create the file if it doesn't exist
+touch "$filepath"
+
+# Open in nvim
+exec nvim "$filepath"
